@@ -1,0 +1,8 @@
+{
+    "RequiredExtensionVersion": 60,
+    "ModTable": "Archipelago",
+    "FeatureFlags": [
+        "OsirisExtensions",
+        "Lua"
+    ]
+}

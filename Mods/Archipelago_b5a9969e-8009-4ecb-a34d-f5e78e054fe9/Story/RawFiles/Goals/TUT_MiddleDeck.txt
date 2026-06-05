@@ -1,0 +1,525 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+DB_Dialogs(CHARACTERGUID_S_TUT_MagisterPet_0bcf51ba-50e1-4320-b83b-3a912ff40d25, "TUT_MagisterPet");
+DB_AutoSaveTrigger(S_TUT_AutoSave_MiddleDeck_3d6fdf72-9649-4d56-a49b-00a9b136f23f);
+DB_AutoSaveTrigger(TRIGGERGUID_S_TUT_Autosave_MiddleDeck_StairsToTopDeck_a417df68-4e86-4898-ac33-b58ceccf1092);
+
+DB_OneShotPlayerTrigger(TRIGGERGUID_S_FTJ_StartingArea_TUT_SurfaceClearing_8ea08f30-47e6-413d-bad9-f078af47469e);
+
+//CharacterSetHitpointsPercentage(CHARACTERGUID_S_TUT_Magister5_41d4c470-7aa1-4fba-8d46-16bb761b085a, 25.0);
+//CharacterSetHitpointsPercentage(CHARACTERGUID_S_TUT_Magister6_b8e00c9c-8f50-4630-933b-958974866724, 25.0);
+
+SetHasDialog(CHARACTERGUID_S_TUT_Magister5_41d4c470-7aa1-4fba-8d46-16bb761b085a, 1);
+SetHasDialog(CHARACTERGUID_S_TUT_Magister6_b8e00c9c-8f50-4630-933b-958974866724, 1);
+
+DB_Dialogs(ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e, "TUT_DeathFogDoor");
+//CharacterMakeStoryNpc(CHARACTERGUID_S_RC_TUT_DeathFogDyingMagister_622c7dbf-b019-45a1-a34b-0a336f363d25, 1);
+SetOnStage(CHARACTERGUID_S_RC_TUT_DeathFogDyingMagister_622c7dbf-b019-45a1-a34b-0a336f363d25, 0);
+//DB_Dialogs(CHARACTERGUID_S_TUT_Magister5_41d4c470-7aa1-4fba-8d46-16bb761b085a, CHARACTERGUID_S_TUT_Magister6_b8e00c9c-8f50-4630-933b-958974866724, "TUT_MiddleDeckMagisters");
+
+DB_TUT_MiddleDeckTentacles((CHARACTERGUID)S_TUT_MiddleDeckTentacle_1_80c1f2cb-1596-4dec-a127-bec0e5ced33a, (ITEMGUID)ITEMGUID_S_TUT_MiddleDeck_BreakingWall3_68777f9c-bd1c-4cf9-884e-5f0641b11ca4, 100);
+DB_TUT_MiddleDeckTentacles(S_TUT_MiddleDeckTentacle_2_23461d8e-fcab-415d-8be4-0def913dfbb4, S_TUT_MiddleDeck_BreakingWall2_fb861891-8332-444e-97d4-854564011d97, 1000);
+DB_TUT_MiddleDeckTentacles(S_TUT_MiddleDeckTentacle_3_82776900-ea28-435c-8e32-fb9135ca38b7, ITEMGUID_S_TUT_MiddleDeck_BreakingWall1_a6e07b3c-ed99-40e4-a8b0-29e4ba3db10a, 500);
+
+DB_TUT_CameraShakeTrigger_Dialog((TRIGGERGUID)TRIGGERGUID_S_TUT_ShakeTrigger2_36972c29-c9f8-4776-b65c-33933d2b9d37, "TUT_AD_BoatRock", "TUT_ShakeTrigger1");
+DB_TUT_CameraShakeTrigger_Dialog(TRIGGERGUID_S_TUT_ShakeTriggerKrakenImpact_e4143abb-1295-42ce-8d0f-a351b8bac56f, "TUT_AD_BoatRock", "TUT_ShakeTrigger3");
+DB_TUT_CameraShakeTrigger_Dialog(TRIGGERGUID_S_TUT_ShakeTrigger4_e1318af1-f309-4f5b-ab03-9f3dca3d892c, "TUT_AD_BoatRock", "TUT_ShakeTrigger3");
+DB_TUT_CameraShakeTrigger_Dialog(TRIGGERGUID_S_TUT_ShakeTrigger7_c0267b34-5923-4736-b73c-049fb997453e, "TUT_AD_BoatRock", "TUT_ShakeTrigger3");
+DB_TUT_CameraShakeTrigger_Dialog(TRIGGERGUID_S_TUT_ShakeTrigger3_54c66c07-e3ea-4a27-b240-f67f6829bc49, "TUT_AD_BoatRock", "TUT_ShakeTrigger1");
+DB_TUT_CameraShakeTrigger_Dialog(TRIGGERGUID_S_TUT_ShakeTrigger5_1ef9a210-540a-4624-9ff6-7d982b6440b6, "TUT_AD_BoatRock", "TUT_ShakeTrigger4");
+DB_TUT_CameraShakeTrigger_Dialog(TRIGGERGUID_S_TUT_ShakeTrigger6_da532c8e-f5a5-482f-89d1-2e669b60e30b, "TUT_AD_BoatRock", "TUT_ShakeTrigger4");
+//DB_TUT_CameraShakeTrigger_Dialog(TRIGGERGUID_S_TUT_ShakeTrigger8_92d314bc-3808-4aec-856a-f0c5cc460315, "TUT_AD_BoatRock", "TUT_ShakeTrigger5");
+
+DB_TUT_CameraShakeTrigger((TRIGGERGUID)TRIGGERGUID_S_TUT_ShakeTrigger1_9e403f3a-3eb7-4c8a-9105-a2bcf2cefbd6, "");
+DB_TUT_CameraShakeTrigger(TRIGGERGUID_S_TUT_ShakeTrigger2_36972c29-c9f8-4776-b65c-33933d2b9d37, "");
+DB_TUT_CameraShakeTrigger(TRIGGERGUID_S_TUT_ShakeTriggerKrakenImpact_e4143abb-1295-42ce-8d0f-a351b8bac56f, "");
+DB_TUT_CameraShakeTrigger(TRIGGERGUID_S_TUT_ShakeTrigger3_54c66c07-e3ea-4a27-b240-f67f6829bc49, "");
+DB_OneShotPlayerTrigger(TRIGGERGUID_S_TUT_ShakeTrigger4_e1318af1-f309-4f5b-ab03-9f3dca3d892c);
+DB_TUT_CameraShakeTrigger(TRIGGERGUID_S_TUT_ShakeTrigger5_1ef9a210-540a-4624-9ff6-7d982b6440b6, "");
+DB_TUT_CameraShakeTrigger(TRIGGERGUID_S_TUT_ShakeTrigger6_da532c8e-f5a5-482f-89d1-2e669b60e30b, "");
+DB_TUT_CameraShakeTrigger(TRIGGERGUID_S_TUT_ShakeTrigger7_c0267b34-5923-4736-b73c-049fb997453e, "");
+DB_TUT_CameraShakeTrigger(TRIGGERGUID_S_TUT_ShakeTrigger8_92d314bc-3808-4aec-856a-f0c5cc460315, "");
+DB_OneShotPlayerTrigger(TRIGGERGUID_S_TUT_ShakeTriggerHullBreach_ae717412-51e7-41ed-a7ea-ca22ab5dcbfa);
+
+DB_TUT_DeathFogBarrels((ITEMGUID)ITEMGUID_S_TUT_DeathFogBarrel1_8e6c3a3f-ee2a-4fe8-9033-212b0199a7fb);
+DB_TUT_DeathFogBarrels(ITEMGUID_S_TUT_DeathFogBarrel2_644d93cd-023d-4b51-a1b8-3306780b2498);
+DB_TUT_DeathFogBarrels(ITEMGUID_S_TUT_DeathFogBarrel3_a1a0e27f-4f64-4ea1-8b15-c97a55e4e922);
+
+DB_TUT_QuestUpdateTrigger((TRIGGERGUID)TRIGGERGUID_S_TUT_QuestUpdate_Kraken_2b28b9a2-6211-49af-b089-dcf43a742e81, "Kraken");
+DB_TUT_QuestUpdateTrigger(TRIGGERGUID_S_TUT_QuestUpdate_MiddleDeckCarnage_dd7c87ed-13c8-4e69-912f-53e4914f9e69, "MiddleDeckCarnage");
+
+DB_HasStoryEvent(ITEMGUID_S_TUT_DeathfogDoor_Key_61802b4c-06f6-4e6a-9d77-a1cf4696d9d8,"TUT_HasDeathFogDoor_Key");
+
+DB_TUT_WoodenDoor((ITEMGUID)ITEMGUID_S_TUT_WoodenDoor_01_a7af377d-7529-4d34-a233-bb810460698c);
+DB_TUT_WoodenDoor(ITEMGUID_S_TUT_WoodenDoor_02_d950a0c1-8f70-41b3-a0d2-224ed7da207c);
+
+DB_BlockThreatenedDialog(CHARACTERGUID_S_TUT_Magister5_41d4c470-7aa1-4fba-8d46-16bb761b085a);
+DB_BlockThreatenedDialog(CHARACTERGUID_S_TUT_Magister6_b8e00c9c-8f50-4630-933b-958974866724);
+KBSECTION
+IF
+DB_TUT_MiddleDeckTentacles(_Tentacle, _, _)
+THEN
+SetOnStage(_Tentacle, 0);
+
+IF
+DB_TUT_QuestUpdateTrigger(_Trigger, _)
+THEN
+ProcTriggerRegisterForPlayers(_Trigger);
+
+IF
+CharacterEnteredTrigger(_Player, _Trigger)
+AND
+DB_TUT_QuestUpdateTrigger(_Trigger, _Update)
+AND
+DB_QuestDef_UpdateEvent("TUT_ShipMurder", _Update,_UpdateEvent)
+THEN
+PartySetFlag(_Player, _UpdateEvent, 0);
+
+IF
+TextEventSet("Kraken_OneShot_Activate")
+AND
+QueryOnlyOnce("KrakenAttack_OneShot_Activate")
+THEN
+DB_OneShotPlayerTrigger(TRIGGERGUID_S_TUT_OneShot_KrakenAttack_7c40eeda-c0a2-4b0b-8575-6e0a478afd4c);
+
+/*PROC
+ProcOneShotTriggerEntered(_Player, TRIGGERGUID_S_TUT_ShakeTriggerHullBreach_ae717412-51e7-41ed-a7ea-ca22ab5dcbfa)
+AND
+QueryOnlyOnce("KrakenAttack_OneShot_Activate")
+THEN
+DB_OneShotPlayerTrigger(TRIGGERGUID_S_TUT_OneShot_KrakenAttack_7c40eeda-c0a2-4b0b-8575-6e0a478afd4c);*/
+
+//REGION Cowering Magisters
+IF
+StoryEvent(_Player, "TUT_MiddleDeck_MagistersSpotted")
+THEN
+SelectAndStartDialog((CHARACTERGUID)_Player, CHARACTERGUID_S_TUT_Magister5_41d4c470-7aa1-4fba-8d46-16bb761b085a);
+SelectAndStartDialog((CHARACTERGUID)_Player, CHARACTERGUID_S_TUT_Magister6_b8e00c9c-8f50-4630-933b-958974866724);
+
+PROC
+PROC_GLOBAL_DialogStartRequested(CHARACTERGUID_S_TUT_Magister5_41d4c470-7aa1-4fba-8d46-16bb761b085a, _Player)
+AND
+NOT QRY_TUT_StartTwoSpeakerMagistersDialog(_Player)
+THEN
+Proc_StartDialog(0, "TUT_Magister5", CHARACTERGUID_S_TUT_Magister5_41d4c470-7aa1-4fba-8d46-16bb761b085a, _Player);
+
+PROC
+PROC_GLOBAL_DialogStartRequested(CHARACTERGUID_S_TUT_Magister6_b8e00c9c-8f50-4630-933b-958974866724, _Player)
+AND
+NOT QRY_TUT_StartTwoSpeakerMagistersDialog(_Player)
+THEN
+Proc_StartDialog(0, "TUT_Magister6", CHARACTERGUID_S_TUT_Magister6_b8e00c9c-8f50-4630-933b-958974866724, _Player);
+
+QRY
+QRY_TUT_StartTwoSpeakerMagistersDialog((CHARACTERGUID)_Player)
+AND
+ObjectGetFlag(_Player, "TUT_PersuadedMiddleDeckMagisters", 0)
+AND
+QRY_SpeakerIsAvailableAndInDialogRange(CHARACTERGUID_S_TUT_Magister5_41d4c470-7aa1-4fba-8d46-16bb761b085a, _Player)
+AND
+QRY_SpeakerIsAvailableAndInDialogRange(CHARACTERGUID_S_TUT_Magister6_b8e00c9c-8f50-4630-933b-958974866724, _Player)
+AND
+QRY_StartDialog(0, "TUT_MiddleDeckMagisters", CHARACTERGUID_S_TUT_Magister5_41d4c470-7aa1-4fba-8d46-16bb761b085a, CHARACTERGUID_S_TUT_Magister6_b8e00c9c-8f50-4630-933b-958974866724, _Player)
+THEN
+DB_NOOP(0);
+
+IF
+CharacterDied(CHARACTERGUID_S_TUT_Magister5_41d4c470-7aa1-4fba-8d46-16bb761b085a)
+THEN
+PROC_TUT_MiddleDeckMagistersHostile();
+
+IF
+CharacterDied(CHARACTERGUID_S_TUT_Magister6_b8e00c9c-8f50-4630-933b-958974866724)
+THEN
+PROC_TUT_MiddleDeckMagistersHostile();
+
+PROC
+PROC_TUT_MiddleDeckMagistersHostile()
+THEN
+CharacterSetRelationFactionToFaction("TUT_MiddleDeckMagisters", "Hero", 0);
+CharacterSetRelationFactionToFaction("Hero", "TUT_MiddleDeckMagisters", 0);
+
+//END_REGION
+
+
+//REGION The Source Hound
+IF
+ObjectEnteredCombat(CHARACTERGUID_S_TUT_MagisterPet_0bcf51ba-50e1-4320-b83b-3a912ff40d25, _)
+THEN
+CharacterSetRelationFactionToFaction("TUT_MagisterPet", "Hero", 0);
+CharacterSetRelationFactionToFaction("Hero", "TUT_MagisterPet", 0);
+
+IF
+GlobalFlagSet("TUT_MagisterPet_Scared")
+THEN
+CharacterSetRelationFactionToFaction("TUT_MagisterPet", "TUT_MiddleDeckMagisters", 50);
+CharacterSetRelationFactionToFaction("TUT_MiddleDeckMagisters", "TUT_MagisterPet", 50);
+SetCanFight(CHARACTERGUID_S_TUT_MagisterPet_0bcf51ba-50e1-4320-b83b-3a912ff40d25, 0);
+
+//END_REGION
+
+PROC
+ProcOneShotTriggerEntered(_Player, TRIGGERGUID_S_TUT_OneShot_KrakenAttack_7c40eeda-c0a2-4b0b-8575-6e0a478afd4c)
+THEN
+Proc_CameraShakeAroundCharacter(_Player, 25, 3.0);
+
+//REGION Kraken breaks through the hull
+PROC
+ProcOneShotTriggerEntered(_Player, TRIGGERGUID_S_TUT_ShakeTrigger4_e1318af1-f309-4f5b-ab03-9f3dca3d892c)
+THEN
+PROC_TUT_ShakeCameraStrong(_Player);
+Proc_StartDialog(1, "TUT_AD_KrakenTentaclesApproach", _Player);
+
+PROC
+PROC_TUT_ShakeCameraStrong((CHARACTERGUID)_Player)
+AND
+DB_IsPlayer(_OtherPlayer)
+AND
+GetDistanceTo(_OtherPlayer, _Player, _Dist)
+AND
+_Dist <= 7.0
+THEN
+PlayEffect(_Player, "RS3_FX_GP_ScriptedEvent_CameraShake_Intense_01");
+
+
+PROC
+ProcOneShotTriggerEntered(_Player, TRIGGERGUID_S_TUT_OneShot_KrakenAttack_7c40eeda-c0a2-4b0b-8575-6e0a478afd4c)
+THEN
+ProcObjectTimer(_Player, "TUT_KrakenAttackComment", 650);
+
+PROC
+ProcObjectTimerFinished(_Player, "TUT_KrakenAttackComment")
+THEN
+Proc_StartDialog(1, "TUT_AD_KrakenAttackComment", _Player);
+PlaySound(S_TUT_MiddleDeckTentacleTarget_2_7ab605e5-773b-43c5-abdb-8bf034b6be1f, "TUT_Scripted4_Kraken_Hull_Break");
+
+PROC
+ProcObjectTimerFinished(_, "TUT_KrakenAttackComment")
+AND
+DB_TUT_MiddleDeckTentacles(_Tentacle, _, _Delay)
+THEN
+ProcObjectTimer(_Tentacle, "TUT_MiddleDeck_TentacleAppear", _Delay);
+
+PROC
+ProcObjectTimerFinished(_Tentacle, "TUT_MiddleDeck_TentacleAppear")
+AND
+DB_TUT_MiddleDeckTentacles((CHARACTERGUID)_Tentacle, _Wall, _)
+THEN
+CharacterAppear(_Tentacle,1,"TUT_Tentacle_MiddleDeck_Appeared");
+ProcObjectTimer(_Wall, "TUT_MiddleDeck_BreakWall", 2300);
+
+IF
+StoryEvent(_Character, "TUT_Tentacle_MiddleDeck_DamageCharacter")
+THEN
+ApplyDamage(_Character, 10, "Physical");
+ApplyStatus(_Character, "KNOCKED_DOWN", 1.0);
+
+IF
+StoryEvent(CHARACTERGUID_S_TUT_MiddleDeckTentacle_3_82776900-ea28-435c-8e32-fb9135ca38b7, "TUT_Tentacle_MiddleDeck_Appeared")
+THEN
+TimerLaunch("TUT_Middledeck_DespawnTentacles", 600);
+
+IF
+TimerFinished("TUT_MiddleDeck_DespawnTentacles")
+THEN
+PROC_TUT_MiddleDeck_DespawnTentacles();
+
+PROC
+PROC_TUT_MiddleDeck_DespawnTentacles()
+AND
+DB_TUT_MiddleDeckTentacles(_Tentacle, _, _)
+AND
+Random(1200, _Random)
+THEN
+ProcObjectTimer(_Tentacle, "TUT_MiddleDeckTentacles_Despawn", _Random);
+
+PROC
+ProcObjectTimerFinished(_Tentacle, "TUT_MiddleDeckTentacles_Despawn")
+THEN
+PlayAnimation(_Tentacle, "die_melee", "TUT_MiddleDeckTentacles_Died");
+
+IF
+StoryEvent(_Tentacle, "TUT_MiddleDeckTentacles_Died")
+THEN
+SetOnStage(_Tentacle, 0);
+
+IF
+CharacterUsedItem(_Player, ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e)
+AND
+ObjectGetFlag(ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e, "TUT_OpenDeathFogDoor", 1)
+AND
+ItemIsClosed(ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e, 1)
+THEN
+ItemOpen(ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e);
+
+
+IF
+CharacterUsedItem(_Player, ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e)
+AND
+ObjectGetFlag(ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e, "TUT_OpenDeathFogDoor", 1)
+AND
+ItemIsOpened(ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e, 1)
+THEN
+ItemClose(ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e);
+
+/*IF
+ItemDestroying(_Item)
+AND
+DB_TUT_DeathFogBarrels(_Item)
+AND
+ObjectGetFlag(ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e, "TUT_OpenDeathFogDoor", 1)
+AND
+DB_OnlyOnce("TUT_DeathFogReleased")
+AND
+QueryOnlyOnce("TUT_DeathFogMagister")
+THEN
+CharacterMoveTo(CHARACTERGUID_S_TUT_DeathFogDyingMagister_622c7dbf-b019-45a1-a34b-0a336f363d25, TRIGGERGUID_S_TUT_DeathFogMagister_Destination_543ef55c-d223-4d48-bba6-09f0f97566f7, 0, "", 0);
+Proc_StartDialog(1, "TUT_AD_DeathFogDying", CHARACTERGUID_S_TUT_DeathFogDyingMagister_622c7dbf-b019-45a1-a34b-0a336f363d25);*/
+IF
+ItemUnlocked(ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e,_,_)
+AND
+ObjectGetFlag(ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e,"TUT_OpenDeathFogDoor",0)
+THEN
+ProcRemoveDialogEntryForSpeaker(ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e, "TUT_DeathFogDoor");
+
+IF
+ItemOpened(ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e)
+AND
+ObjectGetFlag(ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e,"TUT_OpenDeathFogDoor",0)
+THEN
+ObjectSetFlag(ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e,"TUT_OpenDeathFogDoor",0);
+
+IF
+ObjectFlagSet("TUT_OpenDeathFogDoor", ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e, _)
+THEN
+GlobalSetFlag("TUT_DeathFogDoorOpen");
+TimerLaunch("TUT_OpenDeathFogDoor", 1200);
+
+IF
+TimerFinished("TUT_OpenDeathFogDoor")
+THEN
+ProcRemoveDialogEntryForSpeaker(ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e, "TUT_DeathFogDoor");
+ItemUnlockAndOpen(ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e);
+
+IF
+ItemDestroying(ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e)
+AND
+QueryOnlyOnce("KrakenAttack_OneShot_Activate")
+THEN
+DB_OneShotPlayerTrigger(TRIGGERGUID_S_TUT_OneShot_KrakenAttack_7c40eeda-c0a2-4b0b-8575-6e0a478afd4c);
+
+IF
+TimerFinished("TUT_OpenDeathFogDoor")
+AND
+QueryOnlyOnce("KrakenAttack_OneShot_Activate")
+THEN
+DB_OneShotPlayerTrigger(TRIGGERGUID_S_TUT_OneShot_KrakenAttack_7c40eeda-c0a2-4b0b-8575-6e0a478afd4c);
+
+IF
+ObjectFlagSet("TUT_OpenDeathFogDoor", ITEMGUID_S_TUT_DeathFogDoor_c68195d3-5514-4eb0-a13b-483024f3c09e, _)
+AND
+DB_OnlyOnce("TUT_DeathFogReleased")
+AND
+QueryOnlyOnce("TUT_DeathFogMagister")
+THEN
+CharacterMoveTo(CHARACTERGUID_S_TUT_DeathFogDyingMagister_622c7dbf-b019-45a1-a34b-0a336f363d25, TRIGGERGUID_S_TUT_DeathFogMagister_Destination_543ef55c-d223-4d48-bba6-09f0f97566f7, 0, "", 0);
+Proc_StartDialog(1, "TUT_AD_DeathFogDying", CHARACTERGUID_S_TUT_DeathFogDyingMagister_622c7dbf-b019-45a1-a34b-0a336f363d25);
+
+
+IF
+ItemDestroying(_Barrel)
+AND
+DB_TUT_DeathFogBarrels(_Barrel)
+AND
+NOT DB_OnlyOnce("TUT_DeathFogReleased")
+THEN
+DB_TUT_QuestUpdateTrigger((TRIGGERGUID)TRIGGERGUID_S_TUT_QuestUpdate_DeathFog_5418351c-94c3-42da-b107-3a1d1166dcfd, "DeathFog");
+DB_OneShot_VoiceBarkTrigger(TRIGGERGUID_S_TUT_VB_DeathFog_a2bc5a68-39ca-42b4-831a-1d81911a5911, "TUT_VB_Deathfog");
+
+/*IF
+ItemDestroying(_Barrel)
+AND
+DB_TUT_DeathFogBarrels(_Barrel)
+AND
+GlobalGetFlag("TUT_DeathFogDoorOpen", 1)
+AND
+NOT DB_OnlyOnce("TUT_DeathFogReleased")
+THEN
+CharacterMoveTo(CHARACTERGUID_S_TUT_DeathFogDyingMagister_622c7dbf-b019-45a1-a34b-0a336f363d25, TRIGGERGUID_S_TUT_DeathFogMagister_Destination_543ef55c-d223-4d48-bba6-09f0f97566f7, 0, "", 0);
+Proc_StartDialog(1, "TUT_AD_DeathFogDying", CHARACTERGUID_S_TUT_DeathFogDyingMagister_622c7dbf-b019-45a1-a34b-0a336f363d25);*/
+
+IF
+ItemDestroying(_Barrel)
+AND
+DB_TUT_DeathFogBarrels(_Barrel)
+THEN
+DB_OnlyOnce("TUT_DeathFogReleased");
+
+/*IF
+AutomatedDialogEnded("TUT_AD_DeathFogDying", _)
+THEN
+CharacterMakeStoryNpc(CHARACTERGUID_S_RC_TUT_DeathFogDyingMagister_622c7dbf-b019-45a1-a34b-0a336f363d25, 0);
+CharacterDie(CHARACTERGUID_S_TUT_DeathFogDyingMagister_622c7dbf-b019-45a1-a34b-0a336f363d25, 1, "DoT");*/
+
+//END_REGION
+
+PROC
+ProcRegionEnded("TUT_Tutorial_A")
+THEN
+GoalCompleted;
+
+//REGION Camera Shakes
+IF
+DB_TUT_CameraShakeTrigger(_Trigger, _)
+THEN
+DB_OneShotPlayerTrigger(_Trigger);
+
+PROC
+ProcOneShotTriggerEntered(_Player, _Trigger)
+AND
+DB_TUT_CameraShakeTrigger_Dialog(_Trigger, _Dialog,_Flag)
+THEN
+GlobalSetFlag(_Flag);
+Proc_StartDialog(1, _Dialog, _Player);
+
+PROC
+ProcOneShotTriggerEntered(_Player, _Trigger)
+AND
+DB_TUT_CameraShakeTrigger_Dialog(_Trigger, _Dialog, _Flag)
+AND
+DB_TUT_CameraShakeTrigger_Dialog(_OtherTrigger, _OtherDialog, _Flag)
+THEN
+NOT DB_TUT_CameraShakeTrigger_Dialog(_OtherTrigger, _OtherDialog, _Flag);
+
+PROC
+ProcOneShotTriggerEntered(_Player, _Trigger)
+AND
+DB_TUT_CameraShakeTrigger(_Trigger, _Dialog)
+THEN
+Proc_CameraShakeAroundCharacter(_Player, 10, 4.0);
+
+PROC
+ProcOneShotTriggerEntered(_Player, _Trigger)
+AND
+DB_TUT_CameraShakeTrigger(_Trigger, _)
+AND
+NOT _Trigger == TRIGGERGUID_S_TUT_ShakeTriggerKrakenImpact_e4143abb-1295-42ce-8d0f-a351b8bac56f
+THEN
+PROC_TUT_PlayImpactSound("TUT_Scripted2_Kraken_HullImpacts");
+
+PROC
+ProcOneShotTriggerEntered(_Player, _Trigger)
+AND
+DB_TUT_CameraShakeTrigger(_Trigger, _)
+AND
+DB_TUT_CameraShakeTrigger(_OtherTrigger, _Dialog)
+AND
+Random(5000, _Random)
+AND
+IntegerSum(3000, _Random, _Timer)
+THEN
+ProcObjectTimer(_OtherTrigger, "TUT_ResetCameraShakeTrigger", _Timer);
+RemoveOneShotTrigger(_OtherTrigger);
+NOT DB_TUT_CameraShakeTrigger(_OtherTrigger, _Dialog);
+
+PROC
+ProcObjectTimerFinished((TRIGGERGUID)_Trigger, "TUT_ResetCameraShakeTrigger")
+THEN
+DB_TUT_CameraShakeTrigger(_Trigger, "");
+
+PROC
+ProcOneShotTriggerEntered(_Player, TRIGGERGUID_S_TUT_ShakeTriggerKrakenImpact_e4143abb-1295-42ce-8d0f-a351b8bac56f)
+THEN
+PROC_TUT_PlayImpactSound("TUT_Scripted3_Kraken_Hull_Attack");
+
+PROC
+PROC_TUT_PlayImpactSound((STRING)_Sound)
+AND
+DB_IsPlayer(_Player)
+THEN
+CharacterPlayHUDSound(_Player, _Sound);
+
+//DB_TUT_CameraShakeTrigger((TRIGGERGUID)TRIGGERGUID_S_TUT_ShakeTrigger1_9e403f3a-3eb7-4c8a-9105-a2bcf2cefbd6, "TUT_AD_BoatRock");
+//TUT_MiddleDeck, Init(21) : DB_TUT_CameraShakeTrigger(TRIGGERGUID_S_TUT_ShakeTrigger2_36972c29-c9f8-4776-b65c-33933d2b9d37, "TUT_AD_BoatRock");
+//TUT_MiddleDeck, Init(22) : DB_TUT_CameraShakeTrigger(TRIGGERGUID_S_TUT_ShakeTriggerKrakenImpact_e4143abb-1295-42ce-8d0f-a351b8bac56f, "TUT_AD_BoatRock");
+//TUT_MiddleDeck, Init(23) : DB_TUT_CameraShakeTrigger(TRIGGERGUID_S_TUT_ShakeTrigger3_54c66c07-e3ea-4a27-b240-f67f6829bc49, "TUT_AD_BoatRock");
+
+//END_REGION
+
+//REGION Wooden Door tutorial message
+IF
+CharacterUsedItem(_Player, _Door)
+AND
+DB_TUT_WoodenDoor(_Door)
+THEN
+PROC_CheckPlayTut(_Player,"TUT_WoodenDoor");
+//END_REGION
+
+
+//REGION Surface clearing tutorial
+PROC
+ProcOneShotTriggerEntered(_,TRIGGERGUID_S_FTJ_StartingArea_TUT_SurfaceClearing_8ea08f30-47e6-413d-bad9-f078af47469e)
+THEN
+TimerLaunch("TUT_ClearingSurface", 30000);
+
+IF
+ItemMoved(ITEMGUID_S_TUT_FireExtinguishingBarrel_1ffeb7f0-a394-4771-8fad-54eeb03fb9a6)
+THEN
+GlobalSetFlag("TUT_ClearSurface_Canceled");
+
+IF
+ItemDestroyed(ITEMGUID_S_TUT_FireExtinguishingBarrel_1ffeb7f0-a394-4771-8fad-54eeb03fb9a6)
+THEN
+GlobalSetFlag("TUT_ClearSurface_Canceled");
+
+IF
+TimerFinished("TUT_ClearingSurface")
+AND
+NOT DB_GlobalFlag("TUT_ClearSurface_Canceled")
+AND
+DB_IsPlayer(_Player)
+AND
+GetDistanceTo(_Player, TRIGGERGUID_S_TUT_ShakeTrigger1_9e403f3a-3eb7-4c8a-9105-a2bcf2cefbd6, _Dist)
+AND
+_Dist <= 3.5
+AND
+GetSurfaceGroundAt(ITEMGUID_S_TUT_TestSurfacePosition_98f32d38-3ef1-4601-8970-be7c9e83ef36, "SurfaceFire")
+THEN
+PROC_CheckPlayTut(_Player,"TUT_ClearingSurfaces");
+//END_REGION
+
+PROC
+PROC_TUT_SummonTheKraken()
+THEN
+ApplyStatus(CHARACTERGUID_S_TUT_Magister5_41d4c470-7aa1-4fba-8d46-16bb761b085a, "KNOCKED_DOWN", -1.0, 1);
+ApplyStatus(CHARACTERGUID_S_TUT_Magister6_b8e00c9c-8f50-4630-933b-958974866724, "KNOCKED_DOWN", -1.0, 1);
+ApplyStatus(CHARACTERGUID_S_TUT_MagisterPet_0bcf51ba-50e1-4320-b83b-3a912ff40d25, "KNOCKED_DOWN", -1.0, 1);
+
+
+//REGION Tutorial message to get weapons back
+IF
+CharacterUsedItem(_Player,ITEMGUID_S_TUT_LowerDeck_StairsToMiddleDeck_Blocked_57d13139-818c-4853-b238-fbb9454175a8)
+AND
+DB_IsPlayer(_Player)
+AND
+NOT CharacterGetEquippedItem(_Player,"Weapon",_)
+THEN
+ProcPlayTut(_Player,"TUT_GetWeaponsBack");
+//END_REGION
+
+//REGION
+IF
+StoryEvent((CHARACTERGUID)_Char, "TUT_HalveMagisterHP")
+THEN
+CharacterSetHitpointsPercentage(_Char, 50.0);
+
+IF
+StoryEvent((CHARACTERGUID)_Char, "TUT_QuarterMagisterHP")
+THEN
+CharacterSetHitpointsPercentage(_Char, 25.0);
+//END_REGION
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "Tutorial_PrisonShip"

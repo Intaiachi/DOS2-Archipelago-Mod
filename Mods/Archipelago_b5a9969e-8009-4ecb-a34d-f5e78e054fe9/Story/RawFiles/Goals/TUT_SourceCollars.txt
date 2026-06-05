@@ -1,0 +1,204 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+DB_GLO_SourceCollars_Region("TUT_Tutorial_A");
+
+DB_GLO_SourceCollars_PrisonersWithCollars((CHARACTERGUID)S_TUT_LowerDeck_DwarvenCarpenter_c0c25bbc-8106-402f-b706-ac20533b0c9a);
+DB_GLO_SourceCollars_PrisonersWithCollars(S_TUT_LowerDeck_GruelServer_849900b9-e78d-47c7-87f3-c8d97f797d36);
+DB_GLO_SourceCollars_PrisonersWithCollars(S_TUT_LowerDeck_LohseSongBoy1_835a993e-1bf1-4e6f-8922-20dd8b99bca4);
+DB_GLO_SourceCollars_PrisonersWithCollars(S_TUT_LowerDeck_LohseSongBoy2_2d56d0b1-c7a7-4e60-a495-4ea64ca38f0e);
+DB_GLO_SourceCollars_PrisonersWithCollars(S_TUT_LowerDeck_LohseSongGirl1_a681c125-8493-4046-ab1f-6c2201336a22);
+DB_GLO_SourceCollars_PrisonersWithCollars(CHARACTERGUID_S_GLO_Windego_d783285f-d3be-4cba-8333-db8976cef182);
+DB_GLO_SourceCollars_PrisonersWithCollars(CHARACTERGUID_S_TUT_CargoHold_UnrulyPrisoner_d7a61dc6-a249-4e97-9914-53ea24e320ae);
+
+DB_OneShot_ADTrigger(S_TUT_LowerDeck_StartRoomExitADBox_283dca9a-d883-423f-8a12-f5979b34e3a6,"TUT_AD_LowerDeck_Humans_Female_Magister_Priest_000",CHARACTERGUID_S_TUT_Humans_Female_Magister_Priest_000_9d17cf06-6fad-49a8-82de-54518a9bf5df);
+
+DB_TUT_LowerDeck_CollaringPriest_KnockedDown_AD_DelayMin(10000);
+DB_TUT_LowerDeck_CollaringPriest_KnockedDown_AD_DelayRange(20000);
+KBSECTION
+//REGION Quest to get rid of collars
+/*
+// Add collar quest to players when game starts
+IF
+GameStarted("TUT_Tutorial_A",_)
+AND
+DB_IsPlayer((CHARACTERGUID)_Player)
+AND
+DB_GLO_SourceCollars_OncePerNPC(_Player)
+AND
+//ObjectGetFlag(_Player,"QuestUpdate_RC_FTJ_SourceCollar_StartSourceCollar",0)
+THEN
+//ObjectSetFlag(_Player,"QuestUpdate_RC_FTJ_SourceCollar_StartSourceCollar");
+*/
+/*
+// Add collar quest to recruited Companions
+IF
+CharacterMadePlayer(_Origin)
+AND
+GetRegion(_Origin,_Region)
+AND
+_Region == "TUT_Tutorial_A"
+AND
+ObjectGetFlag(_Origin,"FTJ_RemoveSourceCollar",0)
+THEN
+//ObjectSetFlag(_Origin,"QuestUpdate_RC_FTJ_SourceCollar_StartSourceCollar");*/
+//END_REGION
+
+//REGION AD from collaring magister
+IF
+AutomatedDialogStarted("TUT_AD_LowerDeck_Humans_Female_Magister_Priest_000",_)
+AND
+GetClosestAlivePlayer(CHARACTERGUID_S_TUT_Humans_Female_Magister_Priest_000_9d17cf06-6fad-49a8-82de-54518a9bf5df,_Player,_)
+THEN
+CharacterLookAt(CHARACTERGUID_S_TUT_Humans_Female_Magister_Priest_000_9d17cf06-6fad-49a8-82de-54518a9bf5df,_Player);
+//END_REGION //AD from collaring magister
+
+//REGION Force dialog with collaring magister 
+IF
+DialogStarted("TUT_LowerDeck_Humans_Female_Magister_Priest_000",_)
+THEN
+DB_TUT_LowerDeck_TalkedToCollaringSourcerer(1);
+
+IF
+CharacterUsedItem(_Player,S_TUT_LowerDeck_DoorToStairs_005_54f3dd0b-b26c-4d74-a9a5-1cb46a68f92f)
+AND
+DB_IsPlayer(_Player)
+AND
+NOT DB_TUT_LowerDeck_TalkedToCollaringSourcerer(1)
+AND
+QRY_SpeakerIsAvailableAndInDialogRange(_Player,S_TUT_Humans_Female_Magister_Priest_000_9d17cf06-6fad-49a8-82de-54518a9bf5df)
+THEN
+Proc_StartDialog(0,"TUT_LowerDeck_Humans_Female_Magister_Priest_000",S_TUT_Humans_Female_Magister_Priest_000_9d17cf06-6fad-49a8-82de-54518a9bf5df,_Player);
+//END_REGION //Force dialog with collaring magister
+
+//REGION Animations during conversation with collaring room guard
+
+//REGION Check collar around neck
+IF
+ObjectFlagSet("TUT_CheckNeckCollar",(CHARACTERGUID)_Player,_Dialog)
+THEN
+PlayAnimation(_Player,"Check_Neck_01");
+ObjectClearFlag(_Player,"TUT_CheckNeckCollar");
+//END_REGION //Check collar around neck
+
+//REGION Source casting attempt
+IF
+ObjectFlagSet("TUT_CollaringPriest_SourceCasted",(CHARACTERGUID)_Player,_Dialog)
+THEN
+DB_TUT_CollaringPriest_SourceCasted_Dialog(_Player,_Dialog);
+PlayAnimation(_Player,"cast_target_start","TUT_CollaringPriest_SourceCasted_Attempt");
+
+IF
+StoryEvent((CHARACTERGUID)_Player,"TUT_CollaringPriest_SourceCasted_Attempt")
+AND
+DB_TUT_CollaringPriest_SourceCasted_Dialog(_Player,_)
+THEN
+CharacterSetAnimationOverride(_Player,"stillcrippled");
+ProcObjectTimer(_Player,"TUT_CollaringPriest_SourceCasted_Attempt_Recover",2500);
+
+IF
+DialogEnded("TUT_LowerDeck_Humans_Female_Magister_Priest_000",_Dialog)
+AND
+DB_TUT_CollaringPriest_SourceCasted_Dialog(_Player,_Dialog)
+THEN
+ProcObjectTimerCancel(_Player,"TUT_CollaringPriest_SourceCasted_Attempt_Recover");
+PROC_TUT_CollaringPriest_SourceCasted_Attempt_Recover(_Player,_Dialog);
+
+PROC
+ProcObjectTimerFinished(_Player,"TUT_CollaringPriest_SourceCasted_Attempt_Recover")
+AND
+DB_TUT_CollaringPriest_SourceCasted_Dialog((CHARACTERGUID)_Player,_Dialog)
+THEN
+PROC_TUT_CollaringPriest_SourceCasted_Attempt_Recover(_Player,_Dialog);
+
+PROC
+PROC_TUT_CollaringPriest_SourceCasted_Attempt_Recover((CHARACTERGUID)_Player,(INTEGER)_Dialog)
+THEN
+NOT DB_TUT_CollaringPriest_SourceCasted_Dialog(_Player,_Dialog);
+CharacterSetAnimationOverride(_Player,"");
+//END_REGION //Source casting attempt
+
+//REGION Purge animations after dialog, so you do not have to wait for them to finish
+IF
+DialogEnded("TUT_LowerDeck_Humans_Female_Magister_Priest_000",_Dialog)
+AND
+DialogGetInvolvedPlayer(_Dialog,1,_Player)
+THEN
+CharacterFlushQueue((CHARACTERGUID)_Player);
+ARP_EXT_QuestUpdate("TUT_Troubled_Waters_Get_Your_Bearings");
+//END_REGION //Purge animations
+//END_REGION //Animation during conversation with collaring room guard
+
+//REGION ADs while collaring magister is knocked down
+// Cannot do AD from behaviour script because it does not run during KNOCKED_DOWN status
+// Need KNOCKED_DOWN status instead of animation override to avoid standard reactions from kicking in (such as flee from surface)
+IF
+GlobalFlagSet("TUT_RescueCombatFinished")
+AND
+NOT DB_Dead(CHARACTERGUID_S_TUT_Humans_Female_Magister_Priest_000_9d17cf06-6fad-49a8-82de-54518a9bf5df)
+THEN
+TimerLaunch("TUT_CollaringPriest_KnockedDown_AD",0);
+
+IF
+TimerFinished("TUT_CollaringPriest_KnockedDown_AD")
+AND
+NOT DB_Dead(CHARACTERGUID_S_TUT_Humans_Female_Magister_Priest_000_9d17cf06-6fad-49a8-82de-54518a9bf5df)
+AND
+DB_TUT_LowerDeck_CollaringPriest_KnockedDown_AD_DelayMin(_Min)
+AND
+DB_TUT_LowerDeck_CollaringPriest_KnockedDown_AD_DelayRange(_Range)
+AND
+Random(_Range,_TimeBase)
+AND
+IntegerSum(_TimeBase,_Min,_Time)
+THEN
+Proc_StartDialog(1,"TUT_AD_LowerDeck_Humans_Female_Magister_Priest_000_KnockedDown",CHARACTERGUID_S_TUT_Humans_Female_Magister_Priest_000_9d17cf06-6fad-49a8-82de-54518a9bf5df);
+TimerLaunch("TUT_CollaringPriest_KnockedDown_AD",_Time);
+
+IF
+ObjectFlagSet("TUT_CollaringPriest_CryForHelp",CHARACTERGUID_S_TUT_Humans_Female_Magister_Priest_000_9d17cf06-6fad-49a8-82de-54518a9bf5df,_)
+AND
+NOT DB_Dead(CHARACTERGUID_S_TUT_Humans_Female_Magister_Priest_000_9d17cf06-6fad-49a8-82de-54518a9bf5df)
+AND
+DB_TUT_LowerDeck_CollaringPriest_KnockedDown_AD_DelayMin(_Min)
+AND
+DB_TUT_LowerDeck_CollaringPriest_KnockedDown_AD_DelayRange(_Range)
+THEN
+NOT DB_TUT_LowerDeck_CollaringPriest_KnockedDown_AD_DelayMin(_Min);
+NOT DB_TUT_LowerDeck_CollaringPriest_KnockedDown_AD_DelayRange(_Range);
+DB_TUT_LowerDeck_CollaringPriest_KnockedDown_AD_DelayMin(5000);
+DB_TUT_LowerDeck_CollaringPriest_KnockedDown_AD_DelayRange(5000);
+ProcForceStopDialog(CHARACTERGUID_S_TUT_Humans_Female_Magister_Priest_000_9d17cf06-6fad-49a8-82de-54518a9bf5df);
+TimerCancel("TUT_CollaringPriest_KnockedDown_AD");
+TimerLaunch("TUT_CollaringPriest_KnockedDown_AD",0);
+
+IF
+ObjectFlagSet("TUT_CollaringPriest_SummonTheKraken",CHARACTERGUID_S_TUT_Humans_Female_Magister_Priest_000_9d17cf06-6fad-49a8-82de-54518a9bf5df,_)
+THEN
+TimerCancel("TUT_CollaringPriest_KnockedDown_AD");
+//END_REGION
+
+//REGION AD looking at Alexandar statue in starting room
+IF
+CharacterUsedItem(_Player,S_TUT_LowerDeck_AlexandarStatue_b636af92-9984-41a3-8494-aee6b18ac622)
+THEN
+Proc_StartDialog(1,"TUT_AD_LowerDeck_SeeAlexandar",_Player);
+//END_REGION //AD looking at Alexandar statue in starting room
+
+//REGION Flag after talking to another prisoner (for conversation with murder scene investigator)
+IF
+DB_HasMet(_Npc,_Player,"")
+AND
+DB_GLO_SourceCollars_PrisonersWithCollars((CHARACTERGUID)_Npc)
+THEN
+ObjectSetFlag(_Player,"TUT_LowerDeck_TalkedToPrisoner");
+//END_REGION
+
+PROC
+ProcRegionEnded("TUT_Tutorial_A")
+THEN
+GoalCompleted;
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "Tutorial_PrisonShip"

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<save>
+    <header version="2" />
+    <version major="3" minor="6" revision="6" build="0" />
+    <region id="MetaData">
+        <node id="root">
+            <attribute id="Module" value="b5a9969e-8009-4ecb-a34d-f5e78e054fe9" type="23" />
+            <attribute id="Name" value="Archipelago" type="23" />
+            <attribute id="Type" value="Add-on" type="23" />
+            <attribute id="UUID" value="6f2346c9-15be-4e60-b64c-e154078608b3" type="23" />
+        </node>
+    </region>
+</save>

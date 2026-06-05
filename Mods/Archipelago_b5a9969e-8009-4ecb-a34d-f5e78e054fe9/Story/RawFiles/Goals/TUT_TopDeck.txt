@@ -1,0 +1,1059 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+DB_TUT_ChildrenBoatSeats((CHARACTERGUID)CHARACTERGUID_S_TUT_LowerDeck_LohseSongBoy1_835a993e-1bf1-4e6f-8922-20dd8b99bca4);
+DB_TUT_ChildrenBoatSeats(CHARACTERGUID_S_TUT_LowerDeck_LohseSongGirl1_a681c125-8493-4046-ab1f-6c2201336a22);
+DB_TUT_ChildrenBoatSeats(CHARACTERGUID_S_TUT_LowerDeck_DwarvenCarpenter_c0c25bbc-8106-402f-b706-ac20533b0c9a);
+
+DB_TUT_TopDeckTentacles((CHARACTERGUID)CHARACTERGUID_S_TUT_TopDeck_Tentacle1_6cbd4fbf-a9f0-403c-8ee1-5679e4ae03a6, (TRIGGERGUID)TRIGGERGUID_S_TUT_TopDeck_TentacleTarget1_1a80890f-b410-4ddf-a21e-f50f169b0cce);
+
+DB_TUT_BelowDeckTrigger((TRIGGERGUID)S_TUT_QuestUpdate_MiddleDeckCarnage_dd7c87ed-13c8-4e69-912f-53e4914f9e69);
+DB_TUT_BelowDeckTrigger(S_TUT_LowerDeck_Box_6ee7d227-8d55-485f-bfa5-135cf23a6bd1);
+
+DB_TUT_BelowDeckKrakenImpactSounds(0,"TUT_Scripted3_Kraken_HullImpacts");
+DB_TUT_BelowDeckKrakenImpactSounds(1,"TUT_Scripted2_Kraken_HullImpacts");
+
+DB_TUT_VB_PlayerBelowDeckDuringFinalAttack_VoiceBarkAtEffectCount(0);
+
+SetOnStage(CHARACTERGUID_S_TUT_TopDeck_Tentacle4_488645e1-3d74-4b3e-83fb-ab2dde52387b, 0);
+ProcSetInvulnerable(CHARACTERGUID_S_TUT_TopDeck_Tentacle4_488645e1-3d74-4b3e-83fb-ab2dde52387b,1);
+DB_OneShotPlayerTrigger(TRIGGERGUID_S_TUT_TopDeck_Tentacle4Appear_b555d40f-df93-4b38-8706-9be76c858a5c);
+DB_OneShotPlayerTrigger(TRIGGERGUID_S_TUT_TopDeck_Tentacle3Appear_6f380f75-4cec-44c1-af1a-bc6895f2b2cd);
+
+SetOnStage(CHARACTERGUID_S_TUT_TheKraken_c99560fa-1750-4ed1-9deb-69ff7b74ef00, 0);
+
+DB_OneShot_VoiceBarkTrigger(TRIGGERGUID_S_TUT_VB_TopDeckFirstEntry_ff563460-884a-47b7-a0a6-0a4c496bf3ed, "TUT_VB_TopDeckFirstEntry");
+
+DB_TUT_TopDeckTentacleCombat((CHARACTERGUID)CHARACTERGUID_S_TUT_TopDeck_LivingMagister1_b5e74192-498f-4eb3-844a-4a817f9802d3);
+
+DB_TUT_TopDeckTentacleCombat(CHARACTERGUID_S_TUT_TopDeckVoidling11_2fcb5b84-875f-42bd-ac80-6f8495c6a47c);
+DB_TUT_TopDeckTentacleCombat(CHARACTERGUID_S_TUT_TopDeckVoidling10_bd0123ae-26fd-4dad-8326-b6ae9a3fc1c5);
+
+DB_TUT_TopDeckTentacleMagisters((CHARACTERGUID)CHARACTERGUID_S_TUT_TopDeck_LivingMagister3_b5e74192-498f-4eb3-844a-4a817f9802d3, TRIGGERGUID_S_TUT_TopDeck_LivingMagisterPoint3_afda4849-af3e-4fd9-a78c-ba05fc42847f);
+
+CharacterSetFightMode(CHARACTERGUID_S_TUT_TopDeckMagister1_de400bda-b14e-4cff-b5f5-737781437902, 1, 1);
+CharacterSetFightMode(CHARACTERGUID_S_TUT_TopDeckMagister2_e2d47d73-4f9d-4de2-8a3c-c774a0ea114a, 1, 1);
+
+ItemSetCanInteract(ITEMGUID_S_TUT_EscapeBoat_Sit_6f6c5c2e-024c-4960-bf36-82d7917d820a, 0);
+
+DB_TUT_FinaleTentacles((ITEMGUID)ITEMGUID_S_TUT_Tentacle_Finale_01_0ead0ff7-31be-4152-b09f-1a966c18c67b, 600);
+DB_TUT_FinaleTentacles(ITEMGUID_S_TUT_Tentacle_Finale_02_94260eed-587d-4942-b51d-2f93c0960531, 1600);
+DB_TUT_FinaleTentacles(ITEMGUID_S_TUT_Tentacle_Finale_03_c5b92978-fec8-4849-b7fa-41114af86444, 3000);
+DB_TUT_FinaleTentacles(ITEMGUID_S_TUT_Tentacle_Finale_04_e3521654-a8a2-46e7-9d26-0ca8eeae63d4, 2200);
+DB_TUT_FinaleTentacles(ITEMGUID_S_TUT_Tentacle_Finale_05_5eb2a49b-9dde-4cfd-9271-0ce539ad9bfa, 1100);
+
+DB_OneShot_VoiceBarkTrigger(TRIGGERGUID_S_TUT_VB_SeeLifeboat_50fbed2a-bf34-4f74-aeb5-74ea0f334b43, "TUT_VB_SeeLifeboat");
+DB_TutorialInfo("TUT_ClearingSurfaces2","TUT_CAT_Exploring","TUT_ClearingSurfaces2_Title",0,0,-1,1,0,0);
+
+SetOnStage(ITEMGUID_S_TUT_AftBreakingMast_Yard_73c26463-bc07-4d38-9948-7d48a7ed13bb, 0);
+SetOnStage(ITEMGUID_S_TUT_AftBreakingMast_Top_7dec1ce8-20de-4ae3-86a3-b99b1f68d7bd, 0);
+
+SetVisible(ITEMGUID_S_TUT_KrakenTentacle_SmashBoat_9c55b7b0-295f-4954-a2f8-35553a7bcdba, 0);
+
+DB_TUT_CameraShakeTrigger((TRIGGERGUID)TRIGGERGUID_S_TUT_ShakeTrigger17_2c693250-c70b-4ee3-bf93-7b5a4981c422, "");
+DB_TUT_CameraShakeTrigger(TRIGGERGUID_S_TUT_ShakeTrigger18_2b008594-72c8-4c64-8039-8c5b650d5f8c, "");
+DB_TUT_CameraShakeTrigger(TRIGGERGUID_S_TUT_ShakeTrigger19_af714652-92b5-4d5e-b28a-9a1773e3ce70, "");
+DB_TUT_CameraShakeTrigger(TRIGGERGUID_S_TUT_ShakeTrigger20_48995cf4-4554-470d-adda-62bf5ad30e92, "");
+
+DB_TUT_TentacleAttackTrigger((TRIGGERGUID)TRIGGERGUID_S_TUT_StrikingTentacle_Trigger1_61d8d246-d5c0-4a26-b9fa-a12e3807ae40, (ITEMGUID)ITEMGUID_S_TUT_StrikingTentacle1_ac7387f0-084d-452f-973c-c1c6e6f85159, "Wreck_01");
+DB_TUT_TentacleAttackTrigger(TRIGGERGUID_S_TUT_StrikingTentacle_Trigger2_9209987f-f592-45ab-a3a1-0d2f04bb48db, ITEMGUID_S_TUT_StrikingTentacle2_f894fc72-87bf-46ae-8662-05c67a8e14d8, "Wreck_02");
+
+ItemSetForceSynch(ITEMGUID_S_TUT_EscapeBoat_Sit_6f6c5c2e-024c-4960-bf36-82d7917d820a, 1);
+ItemSetForceSynch(ITEMGUID_S_TUT_EscapeBoat_Speak_af0d5c51-44ef-4db3-a2af-8f4b1fd4ccc9, 1);
+
+SetTag(ITEMGUID_S_TUT_LowerDeck_LadderToUpperDeck_bf532327-8799-4fdd-8dbc-b6283a242f9b, "NO_PATHFINDING_PORTAL");
+SetTag(ITEMGUID_S_TUT_LowerDeck_StairsToMiddleDeck_Blocked_57d13139-818c-4853-b238-fbb9454175a8, "NO_PATHFINDING_PORTAL");
+
+ProcTriggerRegisterForPlayers(TRIGGERGUID_S_TUT_TopDeck_NeedsSpline_6f06e7bc-82e9-4392-9c40-8fe29cada0dd);
+KBSECTION
+IF
+TextEventSet("TUT_KrakenTentacleTest")
+THEN
+CharacterAppear(CHARACTERGUID_S_TUT_TopDeck_Tentacle4_488645e1-3d74-4b3e-83fb-ab2dde52387b, 0, "TUT_TopDeckTentacle3_Appeared");
+
+IF
+TextEventSet("TUT_TestBoatSmash")
+THEN
+PlayAnimation(S_TUT_KrakenTentacle_SmashBoat_9c55b7b0-295f-4954-a2f8-35553a7bcdba, "Crush_Slam_01");
+PlayEffect(ITEMGUID_S_TUT_KrakenTentacle_SmashBoat_9c55b7b0-295f-4954-a2f8-35553a7bcdba, "RS3_FX_Items_Animated_Humans_Boat_Small_A_Tentacle_Crush_Debris_01");
+
+IF
+TextEventSet("TUT_TestMastSmash")
+THEN
+ItemDestroy(ITEMGUID_S_TUT_TopDeck_BreakingMast_e41c0a53-508c-4e5a-a98d-48e221624fa3);
+
+IF
+TextEventSet("TUT_RemoveFinaleTentacles")
+AND
+DB_TUT_FinaleTentacles(_Tentacle, _)
+THEN
+SetOnStage(_Tentacle, 0);
+
+IF
+TextEventSet("TUT_SpawnFinaleTentacles")
+AND
+DB_TUT_FinaleTentacles(_Tentacle, _Time)
+THEN
+ProcObjectTimer(_Tentacle, "TUT_Tentacle_Finale_Appear", _Time);
+
+IF
+DB_TUT_FinaleTentacles(_Tentacle, _)
+THEN
+SetOnStage(_Tentacle, 0);
+
+//REGION Leaving the boat
+IF
+CharacterUsedItem(_Player, ITEMGUID_S_TUT_EscapeBoat_af0d5c51-44ef-4db3-a2af-8f4b1fd4ccc9)
+AND
+CharacterIsInCombat(_Player, 0)
+AND
+NOT QRY_TUT_AnyRescueOriginNPCAlive()
+THEN
+PROC_TUT_PlayerTryFlee(_Player);
+
+IF
+CharacterUsedItem(_Player, ITEMGUID_S_TUT_EscapeBoat_af0d5c51-44ef-4db3-a2af-8f4b1fd4ccc9)
+AND
+CharacterIsInCombat(_Player, 1)
+THEN
+Proc_StartDialog(1, "GLO_AD_CannotUseNow", _Player);
+
+IF
+CharacterUsedItem(_Player, ITEMGUID_S_TUT_EscapeBoat_af0d5c51-44ef-4db3-a2af-8f4b1fd4ccc9)
+AND
+CharacterIsInCombat(_Player, 0)
+AND
+QRY_TUT_AnyRescueOriginNPCAlive()
+AND
+QRY_TUT_DwarvenCarpenterCanSpeak()
+THEN
+Proc_StartDialog(0, "TUT_EscapeBoat", CHARACTERGUID_S_TUT_LowerDeck_LohseSongGirl1_a681c125-8493-4046-ab1f-6c2201336a22, CHARACTERGUID_S_TUT_LowerDeck_DwarvenCarpenter_c0c25bbc-8106-402f-b706-ac20533b0c9a, _Player);
+
+IF
+CharacterUsedItem(_Player, ITEMGUID_S_TUT_EscapeBoat_af0d5c51-44ef-4db3-a2af-8f4b1fd4ccc9)
+AND
+CharacterIsInCombat(_Player, 0)
+AND
+QRY_TUT_AnyRescueOriginNPCAlive()
+AND
+NOT QRY_TUT_DwarvenCarpenterCanSpeak()
+THEN
+Proc_StartDialog(0, "TUT_EscapeBoat_Kids", CHARACTERGUID_S_TUT_LowerDeck_LohseSongGirl1_a681c125-8493-4046-ab1f-6c2201336a22, CHARACTERGUID_S_TUT_LowerDeck_LohseSongBoy1_835a993e-1bf1-4e6f-8922-20dd8b99bca4, _Player);
+
+QRY
+QRY_TUT_DwarvenCarpenterCanSpeak()
+AND
+CharacterIsDead(CHARACTERGUID_S_TUT_LowerDeck_DwarvenCarpenter_c0c25bbc-8106-402f-b706-ac20533b0c9a, 0)
+AND
+DB_TUT_IsSittingInBoat((CHARACTERGUID)CHARACTERGUID_S_TUT_LowerDeck_DwarvenCarpenter_c0c25bbc-8106-402f-b706-ac20533b0c9a)
+THEN
+DB_NOOP(0);
+
+IF
+DialogEnded("TUT_EscapeBoat", _ID)
+AND
+ObjectGetFlag(CHARACTERGUID_S_TUT_LowerDeck_LohseSongGirl1_a681c125-8493-4046-ab1f-6c2201336a22, "TUT_EscapeBoat_Leave", 1)
+AND
+DialogGetInvolvedPlayer(_ID, 1, _Player)
+THEN
+PROC_TUT_PlayerTryFlee((CHARACTERGUID)_Player);
+
+IF
+DialogEnded("TUT_EscapeBoat_Kids", _ID)
+AND
+ObjectGetFlag(CHARACTERGUID_S_TUT_LowerDeck_LohseSongGirl1_a681c125-8493-4046-ab1f-6c2201336a22, "TUT_EscapeBoat_Leave", 1)
+AND
+DialogGetInvolvedPlayer(_ID, 1, _Player)
+THEN
+PROC_TUT_PlayerTryFlee((CHARACTERGUID)_Player);
+
+PROC
+PROC_TUT_PlayerTryFlee((CHARACTERGUID)_Player)
+THEN
+ReadyCheckStart(_Player, "TUT_PlayerFlee");
+
+IF
+ReadyCheckPassed("TUT_PlayerFlee")
+THEN
+SetVarString(CHARACTERGUID_S_TUT_LowerDeck_LohseSongGirl1_a681c125-8493-4046-ab1f-6c2201336a22, "SloopDialog", "");
+TimerLaunch("TUT_LowerBoat", 1500);
+ItemSetCanInteract(ITEMGUID_S_TUT_EscapeBoat_Speak_af0d5c51-44ef-4db3-a2af-8f4b1fd4ccc9, 0);
+//TimerLaunch("TUT_FleeFromBoat", 10000);
+
+IF
+ReadyCheckPassed("TUT_PlayerFlee")
+AND
+DB_IsPlayer(_Player)
+AND
+GetDistanceTo(_Player, ITEMGUID_S_TUT_EscapeBoat_Speak_af0d5c51-44ef-4db3-a2af-8f4b1fd4ccc9, _Dist)
+AND
+_Dist <= 13.0
+THEN
+CharacterUseItem(_Player, ITEMGUID_S_TUT_EscapeBoat_Sit_6f6c5c2e-024c-4960-bf36-82d7917d820a, "");
+
+IF
+ReadyCheckPassed("TUT_PlayerFlee")
+AND
+DB_IsPlayer(_Player)
+THEN
+PartySetFlag(_Player, "QuestUpdate_TUT_ShipMurder_Fled");
+UserSetFlag(_Player,"QuestUpdate_CORE_Chapter1_TUT_Escape");
+
+IF
+TimerFinished("TUT_LowerBoat")
+THEN
+GlobalSetFlag("TUT_LowerBoatReadyToLower");
+
+PROC
+PROC_TUT_EndTutorial()
+AND
+DB_IsPlayer(_Player)
+THEN
+FadeToBlack(_Player, 0.8, 0, "TUT_FadeAfterTut");
+
+IF
+FadeOutDone(_, "TUT_FadeAfterTUT")
+THEN
+CharacterTeleportPartiesToTriggerWithMovie(TRIGGERGUID_StartPoint_001_34d67d87-441c-427d-97bb-4cc506b42fe0,"","CS_Drowning");
+
+IF
+TextEventSet("endtut")
+THEN
+PROC_TUT_EndTutorial();
+
+IF
+CharacterUsedItem(_Character, ITEMGUID_S_TUT_EscapeBoat_Sit_6f6c5c2e-024c-4960-bf36-82d7917d820a)
+THEN
+DB_TUT_IsSittingInBoat(_Character);
+//CharacterSetAnimationOverride(_Character, "still");
+
+IF
+CharacterUsedItem(_Player, ITEMGUID_S_TUT_EscapeBoat_Sit_6f6c5c2e-024c-4960-bf36-82d7917d820a)
+AND
+DB_IsPlayer(_Player)
+THEN
+CharacterFreeze(_Player);
+ARP_EXT_QuestUpdate("TUT_Troubled_Waters_Complete");
+//END_REGION
+
+
+//REGION Fight with Voidwoken & Tentacles
+IF
+DB_TUT_TopDeckTentacles(_Tentacle, _)
+THEN
+SetOnStage(_Tentacle, 0);
+
+PROC
+ProcOneShotTriggerEntered(_, TRIGGERGUID_S_TUT_VB_TopDeckFirstEntry_ff563460-884a-47b7-a0a6-0a4c496bf3ed)
+AND
+DB_TUT_TopDeckTentacleMagisters(_Magister, _Point)
+THEN
+CharacterMoveTo(_Magister, _Point, 1, "TUT_MagisterAtTrigger", 0);
+
+PROC
+ProcOneShotTriggerEntered(_, TRIGGERGUID_S_TUT_VB_TopDeckFirstEntry_ff563460-884a-47b7-a0a6-0a4c496bf3ed)
+THEN
+ItemSetForceSynch(S_TUT_AftMast_KrakenBody_cae13e15-ecf2-40af-86d9-e544d4a53aa8, 1);
+ItemSetForceSynch(ITEMGUID_S_TUT_ForeMast_KrakenBody_f69a6f09-b1c9-4ba9-a816-acdbd4f64071, 1);
+ItemSetForceSynch(ITEMGUID_S_TUT_LurkingKraken_cb1559b6-b6bb-432e-81a3-705484d01047, 1);
+ItemSetForceSynch(ITEMGUID_S_TUT_StrikingTentacle1_ac7387f0-084d-452f-973c-c1c6e6f85159, 1);
+ItemSetForceSynch(ITEMGUID_S_TUT_StrikingTentacle2_f894fc72-87bf-46ae-8662-05c67a8e14d8, 1);
+
+PROC
+ProcOneShotTriggerEntered(_, TRIGGERGUID_S_TUT_VB_TopDeckFirstEntry_ff563460-884a-47b7-a0a6-0a4c496bf3ed)
+THEN
+PROC_TUT_PlayImpactSound("TUT_Scripted3_KrakenBattle_UpperDeck_Loop_Stop");
+
+PROC
+ProcOneShotTriggerEntered(_Player, TRIGGERGUID_S_TUT_VB_TopDeckFirstEntry_ff563460-884a-47b7-a0a6-0a4c496bf3ed)
+AND
+DB_IsPlayer(_Player)
+THEN
+UserSetFlag(_Player,"QuestUpdate_CORE_Chapter1_TUT_UpperDeck");
+
+IF
+StoryEvent(_Magister, "TUT_MagisterAtTrigger")
+AND
+DB_TUT_TopDeckTentacleMagisters((CHARACTERGUID)_Magister, _Point)
+THEN
+NOT DB_TUT_TopDeckTentacleMagisters(_Magister, _Point);
+
+IF
+StoryEvent(_Magister, "TUT_MagisterAtTrigger")
+AND
+NOT DB_TUT_TopDeckTentacleMagisters(_, _)
+THEN
+PROC_TUT_ForceCombatTopDeck();
+
+PROC
+PROC_TUT_ForceCombatTopDeck()
+AND
+NOT DB_OnlyOnce("PROC_TUT_ForceCombatTopDeck")
+THEN
+CharacterSetRelationFactionToFaction("TUT_TopDeckMagisters", "TUT_TopDeck_TentacleVoidlings", 0);
+CharacterSetRelationFactionToFaction("TUT_TopDeck_TentacleVoidlings", "TUT_TopDeckMagisters", 0);
+CharacterSetRelationFactionToFaction("TUT_TopDeck_TentacleVoidlings", "Hero", 0);
+
+PROC
+PROC_TUT_ForceCombatTopDeck()
+AND
+QueryOnlyOnce("PROC_TUT_ForceCombatTopDeck")
+AND
+DB_IsPlayer(_Player)
+AND
+ObjectIsInTrigger(_Player, TRIGGERGUID_S_TUT_VB_TopDeckFirstEntry_ff563460-884a-47b7-a0a6-0a4c496bf3ed, 1)
+AND
+CharacterIsDeadOrFeign(_Player, 0)
+THEN
+EnterCombat(CHARACTERGUID_S_TUT_TopDeckVoidling10_bd0123ae-26fd-4dad-8326-b6ae9a3fc1c5, _Player);
+EnterCombat(CHARACTERGUID_S_TUT_TopDeckVoidling11_2fcb5b84-875f-42bd-ac80-6f8495c6a47c, _Player);
+
+IF
+StoryEvent(_, "TUT_TentacleWhackMe")
+AND
+QueryOnlyOnce("TUT_TopDeck_TentacleWhack")
+THEN
+ProcObjectTimer(CHARACTERGUID_S_TUT_TopDeck_Tentacle1_6cbd4fbf-a9f0-403c-8ee1-5679e4ae03a6, "TUT_TopDeckTentacle_Appear", 100);
+
+PROC
+ProcObjectTimerFinished(_Tentacle, "TUT_TopDeckTentacle_Appear")
+THEN
+CharacterAppear((CHARACTERGUID)_Tentacle, 0, "TUT_TopDeckTentacle_Appeared");
+CharacterSetReactionPriority(CHARACTERGUID_S_TUT_TopDeck_LivingMagister3_b5e74192-498f-4eb3-844a-4a817f9802d3, "Scream_For_Death", 1000);
+
+PROC
+ProcObjectTimerFinished(_, "TUT_TopDeckTentacle_Appear")
+AND
+DB_TUT_TopDeckTentacleCombat(_Creature)
+THEN
+ProcSetInvulnerable(_Creature, 0);
+
+IF
+StoryEvent(_Tentacle, "TUT_TopDeckTentacle_Appeared")
+AND
+DB_TUT_TopDeckTentacles((CHARACTERGUID)_Tentacle, _Target)
+THEN
+CharacterUseSkill((CHARACTERGUID)_Tentacle, "Zone_Quest_EnemyTentacleSweep", _Target, 1,0,0);
+
+IF
+CharacterUsedSkill(_Tentacle, "Zone_Quest_EnemyTentacleSweep", _, _)
+AND
+DB_TUT_TopDeckTentacles((CHARACTERGUID)_Tentacle, _)
+AND
+NOT QRY_TUT_TopDeck_MagistersAlive()
+THEN
+SetOnStage(_Tentacle, 0);
+
+IF
+CharacterUsedSkill(_Tentacle, "Zone_Quest_EnemyTentacleSweep", _, _)
+AND
+DB_TUT_TopDeckTentacles((CHARACTERGUID)_Tentacle, _Target)
+AND
+QRY_TUT_TopDeck_MagistersAlive()
+THEN
+CharacterUseSkill(_Tentacle, "Zone_Quest_EnemyTentacleSweep", _Target, 1, 0, 0);
+
+
+IF
+CharacterUsedSkill(_Tentacle, "Zone_Quest_EnemyTentacleSweep", _, _)
+AND
+DB_TUT_TopDeckTentacles((CHARACTERGUID)_Tentacle, _)
+AND
+QueryOnlyOnce("TUT_CleanringSurface2")
+THEN
+TimerLaunch("TUT_CleanringSurface2", 5000);
+
+IF
+TimerFinished("TUT_CleanringSurface2")
+AND
+DB_IsPlayer(_Player)
+AND
+ObjectIsInTrigger(_Player, TRIGGERGUID_S_TUT_VB_TopDeckFirstEntry_ff563460-884a-47b7-a0a6-0a4c496bf3ed, 1)
+AND
+CharacterIsDead(_Player, 0)
+AND
+NOT DB_TUT_CargoDeck_MedicalBay_PoisonTutorial("TUT_CargoDeck_MedicalBay_PoisonTutorial_Cleared")
+THEN
+PROC_CheckPlayTut(_Player, "TUT_ClearingSurfaces2");
+
+QRY
+QRY_TUT_TopDeck_MagistersAlive()
+AND
+CharacterIsDead(CHARACTERGUID_S_TUT_TopDeck_LivingMagister3_b5e74192-498f-4eb3-844a-4a817f9802d3, 0)
+THEN
+DB_NOOP(0);
+
+//END_REGION
+
+IF
+StoryEvent(CHARACTERGUID_S_GLO_Windego_d783285f-d3be-4cba-8333-db8976cef182,"TUT_Windego_ChildrenToSafety")
+AND
+DB_TUT_ChildrenBoatSeats(_Child)
+AND
+CharacterIsDead(_Child, 0)
+THEN
+PROC_TUT_RemoveWindegoKnockDownEffects(_Child);
+TeleportTo(_Child, ITEMGUID_S_TUT_EscapeBoat_Sit_6f6c5c2e-024c-4960-bf36-82d7917d820a, "TUT_ChildAtSeat", 0);
+SetVarInteger(_Child, "bool_CanCower", 0);
+PROC_RemoveDialogFromCharacter(_Child);
+
+IF
+StoryEvent(CHARACTERGUID_S_GLO_Windego_d783285f-d3be-4cba-8333-db8976cef182,"TUT_Windego_ChildrenToSafety")
+THEN
+SetOnStage(CHARACTERGUID_S_TUT_LowerDeck_LohseSongBoy2_2d56d0b1-c7a7-4e60-a495-4ea64ca38f0e, 0);
+
+// Could be off-stage because it had temporarily fled after a crime
+IF
+StoryEvent(CHARACTERGUID_S_GLO_Windego_d783285f-d3be-4cba-8333-db8976cef182,"TUT_Windego_ChildrenToSafety")
+AND
+DB_TUT_ChildrenBoatSeats(_Child)
+AND
+ObjectIsOnStage(_Child,0)
+THEN
+SetOnStage(_Child,1);
+
+IF
+StoryEvent(_Child, "TUT_ChildAtSeat")
+AND
+DB_TUT_ChildrenBoatSeats((CHARACTERGUID)_Child)
+THEN
+CharacterUseItem(_Child, ITEMGUID_S_TUT_EscapeBoat_Sit_6f6c5c2e-024c-4960-bf36-82d7917d820a, "");
+SetVarFixedString(_Child, "currentState", "State_AtBoat");
+ProcCharacterDisableAllCrimes(_Child);
+
+IF
+StoryEvent(CHARACTERGUID_S_TUT_LowerDeck_DwarvenCarpenter_c0c25bbc-8106-402f-b706-ac20533b0c9a, "TUT_ChildAtSeat")
+THEN
+ClearVarObject(CHARACTERGUID_S_TUT_LowerDeck_DwarvenCarpenter_c0c25bbc-8106-402f-b706-ac20533b0c9a, "Seat");
+CharacterSetReactionPriority(CHARACTERGUID_S_TUT_LowerDeck_DwarvenCarpenter_c0c25bbc-8106-402f-b706-ac20533b0c9a, "Sit", 0);
+SetCanFight(CHARACTERGUID_S_TUT_LowerDeck_DwarvenCarpenter_c0c25bbc-8106-402f-b706-ac20533b0c9a, 0);
+SetCanJoinCombat(CHARACTERGUID_S_TUT_LowerDeck_DwarvenCarpenter_c0c25bbc-8106-402f-b706-ac20533b0c9a, 0);
+SetVarInteger(CHARACTERGUID_S_TUT_LowerDeck_DwarvenCarpenter_c0c25bbc-8106-402f-b706-ac20533b0c9a, "bool_CanCower", 0);
+
+IF
+StoryEvent(CHARACTERGUID_S_GLO_Windego_d783285f-d3be-4cba-8333-db8976cef182,"TUT_Windego_ChildrenToSafety")
+THEN
+DB_OnlyOnce("TUT_ChildrenSatDown");
+
+IF
+AttackedByObject(_Child, _Player, _, _,_)
+AND
+DB_TUT_ChildrenBoatSeats((CHARACTERGUID)_Child)
+AND
+DB_IsPlayer((CHARACTERGUID)_Player)
+AND
+DB_OnlyOnce("TUT_ChildrenSatDown")
+AND
+QueryOnlyOnce("TUT_SummonTheKraken")
+THEN
+PROC_TUT_FallbackKrakenAttackUpdate();
+PROC_TUT_SummonTheKraken();
+
+PROC
+PROC_TUT_FallbackKrakenAttackUpdate()
+AND
+DB_IsPlayer((CHARACTERGUID)_Player)
+THEN
+PartySetFlag(_Player, "QuestUpdate_TUT_ShipMurder_Failed");
+UserSetFlag(_Player,"QuestUpdate_CORE_Chapter1_TUT_Escape");
+
+PROC
+PROC_TUT_SummonTheKraken()
+AND
+DB_IsPlayer(_Player)
+THEN
+ProcSetInvulnerable(_Player, 1);
+
+PROC
+PROC_TUT_SummonTheKraken()
+THEN
+CharacterSetForceSynch(CHARACTERGUID_S_TUT_TheKraken_c99560fa-1750-4ed1-9deb-69ff7b74ef00, 1);
+SetVarString(CHARACTERGUID_S_TUT_LowerDeck_LohseSongGirl1_a681c125-8493-4046-ab1f-6c2201336a22, "SloopDialog", "");
+TimerLaunch("TUT_ShipDestruction", 12000);
+MusicPlayGeneral("Tut_end_stinger");
+PlayAnimation(ITEMGUID_S_TUT_ForeMast_KrakenBody_f69a6f09-b1c9-4ba9-a816-acdbd4f64071, "custom2", "");
+PlayAnimation(ITEMGUID_S_TUT_AftMast_KrakenBody_cae13e15-ecf2-40af-86d9-e544d4a53aa8, "custom2", "");
+ProcObjectTimer(ITEMGUID_S_TUT_AftMast_KrakenBody_cae13e15-ecf2-40af-86d9-e544d4a53aa8, "TUT_KrakenBody_GoToIdle2", 2083);
+ProcObjectTimer(ITEMGUID_S_TUT_ForeMast_KrakenBody_f69a6f09-b1c9-4ba9-a816-acdbd4f64071, "TUT_KrakenBody_GoToIdle2", 2042);
+ItemMoveToTrigger(ITEMGUID_S_TUT_LurkingKraken_cb1559b6-b6bb-432e-81a3-705484d01047, TRIGGERGUID_S_TUT_KrakenHeadTo_da476856-b2a3-4148-9dc0-a122e9bfd49a, 10.0, 4.0, 0);
+TimerLaunch("TUT_HeadSubmerge", 2400);
+PlayEffect(TRIGGERGUID_S_TUT_KrakenHead_Splash_cab8490f-26d7-4239-9f85-a5640eff6b5a, "RS3_FX_Char_Creatures_Head_Kraken_A_Burrow_WaterSplashDissappear_01");
+
+PROC
+ProcObjectTimerFinished(_KrakenBody, "TUT_KrakenBody_GoToIdle2")
+THEN
+PlayAnimation(_KrakenBody, "still_02");
+
+//REGION Sounds/effects for players below deck
+PROC
+PROC_TUT_SummonTheKraken()
+THEN
+DB_TUT_SummonTheKraken(1);
+
+PROC
+PROC_TUT_SummonTheKraken()
+AND
+DB_IsPlayer(_Player)
+AND
+DB_TUT_BelowDeckTrigger(_Trigger)
+AND
+ObjectIsInTrigger(_Player,_Trigger,1)
+THEN
+DB_TUT_BelowDeckKrakenSummoned(_Player);
+
+PROC
+PROC_TUT_SummonTheKraken()
+THEN
+// The number of times we've shown a voice bark during the final kraken attack
+ProcDeclareCounter("TUT_PlayerBelowDeckDuringFinalAttack_Reactions");
+// The number of voicebarks from last time that are still ongoing
+ProcDeclareCounter("TUT_PlayerBelowDeckDuringFinalAttack_VoiceBarksBusy");
+// The number of sound effects/screen shakes since the last voice bark
+ProcDeclareCounter("TUT_PlayerBelowDeckDuringFinalAttack_EffectsWithoutVoiceBark");
+TimerLaunch("TUT_FinalHullImpactTimer",0);
+
+IF
+TimerFinished("TUT_FinalHullImpactTimer")
+AND
+Random(4,_SoundIdx)
+AND
+IntegerMin(_SoundIdx,1,_SoundIdxClamped)
+AND
+DB_TUT_BelowDeckKrakenImpactSounds(_SoundIdxClamped,_Sound)
+AND
+DB_TUT_BelowDeckKrakenSummoned(_Player)
+THEN
+PROC_TUT_BelowDeckImpact(_Player,_Sound);
+
+PROC
+PROC_TUT_BelowDeckImpact((CHARACTERGUID)_Player,(STRING)_Sound)
+THEN
+PlaySound(_Player,_Sound);
+DB_TUT_BelowDeckImpact_Reaction(1);
+
+PROC
+PROC_TUT_BelowDeckImpact((CHARACTERGUID)_Player,(STRING)_Sound)
+AND
+DB_TUT_TopDeckShakeFinished(1)
+THEN
+Proc_ShakeCameraForTime(_Player,500);
+
+IF
+TimerFinished("TUT_FinalHullImpactTimer")
+AND
+DB_TUT_BelowDeckImpact_Reaction(1)
+THEN
+NOT DB_TUT_BelowDeckImpact_Reaction(1);
+TimerLaunch("TUT_FinalHullImpactReactionTimer",100);
+
+// Start voice barks that include every player on the lower decks, but
+// avoid players in close proximity from all starting the same voice bark
+// (they will be included in other players' voice barks instead)
+PROC
+PROC_TUT_StartVoiceBarkOncePerGroup((CHARACTERGUID)_Player)
+AND
+NOT QRY_TUT_CloseToOtherVBPlayer(_Player)
+AND
+QRY_SpeakerIsAvailable(_Player)
+THEN
+DB_TUT_VBOncePerGroup(_Player);
+StartVoiceBark("TUT_VB_PlayerBelowDeckDuringFinalAttack",_Player);
+ProcIncreaseCounter("TUT_PlayerBelowDeckDuringFinalAttack_VoiceBarksBusy");
+
+IF
+VoiceBarkEnded("TUT_VB_PlayerBelowDeckDuringFinalAttack",_)
+THEN
+ProcDecreaseCounter("TUT_PlayerBelowDeckDuringFinalAttack_VoiceBarksBusy");
+
+IF
+VoiceBarkFailed("TUT_VB_PlayerBelowDeckDuringFinalAttack")
+THEN
+ProcDecreaseCounter("TUT_PlayerBelowDeckDuringFinalAttack_VoiceBarksBusy");
+
+QRY
+QRY_TUT_CloseToOtherVBPlayer((CHARACTERGUID)_Player)
+AND
+DB_TUT_VBOncePerGroup(_OtherPlayer)
+AND
+QRY_SpeakerIsAvailableAndInDialogRange(_OtherPlayer,_Player)
+THEN
+DB_NOOP(1);
+
+IF
+TimerFinished("TUT_FinalHullImpactReactionTimer")
+AND
+DB_TUT_VBOncePerGroup(_Player)
+THEN
+NOT DB_TUT_VBOncePerGroup(_Player);
+
+IF
+TimerFinished("TUT_FinalHullImpactReactionTimer")
+AND
+// No ongoing voicebark
+DB_GlobalCounter("TUT_PlayerBelowDeckDuringFinalAttack_VoiceBarksBusy",_Count)
+AND
+_Count == 0
+AND
+// Once out of four shakes/sounds (except for first time)
+DB_GlobalCounter("TUT_PlayerBelowDeckDuringFinalAttack_EffectsWithoutVoiceBark",_EffectCount)
+AND
+DB_TUT_VB_PlayerBelowDeckDuringFinalAttack_VoiceBarkAtEffectCount(_MaxEffectCount)
+AND
+// Can become bigger because previous voice bark was busy
+_EffectCount >= _MaxEffectCount
+// And maximum of 3 times in total (there are 3 different VBs)
+AND
+DB_GlobalCounter("TUT_PlayerBelowDeckDuringFinalAttack_Reactions",_ReactionCount)
+AND
+_ReactionCount < 3
+AND
+IntegertoString(_ReactionCount,_ReactionCountString)
+AND
+StringConcatenate("TUT_PlayerBelowDeckDuringFinalAttack_Reactions_",_ReactionCountString,_ReactionFlag)
+AND
+// For every player below deck
+DB_TUT_BelowDeckKrakenSummoned(_Player)
+THEN
+// After first VB, new VB every 4 new sound/shake effects
+NOT DB_TUT_VB_PlayerBelowDeckDuringFinalAttack_VoiceBarkAtEffectCount(_MaxEffectCount);
+DB_TUT_VB_PlayerBelowDeckDuringFinalAttack_VoiceBarkAtEffectCount(4);
+DB_TUT_VB_PlayerBelowDeckDuringFinalAttack_PlayedVB(1);
+GlobalSetFlag(_ReactionFlag);
+PROC_TUT_StartVoiceBarkOncePerGroup(_Player);
+
+IF
+TimerFinished("TUT_FinalHullImpactReactionTimer")
+AND
+NOT DB_TUT_VB_PlayerBelowDeckDuringFinalAttack_PlayedVB(1)
+THEN
+ProcIncreaseCounter("TUT_PlayerBelowDeckDuringFinalAttack_EffectsWithoutVoiceBark");
+
+IF
+TimerFinished("TUT_FinalHullImpactReactionTimer")
+AND
+DB_TUT_VB_PlayerBelowDeckDuringFinalAttack_PlayedVB(1)
+THEN
+NOT DB_TUT_VB_PlayerBelowDeckDuringFinalAttack_PlayedVB(1);
+ProcIncreaseCounter("TUT_PlayerBelowDeckDuringFinalAttack_Reactions");
+// reset
+ProcDeclareCounter("TUT_PlayerBelowDeckDuringFinalAttack_EffectsWithoutVoiceBark");
+
+// Schedule next sound. DB_TUT_BelowDeckKrakenSummoned() gets unset when the region ends
+IF
+TimerFinished("TUT_FinalHullImpactTimer")
+AND
+DB_TUT_BelowDeckKrakenSummoned(_)
+AND
+Random(500,_NextImpactSoundBase)
+AND
+IntegerSum(_NextImpactSoundBase,1000,_NextImpactSoundDelay)
+THEN
+TimerLaunch("TUT_FinalHullImpactTimer",_NextImpactSoundDelay);
+//END_REGION //Sounds/effects for players below deck
+
+
+PROC
+PROC_TUT_SummonTheKraken()
+AND
+DB_TUT_FinaleTentacles(_Tentacle, _Time)
+THEN
+ProcObjectTimer(_Tentacle, "TUT_Tentacle_Finale_Appear", _Time);
+
+PROC
+ProcObjectTimerFinished(_Tentacle, "TUT_Tentacle_Finale_Appear")
+THEN
+SetOnStage(_Tentacle, 1);
+ItemSetForceSynch((ITEMGUID)_Tentacle, 1);
+PlayAnimation(_Tentacle, "spawn", "TUT_Tentacle_Finale_appeared");
+
+IF
+StoryEvent(_Tentacle, "TUT_Tentacle_Finale_appeared")
+THEN
+PlayAnimation(_Tentacle, "Still_03");
+
+IF
+TimerFinished("TUT_HeadSubmerge")
+THEN
+CharacterAppear(CHARACTERGUID_S_TUT_TheKraken_c99560fa-1750-4ed1-9deb-69ff7b74ef00, 1, "");
+SetOnStage(S_TUT_LurkingKraken_cb1559b6-b6bb-432e-81a3-705484d01047, 0);
+
+
+PROC
+PROC_TUT_SummonTheKraken()
+AND
+DB_IsPlayer(_Player)
+THEN
+DialogRequestStop(_Player);
+ApplyStatus(_Player, "KNOCKED_DOWN", 25.0, 1);
+Proc_ShakeCameraForTime(_Player, 13000);
+TimerLaunch("TUT_TopDeckShakeFinished", 13000);
+
+// After the top deck shake finishes, there's the kraken action,
+// but not on the lower decks -> continue shakes there
+IF
+TimerFinished("TUT_TopDeckShakeFinished")
+THEN
+DB_TUT_TopDeckShakeFinished(1);
+
+IF
+CharacterEnteredTrigger(_, TRIGGERGUID_S_TUT_LaunchShipDestruction_25c759a4-ee42-4b6c-b6b7-f9df18a9528d)
+AND
+QueryOnlyOnce("TUT_SummonTheKraken")
+THEN
+PROC_TUT_StartBoatLeaveDialog();
+PROC_TUT_SummonTheKraken();
+
+IF
+CharacterEnteredTrigger(_, TRIGGERGUID_S_TUT_LaunchShipDestruction_25c759a4-ee42-4b6c-b6b7-f9df18a9528d)
+AND
+DB_IsPlayer((CHARACTERGUID)_Player)
+THEN
+PartySetFlag(_Player, "QuestUpdate_TUT_ShipMurder_Rescued");
+UserSetFlag(_Player,"QuestUpdate_CORE_Chapter1_TUT_Escape");
+
+PROC
+PROC_TUT_StartBoatLeaveDialog()
+AND
+DB_TUT_IsSittingInBoat(_Character)
+AND
+NOT DB_TUT_ChildrenBoatSeats(_Character)
+AND
+QueryOnlyOnce("TUT_StartBoatLeaveDialog")
+THEN
+Proc_StartDialog(1, "TUT_AD_StartBoatLeaveDialog", CHARACTERGUID_S_TUT_LowerDeck_LohseSongGirl1_a681c125-8493-4046-ab1f-6c2201336a22, _Character);
+
+IF
+AutomatedDialogEnded("TUT_AD_StartBoatLeaveDialog", _)
+THEN
+GlobalSetFlag("TUT_LowerBoatReadyToLower");
+
+PROC
+PROC_TUT_StartBoatLeaveDialog()
+AND
+NOT DB_TUT_IsSittingInBoat(_)
+THEN
+GlobalSetFlag("TUT_LowerBoatReadyToLower");
+
+IF
+TimerFinished("TUT_ShipDestruction")
+AND
+QueryOnlyOnce("TUT_ShipDestructionFinished")
+THEN
+PROC_TUT_FallbackKrakenAttackUpdate();
+PROC_TUT_EndTutorial();
+
+//REGION Ladder between lower and top deck
+PROC
+ProcBlockUseOfItem(_Player,S_TUT_LowerDeck_LadderToUpperDeck_bf532327-8799-4fdd-8dbc-b6283a242f9b)
+AND
+NOT DB_TUT_TopDeck_CrateSmashed(1)
+THEN
+DB_CustomUseItemResponse(_Player,S_TUT_LowerDeck_LadderToUpperDeck_bf532327-8799-4fdd-8dbc-b6283a242f9b,0);
+Proc_StartDialog(1,"TUT_AD_LowerDeck_PlayersCannotUseLadder",_Player);
+//END_REGION //Ladder between lower and top deck
+
+//REGION Tentacle breaks the crate lying over the passage down
+PROC
+ProcOneShotTriggerEntered(_Player, TRIGGERGUID_S_TUT_TopDeck_Tentacle3Appear_6f380f75-4cec-44c1-af1a-bc6895f2b2cd)
+THEN
+Proc_CameraShakeAroundCharacter(_Player, 5, 4.0);
+PlayAnimation(ITEMGUID_S_TUT_KrakenTentacle_SmashBoat_9c55b7b0-295f-4954-a2f8-35553a7bcdba, "Crush_Spawn");
+TimerLaunch("TUT_SmashBoatTentacleSpawned", 1500);
+
+PROC
+ProcOneShotTriggerEntered(_Player, TRIGGERGUID_S_TUT_TopDeck_Tentacle3Appear_6f380f75-4cec-44c1-af1a-bc6895f2b2cd)
+THEN
+TimerLaunch("TUT_SmashBoatTentacleVisible", 100);
+
+IF
+TimerFinished("TUT_SmashBoatTentacleVisible")
+THEN
+SetVisible(ITEMGUID_S_TUT_KrakenTentacle_SmashBoat_9c55b7b0-295f-4954-a2f8-35553a7bcdba, 1);
+
+IF
+TimerFinished("TUT_SmashBoatTentacleSpawned")
+THEN
+SetOnStage(ITEMGUID_S_TUT_SmashedBoat_4a363eb2-7855-4180-bb59-d28cb1bc9dee, 0);
+PlayAnimation(S_TUT_KrakenTentacle_SmashBoat_9c55b7b0-295f-4954-a2f8-35553a7bcdba, "Crush_Slam_01");
+ItemDestroy(ITEMGUID_S_TUT_BoatSmash_BoatSuspension_75e92a9d-07ff-4dcf-9d55-a13ab233554a);
+TimerLaunch("TUT_BreakCrate", 2500);
+TimerLaunch("TUT_Hatch_TentacleDespawn", 6050);
+
+IF
+ItemDestroyed(ITEMGUID_S_TUT_BoatSmash_BoatSuspension_75e92a9d-07ff-4dcf-9d55-a13ab233554a)
+AND
+DB_IsPlayer(_Player)
+AND
+GetDistanceTo(_Player, ITEMGUID_S_TUT_BoatSmash_BoatSuspension_75e92a9d-07ff-4dcf-9d55-a13ab233554a, _Dist)
+AND
+_Dist <= 40
+THEN
+PlayEffect(_Player,"RS3_FX_GP_Combat_CameraShake_A");
+
+IF
+TimerFinished("TUT_BreakCrate")
+THEN
+SetOnStage(ITEMGUID_S_TUT_BlockerCrate_1_d35293bf-6093-470a-b8ed-987be1c0bae4, 0);
+SetOnStage(ITEMGUID_S_TUT_Tentacle3_Blocker_01ba2ae6-106f-461c-ac40-d4914ab8290a, 0);
+// Enable use of ladder on lower deck once the crate has been smashed
+DB_TUT_TopDeck_CrateSmashed(1);
+ClearTag(ITEMGUID_S_TUT_LowerDeck_LadderToUpperDeck_bf532327-8799-4fdd-8dbc-b6283a242f9b, "NO_PATHFINDING_PORTAL");
+
+IF
+TimerFinished("TUT_Hatch_TentacleDespawn")
+THEN
+SetOnStage(ITEMGUID_S_TUT_KrakenTentacle_SmashBoat_9c55b7b0-295f-4954-a2f8-35553a7bcdba, 0);
+
+PROC
+ProcOneShotTriggerEntered(_Player, TRIGGERGUID_S_TUT_TopDeck_Tentacle4Appear_b555d40f-df93-4b38-8706-9be76c858a5c)
+THEN
+Proc_CameraShakeAroundCharacter(_Player, 5, 4.0);
+Proc_StartDialog(1, "TUT_AD_TopDeckMagister2", CHARACTERGUID_S_TUT_TopDeckMagister2_e2d47d73-4f9d-4de2-8a3c-c774a0ea114a);
+CharacterAppear(CHARACTERGUID_S_TUT_TopDeck_Tentacle4_488645e1-3d74-4b3e-83fb-ab2dde52387b, 0, "TUT_TopDeckTentacle4_Appeared");
+
+IF
+StoryEvent(CHARACTERGUID_S_TUT_TopDeck_Tentacle4_488645e1-3d74-4b3e-83fb-ab2dde52387b, "TUT_TopDeckTentacle4_Appeared")
+THEN
+CharacterUseSkill(CHARACTERGUID_S_TUT_TopDeck_Tentacle4_488645e1-3d74-4b3e-83fb-ab2dde52387b, "Zone_Quest_EnemyTentacleSweep", TRIGGERGUID_S_TUT_TopDeck_TentacleTarget4_625866dc-a4a7-4ec2-a162-eb7fc2c8d60e, 1, 1, 1);
+ProcObjectTimer(CHARACTERGUID_S_TUT_TopDeck_Tentacle4_488645e1-3d74-4b3e-83fb-ab2dde52387b, "TUT_TentacleDespawn", 8630);
+
+PROC
+ProcObjectTimerFinished(_Tentacle, "TUT_TentacleDespawn")
+THEN
+SetOnStage(_Tentacle, 0);
+//END_REGION
+
+/*IF
+CharacterLeftTrigger(_, S_TUT_FallingMast_Zone_b9d3aae5-d31c-4db0-b530-29abe04a1c8b)
+AND
+NOT DB_InRegion(_, TRIGGERGUID_S_TUT_FallingMast_Zone_b9d3aae5-d31c-4db0-b530-29abe04a1c8b)
+AND
+CharacterIsDead(CHARACTERGUID_S_TUT_TopDeck_LivingMagister1_b5e74192-498f-4eb3-844a-4a817f9802d3, 1)
+AND
+QueryOnlyOnce("TUT_AftBreakingMast_Broke")
+THEN
+Transform(ITEMGUID_S_TUT_AftBreakingMast_5b089236-ecdc-4f38-b8d1-69f7e06a3925, "BLD_Ship_Exterior_Mast_D_Baseadc6af24-4208-4053-b573-c6e468883494", 0);
+SetOnStage(ITEMGUID_S_TUT_AftBreakingMast_Top_7dec1ce8-20de-4ae3-86a3-b99b1f68d7bd, 1);
+SetOnStage(ITEMGUID_S_TUT_AftBreakingMast_Yard_73c26463-bc07-4d38-9948-7d48a7ed13bb, 1);*/
+
+IF
+ItemWentOnStage(ITEMGUID_S_TUT_AftBreakingMast_Top_7dec1ce8-20de-4ae3-86a3-b99b1f68d7bd, 1)
+THEN
+ItemDestroy(ITEMGUID_S_TUT_AftBreakingMast_Top_7dec1ce8-20de-4ae3-86a3-b99b1f68d7bd);
+
+IF
+ItemWentOnStage(ITEMGUID_S_TUT_AftBreakingMast_Yard_73c26463-bc07-4d38-9948-7d48a7ed13bb, 1)
+THEN
+ItemDestroy(ITEMGUID_S_TUT_AftBreakingMast_Yard_73c26463-bc07-4d38-9948-7d48a7ed13bb);
+
+IF
+ObjectTransformed(ITEMGUID_S_TUT_AftBreakingMast_5b089236-ecdc-4f38-b8d1-69f7e06a3925,BLD_Ship_Exterior_Mast_D_Explode_eee7387d-02bf-46be-babd-ca749926ad49)
+THEN
+ItemDestroy(ITEMGUID_S_TUT_AftBreakingMast_5b089236-ecdc-4f38-b8d1-69f7e06a3925);
+
+
+PROC
+ProcRegionEnded("TUT_Tutorial_A")
+AND
+DB_TUT_BelowDeckKrakenSummoned(_Player)
+THEN
+NOT DB_TUT_BelowDeckKrakenSummoned(_Player);
+
+PROC
+ProcRegionEnded("TUT_Tutorial_A")
+AND
+DB_TUT_IsSittingInBoat(_Character)
+AND
+DB_IsPlayer(_Character)
+THEN
+CharacterUnfreeze(_Character);
+
+PROC
+ProcRegionEnded("TUT_Tutorial_A")
+AND
+DB_TUT_IsSittingInBoat(_Character)
+THEN
+CharacterSetAnimationOverride(_Character, "");
+NOT DB_TUT_IsSittingInBoat(_Character);
+
+PROC
+ProcRegionEnded("TUT_Tutorial_A")
+THEN
+ItemSetForceSynch(S_TUT_AftMast_KrakenBody_cae13e15-ecf2-40af-86d9-e544d4a53aa8, 0);
+ItemSetForceSynch(ITEMGUID_S_TUT_ForeMast_KrakenBody_f69a6f09-b1c9-4ba9-a816-acdbd4f64071, 0);
+
+// When arriving on Fort Joy beach, we play a knockdown_getup animation
+// Prevent end of this status from also causin
+PROC
+ProcRegionEnded("TUT_Tutorial_A")
+AND
+DB_IsPlayer(_Player)
+AND
+HasActiveStatus(_Player,"KNOCKED_DOWN",1)
+THEN
+RemoveStatus(_Player,"KNOCKED_DOWN");
+
+
+PROC
+ProcRegionEnded("TUT_Tutorial_A")
+AND
+DB_IsPlayer(_Player)
+THEN
+ProcSetInvulnerable(_Player, 0);
+
+PROC
+ProcRegionEnded("TUT_Tutorial_A")
+THEN
+GoalCompleted;
+
+IF
+ObjectTurnStarted(_Object)
+AND
+DB_TUT_TopDeckTentacleCombat((CHARACTERGUID)_Object)
+AND
+IsTagged(_Object, "VOIDWOKEN", 1)
+AND
+CharacterIsDead(CHARACTERGUID_S_TUT_TopDeck_LivingMagister3_b5e74192-498f-4eb3-844a-4a817f9802d3, 0)
+THEN
+JumpToTurn(CHARACTERGUID_S_TUT_TopDeck_LivingMagister3_b5e74192-498f-4eb3-844a-4a817f9802d3);
+
+IF
+ObjectTurnStarted(_Player)
+AND
+CharacterIsPlayer((CHARACTERGUID)_Player, 1)
+AND
+DB_CombatCharacters(_Player, _ID)
+AND
+DB_CombatCharacters(CHARACTERGUID_S_TUT_TopDeck_LivingMagister3_b5e74192-498f-4eb3-844a-4a817f9802d3, _ID)
+AND
+CharacterIsDead(CHARACTERGUID_S_TUT_TopDeck_LivingMagister3_b5e74192-498f-4eb3-844a-4a817f9802d3, 0)
+THEN
+JumpToTurn(CHARACTERGUID_S_TUT_TopDeck_LivingMagister3_b5e74192-498f-4eb3-844a-4a817f9802d3);
+
+IF
+CharacterDied(_Magister)
+AND
+DB_TUT_TopDeckTentacleMagisters(_Magister, _Point)
+THEN
+TimerLaunch("TUT_ForeMast_Break", 2000);
+TimerLaunch("TUT_ResetKrakenStance", 4125);
+PlayAnimation(ITEMGUID_S_TUT_ForeMast_KrakenBody_f69a6f09-b1c9-4ba9-a816-acdbd4f64071, "custom1");
+
+IF
+TimerFinished("TUT_ResetKrakenStance")
+THEN
+PlayAnimation(ITEMGUID_S_TUT_ForeMast_KrakenBody_f69a6f09-b1c9-4ba9-a816-acdbd4f64071, "idle");
+
+IF
+TimerFinished("TUT_ForeMast_Break")
+THEN
+ItemDestroy(ITEMGUID_S_TUT_TopDeck_BreakingMast_e41c0a53-508c-4e5a-a98d-48e221624fa3);
+
+IF
+CharacterEnteredTrigger(_, TRIGGERGUID_S_TUT_LaunchShipDestruction_25c759a4-ee42-4b6c-b6b7-f9df18a9528d)
+AND
+QueryOnlyOnce("TUT_DestroyBoat")
+THEN
+//SetOnStage(ITEMGUID_S_TUT_EscapeBoat_af0d5c51-44ef-4db3-a2af-8f4b1fd4ccc9, 0);
+//SetVisible(ITEMGUID_S_TUT_EscapeBoat_Sit_6f6c5c2e-024c-4960-bf36-82d7917d820a, 1);
+ProcTriggerUnregisterForPlayers(TRIGGERGUID_S_TUT_LaunchShipDestruction_25c759a4-ee42-4b6c-b6b7-f9df18a9528d);
+
+
+//Synchs the Idle animations of the holder & the boat.
+IF
+StoryEvent(ITEMGUID_S_TUT_SmashedBoat_4a363eb2-7855-4180-bb59-d28cb1bc9dee, "TUT_TopDeck_BoatSway")
+THEN
+PlayAnimation(ITEMGUID_S_TUT_SmashedBoat_4a363eb2-7855-4180-bb59-d28cb1bc9dee, "idle");
+
+IF
+StoryEvent(ITEMGUID_S_TUT_EscapeBoat_Speak_af0d5c51-44ef-4db3-a2af-8f4b1fd4ccc9, "TUT_TopDeck_BoatSway")
+AND
+GlobalGetFlag("TUT_LowerBoatReadyToLower", 0)
+THEN
+PlayAnimation(ITEMGUID_S_TUT_EscapeBoat_Speak_af0d5c51-44ef-4db3-a2af-8f4b1fd4ccc9, "idle");
+
+IF
+GlobalFlagSet("TUT_LowerBoatReadyToLower")
+THEN
+PlayAnimation(ITEMGUID_S_TUT_EscapeBoat_Sit_6f6c5c2e-024c-4960-bf36-82d7917d820a, "open");
+PlayAnimation(ITEMGUID_S_TUT_EscapeBoat_Speak_af0d5c51-44ef-4db3-a2af-8f4b1fd4ccc9, "open");
+
+IF
+GlobalFlagSet("TUT_LowerBoatReadyToLower")
+AND
+DB_InRegion(_Player, TRIGGERGUID_S_TUT_TopDeck_NeedsSpline_6f06e7bc-82e9-4392-9c40-8fe29cada0dd)
+THEN
+StartCameraSpline(SPLINEGUID_CameraSpline_Tutorial_01_3ba17e24-295d-425a-8210-dd86999f6de9, _Player, 0.1, 1, 1, 0);
+ProcDisableShroud();
+
+/*IF
+StoryEvent(ITEMGUID_S_TUT_EscapeBoat_Speak_af0d5c51-44ef-4db3-a2af-8f4b1fd4ccc9, "TUT_TopDeck_BoatSway")
+AND
+GlobalGetFlag("TUT_LowerBoatReadyToLower", 1)
+AND
+NOT DB_InRegion(_, TRIGGERGUID_S_TUT_TopDeck_NeedsSpline_6f06e7bc-82e9-4392-9c40-8fe29cada0dd)
+THEN
+TimerLaunch("TUT_FadeAfterDestruction", 1200);*/
+
+IF
+TimerFinished("TUT_FadeAfterDestruction")
+THEN
+PROC_TUT_EndTutorial();
+
+IF
+CameraReachedNode(_, _Player, "TUT_SplineEvent1", _, _)
+AND
+QueryOnlyOnce("TUT_SplineEvent1")
+THEN
+PROC_TUT_EndTutorial();
+
+IF
+TextEventSet("TUT_TestEndSpline")
+THEN
+StartCameraSpline(SPLINEGUID_CameraSpline_Tutorial_01_3ba17e24-295d-425a-8210-dd86999f6de9, NULL_00000000-0000-0000-0000-000000000000, 0.1, 1, 1, 0);
+
+//REGION Smashing Tentacles
+IF
+DB_TUT_TentacleAttackTrigger(_Trigger, _Tentacle, _)
+THEN
+DB_OneShotPlayerTrigger(_Trigger);
+SetOnStage(_Tentacle, 0);
+
+PROC
+ProcOneShotTriggerEntered(_, _Trigger)
+AND
+DB_TUT_TentacleAttackTrigger(_Trigger, _Tentacle, _Animation)
+THEN
+SetOnStage(_Tentacle, 1);
+PlayAnimation(_Tentacle, _Animation, "TUT_StrikingTentacle_FinishedImpact");
+ProcObjectTimer(_Tentacle, "TUT_TentacleDespawn", 3166);
+
+PROC
+ProcOneShotTriggerEntered(_, _Trigger)
+AND
+DB_TUT_TentacleAttackTrigger(_Trigger, _Tentacle, _Animation)
+AND
+Random(7000, _Random)
+AND
+IntegerSum(_Random, 7000, _StrikeTimer)
+THEN
+ProcObjectTimer(_Trigger, "TUT_StrikeTentacleTimer", _StrikeTimer);
+
+PROC
+ProcObjectTimerFinished(_Trigger, "TUT_StrikeTentacleTimer")
+AND
+DB_TUT_TentacleAttackTrigger((TRIGGERGUID)_Trigger, _Tentacle, _)
+THEN
+DB_OneShotPlayerTrigger(_Trigger);
+PlayAnimation(_Tentacle, "", "");
+
+IF
+StoryEvent(_Tentacle, "TUT_StrikingTentacle_FinishedImpact")
+THEN
+SetOnStage(_Tentacle, 0);
+
+//END_REGION
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "Tutorial_PrisonShip"
