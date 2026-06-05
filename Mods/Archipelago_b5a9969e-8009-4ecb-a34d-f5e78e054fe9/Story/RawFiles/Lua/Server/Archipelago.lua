@@ -150,7 +150,6 @@ function OnSessionLoaded()
         SyncStyle = read_option(Data, "syncOption")
         DeathlinkStyleIn = read_option(Data, "deathlinkStyleIn")
         DeathlinkStyleOut = read_option(Data, "deathlinkStyleOut")
-        print(read_option(Data, "deathlinkStyleOut"))
         if(Deathlink == 1) then
             Ext.Events.Tick:Subscribe(ReceiveDeathlink)
         end
@@ -173,9 +172,16 @@ function OnSessionLoaded()
     end
 end
 
-Ext.Osiris.RegisterListener("CharacterUsedSkill", 4, "after", function(a, b, c, d)
+Ext.Osiris.RegisterListener("GameStarted", 2, "after", function(level, isEditorMode)
+    if(level == "TUT_Tutorial_A" and SyncStyle == 0) then
+        CharacterAddSkill(CharacterGetHostCharacter(), "Target_Archipelago Sync", 0)
+    end
+end)
+
+Ext.Osiris.RegisterListener("CharacterUsedSkill", 4, "after", function(character, skill, skillType, skillElement)
     print("called the fuck ass one")
-    if(SyncStyle == 0) then
+    if(SyncStyle == 0 and skill == "Target_Archipelago Sync") then
+        print("sync")
         SyncArchipelago()
     end
 end)
