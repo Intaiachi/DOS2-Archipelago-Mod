@@ -11,8 +11,9 @@ PlayableChars = {"S_Player_Ifan_ad9a3327-4456-42a7-9bf4-7ad60cc9e54f",
                 "S_Player_Lohse_bb932b13-8ebf-4ab4-aac0-83e6924e4295",
                 "S_Player_RedPrince_a26a1efb-cdc8-4cf3-a7b2-b2f9544add6f",
                 "S_Player_Sebille_c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c",
-                "S_Player_Fane_02a77f1f-872b-49ca-91ab-32098c443beb"} --figure out what custom character UUID is, might be CHARACTERGUID_S_GLO_CharacterCreationDummy_001_da072fe7-fdd5-42ae-9139-8bd4b9fca406 idk
-                --at least one custom character is Elves_Hero_Male_7b6c1f26-fe4e-40bd-a5d0-e6ff58cef4fe this better not be unique per gender/race
+                "S_Player_Fane_02a77f1f-872b-49ca-91ab-32098c443beb",
+                "7b6c1f26-fe4e-40bd-a5d0-e6ff58cef4fe" --All encompassing custom character
+}
 
 DeathlinkTriggers = {["S_Player_Ifan_ad9a3327-4456-42a7-9bf4-7ad60cc9e54f"] = true,
                      ["S_Player_Beast_f25ca124-a4d2-427b-af62-df66df41a978"] = true,
@@ -20,7 +21,7 @@ DeathlinkTriggers = {["S_Player_Ifan_ad9a3327-4456-42a7-9bf4-7ad60cc9e54f"] = tr
                      ["S_Player_RedPrince_a26a1efb-cdc8-4cf3-a7b2-b2f9544add6f"] = true,
                      ["S_Player_Sebille_c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c"] = true,
                      ["S_Player_Fane_02a77f1f-872b-49ca-91ab-32098c443beb"] = true,
-                     ["Elves_Hero_Male_7b6c1f26-fe4e-40bd-a5d0-e6ff58cef4fe"] = true
+                     ["7b6c1f26-fe4e-40bd-a5d0-e6ff58cef4fe"] = true
 }
 
 DeathlinkNames = {["S_Player_Ifan_ad9a3327-4456-42a7-9bf4-7ad60cc9e54f"] = "Ifan",
@@ -29,7 +30,7 @@ DeathlinkNames = {["S_Player_Ifan_ad9a3327-4456-42a7-9bf4-7ad60cc9e54f"] = "Ifan
                      ["S_Player_RedPrince_a26a1efb-cdc8-4cf3-a7b2-b2f9544add6f"] = "Red Prince",
                      ["S_Player_Sebille_c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c"] = "Sebille",
                      ["S_Player_Fane_02a77f1f-872b-49ca-91ab-32098c443beb"] = "Fane",
-                     ["Elves_Hero_Male_7b6c1f26-fe4e-40bd-a5d0-e6ff58cef4fe"] = "Elven Hero"
+                     ["7b6c1f26-fe4e-40bd-a5d0-e6ff58cef4fe"] = "Hero"
 }
 
 DeathType = {"None",
@@ -47,8 +48,6 @@ DeathType = {"None",
              "KnockedDown",
              "LifeTime"
 }
-
---ItemTemplateAddTo("UUID", CharacterGetHostCharacter(), 1)
 
 local function ClearState()
     Ext.IO.SaveFile(ApOutFile, "[]")
@@ -83,24 +82,23 @@ function SyncArchipelago()
         end
         for k, v in ipairs(data_in) do
             local isAlreadySent = false
-            print(APSent[v])
-            print(k)
-            print(v)
             if (APSent[v] == true) then
                 isAlreadySent = true
             end
             if(not isAlreadySent) then
-                ItemTemplateAddTo(v, CharacterGetHostCharacter(), 1, 1)
-                APSent[v] = true
+                if(string.sub(v, 1, 7) == "levelUp") then
+                    for character in PlayableChars do
+                        CharacterLevelUp(character)
+                        APSent[v] = true
+                    end
+                else
+                    ItemTemplateAddTo(v, CharacterGetHostCharacter(), 1, 1)
+                    APSent[v] = true
+                end
             end
         end
         PersistentVars['APSent'] = APSent
     end
-end
-
-local function SkillCheck(a, b, c, d)
-    print("syncing spell style")
-    SyncArchipelago()
 end
 
 function ReceiveDeathlink()
@@ -172,13 +170,47 @@ function OnSessionLoaded()
     end
 end
 
+Ext.Osiris.RegisterListener("ObjectFlagSet", 3, "after", function(flag, speaker, _dialogInstance)
+    if(flag:sub(1, 12) == "QuestUpdate_") then
+        local row = Osi.DB_QuestDef_CloseEvent:Get(nil, flag)
+        if(row) then
+            if(row[1] ~= nil) then
+                local quest = row[1][1]
+                local unparsed = Ext.IO.LoadFile(ApOutFile)
+                local data = {}
+                print("Completed:" .. "Quest-" .. quest)
+                if(unparsed) then
+                    data = Ext.Json.Parse(unparsed)
+                    if(data == nil) then
+                        print("Failed to parse JSON")
+                        return
+                    end
+                end
+                local needsToAdd = true
+                for k, v in ipairs(data) do
+                    if (v == "Quest-" .. quest) then
+                        needsToAdd = false
+                        break
+                    end
+                end
+                if(needsToAdd) then
+                    table.insert(data, "Quest-" .. quest)
+                    Ext.IO.SaveFile(ApOutFile, Ext.Json.Stringify(data))
+                end
+            end
+        end
+    end
+end)
+
 Ext.Osiris.RegisterListener("GameStarted", 2, "after", function(level, isEditorMode)
+    print(CharacterGetHostCharacter())
     if(level == "TUT_Tutorial_A" and SyncStyle == 0) then
         CharacterAddSkill(CharacterGetHostCharacter(), "Target_Archipelago Sync", 0)
     end
 end)
 
 Ext.Osiris.RegisterListener("CharacterUsedSkill", 4, "after", function(character, skill, skillType, skillElement)
+    print(character)
     print("called the fuck ass one")
     if(SyncStyle == 0 and skill == "Target_Archipelago Sync") then
         print("sync")
@@ -187,13 +219,31 @@ Ext.Osiris.RegisterListener("CharacterUsedSkill", 4, "after", function(character
 end)
 
 Ext.Osiris.RegisterListener("CharacterKilledBy", 3, "after", function(defender, attackerOwner, attacker)
+    local kill = defender
+    local unparsed = Ext.IO.LoadFile(ApOutFile)
+    local data = {}
+    if(unparsed) then
+        data = Ext.Json.Parse(unparsed)
+        if(data == nil) then
+            print("Failed to parse JSON")
+            return
+        end
+    end
+    local needsToAdd = true
+    for k, v in ipairs(data) do
+        if (v == defender) then
+            needsToAdd = false
+            break
+        end
+    end
+    if(needsToAdd) then
+        table.insert(data, defender)
+        Ext.IO.SaveFile(ApOutFile, Ext.Json.Stringify(data))
+    end
     print("defender: " .. tostring(defender) .. " attackerOwner: " .. tostring(attackerOwner))
     if(DeathlinkTriggers[defender] and CharacterIsPartyMember(defender) == 1) then
         print("first if, party member died")
         local party = {}
-        print(DeathlinkStyleOut)
-        print(not DeathlinkStyleOut)
-        print(PendingReceiveDeathlink)
         if(DeathlinkStyleOut == 0) then
             print("starting party death out")
             for _, character in ipairs(PlayableChars) do
@@ -231,29 +281,29 @@ Ext.Osiris.RegisterListener("CharacterKilledBy", 3, "after", function(defender, 
 end)
 
 local function QuestUpdateRecieved(msg)
-    print(msg)
-    local unparsed = Ext.IO.LoadFile(ApOutFile)
-    local data = {}
-    if(unparsed) then
-        data = Ext.Json.Parse(unparsed)
-        if(data == nil) then
-            print("Failed to parse json")
-            return
-        end
-    end
-    local needsToAdd = true
-    for k, v in ipairs(data) do
-        if(v == msg) then
-            needsToAdd = false
-            break
-        end
-    end
-    if(needsToAdd) then
-        table.insert(data, msg)
-        Ext.IO.SaveFile(ApOutFile, Ext.Json.Stringify(data))
-    end
+    -- print(msg)
+    -- local unparsed = Ext.IO.LoadFile(ApOutFile)
+    -- local data = {}
+    -- if(unparsed) then
+    --     data = Ext.Json.Parse(unparsed)
+    --     if(data == nil) then
+    --         print("Failed to parse json")
+    --         return
+    --     end
+    -- end
+    -- local needsToAdd = true
+    -- for k, v in ipairs(data) do
+    --     if(v == msg) then
+    --         needsToAdd = false
+    --         break
+    --     end
+    -- end
+    -- if(needsToAdd) then
+    --     table.insert(data, msg)
+    --     Ext.IO.SaveFile(ApOutFile, Ext.Json.Stringify(data))
+    -- end
 end
-
+--cant remove this until you undo the osiris script editing
 Ext.NewCall(QuestUpdateRecieved, "ARP_EXT_QuestUpdate", "(STRING)_Msg")
 
 Ext.Events.SessionLoaded:Subscribe(OnSessionLoaded)
