@@ -86,8 +86,8 @@ function SyncArchipelago()
                 isAlreadySent = true
             end
             if(not isAlreadySent) then
-                if(string.sub(v, 1, 7) == "levelUp") then
-                    for character in PlayableChars do
+                if(string.sub(v, 11, 17) == "levelUp") then
+                    for _, character in ipairs(PlayableChars) do
                         CharacterLevelUp(character)
                         APSent[v] = true
                     end
@@ -203,17 +203,13 @@ Ext.Osiris.RegisterListener("ObjectFlagSet", 3, "after", function(flag, speaker,
 end)
 
 Ext.Osiris.RegisterListener("GameStarted", 2, "after", function(level, isEditorMode)
-    print(CharacterGetHostCharacter())
     if(level == "TUT_Tutorial_A" and SyncStyle == 0) then
         CharacterAddSkill(CharacterGetHostCharacter(), "Target_Archipelago Sync", 0)
     end
 end)
 
 Ext.Osiris.RegisterListener("CharacterUsedSkill", 4, "after", function(character, skill, skillType, skillElement)
-    print(character)
-    print("called the fuck ass one")
     if(SyncStyle == 0 and skill == "Target_Archipelago Sync") then
-        print("sync")
         SyncArchipelago()
     end
 end)
@@ -242,24 +238,16 @@ Ext.Osiris.RegisterListener("CharacterKilledBy", 3, "after", function(defender, 
     end
     print("defender: " .. tostring(defender) .. " attackerOwner: " .. tostring(attackerOwner))
     if(DeathlinkTriggers[defender] and CharacterIsPartyMember(defender) == 1) then
-        print("first if, party member died")
         local party = {}
         if(DeathlinkStyleOut == 0) then
-            print("starting party death out")
             for _, character in ipairs(PlayableChars) do
-                print("Tryinig to see if " .. character .. " is in party...")
-                print(CharacterIsInPartyWith(character, defender))
                 if(CharacterIsInPartyWith(character, defender) == 1) then
                     table.insert(party, character)
-                    print("chracter added to party: " .. character)
                 end
             end
             local deadMembers = 0
             for _, character in ipairs(party) do
-                print(character)
-                print(CharacterIsDead(character))
                 if(CharacterIsDead(character) == 1) then
-                    print("chracter is dead i guess")
                     deadMembers = deadMembers + 1
                 end
             end
