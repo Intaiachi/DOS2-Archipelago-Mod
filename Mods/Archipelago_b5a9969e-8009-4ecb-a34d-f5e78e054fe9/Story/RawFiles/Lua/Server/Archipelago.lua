@@ -91,6 +91,9 @@ function SyncArchipelago()
                         CharacterLevelUp(character)
                         APSent[v] = true
                     end
+                elseif(string.sub(v, 11, 46) == "1c3c9c74-34a1-4685-989e-410dc080be6f") then
+                    ItemTemplateAddTo(v, CharacterGetHostCharacter(), 200, 1)
+                    APSent[v] = true
                 else
                     ItemTemplateAddTo(v, CharacterGetHostCharacter(), 1, 1)
                     APSent[v] = true
