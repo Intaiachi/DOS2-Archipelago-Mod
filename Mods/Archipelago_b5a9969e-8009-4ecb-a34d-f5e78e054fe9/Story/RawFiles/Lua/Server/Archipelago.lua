@@ -94,6 +94,31 @@ function SyncArchipelago()
                 elseif(string.sub(v, 11, 46) == "1c3c9c74-34a1-4685-989e-410dc080be6f") then
                     ItemTemplateAddTo(v, CharacterGetHostCharacter(), 200, 1)
                     APSent[v] = true
+                elseif(string.sub(v, 11, 24) == "attributePoint") then
+                    for _, character in ipairs(PlayableChars) do
+                        CharacterAddAttributePoint(character, 1)
+                        APSent[v] = true
+                    end
+                elseif(string.sub(v, 11, 28) == "combatAbilityPoint") then
+                    for _, character in ipairs(PlayableChars) do
+                        CharacterAddAbilityPoint(character, 1)
+                        APSent[v] = true
+                    end
+                elseif(string.sub(v, 11, 27) == "civilAbilityPoint") then
+                    for _, character in ipairs(PlayableChars) do
+                        CharacterAddCivilAbilityPoint(character, 1)
+                        APSent[v] = true
+                    end
+                elseif(string.sub(v, 11, 21) == "talentPoint") then
+                    for _, character in ipairs(PlayableChars) do
+                        CharacterAddTalentPoint(character, 1)
+                        APSent[v] = true
+                    end
+                elseif(string.sub(v, 11, 24) == "maxSourcePoint") then
+                    for _, character in ipairs(PlayableChars) do
+                        CharacterOverrideMaxSourcePoints(character, CharacterGetMaxSourcePoints(character) + 1)
+                        APSent[v] = true
+                    end
                 else
                     ItemTemplateAddTo(v, CharacterGetHostCharacter(), 1, 1)
                     APSent[v] = true
