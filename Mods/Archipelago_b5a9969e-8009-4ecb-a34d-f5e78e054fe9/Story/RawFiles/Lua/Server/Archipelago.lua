@@ -116,8 +116,10 @@ function SyncArchipelago()
                     end
                 elseif(string.sub(v, 11, 24) == "maxSourcePoint") then
                     for _, character in ipairs(PlayableChars) do
-                        CharacterOverrideMaxSourcePoints(character, CharacterGetMaxSourcePoints(character) + 1)
-                        APSent[v] = true
+                        if(CharacterGetMaxSourcePoints(character) ~= nil) then
+                            CharacterOverrideMaxSourcePoints(character, CharacterGetMaxSourcePoints(character) + 1)
+                            APSent[v] = true
+                        end
                     end
                 else
                     ItemTemplateAddTo(v, CharacterGetHostCharacter(), 1, 1)
