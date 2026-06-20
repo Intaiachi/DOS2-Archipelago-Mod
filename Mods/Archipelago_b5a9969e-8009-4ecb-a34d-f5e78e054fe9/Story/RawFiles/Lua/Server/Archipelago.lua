@@ -6,6 +6,7 @@ PendingReceiveDeathlink = false
 ApOutFile = "apOut.json"
 ApInFile = "apIn.json"
 SyncStyle = ""
+TrapStyle = ""
 PlayableChars = {"S_Player_Ifan_ad9a3327-4456-42a7-9bf4-7ad60cc9e54f",
                 "S_Player_Beast_f25ca124-a4d2-427b-af62-df66df41a978",
                 "S_Player_Lohse_bb932b13-8ebf-4ab4-aac0-83e6924e4295",
@@ -47,6 +48,42 @@ DeathType = {"None",
              "Hang",
              "KnockedDown",
              "LifeTime"
+}
+
+TrapEffect = {"POISONED",
+              "BURNING",
+              "ACID",
+              "BLEEDING",
+              "MUTED",
+              "KNOCKED_DOWN",
+              "FEAR",
+              "BLIND",
+              "SMELLY",
+              "INFECTIOUS_DISEASED",
+              "DECAYING_TOUCH",
+              "LINGERING_WOUNDS",
+              "DAMAGE_ON_MOVE",
+              "DISARMED",
+              "NECROFIRE",
+              "STUNNED",
+              "FROZEN",
+              "CHICKEN",
+              "COW",
+              "CURSE",
+              "CRIPPLED",
+              "DISEASED",
+              "DRUNK",
+              "ENTANGLED",
+              "MARKED",
+              "PETRIFIED",
+              "PLAGUE",
+              "REMORSE",
+              "SHOCKED",
+              "SLEEPING",
+              "SLOWED",
+              "SUFFOCATING",
+              "WEAK",
+              "WEB"
 }
 
 local function ClearState()
@@ -121,6 +158,57 @@ function SyncArchipelago()
                             APSent[v] = true
                         end
                     end
+                elseif(string.sub(v, 11, 12) == "ST") then
+                    if(string.sub(v, 11, 24) == "ST_ArmorNormal") then
+                        if(math.random(10) == 1) then --ST_Armor contain rings amulets and belts, execpt for ST_ArmorNormal for whatever reason, this is to artifically mimic the other armor tables
+                            CharacterGiveReward(CharacterGetHostCharacter(), "ST_RingAmuletBelt", 1)
+                            APSent[v] = true
+                        else
+                            CharacterGiveReward(CharacterGetHostCharacter(), "ST_ArmorNormal", 1)
+                            APSent[v] = true
+                        end
+                    else
+                        CharacterGiveReward(CharacterGetHostCharacter(), string.sub(v, 11), 1)
+                        APSent[v] = true
+                    end
+                elseif(string.sub(v, 11, 14) == "Trap") then
+                    local party = {}
+                    for _, character in ipairs(PlayableChars) do
+                        if(CharacterIsInPartyWith(character, CharacterGetHostCharacter()) == 1) then
+                            table.insert(party, character)
+                        end
+                    end
+                    if(string.sub(v, 15) == "Minor") then
+                        if(TrapStyle == 0) then
+                            for _, character in ipairs(party) do
+                                ApplyStatus(character, TrapEffect[Random(34) + 1], 6.0, 1)
+                                APSent[v] = true
+                            end
+                        elseif(TrapStyle == 1) then
+                            ApplyStatus(party[Random(#party) + 1], TrapEffect[Random(34) + 1], 6.0, 1)
+                            APSent[v] = true
+                        end
+                    elseif(string.sub(v, 15) == "Moderate") then
+                        if(TrapStyle == 0) then
+                            for _, character in ipairs(party) do
+                                ApplyStatus(character, TrapEffect[Random(34) + 1], 12.0, 1)
+                                APSent[v] = true
+                            end
+                        elseif(TrapStyle == 1) then
+                            ApplyStatus(party[Random(#party) + 1], TrapEffect[Random(34) + 1], 12.0, 1)
+                            APSent[v] = true
+                        end
+                    elseif(string.sub(v, 15) == "Severe") then
+                        if(TrapStyle == 0) then
+                            for _, character in ipairs(party) do
+                                ApplyStatus(character, TrapEffect[Random(34) + 1], 18.0, 1)
+                                APSent[v] = true
+                            end
+                        elseif(TrapStyle == 1) then
+                            ApplyStatus(party[Random(#party) + 1], TrapEffect[Random(34) + 1], 18.0, 1)
+                            APSent[v] = true
+                        end
+                    end
                 else
                     ItemTemplateAddTo(v, CharacterGetHostCharacter(), 1, 1)
                     APSent[v] = true
@@ -142,24 +230,22 @@ function ReceiveDeathlink()
         for k, v in ipairs(death) do
             if(v == "Deathlink") then
                 PendingReceiveDeathlink = true
-                print(DeathlinkStyleIn)
                 if(DeathlinkStyleIn ~= 2) then
                     local party = {}
                     for _, character in ipairs(PlayableChars) do
                         if(CharacterIsInPartyWith(character, CharacterGetHostCharacter()) == 1) then
                             table.insert(party, character)
-                            print(character .. " added to party")
                         end
                     end
                     if(DeathlinkStyleIn == 0) then
                         for _, character in ipairs(party) do
-                            CharacterDie(character, 0, DeathType[Random(14)], "NULL")
+                            CharacterDie(character, 0, DeathType[Random(14) + 1], "NULL")
                         end
                     elseif(DeathlinkStyleIn == 1) then
-                        CharacterDie(party[Random(4)], 0, DeathType[Random(14)], "NULL")
+                        CharacterDie(party[Random(#party) + 1], 0, DeathType[Random(14) + 1], "NULL")
                     end
                 elseif(DeathlinkStyleIn == 2) then
-                    CharacterDie(CharacterGetHostCharacter(), 0, DeathType[Random(14)], "NULL")
+                    CharacterDie(CharacterGetHostCharacter(), 0, DeathType[Random(14) + 1], "NULL")
                 end
                 Ext.IO.SaveFile("deathlinkIn.json", "[]")
             end
@@ -178,10 +264,10 @@ function OnSessionLoaded()
         SyncStyle = read_option(Data, "syncOption")
         DeathlinkStyleIn = read_option(Data, "deathlinkStyleIn")
         DeathlinkStyleOut = read_option(Data, "deathlinkStyleOut")
+        TrapStyle = read_option(Data, "trapStyle")
         if(Deathlink == 1) then
             Ext.Events.Tick:Subscribe(ReceiveDeathlink)
         end
-        print(SyncStyle)
         if(SyncStyle == 1) then --tick
             print("subbed to tick")
             Ext.Events.Tick:Subscribe(SyncArchipelago)
