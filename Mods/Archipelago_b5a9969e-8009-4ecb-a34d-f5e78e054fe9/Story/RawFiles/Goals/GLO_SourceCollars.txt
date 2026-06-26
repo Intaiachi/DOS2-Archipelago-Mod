@@ -1,0 +1,151 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+
+KBSECTION
+//REGION
+//Equip collar automatically
+PROC
+Proc_GLO_SourceCollars_EquipSourceCollar((CHARACTERGUID)_Player)
+AND
+GetItemForItemTemplateInInventory(_Player,"RC_FTJ_Amulet_SourceCollar_8bf8b97c-556e-4e69-8fc7-39241783dcc1",_Item)
+THEN
+CharacterEquipItem(_Player,_Item);
+ItemLockUnEquip(_Item,1);
+DB_GLO_SourceCollars_SourceCollarHandle(_Player,_Item);
+
+//END_REGION
+
+//REGION Collars for players
+//add collars to players when game starts
+IF
+GameStarted(_Region,_)
+AND
+DB_GLO_SourceCollars_Region(_Region)
+AND
+DB_IsPlayer((CHARACTERGUID)_Player)
+AND
+NOT DB_GLO_SourceCollars_OncePerNPC(_Player)
+THEN
+DB_GLO_SourceCollars_OncePerNPC(_Player);
+ItemTemplateAddTo("RC_FTJ_Amulet_SourceCollar_8bf8b97c-556e-4e69-8fc7-39241783dcc1",_Player,1,0);
+Proc_GLO_SourceCollars_EquipSourceCollar(_Player);
+
+//Add Collars to unselected Origins
+IF
+GameStarted(_Region,_)
+AND
+DB_GLO_SourceCollars_Region(_Region)
+AND
+DB_OriginNotSelected((CHARACTERGUID)_Origin)
+AND
+NOT DB_GLO_SourceCollars_OncePerNPC(_Origin)
+THEN
+DB_GLO_SourceCollars_OncePerNPC(_Origin);
+ItemTemplateAddTo("RC_FTJ_Amulet_SourceCollar_8bf8b97c-556e-4e69-8fc7-39241783dcc1",_Origin,1,0);
+Proc_GLO_SourceCollars_EquipSourceCollar(_Origin);
+
+//Unequippable hack :)
+IF
+ItemUnEquipFailed(_Item,_)
+AND
+DB_GLO_SourceCollars_SourceCollarHandle(_Char,_Item)
+AND
+ObjectGetFlag((CHARACTERGUID)_Char,"FTJ_RemoveSourceCollar",0)
+THEN 
+Proc_StartDialog(1,"FTJ_AD_CollarWontComeOff",_Char);
+
+//Remove Source Collar here
+PROC
+ProcRemoveSourceCollar((CHARACTERGUID)_Char)
+AND
+GetItemForItemTemplateInInventory(_Char,"RC_FTJ_Amulet_SourceCollar_8bf8b97c-556e-4e69-8fc7-39241783dcc1",_Item)
+THEN
+ItemLockUnEquip(_Item,0);
+ItemRemove(_Item);
+
+IF
+ObjectFlagSet("FTJ_RemoveSourceCollar",(CHARACTERGUID)_Char,_)
+AND
+NOT DB_GLO_SourceCollars_RemoveSourceCollar(_Char)
+AND
+DB_IsPlayer(_Char)
+THEN
+ProcRemoveSourceCollar(_Char);
+ItemTemplateAddTo("RC_FTJ_Amulet_BrokenSourceCollar_6a906795-b26f-47fd-90ab-ed1916f5b18f",_Char,1,0);
+ItemTemplateDropFromCharacter("RC_FTJ_Amulet_BrokenSourceCollar_6a906795-b26f-47fd-90ab-ed1916f5b18f",_Char,1); //drop broken amulet
+PlayEffect(_Char,"RS3_FX_GP_ScriptedEvent_HoECollar_Remove_01"); //play explosion effect here
+ObjectSetFlag(_Char,"QuestUpdate_RC_FTJ_SourceCollar_EndSourceCollar");
+DB_GLO_SourceCollars_RemoveSourceCollar(_Char);
+//END_REGION
+
+//Add Collar to All Tagged Prisoners
+IF
+GameStarted(_Region,_)
+AND
+DB_GLO_SourceCollars_Region(_Region)
+AND
+DB_GLO_SourceCollars_PrisonersWithCollars(_Prisoner)
+AND
+NOT DB_GLO_SourceCollars_OncePerNPC((CHARACTERGUID)_Prisoner)
+THEN
+ItemTemplateAddTo("RC_FTJ_Amulet_SourceCollar_8bf8b97c-556e-4e69-8fc7-39241783dcc1",_Prisoner,1,0);
+DB_GLO_SourceCollars_OncePerNPC(_Prisoner);
+
+IF
+DB_GLO_SourceCollars_OncePerNPC((CHARACTERGUID)_Prisoner)
+AND
+GetItemForItemTemplateInInventory(_Prisoner,"RC_FTJ_Amulet_SourceCollar_8bf8b97c-556e-4e69-8fc7-39241783dcc1",_Item)
+THEN
+CharacterEquipItem(_Prisoner,_Item);
+ItemLockUnEquip(_Item,1);
+
+PROC
+Proc_GLO_SourceCollars_UnequipNPCCollar((CHARACTERGUID)_NPC)
+AND
+DB_GLO_SourceCollars_OncePerNPC(_NPC)
+AND
+GetItemForItemTemplateInInventory(_NPC,"RC_FTJ_Amulet_SourceCollar_8bf8b97c-556e-4e69-8fc7-39241783dcc1",_Item)
+THEN
+ItemRemove(_Item);
+NOT DB_GLO_SourceCollars_PrisonersWithCollars(_NPC);
+NOT DB_GLO_SourceCollars_OncePerNPC(_NPC);
+ItemTemplateAddTo("RC_FTJ_Amulet_BrokenSourceCollar_6a906795-b26f-47fd-90ab-ed1916f5b18f",_NPC,1);
+ItemTemplateDropFromCharacter("RC_FTJ_Amulet_BrokenSourceCollar_6a906795-b26f-47fd-90ab-ed1916f5b18f",_NPC,1); //drop broken collar
+PlayEffect(_NPC,"RS3_FX_GP_ScriptedEvent_HoECollar_Remove_01"); //play explosion effect here
+
+//Unequippable hack :)
+IF
+ItemUnEquipFailed(_Item,_)
+AND
+DB_GLO_SourceCollars_SourceCollarHandle(_Char,_Item)
+AND
+ObjectGetFlag((CHARACTERGUID)_Char,"FTJ_RemoveSourceCollar",0)
+THEN 
+Proc_StartDialog(1,"FTJ_AD_CollarWontComeOff",_Char);
+
+//Remove Source Collar here
+PROC
+ProcRemoveSourceCollar((CHARACTERGUID)_Char)
+AND
+GetItemForItemTemplateInInventory(_Char,"RC_FTJ_Amulet_SourceCollar_8bf8b97c-556e-4e69-8fc7-39241783dcc1",_Item)
+THEN
+ItemLockUnEquip(_Item,0);
+ItemRemove(_Item);
+
+IF
+ObjectFlagSet("FTJ_RemoveSourceCollar",(CHARACTERGUID)_Char,_)
+AND
+NOT DB_GLO_SourceCollars_RemoveSourceCollar(_Char)
+THEN
+ProcRemoveSourceCollar(_Char);
+ItemTemplateAddTo("RC_FTJ_Amulet_BrokenSourceCollar_6a906795-b26f-47fd-90ab-ed1916f5b18f",_Char,1);
+ItemTemplateDropFromCharacter("RC_FTJ_Amulet_BrokenSourceCollar_6a906795-b26f-47fd-90ab-ed1916f5b18f",_Char,1); //drop broken amulet
+PlayEffect(_Char,"RS3_FX_GP_ScriptedEvent_HoECollar_Remove_01"); //play explosion effect here
+//ObjectSetFlag(_Char,"QuestUpdate_RC_FTJ_SourceCollar_EndSourceCollar");
+DB_GLO_SourceCollars_RemoveSourceCollar(_Char);
+//END_REGION
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "Start"

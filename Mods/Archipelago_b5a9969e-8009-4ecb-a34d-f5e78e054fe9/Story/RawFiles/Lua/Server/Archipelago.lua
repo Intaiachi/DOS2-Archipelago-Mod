@@ -16,23 +16,25 @@ PlayableChars = {"S_Player_Ifan_ad9a3327-4456-42a7-9bf4-7ad60cc9e54f",
                 "7b6c1f26-fe4e-40bd-a5d0-e6ff58cef4fe" --All encompassing custom character
 }
 
-DeathlinkTriggers = {["S_Player_Ifan_ad9a3327-4456-42a7-9bf4-7ad60cc9e54f"] = true,
-                     ["S_Player_Beast_f25ca124-a4d2-427b-af62-df66df41a978"] = true,
-                     ["S_Player_Lohse_bb932b13-8ebf-4ab4-aac0-83e6924e4295"] = true,
-                     ["S_Player_RedPrince_a26a1efb-cdc8-4cf3-a7b2-b2f9544add6f"] = true,
-                     ["S_Player_Sebille_c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c"] = true,
-                     ["S_Player_Fane_02a77f1f-872b-49ca-91ab-32098c443beb"] = true,
+DeathlinkTriggers = {["ad9a3327-4456-42a7-9bf4-7ad60cc9e54f"] = true,
+                     ["f25ca124-a4d2-427b-af62-df66df41a978"] = true,
+                     ["bb932b13-8ebf-4ab4-aac0-83e6924e4295"] = true,
+                     ["a26a1efb-cdc8-4cf3-a7b2-b2f9544add6f"] = true,
+                     ["c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c"] = true,
+                     ["02a77f1f-872b-49ca-91ab-32098c443beb"] = true,
                      ["7b6c1f26-fe4e-40bd-a5d0-e6ff58cef4fe"] = true
 }
 
-DeathlinkNames = {["S_Player_Ifan_ad9a3327-4456-42a7-9bf4-7ad60cc9e54f"] = "Ifan",
-                     ["S_Player_Beast_f25ca124-a4d2-427b-af62-df66df41a978"] = "Beast",
-                     ["S_Player_Lohse_bb932b13-8ebf-4ab4-aac0-83e6924e4295"] = "Lohse",
-                     ["S_Player_RedPrince_a26a1efb-cdc8-4cf3-a7b2-b2f9544add6f"] = "Red Prince",
-                     ["S_Player_Sebille_c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c"] = "Sebille",
-                     ["S_Player_Fane_02a77f1f-872b-49ca-91ab-32098c443beb"] = "Fane",
+DeathlinkNames = {["ad9a3327-4456-42a7-9bf4-7ad60cc9e54f"] = "Ifan",
+                     ["f25ca124-a4d2-427b-af62-df66df41a978"] = "Beast",
+                     ["bb932b13-8ebf-4ab4-aac0-83e6924e4295"] = "Lohse",
+                     ["a26a1efb-cdc8-4cf3-a7b2-b2f9544add6f"] = "Red Prince",
+                     ["c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c"] = "Sebille",
+                     ["02a77f1f-872b-49ca-91ab-32098c443beb"] = "Fane",
                      ["7b6c1f26-fe4e-40bd-a5d0-e6ff58cef4fe"] = "Hero"
 }
+
+--Animals_Chicken_A_ Animals_Cow_A_
 
 DeathType = {"None",
              "Physical",
@@ -287,7 +289,7 @@ function OnSessionLoaded()
 end
 
 Ext.Osiris.RegisterListener("ObjectFlagSet", 3, "after", function(flag, speaker, _dialogInstance)
-    if(flag:sub(1, 12) == "QuestUpdate_") then
+    if(flag:sub(1, 12) == "QuestUpdate_" or flag:sub(1, 8) == "FTJ_SW_F" or flag:sub(1, 21) == "FTJ_SW_HelpedGratiana" or flag:sub(1, 24) == "FTJ_SW_DestroyedSoulJars" or flag:sub(1, 25) == "RC_BI_AncientForgeCrafted" or flag:sub(1, 39) == "RC_BF_CorneredSourcerer_HelpedMagisters" or flag:sub(1, 22) == "RC_MIL_PerformedRitual" or flag:sub(1, 23) == "RC_MIL_CompletedElfTest" or flag:sub(1, 20) == "RC_MIL_FailedElfTest") then
         local row = Osi.DB_QuestDef_CloseEvent:Get(nil, flag)
         if(row) then
             if(row[1] ~= nil) then
@@ -331,7 +333,8 @@ Ext.Osiris.RegisterListener("CharacterUsedSkill", 4, "after", function(character
 end)
 
 Ext.Osiris.RegisterListener("CharacterKilledBy", 3, "after", function(defender, attackerOwner, attacker)
-    local kill = defender
+    print("defender: " .. tostring(defender) .. " attackerOwner: " .. tostring(attackerOwner))
+    defender = Ext.GetCharacter(defender).MyGuid
     local unparsed = Ext.IO.LoadFile(ApOutFile)
     local data = {}
     if(unparsed) then
@@ -352,7 +355,6 @@ Ext.Osiris.RegisterListener("CharacterKilledBy", 3, "after", function(defender, 
         table.insert(data, defender)
         Ext.IO.SaveFile(ApOutFile, Ext.Json.Stringify(data))
     end
-    print("defender: " .. tostring(defender) .. " attackerOwner: " .. tostring(attackerOwner))
     if(DeathlinkTriggers[defender] and CharacterIsPartyMember(defender) == 1) then
         local party = {}
         if(DeathlinkStyleOut == 0) then
@@ -383,31 +385,5 @@ Ext.Osiris.RegisterListener("CharacterKilledBy", 3, "after", function(defender, 
         end
     end
 end)
-
-local function QuestUpdateRecieved(msg)
-    -- print(msg)
-    -- local unparsed = Ext.IO.LoadFile(ApOutFile)
-    -- local data = {}
-    -- if(unparsed) then
-    --     data = Ext.Json.Parse(unparsed)
-    --     if(data == nil) then
-    --         print("Failed to parse json")
-    --         return
-    --     end
-    -- end
-    -- local needsToAdd = true
-    -- for k, v in ipairs(data) do
-    --     if(v == msg) then
-    --         needsToAdd = false
-    --         break
-    --     end
-    -- end
-    -- if(needsToAdd) then
-    --     table.insert(data, msg)
-    --     Ext.IO.SaveFile(ApOutFile, Ext.Json.Stringify(data))
-    -- end
-end
---cant remove this until you undo the osiris script editing
-Ext.NewCall(QuestUpdateRecieved, "ARP_EXT_QuestUpdate", "(STRING)_Msg")
 
 Ext.Events.SessionLoaded:Subscribe(OnSessionLoaded)
