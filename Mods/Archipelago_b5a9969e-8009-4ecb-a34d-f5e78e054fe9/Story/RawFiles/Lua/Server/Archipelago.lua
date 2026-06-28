@@ -13,7 +13,24 @@ PlayableChars = {"S_Player_Ifan_ad9a3327-4456-42a7-9bf4-7ad60cc9e54f",
                 "S_Player_RedPrince_a26a1efb-cdc8-4cf3-a7b2-b2f9544add6f",
                 "S_Player_Sebille_c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c",
                 "S_Player_Fane_02a77f1f-872b-49ca-91ab-32098c443beb",
-                "7b6c1f26-fe4e-40bd-a5d0-e6ff58cef4fe" --All encompassing custom character
+                "7b6c1f26-fe4e-40bd-a5d0-e6ff58cef4fe", -- p1 custom character
+                "c451954c-73bf-46ce-a1d1-caa9bbdc3cfd", -- p2 custom character
+                "41a06985-7851-4c29-8a78-398ccb313f39", -- p3 custom character
+                "41a594ed-b768-4289-9f17-59f701cc6910", -- p4 custom character
+                "S_GLO_Henchman_Fighter_3f44ca37-37db-4415-9c07-8a6a5043f4d9",
+                "S_GLO_Henchman_Battlemage_771422fe-7f0a-4997-a600-66de69c75d80",
+                "S_GLO_Henchman_Knight_3b4ec079-75be-4f79-8f4b-449c650d438d",
+                "S_GLO_Henchman_Inquisitor_0d13b184-24a7-42e1-acf4-5728e92a25f9",
+                "S_GLO_Henchman_Metamorph_0ab5b88b-368c-4303-b95f-0a34a9838d33",
+                "S_GLO_Henchman_Wayfarer_32bccd3b-17ea-4daf-989a-141842293970",
+                "S_GLO_Henchman_Shadowblade_83fcfdd1-3150-4080-9f69-5461ce57fee2",
+                "S_GLO_Henchman_Rogue_0ea50c31-7f09-484e-aec1-2f8d5492e8cb",
+                "S_GLO_Henchman_Ranger_9bb343ab-65fe-4a8b-b1b6-0d084f5444ee",
+                "S_GLO_Henchman_Cleric_240a8377-e26c-4cfa-ac84-2a2e6369e9da",
+                "S_GLO_Henchman_Enchanter_827b9f8c-6bd9-4f52-a2ab-7fe6c425bbe5",
+                "S_GLO_Henchman_Witch_4c565d89-c00b-47ab-8335-9edfa9757971",
+                "S_GLO_Henchman_Wizard_0539b874-7adc-4dfc-8258-bdbae55309ad",
+                "S_GLO_Henchman_Conjurer_12837117-e53e-4997-9b02-a1d2aa89419a"
 }
 
 DeathlinkTriggers = {["ad9a3327-4456-42a7-9bf4-7ad60cc9e54f"] = true,
@@ -22,7 +39,24 @@ DeathlinkTriggers = {["ad9a3327-4456-42a7-9bf4-7ad60cc9e54f"] = true,
                      ["a26a1efb-cdc8-4cf3-a7b2-b2f9544add6f"] = true,
                      ["c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c"] = true,
                      ["02a77f1f-872b-49ca-91ab-32098c443beb"] = true,
-                     ["7b6c1f26-fe4e-40bd-a5d0-e6ff58cef4fe"] = true
+                     ["7b6c1f26-fe4e-40bd-a5d0-e6ff58cef4fe"] = true,
+                     ["c451954c-73bf-46ce-a1d1-caa9bbdc3cfd"] = true,
+                     ["41a06985-7851-4c29-8a78-398ccb313f39"] = true,
+                     ["41a594ed-b768-4289-9f17-59f701cc6910"] = true,
+                     ["3f44ca37-37db-4415-9c07-8a6a5043f4d9"] = true,
+                     ["771422fe-7f0a-4997-a600-66de69c75d80"] = true,
+                     ["3b4ec079-75be-4f79-8f4b-449c650d438d"] = true,
+                     ["0d13b184-24a7-42e1-acf4-5728e92a25f9"] = true,
+                     ["0ab5b88b-368c-4303-b95f-0a34a9838d33"] = true,
+                     ["32bccd3b-17ea-4daf-989a-141842293970"] = true,
+                     ["83fcfdd1-3150-4080-9f69-5461ce57fee2"] = true,
+                     ["0ea50c31-7f09-484e-aec1-2f8d5492e8cb"] = true,
+                     ["9bb343ab-65fe-4a8b-b1b6-0d084f5444ee"] = true,
+                     ["240a8377-e26c-4cfa-ac84-2a2e6369e9da"] = true,
+                     ["827b9f8c-6bd9-4f52-a2ab-7fe6c425bbe5"] = true,
+                     ["4c565d89-c00b-47ab-8335-9edfa9757971"] = true,
+                     ["0539b874-7adc-4dfc-8258-bdbae55309ad"] = true,
+                     ["12837117-e53e-4997-9b02-a1d2aa89419a"] = true
 }
 
 DeathlinkNames = {["ad9a3327-4456-42a7-9bf4-7ad60cc9e54f"] = "Ifan",
@@ -31,10 +65,45 @@ DeathlinkNames = {["ad9a3327-4456-42a7-9bf4-7ad60cc9e54f"] = "Ifan",
                      ["a26a1efb-cdc8-4cf3-a7b2-b2f9544add6f"] = "Red Prince",
                      ["c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c"] = "Sebille",
                      ["02a77f1f-872b-49ca-91ab-32098c443beb"] = "Fane",
-                     ["7b6c1f26-fe4e-40bd-a5d0-e6ff58cef4fe"] = "Hero"
+                     ["7b6c1f26-fe4e-40bd-a5d0-e6ff58cef4fe"] = "Hero",
+                     ["c451954c-73bf-46ce-a1d1-caa9bbdc3cfd"] = "Player 2 Hero",
+                     ["41a06985-7851-4c29-8a78-398ccb313f39"] = "Player 3 Hero",
+                     ["41a594ed-b768-4289-9f17-59f701cc6910"] = "Player 4 Hero",
+                     ["3f44ca37-37db-4415-9c07-8a6a5043f4d9"] = "Nestor",
+                     ["771422fe-7f0a-4997-a600-66de69c75d80"] = "Ravella",
+                     ["3b4ec079-75be-4f79-8f4b-449c650d438d"] = "Yastara",
+                     ["0d13b184-24a7-42e1-acf4-5728e92a25f9"] = "Straffan",
+                     ["0ab5b88b-368c-4303-b95f-0a34a9838d33"] = "Trxyl",
+                     ["32bccd3b-17ea-4daf-989a-141842293970"] = "Morrgen",
+                     ["83fcfdd1-3150-4080-9f69-5461ce57fee2"] = "Shanova",
+                     ["0ea50c31-7f09-484e-aec1-2f8d5492e8cb"] = "Pestilence",
+                     ["9bb343ab-65fe-4a8b-b1b6-0d084f5444ee"] = "Veeros",
+                     ["240a8377-e26c-4cfa-ac84-2a2e6369e9da"] = "Myrella",
+                     ["827b9f8c-6bd9-4f52-a2ab-7fe6c425bbe5"] = "Aurnia",
+                     ["4c565d89-c00b-47ab-8335-9edfa9757971"] = "Taylia",
+                     ["0539b874-7adc-4dfc-8258-bdbae55309ad"] = "Forrex",
+                     ["12837117-e53e-4997-9b02-a1d2aa89419a"] = "Francesca"
 }
 
 --Animals_Chicken_A_ Animals_Cow_A_
+-- c451954c-73bf-46ce-a1d1-caa9bbdc3cfd p2
+-- 41a06985-7851-4c29-8a78-398ccb313f39 p3
+-- 41a594ed-b768-4289-9f17-59f701cc6910 p4
+
+-- S_GLO_Henchman_Fighter_3f44ca37-37db-4415-9c07-8a6a5043f4d9 Nestor
+-- S_GLO_Henchman_Battlemage_771422fe-7f0a-4997-a600-66de69c75d80 Ravella
+-- S_GLO_Henchman_Knight_3b4ec079-75be-4f79-8f4b-449c650d438d Yastara
+-- S_GLO_Henchman_Inquisitor_0d13b184-24a7-42e1-acf4-5728e92a25f9 Straffan
+-- S_GLO_Henchman_Metamorph_0ab5b88b-368c-4303-b95f-0a34a9838d33 Trxyl
+-- S_GLO_Henchman_Wayfarer_32bccd3b-17ea-4daf-989a-141842293970 Morrgen
+-- S_GLO_Henchman_Shadowblade_83fcfdd1-3150-4080-9f69-5461ce57fee2 Shanova
+-- S_GLO_Henchman_Rogue_0ea50c31-7f09-484e-aec1-2f8d5492e8cb Pestilence
+-- S_GLO_Henchman_Ranger_9bb343ab-65fe-4a8b-b1b6-0d084f5444ee Veeros
+-- S_GLO_Henchman_Cleric_240a8377-e26c-4cfa-ac84-2a2e6369e9da Myrella
+-- S_GLO_Henchman_Enchanter_827b9f8c-6bd9-4f52-a2ab-7fe6c425bbe5 Aurnia
+-- S_GLO_Henchman_Witch_4c565d89-c00b-47ab-8335-9edfa9757971 attackerOwner Taylia
+-- S_GLO_Henchman_Wizard_0539b874-7adc-4dfc-8258-bdbae55309ad Forrex
+-- S_GLO_Henchman_Conjurer_12837117-e53e-4997-9b02-a1d2aa89419a Francesca
 
 DeathType = {"None",
              "Physical",
