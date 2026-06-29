@@ -1,0 +1,900 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+DB_Dialogs(ITEMGUID_S_ARX_Harbour_ShipHead_0e60928d-6605-4b70-9168-3ee485dcc0b8,"ARX_LD_Shiphead");
+
+//REGION Ghosts
+DB_Ghosts(CHARACTERGUID_S_ARX_Outskirts_DeadCivilian_000_190ed8cb-0ba0-4bf8-93a7-cc36f52cffd2,CHARACTERGUID_S_ARX_Outskirts_DeadCivilian_Ghost_000_7f40fbc3-a423-4fce-8a42-5ff6b4abec27,"ARX_Outskirts_DeadCivilian_Ghost_000");
+DB_Ghosts(CHARACTERGUID_S_ARX_Outskirts_DeadCivilian_001_b22807ab-5940-4ca9-a0ed-ee32c1b4c5b4,CHARACTERGUID_S_ARX_Outskirts_DeadCivilian_Ghost_001_922b3749-8df1-4f0e-9838-a539b31bd893,"ARX_Outskirts_DeadCivilian_Ghost_001");
+DB_Ghosts(CHARACTERGUID_S_ARX_Outskirts_DeadCivilian_002_e7ae1b01-88c6-4a05-98f9-6c6e1c554c06,CHARACTERGUID_S_ARX_Outskirts_DeadCivilian_Ghost_002_1c114184-5db1-46eb-87dc-93c3bde2a750,"ARX_Outskirts_DeadCivilian_Ghost_002");
+DB_Ghosts(CHARACTERGUID_S_ARX_Outskirts_DeadCivilian_003_53b39ea6-4906-47d1-a98b-a88e92eeb44b,CHARACTERGUID_S_ARX_Outskirts_DeadCivilian_Ghost_003_26357466-3b3c-44dd-ab93-210b9593a067,"ARX_Outskirts_DeadCivilian_Ghost_003");
+DB_Ghosts(CHARACTERGUID_S_ARX_Outskirts_DeadCivilian_004_060f774e-52d0-4046-a875-b6cb9695989e,CHARACTERGUID_S_ARX_Outskirts_DeadCivilian_Ghost_004_0098a30a-a35e-44d1-8b3c-f457d80ef230,"ARX_Outskirts_DeadCivilian_Ghost_004");
+DB_Ghosts(CHARACTERGUID_S_ARX_Outskirts_DeadCivilian_005_08e67b53-0ae1-4e13-8f38-36926069c9fe,CHARACTERGUID_S_ARX_Outskirts_DeadCivilian_Ghost_005_bc539513-5110-416b-91a2-c05756a6643c,"ARX_Outskirts_DeadCivilian_Ghost_005");
+DB_Ghosts(CHARACTERGUID_S_ARX_Outskirts_DeadMagister_000_baf8f47c-6841-4cc9-978c-96ab81749310,CHARACTERGUID_S_ARX_Outskirts_DeadMagister_Ghost_000_2725edcc-fa71-4361-8498-186f0473bc05,"ARX_Outskirts_DeadMagister_Ghost_000");
+DB_Ghosts(CHARACTERGUID_S_ARX_Outskirts_DeadMagister_001_ce91b983-4306-4b0b-aafd-c7b9b49a99fd,CHARACTERGUID_S_ARX_Outskirts_DeadMagister_Ghost_001_5b87f610-6616-4fe9-a575-3ab98b3cf380,"ARX_Outskirts_DeadMagister_Ghost_001");
+DB_Ghosts(CHARACTERGUID_S_ARX_Outskirts_DeadPaladin_000_0dc3e320-8096-47bf-a353-d2855f49a092,CHARACTERGUID_S_ARX_Outskirts_DeadPaladin_Ghost_000_94e6cc30-f4c6-47af-9c4d-dcb893f9451f,"ARX_Outskirts_DeadPaladin_Ghost_000");
+//END_REGION
+//REGION Voidwoken
+DB_ARX_OUT_Harbour_Voidwoken(CHARACTERGUID_S_ARX_Outskirts_Harbour_Voidwoken_000_e0a7f25e-7aaf-428f-8725-3f8dadc643d4);
+DB_ARX_OUT_Harbour_Voidwoken(CHARACTERGUID_S_ARX_Outskirts_Harbour_Voidwoken_003_6428cbe6-5356-408b-8607-b9effa0d5355);
+DB_ARX_OUT_Harbour_Voidwoken(CHARACTERGUID_S_ARX_Outskirts_Harbour_Voidwoken_004_997a816c-2018-484b-81bd-c49621ac2cc7);
+
+//END_REGION
+//REGION Kraken
+DB_OneShotPlayerTrigger(TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawn_Poly_6ad3ee26-f27c-4934-a7f4-a0c9b32a18f2);
+DB_OneShotPlayerTrigger(TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawnLedge_Box_5ce0ef00-8a93-43b3-b426-0ac2ee692d85);
+ProcTriggerRegisterForPlayers(TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawnLedge_CameraBox_cf82c310-7def-4d5c-a656-cef093a0d66e);
+
+SetVisible(ITEMGUID_S_ARX_Harbour_Kraken_48f89411-8875-4494-8ed0-3beff849ce84 , 0);
+ItemSetForceSynch(ITEMGUID_S_ARX_Harbour_Kraken_48f89411-8875-4494-8ed0-3beff849ce84, 1);
+
+/*
+	Dock_Slam_01 = 1, 2, 3, 5
+	Dock_Slam_02 = 7
+	Dock_Slam_03 = 6
+	Dock_Slam_04 = 4
+*/
+//DB_ARX_OUT_Harbour_KrakenTentacles((ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_48f89411-8875-4494-8ed0-3beff849ce84,(TRIGGERGUID)TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawn_Poly_6ad3ee26-f27c-4934-a7f4-a0c9b32a18f2,1000);
+DB_ARX_OUT_Harbour_KrakenTentacles((ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_48f89411-8875-4494-8ed0-3beff849ce84,(TRIGGERGUID)TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawnLedge_Box_5ce0ef00-8a93-43b3-b426-0ac2ee692d85,1000);
+DB_ARX_OUT_Harbour_KrakenTentacles((ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_Tentacle1_12643df1-f538-447e-8c8e-854c88f0d80d,(TRIGGERGUID)TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawn_Poly_6ad3ee26-f27c-4934-a7f4-a0c9b32a18f2,6000);
+DB_ARX_OUT_Harbour_KrakenTentacles((ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_Tentacle2_cf409b47-b93c-4a31-a91d-0ecc62f0b593,(TRIGGERGUID)TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawn_Poly_6ad3ee26-f27c-4934-a7f4-a0c9b32a18f2,2300);
+DB_ARX_OUT_Harbour_KrakenTentacles((ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_Tentacle3_69021661-7b0f-496b-a388-c554443c249f,(TRIGGERGUID)TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawn_Poly_6ad3ee26-f27c-4934-a7f4-a0c9b32a18f2,4300); //ledge
+DB_ARX_OUT_Harbour_KrakenTentacles((ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_Tentacle4_26822fc1-a201-4cc1-bf41-437e71fb85a8,(TRIGGERGUID)TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawn_Poly_6ad3ee26-f27c-4934-a7f4-a0c9b32a18f2,5400);
+DB_ARX_OUT_Harbour_KrakenTentacles((ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_Tentacle5_367d9622-0a4b-462a-94b4-c74cc7a140ff,(TRIGGERGUID)TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawn_Poly_6ad3ee26-f27c-4934-a7f4-a0c9b32a18f2,6300); //ledge
+DB_ARX_OUT_Harbour_KrakenTentacles((ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_Tentacle6_c5c808c3-50e5-4166-8ff1-27273eab2c12,(TRIGGERGUID)TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawn_Poly_6ad3ee26-f27c-4934-a7f4-a0c9b32a18f2,5000);
+DB_ARX_OUT_Harbour_KrakenTentacles((ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_Tentacle7_cd947c60-06f0-485b-b934-b5ad6a33e7da,(TRIGGERGUID)TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawn_Poly_6ad3ee26-f27c-4934-a7f4-a0c9b32a18f2,2000);
+
+DB_ARX_OUT_Harbour_KrakenTentacleSmashable((ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_Tentacle2_cf409b47-b93c-4a31-a91d-0ecc62f0b593, (ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_Crane2_e85576bb-cd1d-4165-930c-638b2706d882, 2000, "");
+DB_ARX_OUT_Harbour_KrakenTentacleSmashable((ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_Tentacle3_69021661-7b0f-496b-a388-c554443c249f, (ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_Crane3_57363e20-c995-4ab8-8d43-fdbf1964c0a7, 1900, "");
+DB_ARX_OUT_Harbour_KrakenTentacleSmashable((ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_Tentacle4_26822fc1-a201-4cc1-bf41-437e71fb85a8, (ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_WoodenPlatform_BeamPile_Long_A_014f5fb3-c17d-40f9-9386-e535448e9031,1220, "");
+DB_ARX_OUT_Harbour_KrakenTentacleSmashable((ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_Tentacle5_367d9622-0a4b-462a-94b4-c74cc7a140ff, (ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_Crane5_ba3a00b7-04c0-4f1a-8e88-98ef4a85426b, 2000, "");
+DB_ARX_OUT_Harbour_KrakenTentacleSmashable((ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_Tentacle6_c5c808c3-50e5-4166-8ff1-27273eab2c12, (ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_Crane6_ffb7c30d-c64c-4a2d-85e8-f298b52689c1, 2400,"");
+DB_ARX_OUT_Harbour_KrakenTentacleSmashable((ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_Tentacle7_cd947c60-06f0-485b-b934-b5ad6a33e7da, (ITEMGUID)ITEMGUID_S_ARX_Harbour_Kraken_Crane7_10a7062d-113a-4db2-869e-979b8f720c95, 3300,"");
+
+
+//END_REGION
+//REGION Character Kraken/Tentacles
+DB_ARX_Kraken_Tentacles((CHARACTERGUID)CHARACTERGUID_S_ARX_Outskirts_Harbour_Kraken_Tentacle_01_d5cc9368-f30f-40f3-841a-6f0c0568539a,400);
+DB_ARX_Kraken_Tentacles((CHARACTERGUID)CHARACTERGUID_S_ARX_Outskirts_Harbour_Kraken_Tentacle_02_933bde97-066d-4bfb-b141-f26da88bca8c,1000);
+DB_ARX_Kraken_Tentacles((CHARACTERGUID)CHARACTERGUID_S_ARX_Outskirts_Harbour_Kraken_Tentacle_03_9ced8072-aeed-49bb-8542-c475fb384744,1600);
+DB_ARX_Kraken_Tentacles((CHARACTERGUID)CHARACTERGUID_S_ARX_Outskirts_Harbour_Kraken_Tentacle_04_19659907-4213-4451-803d-b0b04a29247c,2300);
+DB_ARX_Kraken_Tentacles((CHARACTERGUID)CHARACTERGUID_S_ARX_Outskirts_Harbour_Kraken_Tentacle_05_298c31ab-65b3-4079-ac3b-e932b7a87080,3500);
+SetCombatGroupID(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,"a2dcb60b-9956-4bb6-9930-116d30444a1f");
+SetOnStage(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,0);
+
+//Effect helpers (only for tentacles):
+DB_ARX_Kraken_Tentacle_FXHelper((CHARACTERGUID)CHARACTERGUID_S_ARX_Outskirts_Harbour_Kraken_Tentacle_01_d5cc9368-f30f-40f3-841a-6f0c0568539a,(ITEMGUID)ITEMGUID_S_ARX_Harbour_Tentacle_FX_Helper_Invisible_A_001_88f08b77-d0fd-48a2-bbe9-bb1f91fce99b);
+DB_ARX_Kraken_Tentacle_FXHelper((CHARACTERGUID)CHARACTERGUID_S_ARX_Outskirts_Harbour_Kraken_Tentacle_02_933bde97-066d-4bfb-b141-f26da88bca8c,(ITEMGUID)ITEMGUID_S_ARX_Harbour_Tentacle_FX_Helper_Invisible_A_002_539a7831-75b8-4ca8-b8a6-2b3887d39cf7);
+DB_ARX_Kraken_Tentacle_FXHelper((CHARACTERGUID)CHARACTERGUID_S_ARX_Outskirts_Harbour_Kraken_Tentacle_03_9ced8072-aeed-49bb-8542-c475fb384744,(ITEMGUID)ITEMGUID_S_ARX_Harbour_Tentacle_FX_Helper_Invisible_A_003_54e9abfb-d4b8-4793-b32c-d1d14cc5d803);
+DB_ARX_Kraken_Tentacle_FXHelper((CHARACTERGUID)CHARACTERGUID_S_ARX_Outskirts_Harbour_Kraken_Tentacle_04_19659907-4213-4451-803d-b0b04a29247c,(ITEMGUID)ITEMGUID_S_ARX_Harbour_Tentacle_FX_Helper_Invisible_A_004_53cf2f3a-1ee0-47c9-8b3f-8e17fa0ad833);
+DB_ARX_Kraken_Tentacle_FXHelper((CHARACTERGUID)CHARACTERGUID_S_ARX_Outskirts_Harbour_Kraken_Tentacle_05_298c31ab-65b3-4079-ac3b-e932b7a87080,(ITEMGUID)ITEMGUID_S_ARX_Harbour_Tentacle_FX_Helper_Invisible_A_005_9e7b5ef8-d84b-4604-a462-f0e4e307acf0);
+//END_REGION
+//REGION Aftermath Debris
+DB_ARX_Kraken_Aftermath_Debris((ITEMGUID)ITEMGUID_S_ARX_Kraken_Aftermath_Planks_01_fcf3d596-bf10-4de4-9580-f495a588da31);
+DB_ARX_Kraken_Aftermath_Debris((ITEMGUID)ITEMGUID_S_ARX_Kraken_Aftermath_Planks_02_f39c7da8-a9bf-4ca2-af5a-861cc9826db9);
+DB_ARX_Kraken_Aftermath_Debris((ITEMGUID)ITEMGUID_S_ARX_Kraken_Aftermath_Planks_03_7d4b9a41-0254-4f8b-bb4b-13ceedb11fb9);
+DB_ARX_Kraken_Aftermath_Debris((ITEMGUID)ITEMGUID_S_ARX_Kraken_Aftermath_Planks_04_6ed0e5ab-22de-45dc-9fa3-3190f402f4c3);
+DB_ARX_Kraken_Aftermath_Debris((ITEMGUID)ITEMGUID_S_ARX_Kraken_Aftermath_Planks_05_a2c856ed-0124-4c09-8977-c20f2471d280);
+DB_ARX_Kraken_Aftermath_Debris((ITEMGUID)ITEMGUID_S_ARX_Kraken_Aftermath_Planks_06_b5f6ef2c-f336-4e3d-8000-bf2a34645cdf);
+//END_REGION
+//REGION Status
+
+//--- status //put in there statuses that must not be applied on the tentacles after being applied on the kraken
+DB_ARX_Kraken_NotSharedStatus("WET");
+//DB_ARX_Kraken_NotSharedStatus("");
+
+//--- status incapacating tentacles (they skip turn while the kraken has one of these)
+DB_ARX_Kraken_SkipTurnStatus("KNOCKED_DOWN");
+DB_ARX_Kraken_SkipTurnStatus("FEAR");
+
+//--- paired status (ex.: if BURNING is applied on the kraken, all tentacles are WARM. If all tentacles are BURNING, the kraken is WARM)
+// Removes the opposite status before applying the intermediate status (ex.: if a tentacle is FROZEN and the kraken becomes BURNING, remove FROZEN before applying WARM)
+//DB_ARX_Kraken_PairedStatus(_IntermediateStatus,_MainStatus,_OppositeStatus);
+DB_ARX_Kraken_PairedStatus("SHOCKED","STUNNED","None");
+DB_ARX_Kraken_PairedStatus("CHILLED","FROZEN","BURNING");
+DB_ARX_Kraken_PairedStatus("WARM","BURNING","FROZEN");
+
+//END_REGION
+//REGION Voice barks
+
+DB_OneShot_VoiceBarkTrigger(TRIGGERGUID_S_ARX_Outskirts_Harbour_LordDreadVB_Box_ce920719-e272-4de4-8f42-acc4893aab3b,"ARX_Outskirts_VB_LordDread");
+DB_OneShot_VoiceBarkTrigger(TRIGGERGUID_S_ARX_Outskirts_Harbour_RuinedPortVB_Box_cd17a936-dc63-4081-ab35-509c72ea70ed,"ARX_Outskirts_VB_RuinedPort");
+
+//END_REGION
+
+//REGION Pile
+
+DB_ShovelArea(TRIGGERGUID_S_ARX_Outskirts_Harbour_Dirtpile_Box_eea8e814-cc32-475f-949d-c4ffa174be65,"ARX_Outskirts_Harbour_DirtpileReward",ITEMGUID_S_ARX_Outskirts_Harbour_Dirtpile_26603c8c-a189-49ed-b6bb-b95287968e5c);
+DB_ShovelRewardItemScatter("ARX_Outskirts_Harbour_DirtpileReward",ITEMGUID_S_ARX_Outskirts_Harbour_Dirtpile_BackPack_a2ff04d7-35f0-4cb6-8d7f-0c4f4e585b74);
+DB_ShovelRewardItemScatter("ARX_Outskirts_Harbour_DirtpileReward",ITEMGUID_S_ARX_Outskirts_Harbour_Dirtpile_Pouch_612a1986-3102-4435-b84f-919de50638fb);
+DB_ShovelRewardItemScatter("ARX_Outskirts_Harbour_DirtpileReward",ITEMGUID_S_ARX_Outskirts_Harbour_Dirtpile_Rope_45cedca0-7944-4ca8-b3e6-bd8590d21404);
+DB_ShovelRewardItemScatter("ARX_Outskirts_Harbour_DirtpileReward",ITEMGUID_S_ARX_Outskirts_Harbour_Dirtpile_Sleepingbag_91f30747-75df-4bb1-8434-1d0f95e30c9b);
+DB_ShovelRewardItemScatter("ARX_Outskirts_Harbour_DirtpileReward",ITEMGUID_S_ARX_Outskirts_Harbour_Dirtpile_WoodenSword_4dd8b270-a24c-4899-893b-5f25b6dfb14a);
+
+DB_ShovelArea(TRIGGERGUID_S_ARX_Outskirts_Harbour_RubblePile_BoxTrigger_000_2e17aea6-74c3-4562-a02c-883ab2a5a23d,"ARX_Outskirts_Harbour_RubblePileReward",ITEMGUID_S_ARX_Outskirts_Harbour_RubblePile_000_756dc006-bebc-4e3d-b34a-b04f5f704f17);
+DB_ShovelRewardItemAppear("ARX_Outskirts_Harbour_RubblePileReward",ITEMGUID_S_ARX_Outskirts_Harbour_RubblePile_Chest_000_6d1a5870-c5f8-4f09-8f5a-444b8627578b,TRIGGERGUID_S_ARX_Outskirts_Harbour_RubblePile_PointTrigger_000_a106bd5c-0d84-455f-b624-76041dfcc19f);
+SetOnStage(CHARACTERGUID_S_ARX_Outskirts_Harbour_RubblePile_Corpse_000_68ca52fd-88f4-4ead-b4f4-1faace2ba3ee,0);
+//END_REGION
+ItemToInventory(ITEMGUID_S_ARX_Harbour_HuntingForDallis_LordDreadLetter_c647e449-3658-4de9-9930-55259f2ef3e6,ITEMGUID_S_CONT_Humans_Citz_Chest_Rich_A_017_fdd5d24d-275f-4bb0-81ca-0d95e6afa451);
+ItemSetForceSynch(ITEMGUID_S_ARX_Harbour_KrakenScene_AudioHelper_8de1da5c-486c-4359-aae4-dfcecdf93e47,1);
+
+Proc_ARX_OUT_HarbourFight_SetUp();
+KBSECTION
+//REGION Debug
+
+IF
+TextEventSet("HarbourKillVW")
+AND
+DB_ARX_OUT_Harbour_Voidwoken(_VW)
+THEN
+CharacterDie((CHARACTERGUID)_VW,0,"PHYSICAL");
+
+
+IF
+TextEventSet("AHKS")
+AND
+DB_ARX_OUT_Harbour_KrakenTentacles(_Tentacle,_,_Timer)
+THEN
+ItemSetForceSynch(_Tentacle, 1);
+SetOnStage(_Tentacle,1);
+ProcObjectTimer(_Tentacle,"ARX_Harbour_TentacleAppear",_Timer);
+
+
+IF
+TextEventSet("HarbourAudioTest")
+THEN
+PlaySound(ITEMGUID_S_ARX_Harbour_KrakenScene_AudioHelper_8de1da5c-486c-4359-aae4-dfcecdf93e47,"SE_ARX_Kraken_Harbour_Spline_Trigger");
+
+//END_REGION
+//REGION Setup
+
+PROC
+Proc_ARX_OUT_HarbourFight_SetUp()
+AND
+DB_ARX_Kraken_Tentacles(_Tentacle,_)
+THEN
+DB_DontCreateMurder(_Tentacle);
+SetOnStage(_Tentacle,0);
+SetCombatGroupID(_Tentacle,"a2dcb60b-9956-4bb6-9930-116d30444a1f");
+
+IF
+DB_ARX_Kraken_Aftermath_Debris(_Debris)
+THEN
+SetOnStage(_Debris,0);
+
+//END_REGION
+//REGION VW
+
+IF 
+ObjectEnteredCombat((CHARACTERGUID)_Enemy,_) 
+AND 
+DB_ARX_OUT_Harbour_Voidwoken(_Enemy) 
+AND 
+QueryOnlyOnce("ARX_CombatSave_Harbour") 
+THEN 
+AutoSave();
+
+
+IF
+DB_Dead(_VW)
+AND
+DB_ARX_OUT_Harbour_Voidwoken(_VW)
+THEN
+NOT DB_ARX_OUT_Harbour_Voidwoken(_VW);
+
+
+IF
+CharacterReceivedDamage(_AnyVW,_,(CHARACTERGUID)_Player)
+AND
+DB_ARX_OUT_Harbour_Voidwoken(_AnyVW)
+AND
+DB_IsPlayer(_Player)
+AND
+GlobalGetFlag("ARX_Harbour_KrakenSpawnedFromHarbour",0)
+AND
+DB_OneShotPlayerTrigger(TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawn_Poly_6ad3ee26-f27c-4934-a7f4-a0c9b32a18f2)
+THEN
+RemoveOneShotTrigger(TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawn_Poly_6ad3ee26-f27c-4934-a7f4-a0c9b32a18f2);
+ProcOneShotTriggerEntered(_Player, TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawn_Poly_6ad3ee26-f27c-4934-a7f4-a0c9b32a18f2);
+
+
+PROC
+Proc_ARX_OUT_Harbour_TurnVWHostile()
+AND
+QueryOnlyOnce("ARX_OUT_Harbour_TurnVWHostile")
+AND
+DB_ARX_OUT_Harbour_Voidwoken(_VW)
+THEN
+SetFaction(_VW,"Evil NPC");
+SetStoryEvent(_VW,"ARX_Outskirts_HarbourVW_MoveToAttack");
+
+
+//Hack to have all enter combat, currently there is a distance check on Combat Groups, 
+//once that is resolved, this block can be removed
+IF
+ObjectEnteredCombat(_VW,_)
+AND
+DB_ARX_OUT_Harbour_Voidwoken(_VW)
+THEN
+Proc_ARX_OUT_HarbourFight_CombatHack((CHARACTERGUID)_VW);
+
+PROC
+Proc_ARX_OUT_HarbourFight_CombatHack((CHARACTERGUID)_VW)
+AND
+DB_ARX_OUT_Harbour_Voidwoken(_AllVW)
+AND
+ObjectIsCharacter((CHARACTERGUID)_AllVW,1)
+AND
+CharacterIsInCombat(_AllVW,0)
+THEN
+EnterCombat(_VW,_AllVW);
+
+IF
+StoryEvent(_Tentacle,"ARX_OUT_Harbour_TentacleAppeared")
+THEN
+EnterCombat(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,_Tentacle);
+
+PROC
+Proc_ARX_OUT_HarbourFight_CombatHack((CHARACTERGUID)_VW)
+AND
+NOT DB_GlobalFlag("ARX_OUT_HarbourFight_KrakenLeftCombat")
+AND
+CharacterIsInCombat(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,0)
+THEN
+EnterCombat(_VW,CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080);
+
+//END_REGION
+//REGION Synching tentacles
+
+IF
+DB_ARX_OUT_Harbour_KrakenTentacleSmashable(_Tentacle, _Smashable, _, _)
+THEN
+ItemSetForceSynch(_Smashable, 1);
+
+IF
+DB_ARX_OUT_Harbour_KrakenTentacles(_Tentacle,_,_)
+THEN
+ItemSetForceSynch(_Tentacle, 1);
+SetVisible(_Tentacle, 0); 
+
+//END_REGION
+//REGION Kraken spawns
+
+// from ledge
+PROC
+ProcOneShotTriggerEntered(_Player, TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawnLedge_Box_5ce0ef00-8a93-43b3-b426-0ac2ee692d85)
+THEN
+StartVoiceBark("ARX_Outskirts_VB_KrakenAppearFar", _Player);
+GlobalSetFlag("ARX_Outskirts_Harbour_KrakenAppeared");
+
+
+//from harbour
+PROC
+ProcOneShotTriggerEntered(_Player, TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawn_Poly_6ad3ee26-f27c-4934-a7f4-a0c9b32a18f2)
+THEN
+GlobalSetFlag("ARX_Harbour_KrakenSpawnedFromHarbour");
+ProcDisableShroud();
+RemoveOneShotTrigger(TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawnLedge_Box_5ce0ef00-8a93-43b3-b426-0ac2ee692d85);
+GlobalSetFlag("ARX_Outskirts_Harbour_KrakenAppeared");
+ItemSetForceSynch(ITEMGUID_S_ARX_Harbour_Kraken_48f89411-8875-4494-8ed0-3beff849ce84, 0); //kraken object not needed anymore
+SetOnStage(ITEMGUID_S_ARX_Harbour_Kraken_48f89411-8875-4494-8ed0-3beff849ce84,0);
+
+
+PROC
+ProcOneShotTriggerEntered(_Player, TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawn_Poly_6ad3ee26-f27c-4934-a7f4-a0c9b32a18f2)
+AND
+GetDistanceTo(_Player, TRIGGERGUID_S_ARX_Harbour_Spawn_RightSide_PointTrigger_2f296b42-72d2-46ec-8506-0d80d828b76e, _DistanceRight)
+AND
+GetDistanceTo(_Player, TRIGGERGUID_S_ARX_Harbour_Spawn_LeftSide_PointTrigger_63bc2ebb-1914-48b4-8789-7d9c4eed9ac8, _DistanceLeft)
+THEN
+Proc_ARX_OUT_Harbour_CheckDistances(_DistanceRight,_DistanceLeft);
+
+PROC
+Proc_ARX_OUT_Harbour_CheckDistances((REAL)_DistanceRight,(REAL)_DistanceLeft)
+AND
+_DistanceRight <= _DistanceLeft
+THEN
+Proc_ARX_OUT_Harbour_StartCameraSpline(SPLINEGUID_S_ARX_Outskirts_Harbour_Camera_Spline_02_0d0037b6-fa82-4f17-8ddf-24ddc73edac0,"Left");
+
+PROC
+Proc_ARX_OUT_Harbour_CheckDistances((REAL)_DistanceRight,(REAL)_DistanceLeft)
+AND
+_DistanceRight > _DistanceLeft
+THEN
+Proc_ARX_OUT_Harbour_StartCameraSpline(SPLINEGUID_S_ARX_Outskirts_Harbour_Camera_Spline_03_b7c63238-0a3f-42d3-95c5-b1f40e60cc2a,"Right");
+
+
+PROC
+Proc_ARX_OUT_Harbour_StartCameraSpline((SPLINEGUID)_Spline,(STRING)_Side)
+AND
+DB_IsPlayer(_Player)
+AND
+DB_InRegion(_Player,TRIGGERGUID_S_ARX_Outskirts_Harbour_Subregion_Box_c14f8f58-aa68-4f8a-a18c-3a47dd16cf28)
+AND
+QRY_SpeakerIsAvailable(_Player)
+THEN
+StartCameraSpline(_Spline,_Player,1.0,1,1,0);
+GlobalSetFlag("ARX_OUT_Harbour_CameraSplineStarted");
+Proc_ARX_OUT_Harbour_CutsceneAudio(_Player,_Side);
+DB_ARX_Harbour_InSpline(_Player);
+
+
+PROC // fallback, no player available for the camera
+Proc_ARX_OUT_Harbour_StartCameraSpline((SPLINEGUID)_,(STRING)_)
+AND
+NOT DB_ARX_Harbour_InSpline(_)
+THEN
+DB_ARX_Harbour_Fallback_NoPlayerInCutscene(1);
+
+
+PROC
+Proc_ARX_OUT_Harbour_CutsceneAudio((CHARACTERGUID)_Player,(STRING)_Side)
+AND
+QueryOnlyOnce("SE_ARX_Kraken_Harbour_Spline")
+AND
+StringConcatenate("SE_ARX_Kraken_Harbour_Spline_",_Side,_Harbour_Spline_SoundEvent)
+THEN
+PlaySound(ITEMGUID_S_ARX_Harbour_KrakenScene_AudioHelper_8de1da5c-486c-4359-aae4-dfcecdf93e47,_Harbour_Spline_SoundEvent);
+
+//END_REGION
+//REGION Remove sneak on cutscene
+
+IF
+DB_ARX_Harbour_InSpline(_Player)
+AND
+HasActiveStatus(_Player,"SNEAKING",1)
+THEN
+RemoveStatus(_Player,"SNEAKING");
+
+//END_REGION
+//REGION ITEM -- Kraken/Tentacles
+PROC
+ProcOneShotTriggerEntered(_Player, _Trigger)
+AND
+DB_ARX_OUT_Harbour_KrakenTentacles(_Tentacle,_Trigger,_AppearTimer)
+THEN
+ProcObjectTimer(_Tentacle, "ARX_Harbour_TentacleAppear",_AppearTimer);
+
+
+PROC
+ProcObjectTimerFinished(_Tentacle, "ARX_Harbour_TentacleAppear")
+AND
+GetVarString(_Tentacle,"SpawnAnimation",_Anim)
+THEN
+SetStoryEvent(_Tentacle, "ARX_Harbour_StartAppear"); //catch in their script (sets them visible)
+PlayAnimation(_Tentacle,_Anim,"ARX_Harbour_OffStageAfterAnim");
+
+
+PROC
+ProcObjectTimerFinished(_Tentacle, "ARX_Harbour_TentacleAppear")
+AND
+DB_ARX_OUT_Harbour_KrakenTentacleSmashable((ITEMGUID)_Tentacle, _Smashable, _Timer, _)
+THEN
+ProcObjectTimer(_Smashable, "ARX_Harbour_TentacleSmash", _Timer);
+
+
+PROC
+ProcObjectTimerFinished(_Smashable, "ARX_Harbour_TentacleSmash")
+AND
+DB_ARX_OUT_Harbour_KrakenTentacleSmashable(_,(ITEMGUID)_Smashable,_,_Effect)
+AND
+GetPosition(_Smashable,_X,_Y,_Z)
+THEN
+ItemDestroy(_Smashable);
+Proc_ARX_OUT_Harbour_PlayEffect((STRING)_Effect,_X,_Y,_Z);
+
+PROC
+Proc_ARX_OUT_Harbour_PlayEffect((STRING)_Effect,(REAL)_X,(REAL)_Y,(REAL)_Z)
+AND
+_Effect != ""
+THEN
+PlayEffectAtPosition(_Effect,_X,_Y,_Z);
+
+
+IF
+ItemDestroyed(_Smashable)
+AND
+DB_ARX_OUT_Harbour_KrakenTentacleSmashable(_Tentacle,_Smashable,_Timer,_Effect)
+THEN
+ItemSetForceSynch(_Smashable, 0);
+NOT DB_ARX_OUT_Harbour_KrakenTentacleSmashable(_Tentacle,_Smashable,_Timer,_Effect);
+
+IF
+ItemDestroyed(ITEMGUID_S_ARX_Harbour_Kraken_Crane5_ba3a00b7-04c0-4f1a-8e88-98ef4a85426b)
+THEN
+SetOnStage(ITEMGUID_S_ARX_Harbour_Kraken_Crane5_ba3a00b7-04c0-4f1a-8e88-98ef4a85426b,0);
+
+//END_REGION
+//REGION Setting offstage after anim
+
+IF
+StoryEvent((ITEMGUID)_Tentacle,"ARX_Harbour_OffStageAfterAnim")
+AND
+NOT DB_GlobalFlag("ARX_Harbour_KrakenSpawnedFromHarbour")
+THEN
+ItemSetForceSynch(_Tentacle, 1);
+SetVisible(_Tentacle,0);
+
+IF
+StoryEvent((ITEMGUID)_Tentacle,"ARX_Harbour_OffStageAfterAnim")
+AND
+DB_GlobalFlag("ARX_Harbour_KrakenSpawnedFromHarbour")
+THEN
+ItemSetForceSynch(_Tentacle, 0);
+SetOnStage(_Tentacle,0);
+
+IF
+StoryEvent(ITEMGUID_S_ARX_Harbour_Kraken_48f89411-8875-4494-8ed0-3beff849ce84,"ARX_Harbour_OffStageAfterAnim")
+AND
+NOT DB_GlobalFlag("ARX_Harbour_KrakenSpawnedFromHarbour")
+THEN
+PlayAnimation(ITEMGUID_S_ARX_Harbour_Kraken_48f89411-8875-4494-8ed0-3beff849ce84,"");
+
+IF
+StoryEvent(ITEMGUID_S_ARX_Harbour_Kraken_48f89411-8875-4494-8ed0-3beff849ce84,"ARX_Harbour_OffStageAfterAnim")
+AND
+DB_GlobalFlag("ARX_Harbour_KrakenSpawnedFromHarbour")
+AND
+NOT DB_GlobalFlag("ARX_OUT_Harbour_CameraSplineStarted")
+THEN
+Proc_ARX_OUT_Harbour_TurnVWHostile();
+
+IF
+StoryEvent(ITEMGUID_S_ARX_Harbour_Kraken_48f89411-8875-4494-8ed0-3beff849ce84,"ARX_Harbour_OffStageAfterAnim")
+AND
+DB_GlobalFlag("ARX_Harbour_KrakenSpawnedFromHarbour")
+THEN
+GlobalSetFlag("ARX_Outskirts_Harbour_KrakenLeft");
+RemoveOneShotTrigger(TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawn_Poly_6ad3ee26-f27c-4934-a7f4-a0c9b32a18f2);
+RemoveOneShotTrigger(TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawnLedge_Box_5ce0ef00-8a93-43b3-b426-0ac2ee692d85);
+
+//END_REGION
+//REGION RubblePile
+
+PROC
+ProcShovelRewards(_Player,"ARX_Outskirts_Harbour_RubblePileReward")
+THEN
+Foop(CHARACTERGUID_S_ARX_Outskirts_Harbour_RubblePile_Corpse_000_68ca52fd-88f4-4ead-b4f4-1faace2ba3ee);
+
+//END_REGION
+//REGION CHARACTER -- Kraken/Tentacles
+
+//--- Spawn
+PROC
+ProcOneShotTriggerEntered(_Player, TRIGGERGUID_S_ARX_Outskirts_Harbour_KrakenSpawn_Poly_6ad3ee26-f27c-4934-a7f4-a0c9b32a18f2)
+THEN
+TimerLaunch("ARX_Harbour_DelayKrakenSpawn",1000);
+
+IF
+TimerFinished("ARX_Harbour_DelayKrakenSpawn")
+THEN
+CharacterAppear(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,1,"ARX_Harbour_KrakenHead_Appeared");
+CharacterSetForceSynch(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080, 1);
+ItemSetForceSynch(ITEMGUID_S_ARX_Harbour_Kraken_FX_Helper_ac7a5f8a-0dc5-4d8a-b032-2eb0d2040174, 1);
+PlayEffect(ITEMGUID_S_ARX_Harbour_Kraken_FX_Helper_ac7a5f8a-0dc5-4d8a-b032-2eb0d2040174,"RS3_FX_Char_Creatures_Head_Kraken_A_Spawn_WaterSplashEmerge_HarbourFight_02");
+
+
+//--- After spawn, combat
+IF
+TimerFinished("ARX_OUT_Harbour_TurnVWHostileAfterCamera")
+THEN
+SetFaction(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,"Evil NPC");
+
+IF
+ObjectEnteredCombat(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,_)
+AND
+QueryOnlyOnce("ARX_OUT_HarbourFight_SpawnTentacle")
+AND
+DB_ARX_Kraken_Tentacles(_Tentacle,_Timer)
+THEN
+ProcObjectTimer(_Tentacle,"ARX_Harbour_TentacleSpawnDelay",_Timer);
+
+PROC
+ProcObjectTimerFinished(_Tentacle,"ARX_Harbour_TentacleSpawnDelay")
+AND
+DB_ARX_Kraken_Tentacle_FXHelper((CHARACTERGUID)_Tentacle,_Helper)
+THEN
+SetOnStage(_Tentacle,1);
+PlayAnimation(_Tentacle,"spawn","ARX_OUT_Harbour_TentacleAppeared");
+CharacterSetForceSynch(_Tentacle, 1);
+ItemSetForceSynch(_Helper, 1);
+ApplyStatus(_Tentacle, "WET", 2.0);
+CreateSurface(_Tentacle,"SurfaceWater",1.5,-1.0);
+PlayEffect(_Helper,"RS3_FX_Char_Creatures_Tentacle_Kraken_A_Attack_WaterSplashEmerge_HarbourFight_01");
+
+//Tentacles Sounds 
+IF
+CharacterReceivedDamage((CHARACTERGUID)_Tentacle,_Dmg,(CHARACTERGUID)_Player)
+AND
+_Dmg > 0
+AND
+NOT DB_Creatures_Kraken_Tentacle_ABC_HarbourFight_Hit_01_Vocal_AntiSpam(1)
+AND
+GlobalGetFlag("ARX_OUT_HarbourFight_KrakenLeftCombat",0)
+AND
+DB_ARX_Kraken_Tentacles(_Tentacle,_)
+AND
+DB_IsPlayer(_Player)
+AND
+CharacterGetHitpointsPercentage(_Tentacle,_Hp)
+AND
+_Hp > 0
+THEN
+ProcObjectTimer(S_ARX_Outskirts_Harbour_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,"Creatures_Kraken_Tentacle_ABC_HarbourFight_Hit_01_Vocal_AntiSpam",500);
+DB_Creatures_Kraken_Tentacle_ABC_HarbourFight_Hit_01_Vocal_AntiSpam(1);
+PlaySound(S_ARX_Outskirts_Harbour_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,"Creatures_Kraken_Tentacle_ABC_HarbourFight_Hit_01_Vocal");
+
+PROC
+ProcObjectTimerFinished(S_ARX_Outskirts_Harbour_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,"Creatures_Kraken_Tentacle_ABC_HarbourFight_Hit_01_Vocal_AntiSpam")
+THEN
+NOT DB_Creatures_Kraken_Tentacle_ABC_HarbourFight_Hit_01_Vocal_AntiSpam(1);
+
+//--- Kraken leave triggers
+//kraken lost HP
+IF
+CharacterVitalityChanged(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,_)
+AND
+CharacterGetHitpointsPercentage(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,_Hp)
+AND
+_Hp <= 80.0
+THEN
+Proc_ARX_OUT_HarbourFight_EndCombat();
+
+
+//all tentacles died
+IF
+CharacterDying(_Tentacle)
+AND
+DB_ARX_Kraken_Tentacles(_Tentacle,_Timer)
+AND
+DB_ARX_Kraken_Tentacle_FXHelper(_Tentacle,_Helper)
+THEN
+NOT DB_ARX_Kraken_Tentacles(_Tentacle,_Timer);
+DB_ARX_Kraken_DeadTentacles(_Tentacle);
+NOT DB_ARX_Kraken_Tentacle_FXHelper(_Tentacle,_Helper);
+PlayEffect(_Helper,"RS3_FX_Char_Creatures_Tentacle_Kraken_A_Attack_WaterSplashDissappear_HarbourFight_01");
+ItemSetForceSynch(_Helper, 0);
+PlaySound(S_ARX_Outskirts_Harbour_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,"Creatures_Kraken_Tentacle_ABC_HarbourFight_Despawn_Vocal");
+Proc_ARX_OUT_HarbourFight_CheckEndCombat();
+
+IF
+CharacterDied(_Tentacle)
+AND
+DB_ARX_Kraken_DeadTentacles(_Tentacle)
+THEN
+NOT DB_ARX_Kraken_DeadTentacles(_Tentacle);
+SetOnStage(_Tentacle,0);
+
+PROC
+Proc_ARX_OUT_HarbourFight_CheckEndCombat()
+AND
+NOT DB_GlobalFlag("ARX_OUT_HarbourFight_KrakenLeftCombat")
+AND
+NOT DB_ARX_Kraken_Tentacles(_,_)
+THEN
+Proc_ARX_OUT_HarbourFight_EndCombat();
+
+
+//despawn
+PROC
+Proc_ARX_OUT_HarbourFight_EndCombat()
+THEN
+GlobalSetFlag("ARX_OUT_HarbourFight_KrakenLeftCombat");
+Proc_ARX_OUT_HarbourFight_Leave(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080);
+TimerLaunch("ARX_Kraken_Debris_Spawn_Timer",3500);    //a timer that commands the appearing of floating debris, ideally on where the kraken hits the water (FX will mask)
+PlayEffect(ITEMGUID_S_ARX_Harbour_Kraken_FX_Helper_ac7a5f8a-0dc5-4d8a-b032-2eb0d2040174,"RS3_FX_Char_Creatures_Head_Kraken_A_Burrow_WaterSplashDissappear_HarbourFight_02");
+
+PROC
+Proc_ARX_OUT_HarbourFight_EndCombat()
+AND
+DB_ARX_Kraken_Tentacles(_Tentacle,_Timer)
+THEN
+NOT DB_ARX_Kraken_Tentacles(_Tentacle,_Timer);
+Proc_ARX_OUT_HarbourFight_Leave(_Tentacle);
+
+PROC
+Proc_ARX_OUT_HarbourFight_Leave((CHARACTERGUID)_NPC)
+AND
+_NPC != CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080
+THEN
+LeaveCombat(_NPC);
+SetCanFight(_NPC,0);
+PlayAnimation(_NPC,"die_melee","ARX_OUT_HarbourFight_Despawned");
+ProcObjectTimer(_NPC,"ARX_OUT_HarbourFight_Despawned",1800); //anim duration: 1.9
+
+PROC
+Proc_ARX_OUT_HarbourFight_Leave((CHARACTERGUID)CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080)
+THEN
+JumpToTurn(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080);
+PlayAnimation(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,"die_melee","ARX_OUT_HarbourFight_Despawned");
+ProcObjectTimer(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,"ARX_OUT_HarbourFight_Despawned",4600); //anim duration: 4.7333
+PlaySound(ITEMGUID_S_ARX_Harbour_KrakenScene_AudioHelper_Kraken_e4ccf676-37af-4c5a-9d27-354ee83e989a,"Creatures_Kraken_ABC_HarbourFight_Die_01");
+
+IF
+TimerFinished("ARX_Kraken_Debris_Spawn_Timer")
+AND
+DB_ARX_Kraken_Aftermath_Debris(_Debris)
+THEN
+SetOnStage(_Debris,1);
+
+PROC
+ProcObjectTimerFinished(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,"ARX_OUT_HarbourFight_Despawned")
+THEN
+SetOnStage(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,0);
+CharacterRemoveSummons(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,1);
+LeaveCombat(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080);
+
+IF
+StoryEvent(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,"ARX_OUT_HarbourFight_Despawned")
+THEN
+CharacterSetForceSynch(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080, 0);
+ItemSetForceSynch(ITEMGUID_S_ARX_Harbour_Kraken_FX_Helper_ac7a5f8a-0dc5-4d8a-b032-2eb0d2040174, 0);
+
+PROC
+ProcObjectTimerFinished(_NPC,"ARX_OUT_HarbourFight_Despawned")
+AND
+DB_ARX_Kraken_Tentacle_FXHelper((CHARACTERGUID)_NPC,_Helper)
+THEN
+SetOnStage(_NPC,0);
+
+IF
+StoryEvent((CHARACTERGUID)_NPC,"ARX_OUT_HarbourFight_Despawned")
+AND
+DB_ARX_Kraken_Tentacle_FXHelper(_NPC,_Helper)
+THEN
+NOT DB_ARX_Kraken_Tentacle_FXHelper(_NPC,_Helper);
+ItemSetForceSynch(_Helper, 0);
+
+//END_REGION
+//REGION Kraken fight EXP
+
+IF
+GlobalFlagSet("ARX_OUT_HarbourFight_KrakenLeftCombat")
+AND
+DB_CombatCharacters(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,_CombatID)
+AND
+DB_IsPlayer(_Player)
+AND
+DB_CombatCharacters(_Player,_CombatID)
+THEN
+DB_ARX_Kraken_WasInCombat(_Player);
+
+IF
+StoryEvent(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,"ARX_OUT_HarbourFight_Despawned")
+AND
+DB_ARX_Kraken_WasInCombat(_Player)
+THEN
+NOT DB_ARX_Kraken_WasInCombat(_Player);
+Proc_ARX_OUT_HarbourFight_GiveExperience(_Player);
+
+PROC
+Proc_ARX_OUT_HarbourFight_GiveExperience((CHARACTERGUID)_Player)
+AND
+PartyGetFlag(_Player,"ARX_OUT_HarbourFight_ReceivedExperience",0)
+THEN
+PartySetFlag(_Player,"ARX_OUT_HarbourFight_ReceivedExperience");
+//PartyAddExperience(_Player,1,18,6);
+
+//END_REGION
+//REGION Camera manipulations (Kraken turn)
+IF
+ObjectTurnStarted(CHARACTERGUID_S_ARX_Harbour_Creatures_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080)
+THEN
+SetCameraDistanceOverride(25.0);
+
+IF
+ObjectTurnEnded(CHARACTERGUID_S_ARX_Harbour_Creatures_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080)
+THEN
+SetCameraDistanceOverride(19.0);
+//END_REGION
+//REGION Handling the camera spline
+
+//Camera spline 02
+IF
+CameraReachedNode(SPLINEGUID_S_ARX_Outskirts_Harbour_Camera_Spline_02_0d0037b6-fa82-4f17-8ddf-24ddc73edac0, _Character,_,_,1)
+THEN
+StopCameraSpline(SPLINEGUID_S_ARX_Outskirts_Harbour_Camera_Spline_02_0d0037b6-fa82-4f17-8ddf-24ddc73edac0, _Character);
+NOT DB_ARX_Harbour_InSpline(_Character);
+PROC_ARX_Harbour_TryEnableShroud();
+ItemSetForceSynch(ITEMGUID_S_ARX_Harbour_KrakenScene_AudioHelper_8de1da5c-486c-4359-aae4-dfcecdf93e47,0);
+UserSetFlag(_Character,"QuestUpdate_CORE_Chapter6_ARX_Kraken");
+
+IF
+CameraReachedNode(SPLINEGUID_S_ARX_Outskirts_Harbour_Camera_Spline_02_0d0037b6-fa82-4f17-8ddf-24ddc73edac0, _Character,_,_,1)
+AND
+DB_GlobalFlag("ARX_Harbour_KrakenSpawnedFromHarbour")
+AND
+QueryOnlyOnce("ARX_OUT_Harbour_AfterCamera")
+THEN
+StartVoiceBark("ARX_Outskirts_VB_KrakenAppear", _Character);
+TimerLaunch("ARX_OUT_Harbour_TurnVWHostileAfterCamera",3000);
+
+
+IF // fallback
+StoryEvent(_,"ARX_Harbour_KrakenHead_Appeared")
+AND
+DB_ARX_Harbour_Fallback_NoPlayerInCutscene(1)
+THEN
+NOT DB_ARX_Harbour_Fallback_NoPlayerInCutscene(1);
+PROC_ARX_Harbour_TryEnableShroud();
+ItemSetForceSynch(ITEMGUID_S_ARX_Harbour_KrakenScene_AudioHelper_8de1da5c-486c-4359-aae4-dfcecdf93e47,0);
+TimerLaunch("ARX_OUT_Harbour_TurnVWHostileAfterCamera",3000);
+
+
+//Camera spline 03
+IF
+CameraReachedNode(SPLINEGUID_S_ARX_Outskirts_Harbour_Camera_Spline_03_b7c63238-0a3f-42d3-95c5-b1f40e60cc2a, _Character,_,_,1)
+THEN
+StopCameraSpline(SPLINEGUID_S_ARX_Outskirts_Harbour_Camera_Spline_03_b7c63238-0a3f-42d3-95c5-b1f40e60cc2a, _Character);
+NOT DB_ARX_Harbour_InSpline(_Character);
+PROC_ARX_Harbour_TryEnableShroud();
+ItemSetForceSynch(ITEMGUID_S_ARX_Harbour_KrakenScene_AudioHelper_8de1da5c-486c-4359-aae4-dfcecdf93e47,0);
+UserSetFlag(_Character,"QuestUpdate_CORE_Chapter6_ARX_Kraken");
+
+IF
+CameraReachedNode(SPLINEGUID_S_ARX_Outskirts_Harbour_Camera_Spline_03_b7c63238-0a3f-42d3-95c5-b1f40e60cc2a, _Character,_,_,1)
+AND
+DB_GlobalFlag("ARX_Harbour_KrakenSpawnedFromHarbour")
+AND
+QueryOnlyOnce("ARX_OUT_Harbour_AfterCamera")
+THEN
+StartVoiceBark("ARX_Outskirts_VB_KrakenAppear", _Character);
+TimerLaunch("ARX_OUT_Harbour_TurnVWHostileAfterCamera",3000);
+
+
+PROC
+PROC_ARX_Harbour_TryEnableShroud()
+AND
+NOT DB_ARX_Harbour_InSpline(_)
+THEN
+ProcEnableShroud();
+
+IF
+TimerFinished("ARX_OUT_Harbour_TurnVWHostileAfterCamera")
+THEN
+Proc_ARX_OUT_Harbour_TurnVWHostile();
+
+//END_REGION
+//REGION Status handling
+// At the start of the Kraken's turn, in hardcore mode, apply REGENERATION on tentacles
+// only the statuses in DB_ARX_Kraken_PairedStatus are transmitted from the tentacles to the head, so only the tentacles will get this
+IF
+ObjectTurnStarted(CHARACTERGUID_S_ARX_Harbour_Creatures_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080)
+AND
+DB_GlobalFlag("ARX_Harbour_IsHardcore") //set in 'ARX_Harbour_KrakenSpawn.itemScript' when the global "ARX_Harbour_KrakenSpawnedFromHarbour" is set
+AND
+DB_ARX_Kraken_Tentacles(_Tentacle,_)
+AND
+NOT DB_Dead(_Tentacle)
+AND
+HasActiveStatus(_Tentacle,"REGENERATION",0)
+THEN
+ApplyStatus(_Tentacle,"REGENERATION",3.0,1); //regen for 1 turn
+
+
+// SKIP TURN
+IF
+ObjectTurnStarted((CHARACTERGUID)_Tentacle)
+AND
+DB_ARX_Kraken_Tentacles(_Tentacle,_)
+AND
+Qry_ARX_Kraken_HasEndTurnStatus()
+THEN
+EndTurn(_Tentacle);
+
+QRY
+Qry_ARX_Kraken_HasEndTurnStatus()
+AND
+DB_ARX_Kraken_SkipTurnStatus(_Status)
+AND
+HasActiveStatus(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,_Status,1)
+THEN
+DB_NOOP(1);
+
+
+// APPLIED
+IF
+CharacterStatusApplied(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,_Status,_)
+AND
+NOT DB_ARX_Kraken_NotSharedStatus((STRING)_Status)
+AND
+NOT DB_ARX_Kraken_SkipTurnStatus(_Status)
+AND
+NOT DB_ARX_Kraken_PairedStatus(_,_Status,_)
+AND
+DB_ARX_Kraken_Tentacles(_Tentacle,_)
+AND
+CharacterIsDead(_Tentacle,0)
+THEN
+Proc_ARX_Kraken_RemoveStatus(_Tentacle,_Status);
+Proc_ARX_Kraken_TentacleApplyStatus(_Tentacle,_Status);
+
+IF
+CharacterStatusApplied(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,_MainStatus,_)
+AND
+DB_ARX_Kraken_PairedStatus(_IntermediateStatus,_MainStatus,_OppositeStatus)
+AND
+DB_ARX_Kraken_Tentacles(_Tentacle,_)
+AND
+CharacterIsDead(_Tentacle,0)
+AND
+HasActiveStatus(_Tentacle,_MainStatus,0)
+THEN
+Proc_ARX_Kraken_RemoveStatus(_Tentacle,_OppositeStatus);
+Proc_ARX_Kraken_RemoveStatus(_Tentacle,_IntermediateStatus);
+Proc_ARX_Kraken_TentacleApplyStatus(_Tentacle,_IntermediateStatus);
+
+PROC
+Proc_ARX_Kraken_TentacleApplyStatus((CHARACTERGUID)_Tentacle,(STRING)_Status)
+THEN
+ApplyStatus(_Tentacle,_Status,-1.0,1); //status is applied for an infinite duration, waiting to be removed when it's removed on the kraken
+
+
+// REMOVED
+IF
+CharacterStatusRemoved(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,_Status,_)
+AND
+NOT DB_ARX_Kraken_SkipTurnStatus(_Status)
+AND
+DB_ARX_Kraken_Tentacles(_Tentacle,_)
+AND
+CharacterIsDead(_Tentacle,0)
+THEN
+Proc_ARX_Kraken_RemoveStatus(_Tentacle,_Status);
+
+PROC
+Proc_ARX_Kraken_RemoveStatus((CHARACTERGUID)_KrakenTentacle,(STRING)_Status)
+AND
+_Status != "None"
+AND
+HasActiveStatus(_KrakenTentacle,_Status,1)
+THEN
+RemoveStatus(_KrakenTentacle,_Status);
+
+
+// Tentacle status applying to the kraken
+IF
+CharacterStatusApplied(_Tentacle,_MainStatus,_)
+AND
+DB_ARX_Kraken_Tentacles(_Tentacle,_)
+AND
+DB_ARX_Kraken_PairedStatus(_IntermediateStatus,_MainStatus,_OppositeStatus)
+AND
+NOT Qry_ARX_Kraken_TentacleWithoutStatus(_MainStatus)
+AND
+HasActiveStatus(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,_MainStatus,0)
+THEN
+Proc_ARX_Kraken_RemoveStatus(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,_OppositeStatus);
+Proc_ARX_Kraken_RemoveStatus(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,_IntermediateStatus);
+ApplyStatus(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-416e-a37f-c4180f117080,_IntermediateStatus,9.0,1); // duration 0f 9.0 should be ~3 turns
+
+QRY
+Qry_ARX_Kraken_TentacleWithoutStatus((STRING)_Status)
+AND
+DB_ARX_Kraken_Tentacles(_Tentacle,_)
+AND
+HasActiveStatus(_Tentacle,_Status,0)
+THEN
+DB_NOOP(1);
+
+//END_REGION
+//REGION Dynamic Amb
+IF
+CharacterEnteredTrigger(_Player,TRIGGERGUID_S_ARX_AutoSave_Harbour_985e735e-08af-4386-bddb-7cadf7107835)
+AND
+DB_IsPlayer(_Player)
+AND
+QueryOnlyOnce("Pointsound_ARX_Docks_KrakenBattle_Stop") //Should be called once as it sets a Global State
+THEN
+TimerLaunch("Pointsound_ARX_Docks_KrakenBattle_Stop",3000);
+
+IF
+TimerFinished("Pointsound_ARX_Docks_KrakenBattle_Stop")
+THEN
+TriggerSetSoundState(TRIGGERGUID_SoundVolumeTrigger_ARX_Main_2b111616-c09a-4614-9941-d3574e468c19,"ARX_Krakenbattle","KrakenBattleEnded",1);
+
+//END_REGION
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "ARX"

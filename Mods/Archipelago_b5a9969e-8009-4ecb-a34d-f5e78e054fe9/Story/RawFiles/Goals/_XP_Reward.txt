@@ -1,0 +1,17 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+DB_XP_Reward("RC_OIL_Puzzle",5,5,5);
+DB_XP_Reward("RC_FL_Puzzle",10,10,10);
+KBSECTION
+PROC
+ProcGiveXPReward((STRING)_ID,(CHARACTERGUID)_Char)
+AND
+DB_XP_Reward(_ID,_Act,_ActPart,_Gain)
+THEN
+//PartyAddExperience(_Char,_Act,_ActPart,_Gain);
+NOT DB_XP_Reward(_ID,_Act,_ActPart,_Gain);
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "Start"

@@ -1,0 +1,174 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+// If your NPC unlocks a Source Point, using one of the flags from DB_RC_DW_Meistr_SourceKnowledge,
+// add the Source Point giving dialog to this database:
+//     DB_GLO_SourcePointUnlockDialog((STRING)_Dialog,(STRING)_Flag)
+// On dialog start, the PROC will run through party members of talking player and check if any of them
+// can benefit from this Source Point unlock.
+// If so, the talking character will get GLO_SPUnlockAvailable flag, cleared at dialog end.
+//
+// If some global flag blocks unlocking SourcePoint by this NPC, add that flag to
+//     DB_GLO_SourcePointUnlockBlock((STRING)_SPflag,(STRING)_BlockingFlag)
+// All in all, you get 3 mutualy exclusive situations in dialog (in priority order): 
+//   GLO_SPUnlockAvailable   - Source Point can be given
+//   GLO_SPUnlockUnavailable - this particular Source Point already given/party has max SP
+//   GLO_SPUnlockBlocked     - NPC can't give Source Point (is blocked)
+
+
+DB_GLO_SourcePointUnlockDialog("RC_GY_Ryker","RC_DW_Meistr_SourceKnowledge_Ryker");
+DB_GLO_SourcePointUnlockBlock("RC_DW_Meistr_SourceKnowledge_Ryker","RC_GY_RykersContract_Ritual_Unavailable");
+
+DB_GLO_SourcePointUnlockDialog("RC_BF_DemonHunter","RC_DW_Meistr_SourceKnowledge_Jahan");
+DB_GLO_SourcePointUnlockBlock("RC_DW_Meistr_SourceKnowledge_Jahan","RC_BF_DemonHunter_Ritual_Unavailable");
+
+DB_GLO_SourcePointUnlockDialog("RC_BI_LizardDemonLeader","RC_DW_Meistr_SourceKnowledge_Advocate");
+DB_GLO_SourcePointUnlockBlock("RC_DW_Meistr_SourceKnowledge_Advocate","RC_BI_Advocate_Ritual_Unavailable");
+
+DB_GLO_SourcePointUnlockDialog("RC_DW_WC_BossFight_Mordus","RC_DW_Meistr_SourceKnowledge_Mordus");
+DB_GLO_SourcePointUnlockDialog("RC_FL_Almira","RC_DW_Meistr_SourceKnowledge_Almira");
+DB_GLO_SourcePointUnlockDialog("RC_MIL_Saheila","RC_DW_Meistr_SourceKnowledge_Saheila");
+DB_GLO_SourcePointUnlockDialog("RC_MIL_SaheilaTovahReward","RC_DW_Meistr_SourceKnowledge_Saheila");
+DB_GLO_SourcePointUnlockDialog("RC_BF_CorneredSourcerer_Sourcerer","RC_DW_Meistr_SourceKnowledge_Hannag");
+
+// This database contains backup rewards for quest completion in case when player has maximum Source Points
+// DB_GLO_SourcePointSecondaryReward(_NPC,_Item,_PartyFlag);
+// Set this flag on character to give the backup reward:
+DB_OneTimeEventFlag("GLO_SourcePointBackupReward");
+DB_GLO_SourcePointSecondaryReward((CHARACTERGUID)CHARACTERGUID_S_GLO_Almira_49b466a9-e67f-4e3c-8f66-3636ba7dd54f,"BOOK_Skill_Necromancy_BlackShroud_b12a442a-cc2f-4387-995e-7ce14826fa55");
+DB_GLO_SourcePointSecondaryReward(CHARACTERGUID_S_GLO_Saheila_fcacdf08-b05f-4333-b0e0-ddf29c13d8e0,"BOOK_Skill_Ranger_Farsight_682663f1-f19f-47e6-be8e-df344533d949");
+DB_GLO_SourcePointSecondaryReward(CHARACTERGUID_S_RC_GY_Ryker_522b8095-b539-4a82-84f3-bf8e5a74dfe4,"BOOK_Skill_Necromancy_GraspOfTheStarved_880d084e-20aa-4a50-9a4c-294d46399ed6");
+DB_GLO_SourcePointSecondaryReward(CHARACTERGUID_S_RC_DW_WC_BossFight_Skeleton_Mordus_d46ade3f-f786-4fcc-975c-361a106f2853,"BOOK_Skill_Polymorph_ShedSkin_cac0c495-916e-490e-8f86-105783eb17fa");
+DB_GLO_SourcePointSecondaryReward(CHARACTERGUID_S_GLO_Jahan_4d222cfd-49c8-41d3-8cb7-2a2b56232633,"BOOK_Skill_Summoning_InnerDemon_7c1d4c29-5e16-4fc3-8ee0-afe771fbd367");
+DB_GLO_SourcePointSecondaryReward(CHARACTERGUID_S_GLO_Advocate_bfa3e903-78ab-46aa-9a95-54fb956eb2b3,"ITEMGUID_BOOK_Skill_Fire_InfectiousFlame_7be51ea9-2722-405e-9978-f87bda5e60b8");
+//DB_GLO_SourcePointSecondaryReward(Hannag,"BOOK_Skill_Summoning_PlanarGateway_27c01b16-bf05-4794-9a4b-073e2e249b5f");
+KBSECTION
+PROC
+Proc_DialogFlagSetup(_Dialog,_Speaker1)
+THEN
+Proc_GLO_SPAvailabilityFlagSetup(_Dialog,_Speaker1,NULL_00000000-0000-0000-0000-000000000000,NULL_00000000-0000-0000-0000-000000000000,NULL_00000000-0000-0000-0000-000000000000,NULL_00000000-0000-0000-0000-000000000000,NULL_00000000-0000-0000-0000-000000000000);
+
+PROC
+Proc_DialogFlagSetup(_Dialog,_Speaker1,_Speaker2)
+THEN
+Proc_GLO_SPAvailabilityFlagSetup(_Dialog,_Speaker1,_Speaker2,NULL_00000000-0000-0000-0000-000000000000,NULL_00000000-0000-0000-0000-000000000000,NULL_00000000-0000-0000-0000-000000000000,NULL_00000000-0000-0000-0000-000000000000);
+
+PROC
+Proc_DialogFlagSetup(_Dialog,_Speaker1,_Speaker2,_Speaker3)
+THEN
+Proc_GLO_SPAvailabilityFlagSetup(_Dialog,_Speaker1,_Speaker2,_Speaker3,NULL_00000000-0000-0000-0000-000000000000,NULL_00000000-0000-0000-0000-000000000000,NULL_00000000-0000-0000-0000-000000000000);
+
+PROC
+Proc_DialogFlagSetup(_Dialog,_Speaker1,_Speaker2,_Speaker3,_Speaker4)
+THEN
+Proc_GLO_SPAvailabilityFlagSetup(_Dialog,_Speaker1,_Speaker2,_Speaker3,_Speaker4,NULL_00000000-0000-0000-0000-000000000000,NULL_00000000-0000-0000-0000-000000000000);
+
+PROC
+Proc_DialogFlagSetup(_Dialog,_Speaker1,_Speaker2,_Speaker3,_Speaker4,_Speaker5)
+THEN
+Proc_GLO_SPAvailabilityFlagSetup(_Dialog,_Speaker1,_Speaker2,_Speaker3,_Speaker4,_Speaker5,NULL_00000000-0000-0000-0000-000000000000);
+
+PROC
+Proc_DialogFlagSetup(_Dialog,_Speaker1,_Speaker2,_Speaker3,_Speaker4,_Speaker5,_Speaker6)
+THEN
+Proc_GLO_SPAvailabilityFlagSetup(_Dialog,_Speaker1,_Speaker2,_Speaker3,_Speaker4,_Speaker5,_Speaker6);
+
+
+PROC
+Proc_GLO_SPAvailabilityFlagSetup((STRING)_Dialog,(GUIDSTRING)_Speaker1,(GUIDSTRING)_Speaker2,(GUIDSTRING)_Speaker3,(GUIDSTRING)_Speaker4,(GUIDSTRING)_Speaker5,(GUIDSTRING)_Speaker6)
+AND
+DB_GLO_SourcePointUnlockDialog(_Dialog,_Flag)
+THEN
+Proc_GLO_CheckSPAvailability(_Speaker1,_Flag);
+Proc_GLO_CheckSPAvailability(_Speaker2,_Flag);
+Proc_GLO_CheckSPAvailability(_Speaker3,_Flag);
+Proc_GLO_CheckSPAvailability(_Speaker4,_Flag);
+Proc_GLO_CheckSPAvailability(_Speaker5,_Flag);
+Proc_GLO_CheckSPAvailability(_Speaker6,_Flag);
+
+
+//REGION Available by default
+PROC
+Proc_GLO_CheckSPAvailability((GUIDSTRING)_Player,(STRING)_Flag)
+AND
+DB_IsPlayer((CHARACTERGUID)_Player)
+THEN
+ObjectSetFlag(_Player,"GLO_SPUnlockUnavailable");
+//END_REGION
+
+
+//REGION Replace with Unavailable if its so
+PROC
+Proc_GLO_CheckSPAvailability((GUIDSTRING)_Player,(STRING)_Flag)
+AND
+DB_IsPlayer((CHARACTERGUID)_Player)
+AND
+NOT QRY_GLO_PartyMembersCanGetSP(_Player,_Flag)
+THEN
+//ObjectClearFlag(_Player,"GLO_SPUnlockAvailable");
+ObjectSetFlag(_Player,"GLO_SPUnlockUnavailable");
+
+QRY
+QRY_GLO_PartyMembersCanGetSP((CHARACTERGUID)_Player,(STRING)_Flag)
+AND
+StringConcatenate(_Flag,"_Learned",_LearnedFlag)
+AND
+DB_IsPlayer((CHARACTERGUID)_PartyMember)
+AND
+CharacterIsInPartyWith(_Player,_PartyMember,1)
+AND
+ObjectGetFlag(_PartyMember,_LearnedFlag,0)
+AND
+ObjectGetFlag(_PartyMember,"GLO_Has3MaxMP",0)
+THEN
+DB_NOOP(1);
+//END_REGION
+
+
+//REGION Replace with Blocked if its so
+PROC
+Proc_GLO_CheckSPAvailability((GUIDSTRING)_Player,(STRING)_Flag)
+AND
+DB_IsPlayer((CHARACTERGUID)_Player)
+AND
+DB_GLO_SourcePointUnlockBlock(_Flag,_BlockingFlag)
+AND
+DB_GlobalFlag(_BlockingFlag)
+THEN
+//ObjectClearFlag(_Player,"GLO_SPUnlockAvailable");
+ObjectClearFlag(_Player,"GLO_SPUnlockUnavailable");
+ObjectSetFlag(_Player,"GLO_SPUnlockBlocked");
+//END_REGION
+
+
+IF
+DialogEnded(_Dialog,_DlgInst)
+AND
+DB_GLO_SourcePointUnlockDialog(_Dialog,_Flag)
+AND
+DB_DialogPlayers(_DlgInst,_Player,_)
+THEN
+//ObjectClearFlag(_Player,"GLO_SPUnlockAvailable");
+ObjectClearFlag(_Player,"GLO_SPUnlockUnavailable");
+ObjectClearFlag(_Player,"GLO_SPUnlockBlocked");
+
+
+
+//REGION Backup rewards given
+PROC
+Proc_OneTimeEventFlag(_Player,"GLO_SourcePointBackupReward",_DlgInst)
+AND
+DB_IsPlayer((CHARACTERGUID)_Player)
+AND
+DB_DialogNPCs(_DlgInst,_NPC,1)
+AND
+DB_GLO_SourcePointSecondaryReward((CHARACTERGUID)_NPC,_RewardTemplate)
+THEN
+ItemTemplateAddTo(_RewardTemplate,_Player,1);
+//END_REGION
+EXITSECTION
+SysClear("DB_GLO_SourcePointUnlockDialog",2);
+SysClear("DB_GLO_SourcePointUnlockBlock",2);
+NOT DB_OneTimeEventFlag("GLO_SourcePointBackupReward");
+ENDEXITSECTION
+ParentTargetEdge "ReapersCoast"

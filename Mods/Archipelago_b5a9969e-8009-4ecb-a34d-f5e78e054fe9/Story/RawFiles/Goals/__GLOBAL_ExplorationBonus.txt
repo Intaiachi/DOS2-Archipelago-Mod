@@ -1,0 +1,81 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+
+KBSECTION
+IF
+DB_ExplorationZones((TRIGGERGUID)_Trigger,(INTEGER)_Act,(INTEGER)_ActPArt,(INTEGER)_Gain)
+AND
+NOT DB_Subregion(_Trigger,_,_) //Subregions can give XP without being Oneshot
+THEN
+ProcTriggerRegisterForPlayers(_Trigger);
+
+IF
+CharacterEnteredTrigger((CHARACTERGUID)_Player,(TRIGGERGUID)_Trigger)
+AND
+DB_ExplorationZones(_Trigger,(INTEGER)_Act,(INTEGER)_ActPart,(INTEGER)_Gain)
+THEN
+ProcAddXPToParty(_Player,_Trigger);
+ProcCheckRemoveExplorationZone(_Trigger);
+
+
+PROC
+ProcAddXPToParty((CHARACTERGUID)_Player,(TRIGGERGUID)_Trigger)
+AND
+DB_ExplorationZones(_Trigger,_Act,_ActPart,_Gain)
+AND
+DB_IsPlayer(_OtherPlayer)
+AND
+NOT DB_ExplorationXPGiven(_OtherPlayer,_Trigger)
+AND
+CharacterIsInPartyWith(_OtherPlayer,_Player,1)
+THEN
+DB_ExplorationXPGiven(_OtherPlayer,_Trigger);
+//CharacterAddExplorationExperience(_OtherPlayer,_Act,_ActPart,_Gain);
+
+//Dont unregister if also a Subregion
+IF
+DB_ExplorationXPGiven(_OtherPlayer,_Trigger)
+AND
+NOT DB_Subregion(_Trigger,_,_)
+THEN
+TriggerUnregisterForCharacter(_Trigger,_OtherPlayer);
+
+PROC
+ProcCheckRemoveExplorationZone((TRIGGERGUID)_Trigger)
+AND
+DB_IsPlayer(_Player)
+AND
+NOT DB_ExplorationXPGiven(_Player,_Trigger)
+THEN
+DB_ExplorationZoneStillOpen(1);
+
+PROC
+ProcCheckRemoveExplorationZone(_Trigger)
+AND
+NOT DB_ExplorationZoneStillOpen(1)
+AND
+DB_ExplorationZones(_Trigger,_Act,_ActPart,_Gain)
+THEN
+NOT DB_ExplorationZones(_Trigger,_Act,_ActPart,_Gain);
+
+PROC
+ProcCheckRemoveExplorationZone(_Trigger)
+THEN
+NOT DB_ExplorationZoneStillOpen(1);
+
+IF
+CharacterJoinedParty(_Char)
+AND
+DB_ExplorationZones(_Trigger,_Act,_ActPart,_Gain)
+AND
+DB_ExplorationXPGiven(_Player,_Trigger)
+AND
+CharacterIsInPartyWith(_Player,_Char,1)
+THEN
+DB_ExplorationXPGiven(_Char,_Trigger);
+ProcCheckRemoveExplorationZone(_Trigger);
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "__Start"

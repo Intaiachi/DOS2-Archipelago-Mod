@@ -1,0 +1,654 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+DB_Dialogs(CHARACTERGUID_S_FTJ_SeekerCaptain_1329f018-23e4-4717-9bc8-074b28d04c54,"FTJ_SeekerCaptain");
+//DB_Dialogs(CHARACTERGUID_S_FTJ_ShelterNPC_002_a3991af3-bd18-4ce0-b41a-364a8f2aafad,"FTJ_ShelterNPC_002");
+DB_Dialogs(CHARACTERGUID_S_FTJ_DefeatedSeeker_001_0726af1f-1a3c-4984-a9e1-05a9ae6d28dc,"FTJ_DefeatedSeeker_001");
+//DB_Dialogs(CHARACTERGUID_S_FTJ_DefeatedSeeker_002_cf6b03af-6716-478d-921c-16844492a754,"FTJ_DefeatedSeeker_002");
+DB_Dialogs(CHARACTERGUID_S_FTJ_InjuredSeeker_001_b9d3bc65-c15a-45e5-a453-b1540a85e88d,"FTJ_SW_InjuredSeeker_001");
+DB_Dialogs(CHARACTERGUID_S_FTJ_InjuredSeeker_002_f4f71f66-0891-47db-8c44-1e92afc1d743,"FTJ_SW_InjuredSeeker_002");
+DB_Dialogs(CHARACTERGUID_S_FTJ_SW_InjuredDoctor_2478f36b-f0e4-4508-8746-0ee2e42d2e32,"FTJ_SW_InjuredDoctor");
+DB_Dialogs(CHARACTERGUID_S_FTJ_ShelterNPC_001_325c2042-b2fb-4b06-872d-123086ca82d4,"FTJ_ShelterNPC_001");
+DB_Dialogs(CHARACTERGUID_S_FTJ_SW_DefeatedSeeker_003_46a7c73f-c0f0-4f02-be00-edbb3cdfc425, "FTJ_SW_DefeatedSeeker_003");
+DB_Dialogs(CHARACTERGUID_FTJ_SW_Squire_650e8e08-55a2-4ea6-a9f3-c027e4f8c494,"FTJ_SW_Squire");
+DB_Dialogs(CHARACTERGUID_S_FTJ_SW_CollarRemovingSeeker_437c00b3-6544-44dd-8396-a43848b19a1e,CHARACTERGUID_S_FTJ_SW_CollarRemoverFriend_01bd86e1-75ca-46a6-853e-b8dd64c2cd22,"FTJ_SW_CollarRemovingSeeker");
+DB_Dialogs(ITEMGUID_S_FTJ_SW_ShelterShrine_e362cc61-ec69-4a5f-b505-bcbae32d3650, "FTJ_SW_GoddessStatue");
+
+CharacterUseItem(CHARACTERGUID_S_FTJ_SW_Warrior_InjuredSeeker_001_b9d3bc65-c15a-45e5-a453-b1540a85e88d, ITEMGUID_S_FTJ_SW_Sleepingbag01_4e534f16-5762-42fa-b2a3-4d92062962e5, "");
+CharacterUseItem(CHARACTERGUID_S_FTJ_SW_Warrior_InjuredSeeker_002_f4f71f66-0891-47db-8c44-1e92afc1d743, ITEMGUID_S_FTJ_SW_Sleepingbag02_a4728364-58c1-43e0-95e4-8e17edc341fd, "");
+SetVisible(ITEMGUID_S_FTJ_SW_Sleepingbag02_a4728364-58c1-43e0-95e4-8e17edc341fd,0);
+SetVisible(ITEMGUID_S_FTJ_SW_Sleepingbag01_4e534f16-5762-42fa-b2a3-4d92062962e5,0);
+
+
+DB_FTJ_SW_RemainingInjuredSeekers(3);
+
+DB_FTJ_SW_InjuredSeeker((CHARACTERGUID)CHARACTERGUID_S_FTJ_InjuredSeeker_001_b9d3bc65-c15a-45e5-a453-b1540a85e88d);
+DB_FTJ_SW_InjuredSeeker(CHARACTERGUID_S_FTJ_InjuredSeeker_002_f4f71f66-0891-47db-8c44-1e92afc1d743);
+DB_FTJ_SW_InjuredSeeker(CHARACTERGUID_S_FTJ_DefeatedSeeker_001_0726af1f-1a3c-4984-a9e1-05a9ae6d28dc);
+
+ItemToInventory(ITEMGUID_S_FTJ_SW_JulesReward_718a41e2-f858-4007-b8ad-01282c703923, CHARACTERGUID_S_FTJ_InjuredSeeker_001_b9d3bc65-c15a-45e5-a453-b1540a85e88d);
+ItemToInventory(ITEMGUID_S_FTJ_SW_KlaudReward_ac0020a6-9902-45ae-bf5d-b246fd27e82f, CHARACTERGUID_S_FTJ_InjuredSeeker_002_f4f71f66-0891-47db-8c44-1e92afc1d743);
+
+Proc_FTJ_SW_ShelterCamp_OnInit();
+
+CharacterSetHitpointsPercentage(CHARACTERGUID_S_FTJ_SW_InjuredDoctor_2478f36b-f0e4-4508-8746-0ee2e42d2e32, 70.0);
+
+ItemToInventory(ITEMGUID_S_FTJ_SW_HallornBlade_f8378026-16f1-40a9-bcfd-95a2d547131d, CHARACTERGUID_S_FTJ_SW_DefeatedSeeker_003_46a7c73f-c0f0-4f02-be00-edbb3cdfc425);
+ItemSetDurability(ITEMGUID_S_FTJ_SW_HallornBlade_f8378026-16f1-40a9-bcfd-95a2d547131d, 0);
+TriggerRegisterForItems(S_FTJ_SW_HallornBladePoint_ffd7382c-61b0-4066-a71b-6f341eb88ce3);
+ObjectSetFlag(CHARACTERGUID_S_FTJ_SW_DefeatedSeeker_003_46a7c73f-c0f0-4f02-be00-edbb3cdfc425, "FTJ_SW_HasBlade", 0);
+DB_GiveItemToEventWithClear(ITEMGUID_S_FTJ_SW_HallornBlade_f8378026-16f1-40a9-bcfd-95a2d547131d, "FTJ_SW_GiveHallornsBlade");
+
+ProcCharacterDisableAllCrimes(CHARACTERGUID_S_FTJ_InjuredSeeker_001_b9d3bc65-c15a-45e5-a453-b1540a85e88d);
+ProcCharacterDisableAllCrimes(CHARACTERGUID_S_FTJ_InjuredSeeker_002_f4f71f66-0891-47db-8c44-1e92afc1d743);
+ProcCharacterDisableAllCrimes(CHARACTERGUID_S_FTJ_DefeatedSeeker_001_0726af1f-1a3c-4984-a9e1-05a9ae6d28dc);
+
+DB_FTJ_SW_InjuredSeekerRewards((CHARACTERGUID)CHARACTERGUID_S_FTJ_SW_Warrior_InjuredSeeker_001_b9d3bc65-c15a-45e5-a453-b1540a85e88d, (ITEMGUID)ITEMGUID_S_FTJ_SW_JulesReward_718a41e2-f858-4007-b8ad-01282c703923, "FTJ_SW_InjuredSeeker_001_Healed", "FTJ_SW_AD_InjuredSeeker_001_Flee", "QuestUpdate_FTJ_SW_HurtSeekers_JulesWithReward", "QuestUpdate_FTJ_SW_HurtSeekers_JulesNoReward");
+DB_FTJ_SW_InjuredSeekerRewards(CHARACTERGUID_S_FTJ_SW_Warrior_InjuredSeeker_002_f4f71f66-0891-47db-8c44-1e92afc1d743, ITEMGUID_S_FTJ_SW_KlaudReward_ac0020a6-9902-45ae-bf5d-b246fd27e82f, "FTJ_SW_InjuredSeeker_002_Healed", "FTJ_SW_AD_InjuredSeeker_002_Flee", "QuestUpdate_FTJ_SW_HurtSeekers_KlaudWithReward", "QuestUpdate_FTJ_SW_HurtSeekers_KlaudNoReward");
+
+DB_NoRepair(CHARACTERGUID_S_FTJ_SW_Warrior_DefeatedSeeker_003_46a7c73f-c0f0-4f02-be00-edbb3cdfc425);
+
+
+CharacterAddSourcePoints(CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152, 1);
+KBSECTION
+IF
+TextEventSet("HanArriveShelter")
+THEN
+TeleportTo(CHARACTERGUID_S_FTJ_CapturedChild_53d4aa5c-dd91-4e12-9ca8-d66879cc6ffb, TRIGGERGUID_S_FTJ_SW_WanderHan_2dee664f-882e-41fd-9430-5a4b81d75950);
+ObjectSetFlag(CHARACTERGUID_S_FTJ_CapturedChild_53d4aa5c-dd91-4e12-9ca8-d66879cc6ffb, "FTJ_SW_ReachedCamp", 0);
+DB_Dialogs(RC_FTJ_CapturedChild_53d4aa5c-dd91-4e12-9ca8-d66879cc6ffb,"FTJ_KidnappedChild");
+SetVarFixedString(CHARACTERGUID_S_FTJ_CapturedChild_53d4aa5c-dd91-4e12-9ca8-d66879cc6ffb, "currentState", "State_AtShelter");
+
+IF
+TextEventSet("GarethArriveShelter")
+THEN
+ObjectSetFlag(CHARACTERGUID_S_FTJ_SeekerCaptain_1329f018-23e4-4717-9bc8-074b28d04c54, "FTJ_SW_AtShelter", 0);
+SetHasDialog(CHARACTERGUID_S_FTJ_SeekerCaptain_1329f018-23e4-4717-9bc8-074b28d04c54, 1);
+GlobalSetFlag("FTJ_SW_GarethAtShelter");
+PROC_RemoveDialogFromCharacter(CHARACTERGUID_S_FTJ_SeekerCaptain_1329f018-23e4-4717-9bc8-074b28d04c54);
+DB_Dialogs(CHARACTERGUID_S_FTJ_SeekerCaptain_1329f018-23e4-4717-9bc8-074b28d04c54, "FTJ_SW_SeekerCaptainShelter");
+TeleportTo(CHARACTERGUID_S_FTJ_SeekerCaptain_1329f018-23e4-4717-9bc8-074b28d04c54, ITEMGUID_S_FTJ_SW_GarethChair_e3164deb-70a5-4423-8098-7b3de61cc9cc);
+SetVarFixedString(CHARACTERGUID_S_FTJ_SeekerCaptain_1329f018-23e4-4717-9bc8-074b28d04c54, "currentState", "State_SW_InCamp");
+SetFaction(CHARACTERGUID_S_FTJ_SW_Warrior_SeekerCaptain_1329f018-23e4-4717-9bc8-074b28d04c54, "FTJ_SW_ShelterNPC");
+
+IF
+TextEventSet("OpenShelter")
+THEN
+CharacterUseItem(CHARACTERGUID_S_FTJ_SW_CheckpointSourcerer_02f6e4f7-587c-41d0-9ac6-89104f9d16ad, ITEMGUID_S_FTJ_SW_RolledUpClimb_78e3a5a7-d1cd-474e-84d9-12d27f7e642e, "");
+ProcRemoveDBTrespassTrigger(TRIGGERGUID_S_FTJ_SW_ShelterTrespass2_b4ea9412-b2ed-4848-a72d-ca972c1b0e94,TRIGGERGUID_S_FTJ_SW_ForbiddenAreaTo2_Point_3add406a-2e01-45bc-b889-a95623c34799);
+ProcRemoveDBTrespassTrigger(TRIGGERGUID_S_FTJ_SW_ShelterTrespass1_562878c7-1346-404b-9a63-0ce6732405b6,TRIGGERGUID_S_FTJ_SW_ForbiddenAreaTo1_Point_abd5b962-c7ab-46a4-bbfb-7d4c87ebfc76);
+
+IF
+TextEventSet("FullShelterSetup")
+THEN
+TeleportTo(CHARACTERGUID_S_FTJ_CapturedChild_53d4aa5c-dd91-4e12-9ca8-d66879cc6ffb, TRIGGERGUID_S_FTJ_SW_WanderHan_2dee664f-882e-41fd-9430-5a4b81d75950);
+ObjectSetFlag(CHARACTERGUID_S_FTJ_CapturedChild_53d4aa5c-dd91-4e12-9ca8-d66879cc6ffb, "FTJ_SW_ReachedCamp");
+DB_Dialogs(RC_FTJ_CapturedChild_53d4aa5c-dd91-4e12-9ca8-d66879cc6ffb,"FTJ_KidnappedChild");
+SetVarFixedString(CHARACTERGUID_S_FTJ_CapturedChild_53d4aa5c-dd91-4e12-9ca8-d66879cc6ffb, "currentState", "State_AtShelter");
+ObjectSetFlag(CHARACTERGUID_S_FTJ_SeekerCaptain_1329f018-23e4-4717-9bc8-074b28d04c54, "FTJ_SW_AtShelter", 0);
+PROC_RemoveDialogFromCharacter(CHARACTERGUID_S_FTJ_SeekerCaptain_1329f018-23e4-4717-9bc8-074b28d04c54);
+DB_Dialogs(CHARACTERGUID_S_FTJ_SeekerCaptain_1329f018-23e4-4717-9bc8-074b28d04c54, "FTJ_SW_SeekerCaptainShelter");
+GlobalSetFlag("FTJ_SW_GarethAtShelter");
+TeleportTo(CHARACTERGUID_S_FTJ_SeekerCaptain_1329f018-23e4-4717-9bc8-074b28d04c54, ITEMGUID_S_FTJ_SW_GarethChair_e3164deb-70a5-4423-8098-7b3de61cc9cc);
+SetVarFixedString(CHARACTERGUID_S_FTJ_SeekerCaptain_1329f018-23e4-4717-9bc8-074b28d04c54, "currentState", "State_SW_InCamp");
+CharacterUseItem(CHARACTERGUID_S_FTJ_SW_CheckpointSourcerer_02f6e4f7-587c-41d0-9ac6-89104f9d16ad, ITEMGUID_S_FTJ_SW_RolledUpClimb_78e3a5a7-d1cd-474e-84d9-12d27f7e642e, "");
+ProcRemoveDBTrespassTrigger(TRIGGERGUID_S_FTJ_SW_ShelterTrespass2_b4ea9412-b2ed-4848-a72d-ca972c1b0e94,TRIGGERGUID_S_FTJ_SW_ForbiddenAreaTo2_Point_3add406a-2e01-45bc-b889-a95623c34799);
+ProcRemoveDBTrespassTrigger(TRIGGERGUID_S_FTJ_SW_ShelterTrespass1_562878c7-1346-404b-9a63-0ce6732405b6,TRIGGERGUID_S_FTJ_SW_ForbiddenAreaTo1_Point_abd5b962-c7ab-46a4-bbfb-7d4c87ebfc76);
+SetFaction(CHARACTERGUID_S_FTJ_SW_Warrior_SeekerCaptain_1329f018-23e4-4717-9bc8-074b28d04c54, "FTJ_SW_ShelterNPC");
+
+IF
+CharacterEnteredTrigger(_Player, TRIGGERGUID_S_FTJ_SW_SUB_Shelter_51c3953f-c756-472d-a7ca-dc2a6232b386)
+THEN
+ObjectSetFlag(_Player, "FTJ_SW_BeenToShelter", 0);
+
+//REGION Kerban Crafting Check
+IF
+ItemRemovedFromCharacter(ITEMGUID_S_FTJ_SW_HallornBlade_f8378026-16f1-40a9-bcfd-95a2d547131d, CHARACTERGUID_S_FTJ_SW_DefeatedSeeker_003_46a7c73f-c0f0-4f02-be00-edbb3cdfc425)
+THEN
+ItemSetStoryItem(ITEMGUID_S_FTJ_SW_HallornBlade_f8378026-16f1-40a9-bcfd-95a2d547131d, 0);
+ObjectClearFlag(CHARACTERGUID_S_FTJ_SW_DefeatedSeeker_003_46a7c73f-c0f0-4f02-be00-edbb3cdfc425, "FTJ_SW_HasBlade", 0);
+
+IF
+GlobalFlagSet("FTJ_SW_RepairedHallornBlade")
+THEN
+ItemSetDurability(ITEMGUID_S_FTJ_SW_HallornBlade_f8378026-16f1-40a9-bcfd-95a2d547131d, 100);
+
+//END_REGION
+
+IF
+GlobalFlagSet("FTJ_SW_GarethAtShelter")
+THEN
+ClearVarObject(CHARACTERGUID_S_FTJ_SW_CollarRemoverFriend_01bd86e1-75ca-46a6-853e-b8dd64c2cd22, "AnimationStanding");
+
+IF
+GlobalFlagSet("FTJ_SW_GarethAtShelter")
+AND
+DB_FTJ_SW_InjuredSeeker(_Seeker)
+AND
+ObjectGetFlag(_Seeker, "FTJ_InjuredSeekerHealed", 0)
+THEN
+CharacterDie(_Seeker, 1, "DoT");
+
+IF
+ObjectFlagSet("FTJ_SW_JoinCallToArms", CHARACTERGUID_S_FTJ_SW_Warrior_SeekerCaptain_1329f018-23e4-4717-9bc8-074b28d04c54, _)
+AND
+DB_FTJ_SW_InjuredSeeker(_Seeker)
+AND
+ObjectGetFlag(_Seeker, "FTJ_InjuredSeekerHealed", 0)
+THEN
+CharacterDie(_Seeker, 1, "DoT");
+
+IF
+GlobalFlagSet("FTJ_FinalBattle_DallisTransform")
+THEN
+DialogRequestStop(CHARACTERGUID_S_FTJ_SW_CollarRemovingSeeker_437c00b3-6544-44dd-8396-a43848b19a1e);
+SetHasDialog(CHARACTERGUID_S_FTJ_SW_CollarRemovingSeeker_437c00b3-6544-44dd-8396-a43848b19a1e, 0);
+ProcCharacterDisappearOutOfSight(CHARACTERGUID_S_FTJ_SW_CollarRemovingSeeker_437c00b3-6544-44dd-8396-a43848b19a1e, 90, 1, "FTJ_SW_VictoryVanish", 0);
+
+IF
+StoryEvent(CHARACTERGUID_S_FTJ_SW_CollarRemovingSeeker_437c00b3-6544-44dd-8396-a43848b19a1e, "FTJ_SW_VictoryVanish")
+THEN
+CharacterAppearOutOfSightTo(CHARACTERGUID_S_FTJ_SW_CollarRemovingSeeker_437c00b3-6544-44dd-8396-a43848b19a1e, TRIGGERGUID_S_FTJ_SW_WarriorWander_Poly_52bcbdfc-d180-469c-8363-f165f2d26b1d, 180, 0, "");
+SetHasDialog(CHARACTERGUID_S_FTJ_SW_CollarRemovingSeeker_437c00b3-6544-44dd-8396-a43848b19a1e, 1);
+ClearVarObject(CHARACTERGUID_S_FTJ_SW_CollarRemovingSeeker_437c00b3-6544-44dd-8396-a43848b19a1e, "Seat");
+
+//REGION Cloud Statue
+IF
+GlobalFlagSet("FTJ_SW_GoddessStatue_Heals")
+THEN
+CreateSurface(S_FTJ_SW_ShelterShrine_Point_b991eb6c-a4fa-4b08-b16e-8f08d9d76b01, "SurfaceWaterCloudBlessed", 6.0, -1.0);
+PlaySound(ITEMGUID_S_FTJ_SW_ShelterShrine_e362cc61-ec69-4a5f-b505-bcbae32d3650, "SE_FTJ_SW_ShrineOfAmadia_Bless_01");
+//PROC_FTJ_SW_GratianaReactCloud();
+Proc_FTJ_SW_NoticeCloudRegister();
+
+IF
+GlobalFlagSet("FTJ_SW_GoddessStatue_Bleeds")
+THEN
+CreateSurface(S_FTJ_SW_ShelterShrine_Point_b991eb6c-a4fa-4b08-b16e-8f08d9d76b01, "SurfaceBloodCloud", 6.0, -1.0);
+PlaySound(ITEMGUID_S_FTJ_SW_ShelterShrine_e362cc61-ec69-4a5f-b505-bcbae32d3650, "SE_FTJ_SW_ShrineOfAmadia_Curse_01");
+//PROC_FTJ_SW_GratianaReactCloud();
+Proc_FTJ_SW_NoticeCloudRegister();
+
+IF
+DialogEnded("FTJ_SW_GoddessStatue", _ID)
+AND
+DB_DialogPlayers(_ID, _Player, 1)
+AND
+ObjectGetFlag(_Player, "FTJ_SW_GoddessBlessed",  1)
+THEN
+ApplyStatus(_Player, "BLESSED", 120.0);
+ObjectClearFlag(_Player, "FTJ_SW_GoddessBlessed", 0);
+DB_FTJ_SW_BlessedByStatue(_Player);
+
+IF
+StoryEvent(ITEMGUID_S_FTJ_SW_AfterUndeadBlessPresenceCheck_492edea2-31e1-414c-83a6-10eee1fea0c7, "FTJ_SW_NoUndeadClose")
+AND
+QueryOnlyOnce("FTJ_SW_GratianaReactCloud")
+THEN
+PROC_FTJ_SW_GratianaReactCloud();
+
+IF
+StoryEvent(ITEMGUID_S_FTJ_SW_AfterUndeadBlessPresenceCheck_492edea2-31e1-414c-83a6-10eee1fea0c7, "FTJ_SW_NoUndeadClose")
+THEN
+GlobalSetFlag("FTJ_SW_GoddessStatue_Heals");
+
+IF
+StoryEvent(ITEMGUID_S_FTJ_SW_AfterUndeadBlessPresenceCheck_492edea2-31e1-414c-83a6-10eee1fea0c7, "FTJ_SW_NoUndeadClose")
+AND
+DB_FTJ_SW_BlessedByStatue(_Player)
+THEN
+ObjectSetFlag(_Player, "FTJ_SW_GoddessWaterCloud");
+
+IF
+DialogEnded("FTJ_SW_GoddessStatue", _ID)
+AND
+DB_DialogPlayers(_ID, _Player, 1)
+AND
+ObjectGetFlag(_Player, "FTJ_SW_AffectedGoddessStatue", 1)
+AND
+QueryOnlyOnce("FTJ_SW_GratianaReactCloud")
+THEN
+PROC_FTJ_SW_GratianaReactCloud();
+
+PROC
+PROC_FTJ_SW_GratianaReactCloud()
+AND
+CharacterCanSee(CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152, CHARACTERGUID_S_FTJ_SW_RestoredPig_da63cfca-291f-48af-961d-139268d7ae16, 0)
+THEN
+Proc_StartDialog(1, "FTJ_SW_AD_GratianaReactionCloud", CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152);
+
+PROC
+Proc_FTJ_SW_NoticeCloudRegister()
+AND
+DB_IsPlayer(_Player)
+AND
+NOT DB_InRegion(_Player, TRIGGERGUID_S_FTJ_SW_SUB_Shelter_51c3953f-c756-472d-a7ca-dc2a6232b386)
+THEN
+TriggerRegisterForCharacter(S_FTJ_SW_CloudComment_7a239a7c-e904-481d-a079-74dee507ad3e, _Player);
+
+IF
+CharacterEnteredTrigger(_Player, S_FTJ_SW_CloudComment_7a239a7c-e904-481d-a079-74dee507ad3e)
+AND
+QueryOnlyOnce("FTJ_SW_AD_CloudComment")
+THEN
+Proc_StartDialog(1, "FTJ_SW_AD_CloudComment", _Player);
+Proc_FTJ_SW_CloudComment();
+
+PROC
+Proc_FTJ_SW_CloudComment()
+AND
+DB_IsPlayer(_Player)
+AND
+DB_InRegion(_Player, TRIGGERGUID_S_FTJ_SW_SUB_Shelter_51c3953f-c756-472d-a7ca-dc2a6232b386)
+THEN
+TriggerUnregisterForCharacter(S_FTJ_SW_CloudComment_7a239a7c-e904-481d-a079-74dee507ad3e, _Player);
+
+PROC
+Proc_FTJ_SW_CloudComment()
+THEN
+NOT DB_OnlyOnce("FTJ_SW_AD_CloudComment");
+
+//END_REGION
+
+
+//REGION Injured Seekers
+
+//REGION Injured Seekers + Doctor
+/*
+PROC
+Proc_FTJ_SW_ShelterCamp_OnInit()
+AND
+DB_FTJ_SW_InjuredSeeker((CHARACTERGUID)_Seeker)
+AND
+_Seeker != CHARACTERGUID_S_FTJ_DefeatedSeeker_001_0726af1f-1a3c-4984-a9e1-05a9ae6d28dc
+THEN
+CharacterSetAnimationOverride(_Seeker,"knockdown_loop");
+*/
+
+PROC
+Proc_FTJ_SW_ShelterCamp_OnInit()
+AND
+DB_FTJ_SW_InjuredSeeker((CHARACTERGUID)_Seeker)
+AND
+_Seeker != CHARACTERGUID_S_FTJ_DefeatedSeeker_001_0726af1f-1a3c-4984-a9e1-05a9ae6d28dc
+THEN
+SetCanFight(_Seeker,0);
+SetVarInteger(_Seeker,"bool_CanCower",0);
+
+
+PROC
+Proc_FTJ_SW_ShelterCamp_OnInit()
+AND
+DB_FTJ_SW_InjuredSeeker((CHARACTERGUID)_Seeker)
+THEN
+CharacterSetHitpointsPercentage(_Seeker,15.0);
+
+IF 
+CharacterStatusApplied((CHARACTERGUID)_Seeker,_Status,(CHARACTERGUID)_Healer)
+AND
+DB_FTJ_SW_InjuredSeeker(_Seeker)
+AND 
+ObjectGetFlag(_Seeker,"FTJ_InjuredSeekerHealed", 0)
+AND
+QRY_IsHealingStatus(_Status)
+AND 
+CharacterIsPartyMember(_Healer,1)
+THEN
+Proc_FTJ_SW_PartyMemberHealedSeeker(_Seeker, _Healer);
+
+PROC
+Proc_FTJ_SW_PartyMemberHealedSeeker((CHARACTERGUID)_Seeker, (CHARACTERGUID)_Healer)
+AND
+DB_IsPlayer(_Healer)
+THEN
+Proc_FTJ_SW_PlayerHealedSeeker((CHARACTERGUID)_Seeker, (CHARACTERGUID)_Healer);
+
+PROC
+Proc_FTJ_SW_PartyMemberHealedSeeker(_Seeker, _Healer)
+AND
+NOT DB_IsPlayer(_Healer)
+AND
+QRY_IsSummonOrPartyFollower(_Healer)
+AND
+CharacterGetOwner(_Healer, _Player)
+THEN
+Proc_FTJ_SW_PlayerHealedSeeker((CHARACTERGUID)_Seeker, (CHARACTERGUID)_Player);
+
+IF
+ObjectFlagSet("FTJ_HealedByPlayer",_Player,_ID)
+AND
+DialogGetInvolvedPlayer(_ID,1,(CHARACTERGUID)_Player)
+AND 
+GlobalGetFlag("FTJ_DefeatedSeekerHealed",0)
+AND
+QryRemoveTaggedLocalItemsFromMagicPockets(_Player,"HEALING_POTION",1)
+THEN 
+Proc_FTJ_SW_PlayerHealedSeeker(CHARACTERGUID_S_FTJ_DefeatedSeeker_001_0726af1f-1a3c-4984-a9e1-05a9ae6d28dc, _Player);
+
+PROC
+Proc_FTJ_SW_PlayerHealedSeeker((CHARACTERGUID)_Seeker, (CHARACTERGUID)_Player)
+THEN
+DB_ShelterSeekers(_Seeker);
+CharacterSetAnimationOverride(_Seeker,"");
+SetCanFight(_Seeker,1);
+ObjectSetFlag(_Seeker,"FTJ_InjuredSeekerHealed");
+ObjectSetFlag(_Player, "FTJ_SW_HealedASeeker");
+GlobalSetFlag("FTJ_SW_ASeekerWasHealed");
+ProcCharacterEnableAllCrimes(CHARACTERGUID_S_FTJ_DefeatedSeeker_001_0726af1f-1a3c-4984-a9e1-05a9ae6d28dc);
+QuestAdd(_Player, "FTJ_SW_HurtSeekers");
+//PartyAddExperience(_Player,1,5,10);
+
+PROC
+Proc_FTJ_SW_PlayerHealedSeeker(CHARACTERGUID_S_FTJ_DefeatedSeeker_001_0726af1f-1a3c-4984-a9e1-05a9ae6d28dc, (CHARACTERGUID)_Player)
+THEN
+GlobalSetFlag("FTJ_DefeatedSeekerHealed");
+ObjectSetFlag(_Player,"FTJ_HealedByPlayer",0);
+
+IF
+DialogEnded("FTJ_SW_InjuredSeeker_001_Healed", _ID)
+AND
+DialogGetInvolvedPlayer(_ID, 1, _Player)
+AND
+CharacterCanSee(CHARACTERGUID_S_FTJ_SW_InjuredDoctor_2478f36b-f0e4-4508-8746-0ee2e42d2e32, _Player, 1)
+THEN
+CharacterLookAt(CHARACTERGUID_S_FTJ_SW_InjuredDoctor_2478f36b-f0e4-4508-8746-0ee2e42d2e32, (CHARACTERGUID)_Player);
+Proc_StartDialog(1,"FTJ_SW_AD_InjuredDoctorHeal", CHARACTERGUID_S_FTJ_SW_InjuredDoctor_2478f36b-f0e4-4508-8746-0ee2e42d2e32);
+
+IF
+DialogEnded("FTJ_SW_InjuredSeeker_002_Healed", _ID)
+AND
+DialogGetInvolvedPlayer(_ID, 1, _Player)
+AND
+CharacterCanSee(CHARACTERGUID_S_FTJ_SW_InjuredDoctor_2478f36b-f0e4-4508-8746-0ee2e42d2e32, (CHARACTERGUID)_Player, 1)
+THEN
+CharacterLookAt(CHARACTERGUID_S_FTJ_SW_InjuredDoctor_2478f36b-f0e4-4508-8746-0ee2e42d2e32, _Player);
+Proc_StartDialog(1,"FTJ_SW_AD_InjuredDoctorHeal", CHARACTERGUID_S_FTJ_SW_InjuredDoctor_2478f36b-f0e4-4508-8746-0ee2e42d2e32);
+
+//Catch if player has interacted with injured seekers
+IF
+AutomatedDialogStarted(_Dialog,_)
+AND
+NOT DB_FTJ_SW_SpokeToInjuredSeeker(1)
+AND
+DB_AD_Dialog(_Seeker,_Dialog)
+AND
+DB_FTJ_SW_InjuredSeeker((CHARACTERGUID)_Seeker)
+THEN
+DB_FTJ_SW_SpokeToInjuredSeeker(1);
+
+//Kill if leave Sub Region
+IF
+CharacterLeftTrigger((CHARACTERGUID)_Player,TRIGGERGUID_S_FTJ_SW_SUB_Shelter_51c3953f-c756-472d-a7ca-dc2a6232b386)
+AND
+QRY_AnyRegionActive()
+AND
+DB_FTJ_SW_SpokeToInjuredSeeker(1)
+AND
+DB_IsPlayer(_Player)
+AND
+DB_FTJ_SW_InjuredSeeker(_Seeker)
+AND
+ObjectGetFlag(_Seeker,"FTJ_InjuredSeekerHealed",0)
+AND
+GetClosestPlayer(_Seeker,_Player,_)
+AND
+CharacterCanSee(_Player,_Seeker,0)
+THEN
+CharacterDie(_Seeker,1,"DoT");
+
+IF
+CharacterDied(_Seeker)
+AND
+DB_FTJ_SW_InjuredSeeker(_Seeker)
+THEN
+GlobalSetFlag("FTJ_SW_AnInjuredSeekerHasDied");
+DB_FTJ_SW_DeadInjuredSeeker(_Seeker);
+
+IF
+ObjectFlagSet("FTJ_InjuredSeekerHealed",_Seeker,_)
+THEN
+DB_FTJ_SW_HealedSeekers(_Seeker);
+
+IF
+DB_FTJ_SW_HealedSeekers(_Seeker)
+AND
+SysCount("DB_FTJ_SW_HealedSeekers",1,_Int)
+AND
+_Int == 3
+THEN
+ProcFTJShelerUpdateInjuredSeekersQuest("AllHealed");
+GlobalSetFlag("FTJ_SW_AllInjuredSeekersHealed");
+
+IF
+DB_FTJ_SW_DeadInjuredSeeker(_Seeker)
+AND
+SysCount("DB_FTJ_SW_DeadInjuredSeeker",1,_Int)
+AND
+_Int == 3
+THEN
+GlobalSetFlag("FTJ_SW_AllInjuredSeekersDead");
+//END_REGION
+
+//REGION Injured Seekers remaining
+IF
+CharacterDied(_Seeker)
+AND
+DB_FTJ_SW_InjuredSeeker(_Seeker)
+AND
+DB_FTJ_SW_RemainingInjuredSeekers(_Num)
+AND
+IntegerSubtract(_Num, 1, _NewNum)
+THEN
+NOT DB_FTJ_SW_RemainingInjuredSeekers(_Num);
+DB_FTJ_SW_RemainingInjuredSeekers(_NewNum);
+
+PROC
+Proc_FTJ_SW_PlayerHealedSeeker(_, _)
+AND
+DB_FTJ_SW_RemainingInjuredSeekers(_Num)
+AND
+IntegerSubtract(_Num, 1, _NewNum)
+THEN
+NOT DB_FTJ_SW_RemainingInjuredSeekers(_Num);
+DB_FTJ_SW_RemainingInjuredSeekers(_NewNum);
+
+IF
+DB_FTJ_SW_RemainingInjuredSeekers(2)
+THEN
+GlobalSetFlag("FTJ_SW_OneInjuredSeekerGone");
+
+IF
+DB_FTJ_SW_RemainingInjuredSeekers(1)
+THEN
+GlobalClearFlag("FTJ_SW_OneInjuredSeekerGone");
+GlobalSetFlag("FTJ_SW_TwoInjuredSeekersGone");
+
+IF
+DB_FTJ_SW_RemainingInjuredSeekers(0)
+THEN
+GlobalClearFlag("FTJ_SW_TwoInjuredSeekersGone");
+GlobalSetFlag("FTJ_SW_ThreeInjuredSeekersGone");
+
+IF
+GlobalFlagSet("FTJ_SW_ThreeInjuredSeekersGone")
+AND
+GlobalGetFlag("FTJ_SW_AnInjuredSeekerHasDied", 1)
+AND
+NOT QRY_FTJ_AllShelterInjuredSeekersDead()
+THEN
+ProcFTJShelerUpdateInjuredSeekersQuest("AllGone");
+
+QRY
+QRY_FTJ_AllShelterInjuredSeekersDead()
+AND
+DB_Dead(CHARACTERGUID_S_FTJ_InjuredSeeker_001_b9d3bc65-c15a-45e5-a453-b1540a85e88d)
+AND
+DB_Dead(CHARACTERGUID_S_FTJ_InjuredSeeker_002_f4f71f66-0891-47db-8c44-1e92afc1d743)
+AND
+DB_Dead(CHARACTERGUID_S_FTJ_DefeatedSeeker_001_0726af1f-1a3c-4984-a9e1-05a9ae6d28dc)
+THEN
+ProcFTJShelerUpdateInjuredSeekersQuest("AllDead");
+
+//END_REGION
+
+//TODO this probabyl sohuld'nt be done for all players
+PROC
+ProcFTJShelerUpdateInjuredSeekersQuest((STRING)_Quest)
+AND
+StringConcatenate("QuestUpdate_FTJ_SW_HurtSeekers_",_Quest,_Flag)
+AND
+DB_IsPlayer(_Player)
+THEN
+ObjectSetFlag(_Player,_Flag);
+
+//REGION Injured Seeker Rewards
+PROC
+Proc_FTJ_SW_PlayerHealedSeeker(_Seeker, (CHARACTERGUID)_Player)
+AND
+DB_FTJ_SW_InjuredSeekerRewards(_Seeker, _Reward, _, _AD, _, _)
+AND
+ItemIsInCharacterInventory(_Reward, _Seeker, 1)
+AND
+NOT QRY_SpeakerIsAvailableAndInDialogRange(_Player, _Seeker)
+AND
+NOT QRY_FTJ_SW_CheckLivingSeekers_Uninjured()
+THEN
+RemoveStatus(_Seeker, "LYING");
+Proc_StartDialog(1, _AD, _Seeker);
+NOT DB_ShelterSeekers(_Seeker);
+
+PROC
+Proc_FTJ_SW_PlayerHealedSeeker(_Seeker, (CHARACTERGUID)_Player)
+AND
+DB_FTJ_SW_InjuredSeekerRewards(_Seeker, _Reward, _, _, _, _Update)
+AND
+NOT ItemIsInCharacterInventory(_Reward, _Seeker, 1)
+AND
+CharacterCanSee(CHARACTERGUID_S_FTJ_SW_InjuredDoctor_2478f36b-f0e4-4508-8746-0ee2e42d2e32, _Player, 1)
+THEN
+CharacterLookAt(CHARACTERGUID_S_FTJ_SW_InjuredDoctor_2478f36b-f0e4-4508-8746-0ee2e42d2e32, _Player);
+Proc_StartDialog(1,"FTJ_SW_AD_InjuredDoctorHeal", CHARACTERGUID_S_FTJ_SW_InjuredDoctor_2478f36b-f0e4-4508-8746-0ee2e42d2e32);
+
+PROC
+Proc_FTJ_SW_PlayerHealedSeeker(_Seeker, (CHARACTERGUID)_Player)
+AND
+DB_FTJ_SW_InjuredSeekerRewards(_Seeker, _Reward, _, _, _, _Update)
+AND
+NOT ItemIsInCharacterInventory(_Reward, _Seeker, 1)
+THEN
+ObjectSetFlag(_Player,_Update);
+
+PROC
+Proc_FTJ_SW_PlayerHealedSeeker(_Seeker, (CHARACTERGUID)_Player)
+AND
+DB_FTJ_SW_InjuredSeekerRewards(_Seeker, _Reward, _Dialog, _, _, _Update)
+AND
+ItemIsInCharacterInventory(_Reward, _Seeker, 1)
+AND
+NOT QRY_SpeakerIsAvailableAndInDialogRange(_Player, _Seeker)
+THEN
+ObjectSetFlag(_Player,_Update);
+
+
+PROC
+Proc_FTJ_SW_PlayerHealedSeeker(_Seeker, (CHARACTERGUID)_Player)
+AND
+DB_FTJ_SW_InjuredSeekerRewards(_Seeker, _Reward, _Dialog, _, _Update, _)
+AND
+ItemIsInCharacterInventory(_Reward, _Seeker, 1)
+AND
+QRY_SpeakerIsAvailableAndInDialogRange(_Player, _Seeker)
+THEN
+ItemToInventory(_Reward, _Player);
+Proc_StartDialog(0, _Dialog, _Seeker, _Player);
+ObjectSetFlag(_Player,_Update);
+
+PROC
+Proc_FTJ_SW_PlayerHealedSeeker(CHARACTERGUID_S_FTJ_DefeatedSeeker_001_0726af1f-1a3c-4984-a9e1-05a9ae6d28dc, (CHARACTERGUID)_Player)
+AND
+CharacterCanSee(CHARACTERGUID_S_FTJ_SW_InjuredDoctor_2478f36b-f0e4-4508-8746-0ee2e42d2e32, _Player, 1)
+THEN
+CharacterLookAt(CHARACTERGUID_S_FTJ_SW_InjuredDoctor_2478f36b-f0e4-4508-8746-0ee2e42d2e32, _Player);
+Proc_StartDialog(1,"FTJ_SW_AD_InjuredDoctorHeal", CHARACTERGUID_S_FTJ_SW_InjuredDoctor_2478f36b-f0e4-4508-8746-0ee2e42d2e32);
+
+PROC
+Proc_FTJ_SW_PlayerHealedSeeker(CHARACTERGUID_S_FTJ_DefeatedSeeker_001_0726af1f-1a3c-4984-a9e1-05a9ae6d28dc, (CHARACTERGUID)_Player)
+THEN
+UserSetFlag(_Player,"QuestUpdate_FTJ_SW_HurtSeekers_HealedMatis");
+
+PROC
+Proc_FTJ_SW_PlayerHealedSeeker(_Seeker, (CHARACTERGUID)_Player)
+AND
+_Seeker != CHARACTERGUID_S_FTJ_DefeatedSeeker_001_0726af1f-1a3c-4984-a9e1-05a9ae6d28dc
+THEN
+SetVarInteger(_Seeker,"bool_CanCower",1);
+//END_REGION
+
+//REGION Catch if everyone happens to be dead
+IF
+DialogEnded(_Dialog, _)
+AND
+DB_FTJ_SW_InjuredSeekerRewards(_Seeker, _, _Dialog, _AD, _, _)
+AND
+NOT QRY_FTJ_SW_CheckLivingSeekers_Uninjured()
+THEN
+RemoveStatus(_Seeker, "LYING");
+Proc_StartDialog(1, _AD, _Seeker);
+NOT DB_ShelterSeekers(_Seeker);
+
+PROC
+Proc_FTJ_SW_PlayerHealedSeeker(_Seeker, (CHARACTERGUID)_Player)
+AND
+DB_FTJ_SW_InjuredSeekerRewards(_Seeker, _Reward, _, _AD, _, _)
+AND
+ItemIsInCharacterInventory(_Reward, _Seeker, 0)
+AND
+NOT QRY_FTJ_SW_CheckLivingSeekers_Uninjured()
+THEN
+RemoveStatus(_Seeker, "LYING");
+Proc_StartDialog(1, _AD, _Seeker);
+NOT DB_ShelterSeekers(_Seeker);
+
+IF
+AutomatedDialogEnded(_AD, _)
+AND
+DB_FTJ_SW_InjuredSeekerRewards(_Seeker, _, _, _AD, _, _)
+THEN
+ProcCharacterDisappearOutOfSight(_Seeker, 0, 1, "", 0);
+
+QRY
+QRY_FTJ_SW_CheckLivingSeekers_Uninjured()
+AND
+DB_ShelterSeekers(_Seeker)
+AND
+CharacterIsDead(_Seeker, 0)
+AND
+_Seeker != CHARACTERGUID_S_FTJ_SW_Warrior_InjuredSeeker_001_b9d3bc65-c15a-45e5-a453-b1540a85e88d
+AND
+_Seeker != CHARACTERGUID_S_FTJ_SW_Warrior_InjuredSeeker_002_f4f71f66-0891-47db-8c44-1e92afc1d743
+THEN
+DB_NOOP();
+
+QRY
+QRY_FTJ_SW_CheckLivingSeekers_Uninjured()
+AND
+NOT DB_DestroyedItems(ITEMGUID_S_FTJ_SW_SoulJar_ShelterUndead_a11a3798-9382-433a-8a43-73d1d19df474)
+THEN
+DB_NOOP();
+
+//END_REGION
+
+//END_REGION
+
+PROC
+ProcRegionEnded("FJ_FortJoy_Main")
+AND
+DB_FTJ_SW_InjuredSeeker(_Seeker)
+AND
+ObjectGetFlag(_Seeker,"FTJ_InjuredSeekerHealed",0)
+THEN
+CharacterDieImmediate(_Seeker,0,"DoT");
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "FortJoy"
