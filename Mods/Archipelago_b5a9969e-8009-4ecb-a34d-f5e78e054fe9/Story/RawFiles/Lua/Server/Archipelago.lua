@@ -7,6 +7,7 @@ ApOutFile = "apOut.json"
 ApInFile = "apIn.json"
 SyncStyle = ""
 TrapStyle = ""
+ContainerSanity = ""
 PlayableChars = {"S_Player_Ifan_ad9a3327-4456-42a7-9bf4-7ad60cc9e54f",
                 "S_Player_Beast_f25ca124-a4d2-427b-af62-df66df41a978",
                 "S_Player_Lohse_bb932b13-8ebf-4ab4-aac0-83e6924e4295",
@@ -176,6 +177,31 @@ local function read_option(data, key)
     return v
 end
 
+function ContainerCheck(container)
+    print("Checking container: " .. container)
+    container = Ext.GetItem(container).MyGuid
+    local unparsed = Ext.IO.LoadFile(ApOutFile)
+    local data = {}
+    if(unparsed) then
+        data = Ext.Json.Parse(unparsed)
+        if(data == nil) then
+            print("Failed to parse JSON")
+            return
+        end
+    end
+    local needsToAdd = true
+    for k, v in ipairs(data) do
+        if (v == container) then
+            needsToAdd = false
+            break
+        end
+    end
+    if(needsToAdd) then
+        table.insert(data, container)
+        Ext.IO.SaveFile(ApOutFile, Ext.Json.Stringify(data))
+    end
+end
+
 function SyncArchipelago()
     local unparsed_in = Ext.IO.LoadFile(ApInFile)
     if(unparsed_in) then
@@ -336,6 +362,7 @@ function OnSessionLoaded()
         DeathlinkStyleIn = read_option(Data, "deathlinkStyleIn")
         DeathlinkStyleOut = read_option(Data, "deathlinkStyleOut")
         TrapStyle = read_option(Data, "trapStyle")
+        ContainerSanity = read_option(Data, "containerSanity")
         if(Deathlink == 1) then
             Ext.Events.Tick:Subscribe(ReceiveDeathlink)
         end
@@ -452,6 +479,18 @@ Ext.Osiris.RegisterListener("CharacterKilledBy", 3, "after", function(defender, 
                 Ext.IO.SaveFile("deathlinkOut.json", '["' .. DeathlinkNames[defender] .. '"]')
             end
         end
+    end
+end)
+
+Ext.Osiris.RegisterListener("ItemOpened", 1, "after", function(item)
+    if(ContainerSanity ~= 0) then
+        ContainerCheck(item)
+    end
+end)
+
+Ext.Osiris.RegisterListener("ItemDestroyed", 1, "after", function(item)
+    if(ContainerSanity ~= 0) then
+        ContainerCheck(item)
     end
 end)
 
