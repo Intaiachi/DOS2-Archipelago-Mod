@@ -1,3 +1,4 @@
+ItemNames = Ext.Require("Server/itemNames.lua")
 PersistentVars = {}
 Deathlink = true
 DeathlinkStyleIn = ""
@@ -106,6 +107,8 @@ DeathlinkNames = {["ad9a3327-4456-42a7-9bf4-7ad60cc9e54f"] = "Ifan",
 -- S_GLO_Henchman_Wizard_0539b874-7adc-4dfc-8258-bdbae55309ad Forrex
 -- S_GLO_Henchman_Conjurer_12837117-e53e-4997-9b02-a1d2aa89419a Francesca
 
+-- CharacterTeleportPartiesToTrigger("TRIGGERGUID_StartPoint_000__000_fe2995bf-aa16-8ce7-33a2-8cb8cf228152", "")
+
 DeathType = {"None",
              "Physical",
              "Piercing",
@@ -179,7 +182,7 @@ end
 
 function ContainerCheck(container)
     print("Checking container: " .. container)
-    container = Ext.GetItem(container).MyGuid
+    container = Ext.Entity.GetItem(container).MyGuid
     local unparsed = Ext.IO.LoadFile(ApOutFile)
     local data = {}
     if(unparsed) then
@@ -225,38 +228,52 @@ function SyncArchipelago()
                         CharacterLevelUp(character)
                         APSent[v] = true
                     end
+                    ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#af99ef'>Level Up</font>")
                 elseif(string.sub(v, 11, 46) == "1c3c9c74-34a1-4685-989e-410dc080be6f") then
-                    ItemTemplateAddTo(v, CharacterGetHostCharacter(), 200, 1)
+                    ItemTemplateAddTo(v, CharacterGetHostCharacter(), 200, 0)
                     APSent[v] = true
+                    ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received some <font color='#00e1e1'>Gold</font>")
                 elseif(string.sub(v, 11, 24) == "attributePoint") then
                     for _, character in ipairs(PlayableChars) do
                         CharacterAddAttributePoint(character, 1)
                         APSent[v] = true
                     end
+                    ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received an <font color='#af99ef'>Attribute Point</font>")
                 elseif(string.sub(v, 11, 28) == "combatAbilityPoint") then
                     for _, character in ipairs(PlayableChars) do
                         CharacterAddAbilityPoint(character, 1)
                         APSent[v] = true
                     end
+                    ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#af99ef'>Combat Ability Point</font>")
                 elseif(string.sub(v, 11, 27) == "civilAbilityPoint") then
                     for _, character in ipairs(PlayableChars) do
                         CharacterAddCivilAbilityPoint(character, 1)
                         APSent[v] = true
                     end
+                    ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#af99ef'>Civil Ability Point</font>")
                 elseif(string.sub(v, 11, 21) == "talentPoint") then
                     for _, character in ipairs(PlayableChars) do
                         CharacterAddTalentPoint(character, 1)
                         APSent[v] = true
                     end
+                    ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#af99ef'>Talent Point</font>")
                 elseif(string.sub(v, 11, 24) == "maxSourcePoint") then
                     for _, character in ipairs(PlayableChars) do
-                        if(CharacterGetMaxSourcePoints(character) ~= nil) then
-                            CharacterOverrideMaxSourcePoints(character, CharacterGetMaxSourcePoints(character) + 1)
+                        local currentSource = CharacterGetMaxSourcePoints(character)
+                        if(currentSource ~= nil) then
+                            CharacterOverrideMaxSourcePoints(character, currentSource + 1)
                             APSent[v] = true
+                            if(currentSource == 1) then
+                                ObjectSetFlag(character, "GLO_Has2MaxMP")
+                            elseif(currentSource == 2) then
+                                ObjectSetFlag(character, "GLO_Has3MaxMP")
+                            end
                         end
                     end
+                    ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#af99ef'>Max Source Point</font>")
                 elseif(string.sub(v, 11, 12) == "ST") then
                     if(string.sub(v, 11, 24) == "ST_ArmorNormal") then
+                        ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a piece of <font color='#6d8be8'>Random Weak Gear</font>")
                         if(math.random(10) == 1) then --ST_Armor contain rings amulets and belts, execpt for ST_ArmorNormal for whatever reason, this is to artifically mimic the other armor tables
                             CharacterGiveReward(CharacterGetHostCharacter(), "ST_RingAmuletBelt", 1)
                             APSent[v] = true
@@ -265,6 +282,21 @@ function SyncArchipelago()
                             APSent[v] = true
                         end
                     else
+                        if(string.sub(v, 14) == "WeaponNormal") then
+                            ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#6d8be8'>Random Weak Weapon</font>")
+                        elseif(string.sub(v, 14) == "WeaponMagic") then
+                            ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#6d8be8'>Random Mediocre Weapon</font>")
+                        elseif(string.sub(v, 14) == "WeaponRare") then
+                            ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#6d8be8'>Random Good Weapon</font>")
+                        elseif(string.sub(v, 14) == "WeaponLegendary") then
+                            ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#6d8be8'>Random Powerful Weapon</font>")
+                        elseif(string.sub(v, 14) == "ArmorMagic") then
+                            ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a piece of <font color='#6d8be8'>Random Mediocre Gear</font>")
+                        elseif(string.sub(v, 14) == "ArmorRare") then
+                            ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a piece of <font color='#6d8be8'>Random Good Gear</font>")
+                        elseif(string.sub(v, 14) == "ArmorLegendary") then
+                            ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a piece of <font color='#6d8be8'>Random Powerful Gear</font>")
+                        end
                         CharacterGiveReward(CharacterGetHostCharacter(), string.sub(v, 11), 1)
                         APSent[v] = true
                     end
@@ -276,6 +308,7 @@ function SyncArchipelago()
                         end
                     end
                     if(string.sub(v, 15) == "Minor") then
+                        ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#fa8072'>Minor Status Trap</font>")
                         if(TrapStyle == 0) then
                             for _, character in ipairs(party) do
                                 ApplyStatus(character, TrapEffect[Random(34) + 1], 6.0, 1)
@@ -286,6 +319,7 @@ function SyncArchipelago()
                             APSent[v] = true
                         end
                     elseif(string.sub(v, 15) == "Moderate") then
+                        ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#fa8072'>Moderate Status Trap</font>")
                         if(TrapStyle == 0) then
                             for _, character in ipairs(party) do
                                 ApplyStatus(character, TrapEffect[Random(34) + 1], 12.0, 1)
@@ -296,6 +330,7 @@ function SyncArchipelago()
                             APSent[v] = true
                         end
                     elseif(string.sub(v, 15) == "Severe") then
+                        ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#fa8072'>Severe Status Trap</font>")
                         if(TrapStyle == 0) then
                             for _, character in ipairs(party) do
                                 ApplyStatus(character, TrapEffect[Random(34) + 1], 18.0, 1)
@@ -306,8 +341,43 @@ function SyncArchipelago()
                             APSent[v] = true
                         end
                     end
+                elseif(string.sub(v, 1, 4) == "ARP_") then
+                    local item = ItemNames[v]
+                    local firstLetter = string.sub(item[1], 1, 1):lower()
+                    if(firstLetter == "a" or firstLetter == "e" or firstLetter == "i" or firstLetter == "o" or firstLetter == "u") then
+                        ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received an <font color='#6d8be8'>" .. item[1] .. "</font>")
+                    else
+                        ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#6d8be8'>" .. item[1] .. "</font>")
+                    end
+                    CharacterGiveReward(CharacterGetHostCharacter(), v, 1)
+                    APSent[v] = true
                 else
-                    ItemTemplateAddTo(v, CharacterGetHostCharacter(), 1, 1)
+                    local item = ItemNames[string.sub(v, 11)]
+                    if(item[1] ~= nil) then
+                        local color = "FF3E6905"
+                        if(item[2] == "f") then
+                            color = "#00e1e1"
+                        elseif(item[2] == "u") then
+                            color = "#6d8be8"
+                        elseif(item[2] == "p") then
+                            color = "#af99ef"
+                        end
+                        local firstLetter = string.sub(item[1], 1, 1):lower()
+                        if(firstLetter == "a" or firstLetter == "e" or firstLetter == "i" or firstLetter == "o" or firstLetter == "u") then
+                            ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received an <font color='" .. color .. "'>" .. item[1] .. "</font>")
+                        else
+                            ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='" .. color .. "'>" .. item[1] .. "</font>")
+                        end
+                    else
+                        ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received an <font color='#f0853e'>unknown item</font>")
+                    end
+                    if(string.sub(v, 11, 46) == "86c59384-3686-4594-b485-507caed669a5") then
+                        PartySetFlag(CharacterGetHostCharacter(),"ARX_CreepyCraftsman_Has_SourceAmulet")
+                    end
+                    if(string.sub(v, 11, 46) == "a266d681-bb84-4277-9889-9da15a4bf3b2") then
+                        PartySetFlag(CharacterGetHostCharacter(),"ARX_CreepyCraftsman_Has_Scroll")
+                    end
+                    ItemTemplateAddTo(v, CharacterGetHostCharacter(), 1, 0)
                     APSent[v] = true
                 end
             end
@@ -428,9 +498,16 @@ Ext.Osiris.RegisterListener("CharacterUsedSkill", 4, "after", function(character
     end
 end)
 
-Ext.Osiris.RegisterListener("CharacterKilledBy", 3, "after", function(defender, attackerOwner, attacker)
-    print("defender: " .. tostring(defender) .. " attackerOwner: " .. tostring(attackerOwner))
-    defender = Ext.GetCharacter(defender).MyGuid
+Ext.Osiris.RegisterListener("ItemAddedToCharacter", 2, "after", function(item, character)
+    if(string.sub(item, 1, 22) == "QUEST_ARX_SourceAmulet") then
+        Osi.DB_ARX_Cathedral_DivineTomb_PoB_Amulets(item, "ARX_CreepyCraftsman_Has_SourceAmulet", "ARX_DivineTomb_PoB_FullCreepyAmulet", "ARX_DivineTomb_PoB_InsertedCreepyAmulet")
+    end
+end)
+
+Ext.Osiris.RegisterListener("CharacterDied", 1, "after", function(defender)
+    --print("defender: " .. tostring(defender) .. " attackerOwner: " .. tostring(attackerOwner))
+    print("defender: " .. tostring(defender))
+    defender = Ext.Entity.GetCharacter(defender).MyGuid
     local unparsed = Ext.IO.LoadFile(ApOutFile)
     local data = {}
     if(unparsed) then
@@ -442,7 +519,7 @@ Ext.Osiris.RegisterListener("CharacterKilledBy", 3, "after", function(defender, 
     end
     local needsToAdd = true
     for k, v in ipairs(data) do
-        if (v == defender) then
+        if(v == defender) then
             needsToAdd = false
             break
         end

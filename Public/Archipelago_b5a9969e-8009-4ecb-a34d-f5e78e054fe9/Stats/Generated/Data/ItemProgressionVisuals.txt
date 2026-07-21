@@ -1,0 +1,1140 @@
+new itemgroup "ARP_WPN_UNIQUE_WinterDragonFang"
+
+add levelgroup 0,0,"All"
+add rootgroup "61fb0d87-e057-47f1-ac36-05bec12c5a24",""
+add namegroup "ARP_WPN_UNIQUE_WinterDragonFang","","Item_WPN_Lizards_Sword_1H_B_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_TeleportationGloves"
+
+add levelgroup 0,0,"All"
+add rootgroup "5fa1ada8-e9fe-4b35-b3e2-e6770ed5e8ed",""
+add namegroup "ARP_ARM_UNIQUE_TeleportationGloves","","Item_EQ_Armor_Mage_Robe_Arms_A_VAR"
+
+new itemgroup "ARP_WPN_RC_UNIQUE_Abstinence"
+
+add levelgroup 0,0,"All"
+add rootgroup "2f7e5bf9-fd51-4747-8b20-9f1c9b5a2fd3",""
+add namegroup "ARP_WPN_RC_UNIQUE_Abstinence","","Item_WPN_Lizards_Dagger_1H_A_VAR"
+
+new itemgroup "ARP_FTJ_Alexandar_Armour"
+
+add levelgroup 0,0,"All"
+add rootgroup "e9a7772e-af46-408b-be7e-903ede7db7e5","MagisterRobe"
+add namegroup "ARP_FTJ_Alexandar_Armour","","Item_EQ_Armor_Mage_Robe_Fullbody_A_VAR"
+
+new itemgroup "ARP_FTJ_SW_VWBoss_VoidWoken_Amulet"
+
+add levelgroup 0,0,"All"
+add rootgroup "ab7d656c-f431-40a2-a5e6-75dbd8c31aec",""
+add namegroup "ARP_FTJ_SW_VWBoss_VoidWoken_Amulet","",""
+
+new itemgroup "ARP_FTJ_SW_ShelterBackSalamander_Amulet"
+
+add levelgroup 0,0,"All"
+add rootgroup "27d7b02a-0df5-40fe-9ebe-4d89ec0aabd6",""
+add namegroup "ARP_FTJ_SW_ShelterBackSalamander_Amulet","",""
+
+new itemgroup "ARP_ARM_UNIQUE_Astartes_Tears_Ring"
+
+add levelgroup 0,0,"All"
+add rootgroup "0aac893a-378d-4784-84cd-cc8c6ed3ff1c",""
+add namegroup "ARP_ARM_UNIQUE_Astartes_Tears_Ring","",""
+
+new itemgroup "ARP_ARM_UNIQUE_BraccusCursedRing"
+
+add levelgroup 0,0,"All"
+add rootgroup "fa4c97b6-4543-4346-a132-ccb8d82f23cc",""
+add namegroup "ARP_ARM_UNIQUE_BraccusCursedRing","",""
+
+new itemgroup "ARP_UNI_Dallis_Stage2_Hammer"
+
+add levelgroup 0,0,"All"
+add rootgroup "656300e1-02e8-44c5-9c4a-6d7d09edc385","RedCape"
+add namegroup "ARP_UNI_Dallis_Stage2_Hammer","","Item_WPN_UNI_Dallis_Stage2_Hammer"
+
+new itemgroup "ARP_FTJ_Brute_Burro_Club"
+
+add levelgroup 0,0,"All"
+add rootgroup "2f9ecfeb-a504-49fc-9d85-174581f3589d",""
+add namegroup "ARP_FTJ_Brute_Burro_Club","","Item_WPN_Common_Mace_1H_B_VAR"
+
+new itemgroup "ARP_WPN_RC_UNIQUE_Chastity"
+
+add levelgroup 0,0,"All"
+add rootgroup "710e98d9-b9e2-4563-82e6-9e9ce90118c8",""
+add namegroup "ARP_WPN_RC_UNIQUE_Chastity","","Item_WPN_Dwarves_Dagger_1H_B_VAR"
+
+new itemgroup "ARP_WPN_RC_UNIQUE_SourceStaff"
+
+add levelgroup 0,0,"All"
+add rootgroup "ebd3ea73-630b-4826-96d2-7ff6f54fe13e",""
+add namegroup "ARP_WPN_RC_UNIQUE_SourceStaff","","Item_WPN_Lizards_Staff_2H_A_VAR"
+
+new itemgroup "ARP_FTJ_BuriedTreasure_Bow"
+
+add levelgroup 0,0,"All"
+add rootgroup "47e31903-9ffc-4c66-800a-13ebde5eb97e",""
+add namegroup "ARP_FTJ_BuriedTreasure_Bow","","Item_WPN_Common_Bow_2H_B_VAR"
+
+new itemgroup "ARP_FTJ_SwampBuildup_A_Undead_Belt"
+
+add levelgroup 0,0,"All"
+add rootgroup "05691bac-6fb3-4cb7-902e-c5231337db14",""
+add namegroup "ARP_FTJ_SwampBuildup_A_Undead_Belt","",""
+
+new itemgroup "ARP_ARM_UNIQUE_AirRobe"
+
+add levelgroup 0,0,"All"
+add rootgroup "648d501c-2d8e-4464-acfb-6e6f061305f6",""
+add namegroup "ARP_ARM_UNIQUE_AirRobe","","Item_EQ_Armor_Mage_Robe_Fullbody_A_VAR"
+
+new itemgroup "ARP_WPN_FTJ_UNIQUE_GriffsKitchenKnife"
+
+add levelgroup 0,0,"All"
+add rootgroup "3b74c758-6676-4dc2-b21e-7fde1479f4f9",""
+add namegroup "ARP_WPN_FTJ_UNIQUE_GriffsKitchenKnife","","Item_WPN_Common_Dagger_1H_B_VAR"
+
+new itemgroup "ARP_WPN_FTJ_UNQIUE_HallornsBlade"
+
+add levelgroup 0,0,"All"
+add rootgroup "374cf6c2-3606-49a9-875b-be0adf103807","HumansCommon"
+add namegroup "ARP_WPN_FTJ_UNQIUE_HallornsBlade","",""
+
+new itemgroup "ARP_ARM_UNIQUE_BraccusArmor_Arms"
+
+add levelgroup 0,0,"All"
+add rootgroup "53b04451-f45d-4c4b-abb0-35d90b49bbe7",""
+add namegroup "ARP_ARM_UNIQUE_BraccusArmor_Arms","",""
+
+new itemgroup "ARP_ARM_UNIQUE_BraccusArmor_UpperBody"
+
+add levelgroup 0,0,"All"
+add rootgroup "2641e906-2d1b-44d9-a0c1-7ac6ef578278",""
+add namegroup "ARP_ARM_UNIQUE_BraccusArmor_UpperBody","",""
+
+new itemgroup "ARP_ARM_UNIQUE_Hildurs_Plate_UpperBody"
+
+add levelgroup 0,0,"All"
+add rootgroup "244b9246-5a87-45cb-9f61-387c639d680a",""
+add namegroup "ARP_ARM_UNIQUE_Hildurs_Plate_UpperBody","","Item_EQ_Armor_Platemail_Upperbody_A_VAR"
+
+new itemgroup "ARP_FTJ_Magister_Hollind_Bow"
+
+add levelgroup 0,0,"All"
+add rootgroup "053800ab-64d6-49f9-ae50-16fddd97401b",""
+add namegroup "ARP_FTJ_Magister_Hollind_Bow","",""
+
+new itemgroup "ARP_WPN_RC_UNIQUE_HoundMasterCrossbow"
+
+add levelgroup 0,0,"All"
+add rootgroup "5745501b-8be7-49c9-9d53-4fd18f0d335d",""
+add namegroup "ARP_WPN_RC_UNIQUE_HoundMasterCrossbow","","Item_WPN_Dwarves_Crossbow_2H_A_VAR"
+
+new itemgroup "ARP_FTJ_Kalias_Stunner_Sword"
+
+add levelgroup 0,0,"All"
+add rootgroup "ec4769e6-bcfc-44e0-9e9c-de62e0bdf407",""
+add namegroup "ARP_FTJ_Kalias_Stunner_Sword","","Item_WPN_Lizards_Sword_1H_A_VAR"
+
+new itemgroup "ARP_FTJ_Knaap_Shield"
+
+add levelgroup 0,0,"All"
+add rootgroup "60a82f10-ed3e-417f-b000-5b0a2099d129",""
+add namegroup "ARP_FTJ_Knaap_Shield","","Item_WPN_Humans_Paladin_Shield_A_VAR"
+
+new itemgroup "ARP_FTJ_MagisterCarin_Shield"
+
+add levelgroup 0,0,"All"
+add rootgroup "08854157-2996-449a-bde0-083277ca1119",""
+add namegroup "ARP_FTJ_MagisterCarin_Shield","","Item_WPN_Humans_Shield_B_VAR"
+
+new itemgroup "ARP_FTJ_Magister_Orivand_2HMace"
+
+add levelgroup 0,0,"All"
+add rootgroup "91e5bd15-033a-418b-8fca-ea0bfe5922e6",""
+add namegroup "ARP_FTJ_Magister_Orivand_2HMace","",""
+
+new itemgroup "ARP_FTJ_OutsideMagister_Crossbow"
+
+add levelgroup 0,0,"All"
+add rootgroup "a0dc4072-eb9c-43fe-8164-c0724876e332",""
+add namegroup "ARP_FTJ_OutsideMagister_Crossbow","",""
+
+new itemgroup "ARP_FTJ_HarbourMagister_MageArmour"
+
+add levelgroup 0,0,"All"
+add rootgroup "e9a7772e-af46-408b-be7e-903ede7db7e5","MagisterRobe"
+add namegroup "ARP_FTJ_HarbourMagister_MageArmour","","Item_EQ_Armor_Mage_Robe_Fullbody_A_VAR"
+
+new itemgroup "ARP_FTJ_CorneringMagister_Sword"
+
+add levelgroup 0,0,"All"
+add rootgroup "3dd01bc4-65e7-4468-9854-b19bc980b3f8",""
+add namegroup "ARP_FTJ_CorneringMagister_Sword","","Item_WPN_Common_Sword_1H_A1_VAR"
+
+new itemgroup "ARP_FTJ_Magister_Trippel_2HSword"
+
+add levelgroup 0,0,"All"
+add rootgroup "a59ac111-dfe9-4dcc-8ede-9ebd757b1bfc",""
+add namegroup "ARP_FTJ_Magister_Trippel_2HSword","","Item_WPN_Common_Sword_1H_A1_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_SalamanderHelmet_Str"
+
+add levelgroup 0,0,"All"
+add rootgroup "6bbd09df-f19c-463a-a12a-ab8ac2111b47",""
+add namegroup "ARP_ARM_UNIQUE_SalamanderHelmet_Str","","Item_EQ_Armor_Chainmail_Helmet_A_VAR"
+
+new itemgroup "ARP_FTJ_Gheist_Migo_UpperBody"
+
+add levelgroup 0,0,"All"
+add rootgroup "244b9246-5a87-45cb-9f61-387c639d680a",""
+add namegroup "ARP_FTJ_Gheist_Migo_UpperBody","","Item_EQ_Armor_Platemail_Upperbody_A_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_MothersRing"
+
+add levelgroup 0,0,"All"
+add rootgroup "98c30a7f-473c-49bb-a2eb-328a25f32ee4",""
+add namegroup "ARP_ARM_UNIQUE_MothersRing","",""
+
+new itemgroup "ARP_FTJ_Brute_Needle_Wand"
+
+add levelgroup 0,0,"All"
+add rootgroup "0edf88b5-f09f-473c-bae1-a992af4dba69",""
+add namegroup "ARP_FTJ_Brute_Needle_Wand","","Item_WPN_Common_Wand_1H_A_VAR"
+
+new itemgroup "ARP_FTJ_Radeka_Wand"
+
+add levelgroup 0,0,"All"
+add rootgroup "42f67e5c-6713-45ba-8449-47ced729cdf9",""
+add namegroup "ARP_FTJ_Radeka_Wand","",""
+
+new itemgroup "ARP_UNI_Dallis_Stage2_Shield"
+
+add levelgroup 0,0,"All"
+add rootgroup "e6d6c9f4-8435-4f87-9066-3994b313ac77","HumansStaffWitch"
+add namegroup "ARP_UNI_Dallis_Stage2_Shield","","Item_WPN_UNI_Dallis_Stage2_Shield"
+
+new itemgroup "ARP_ARM_UNIQUE_SalamanderRing_Int"
+
+add levelgroup 0,0,"All"
+add rootgroup "0aac893a-378d-4784-84cd-cc8c6ed3ff1c",""
+add namegroup "ARP_ARM_UNIQUE_SalamanderRing_Int","",""
+
+new itemgroup "ARP_ARM_UNIQUE_SaheilaSignet"
+
+add levelgroup 0,0,"All"
+add rootgroup "3db7da7f-e4e9-4943-ac84-51f3b4e34ac2",""
+add namegroup "ARP_ARM_UNIQUE_SaheilaSignet","",""
+
+new itemgroup "ARP_ARM_UNIQUE_SalamanderGloves_Fin"
+
+add levelgroup 0,0,"All"
+add rootgroup "fe0754e3-5f0b-409e-a856-31e646201ee4",""
+add namegroup "ARP_ARM_UNIQUE_SalamanderGloves_Fin","","Item_EQ_Armor_Leather_Arms_A_VAR"
+
+new itemgroup "ARP_WPN_RC_UNIQUE_IfansCrossbow"
+
+add levelgroup 0,0,"All"
+add rootgroup "906cdadd-fec3-487d-938c-3d3cd72df2ba","Tenebrium"
+add namegroup "ARP_WPN_RC_UNIQUE_IfansCrossbow","","Item_WPN_Lizards_Crossbow_2H_B_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_SimplePendant"
+
+add levelgroup 0,0,"All"
+add rootgroup "37f38ca0-5322-4492-963c-8ce0a44716ea",""
+add namegroup "ARP_ARM_UNIQUE_SimplePendant","",""
+
+new itemgroup "ARP_FTJ_Brute_Slug_Axe"
+
+add levelgroup 0,0,"All"
+add rootgroup "7f229a2e-dc16-4b79-baeb-203e4c00fff5",""
+add namegroup "ARP_FTJ_Brute_Slug_Axe","","Item_WPN_Common_Axe_1H_A_VAR"
+
+new itemgroup "ARP_WPN_RC_Weapon_WithermooreSpear"
+
+add levelgroup 0,0,"All"
+add rootgroup "bc455a48-b77a-467c-a711-e4adbc0888d8",""
+add namegroup "ARP_WPN_RC_Weapon_WithermooreSpear","",""
+
+new itemgroup "ARP_WPN_RC_UNIQUE_SourceAxe"
+
+add levelgroup 0,0,"All"
+add rootgroup "5c595508-ed2c-41e4-a258-36d63841f9a6",""
+add namegroup "ARP_WPN_RC_UNIQUE_SourceAxe","","Item_WPN_Lizards_Axe_2H_D_VAR"
+
+new itemgroup "ARP_WPN_FTJ_UNIQUE_BraccusTorch"
+
+add levelgroup 0,0,"All"
+add rootgroup "5171258c-9816-4379-8c2f-068558505fbb",""
+add namegroup "ARP_WPN_FTJ_UNIQUE_BraccusTorch","",""
+
+new itemgroup "ARP_WPN_RC_UNIQUE_DallisHammer"
+
+add levelgroup 0,0,"All"
+add rootgroup "4e80a06f-2d30-4982-a6e8-9efb661491c8",""
+add namegroup "ARP_WPN_RC_UNIQUE_DallisHammer","","Item_WPN_Humans_Mace_2H_D_VAR"
+
+new itemgroup "ARP_WPN_FTJ_UNIQUE_AncientEmpireSword"
+
+add levelgroup 0,0,"All"
+add rootgroup "61fb0d87-e057-47f1-ac36-05bec12c5a24",""
+add namegroup "ARP_WPN_FTJ_UNIQUE_AncientEmpireSword","","Item_WPN_Lizards_Sword_1H_B_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_BraccusArmor_Legs"
+
+add levelgroup 0,0,"All"
+add rootgroup "efa4d3dc-dab6-4c50-9421-cbb96ffb968a",""
+add namegroup "ARP_ARM_UNIQUE_BraccusArmor_Legs","",""
+
+new itemgroup "ARP_FTJ_Trompdoy_Hatchet"
+
+add levelgroup 0,0,"All"
+add rootgroup "5d9b15b3-6d9f-493a-b81a-8a08c3454146",""
+add namegroup "ARP_FTJ_Trompdoy_Hatchet","",""
+
+new itemgroup "ARP_FTJ_SpikedTurtle_Wand"
+
+add levelgroup 0,0,"All"
+add rootgroup "0edf88b5-f09f-473c-bae1-a992af4dba69",""
+add namegroup "ARP_FTJ_SpikedTurtle_Wand","","Item_WPN_Common_Wand_1H_A_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_BraccusHelmet_Cured"
+
+add levelgroup 0,0,"All"
+add rootgroup "d0736bc1-2145-4f52-8333-ced8ea214919",""
+add namegroup "ARP_ARM_UNIQUE_BraccusHelmet_Cured","",""
+
+new itemgroup "ARP_ARM_UNIQUE_BraccusArmor_LowerBody"
+
+add levelgroup 0,0,"All"
+add rootgroup "f2df8b49-eac9-4e1f-84c6-e0cb19c38ad1",""
+add namegroup "ARP_ARM_UNIQUE_BraccusArmor_LowerBody","",""
+
+new itemgroup "ARP_FTJ_Brute_Waltz_Staff"
+
+add levelgroup 0,0,"All"
+add rootgroup "f9395532-5efe-4561-bef1-3f603b32c082",""
+add namegroup "ARP_FTJ_Brute_Waltz_Staff","","Item_WPN_Common_Staff_2H_A_VAR"
+
+new itemgroup "ARP_ARM_WithermooreGirdle"
+
+add levelgroup 0,0,"All"
+add rootgroup "05691bac-6fb3-4cb7-902e-c5231337db14",""
+add namegroup "ARP_ARM_WithermooreGirdle","",""
+
+new itemgroup "ARP_WPN_RC_DW_LuthiersBow"
+
+add levelgroup 0,0,"All"
+add rootgroup "54123b91-bac5-4edb-824c-819e43f03124",""
+add namegroup "ARP_WPN_RC_DW_LuthiersBow","","Item_WPN_Dwarves_Bow_2H_B_VAR"
+
+new itemgroup "ARP_RC_DW_Unique_Shield"
+
+add levelgroup 0,0,"All"
+add rootgroup "4192940d-c4bb-4893-aaf3-15641b30d04e",""
+add namegroup "ARP_RC_DW_Unique_Shield","","Item_WPN_Lizards_Shield_C"
+
+new itemgroup "ARP_ARM_UNIQUE_RC_Belt"
+
+add levelgroup 0,0,"All"
+add rootgroup "092b9b0d-9b22-4176-a890-07c6f6b9e3f8",""
+add namegroup "ARP_ARM_UNIQUE_RC_Belt","",""
+
+new itemgroup "ARP_UNI_RC_FL_Armor_Platemail_AncientTrophy"
+
+add levelgroup 0,0,"All"
+add rootgroup "244b9246-5a87-45cb-9f61-387c639d680a","Metamorph"
+add namegroup "ARP_UNI_RC_FL_Armor_Platemail_AncientTrophy","","Item_EQ_Armor_Platemail_Upperbody_A_VAR"
+
+new itemgroup "ARP_WPN_UNIQUE_DeerBow"
+
+add levelgroup 0,0,"All"
+add rootgroup "dcf4d193-95d1-4e4d-9341-ad2332cd52b1",""
+add namegroup "ARP_WPN_UNIQUE_DeerBow","","Item_WPN_Elves_Bow_2H_A_VAR"
+
+new itemgroup "ARP_WPN_UNIQUE_LizardAssassinBow"
+
+add levelgroup 0,0,"All"
+add rootgroup "99223603-5a43-4201-b3a0-c2926d413757",""
+add namegroup "ARP_WPN_UNIQUE_LizardAssassinBow","",""
+
+new itemgroup "ARP_RC_DW_Tavern_Baran_Leveres_Ring"
+
+add levelgroup 0,0,"All"
+add rootgroup "0aac893a-378d-4784-84cd-cc8c6ed3ff1c",""
+add namegroup "ARP_RC_DW_Tavern_Baran_Leveres_Ring","",""
+
+new itemgroup "ARP_WPN_RC_UNIQUE_RichMerchant_Dagger_02"
+
+add levelgroup 0,0,"All"
+add rootgroup "2f7e5bf9-fd51-4747-8b20-9f1c9b5a2fd3","LizardsRare"
+add namegroup "ARP_WPN_RC_UNIQUE_RichMerchant_Dagger_02","","Item_WPN_Lizards_Dagger_1H_A_VAR"
+
+new itemgroup "ARP_WPN_RC_UNIQUE_RichMerchant_Dagger_01"
+
+add levelgroup 0,0,"All"
+add rootgroup "2f7e5bf9-fd51-4747-8b20-9f1c9b5a2fd3","LizardsEpic"
+add namegroup "ARP_WPN_RC_UNIQUE_RichMerchant_Dagger_01","","Item_WPN_Lizards_Dagger_1H_A_VAR"
+
+new itemgroup "ARP_WPN_RC_GY_UNIQUE_BrittleSpear"
+
+add levelgroup 0,0,"All"
+add rootgroup "00df5652-0176-4d7a-8725-e59bfad4163c",""
+add namegroup "ARP_WPN_RC_GY_UNIQUE_BrittleSpear","",""
+
+new itemgroup "ARP_WPN_RC_UNIQUE_MalevolentSword"
+
+add levelgroup 0,0,"All"
+add rootgroup "f1a2347e-0a9e-4b4a-9f85-8d9afbcb2ca4",""
+add namegroup "ARP_WPN_RC_UNIQUE_MalevolentSword","",""
+
+new itemgroup "ARP_RC_DW_Tavern_Captain_Ablewethers_Hat"
+
+add levelgroup 0,0,"All"
+add rootgroup "e8d53fab-bbd8-4929-8dbe-658baf168555",""
+add namegroup "ARP_RC_DW_Tavern_Captain_Ablewethers_Hat","",""
+
+new itemgroup "ARP_ARM_UNIQUE_CaptainsCompass"
+
+add levelgroup 0,0,"All"
+add rootgroup "acc24bb4-ca68-4a08-a51b-f084fe941565",""
+add namegroup "ARP_ARM_UNIQUE_CaptainsCompass","",""
+
+new itemgroup "ARP_WPN_RC_UNIQUE_AirWand"
+
+add levelgroup 0,0,"All"
+add rootgroup "296367bb-7e26-4966-a23d-cd77550ed501",""
+add namegroup "ARP_WPN_RC_UNIQUE_AirWand","",""
+
+new itemgroup "ARP_ARM_Ring_UNIQUE_RC_DW_FishermanRing"
+
+add levelgroup 0,0,"All"
+add rootgroup "0beccb48-8c11-4607-a4e7-6e44a6753b89",""
+add namegroup "ARP_ARM_Ring_UNIQUE_RC_DW_FishermanRing","",""
+
+new itemgroup "ARP_ARM_UNIQUE_RC_MageUpperBody"
+
+add levelgroup 0,0,"All"
+add rootgroup "4e83a968-857a-4d08-9ca5-9a9fb239a6a4",""
+add namegroup "ARP_ARM_UNIQUE_RC_MageUpperBody","",""
+
+new itemgroup "ARP_WPN_RC_MIL_Deadeye_Crossbow"
+
+add levelgroup 0,0,"All"
+add rootgroup "a0dc4072-eb9c-43fe-8164-c0724876e332",""
+add namegroup "ARP_WPN_RC_MIL_Deadeye_Crossbow","",""
+
+new itemgroup "ARP_WPN_RC_UNIQUE_DjinnsScimitar"
+
+add levelgroup 0,0,"All"
+add rootgroup "ec4769e6-bcfc-44e0-9e9c-de62e0bdf407",""
+add namegroup "ARP_WPN_RC_UNIQUE_DjinnsScimitar","",""
+
+new itemgroup "ARP_WPN_RC_MIL_UNIQUE_DwarfWolfAxe"
+
+add levelgroup 0,0,"All"
+add rootgroup "a2a344f9-20d3-4587-9d64-c69268d653a3",""
+add namegroup "ARP_WPN_RC_MIL_UNIQUE_DwarfWolfAxe","","Item_WPN_Elves_Axe_2H_C_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_RC_HeavyUpperBody"
+
+add levelgroup 0,0,"All"
+add rootgroup "75fb16fd-41e3-488f-8516-1a64c7659fe4",""
+add namegroup "ARP_ARM_UNIQUE_RC_HeavyUpperBody","",""
+
+new itemgroup "ARP_WPN_RC_UNIQUE_SourceCrossbow"
+
+add levelgroup 0,0,"All"
+add rootgroup "1bf8d23b-4f71-4e2b-ab26-8dc179968f0b",""
+add namegroup "ARP_WPN_RC_UNIQUE_SourceCrossbow","","Item_WPN_Elves_Crossbow_2H_B_VAR"
+
+new itemgroup "ARP_WPN_RC_UNIQUE_ExecutorsAxe"
+
+add levelgroup 0,0,"All"
+add rootgroup "2f544f23-2c81-43de-a9a8-fe0efc03c1de",""
+add namegroup "ARP_WPN_RC_UNIQUE_ExecutorsAxe","",""
+
+new itemgroup "ARP_WPN_RC_UNIQUE_LoharDagger"
+
+add levelgroup 0,0,"All"
+add rootgroup "7feebe69-30e0-4ccf-9b05-c96e66e0f760",""
+add namegroup "ARP_WPN_RC_UNIQUE_LoharDagger","","Item_WPN_Dwarves_Dagger_1H_A_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_ThiefGloves"
+
+add levelgroup 0,0,"All"
+add rootgroup "fe0754e3-5f0b-409e-a856-31e646201ee4","LeatherRareLate"
+add namegroup "ARP_ARM_UNIQUE_ThiefGloves","","Item_EQ_Armor_Leather_Arms_A_VAR"
+
+new itemgroup "ARP_WPN_UNIQUE_RC_MIL_Firewaters_Staff"
+
+add levelgroup 0,0,"All"
+add rootgroup "ebd3ea73-630b-4826-96d2-7ff6f54fe13e",""
+add namegroup "ARP_WPN_UNIQUE_RC_MIL_Firewaters_Staff","",""
+
+new itemgroup "ARP_ARM_ClothBoots_UNIQUE_Memorial"
+
+add levelgroup 0,0,"All"
+add rootgroup "efa4d3dc-dab6-4c50-9421-cbb96ffb968a",""
+add namegroup "ARP_ARM_ClothBoots_UNIQUE_Memorial","","Item_EQ_Armor_Scalemail_Legs_A_VAR"
+
+new itemgroup "ARP_ARM_Belt_UNIQUE_Memorial"
+
+add levelgroup 0,0,"All"
+add rootgroup "092b9b0d-9b22-4176-a890-07c6f6b9e3f8",""
+add namegroup "ARP_ARM_Belt_UNIQUE_Memorial","",""
+
+new itemgroup "ARP_WPN_RC_UNIQUE_Axe"
+
+add levelgroup 0,0,"All"
+add rootgroup "2f544f23-2c81-43de-a9a8-fe0efc03c1de",""
+add namegroup "ARP_WPN_RC_UNIQUE_Axe","",""
+
+new itemgroup "ARP_ARX_RC_FL_UNIQUE_GarethParentsRewardRing"
+
+add levelgroup 0,0,"All"
+add rootgroup "0beccb48-8c11-4607-a4e7-6e44a6753b89",""
+add namegroup "ARP_ARX_RC_FL_UNIQUE_GarethParentsRewardRing","",""
+
+new itemgroup "ARP_ARM_RC_FL_UNIQUE_JonathanGloves"
+
+add levelgroup 0,0,"All"
+add rootgroup "fe0754e3-5f0b-409e-a856-31e646201ee4",""
+add namegroup "ARP_ARM_RC_FL_UNIQUE_JonathanGloves","","Item_EQ_Armor_Leather_Arms_A_VAR"
+
+new itemgroup "ARP_ARM_LightGloves_UNIQUE_Memorial"
+
+add levelgroup 0,0,"All"
+add rootgroup "fe0754e3-5f0b-409e-a856-31e646201ee4",""
+add namegroup "ARP_ARM_LightGloves_UNIQUE_Memorial","","Item_EQ_Armor_Leather_Arms_A_VAR"
+
+new itemgroup "ARP_RC_MIL_UNIQUE_LogRewardShield"
+
+add levelgroup 0,0,"All"
+add rootgroup "aca20564-4322-4472-b01c-99bd12a3d0a1",""
+add namegroup "ARP_RC_MIL_UNIQUE_LogRewardShield","",""
+
+new itemgroup "ARP_WPN_RC_UNIQUE_LoharsSourceHammer"
+
+add levelgroup 0,0,"All"
+add rootgroup "744e15fd-aaef-48d1-949e-2bd0a6c65fb2",""
+add namegroup "ARP_WPN_RC_UNIQUE_LoharsSourceHammer","","Item_WPN_Dwarves_Mace_2H_B_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_LoneWolfMark"
+
+add levelgroup 0,0,"All"
+add rootgroup "b705f87e-6643-45a0-93e6-5331762a1d5e",""
+add namegroup "ARP_ARM_UNIQUE_LoneWolfMark","",""
+
+new itemgroup "ARP_S_RC_OIL_EQ_Armor_Mage_WallBoss"
+
+add levelgroup 0,0,"All"
+add rootgroup "8f702276-a27f-421e-8f84-ce927c89fea9",""
+add namegroup "ARP_S_RC_OIL_EQ_Armor_Mage_WallBoss","",""
+
+new itemgroup "ARP_RC_GY_Shield"
+
+add levelgroup 0,0,"All"
+add rootgroup "d3620dff-36af-4fc8-96ba-818ead1d4865",""
+add namegroup "ARP_RC_GY_Shield","",""
+
+new itemgroup "ARP_ARM_UNIQUE_MordusAmulet"
+
+add levelgroup 0,0,"All"
+add rootgroup "33f061a5-8fec-4a27-a9a2-86651e6fcfa4",""
+add namegroup "ARP_ARM_UNIQUE_MordusAmulet","",""
+
+new itemgroup "ARP_UNI_RC_MIL_CorbinsBow"
+
+add levelgroup 0,0,"All"
+add rootgroup "6f6423e7-ad9b-4b17-8934-75bdbc45bc08","HumansStaffAEpic"
+add namegroup "ARP_UNI_RC_MIL_CorbinsBow","",""
+
+new itemgroup "ARP_WPN_RC_UNIQUE_LoversQuarrel"
+
+add levelgroup 0,0,"All"
+add rootgroup "2f7e5bf9-fd51-4747-8b20-9f1c9b5a2fd3",""
+add namegroup "ARP_WPN_RC_UNIQUE_LoversQuarrel","","Item_WPN_Lizards_Dagger_1H_A_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_RC_LightUpperBody"
+
+add levelgroup 0,0,"All"
+add rootgroup "5b6b9527-f023-4547-9679-160ba00eed9c",""
+add namegroup "ARP_ARM_UNIQUE_RC_LightUpperBody","",""
+
+new itemgroup "ARP_RC_FL_Lowlands_RainAmulet"
+
+add levelgroup 0,0,"All"
+add rootgroup "6de34a88-3046-4fef-8933-b4f634d794ae",""
+add namegroup "ARP_RC_FL_Lowlands_RainAmulet","",""
+
+new itemgroup "ARP_WPN_RC_UNIQUE_ReaversAxe"
+
+add levelgroup 0,0,"All"
+add rootgroup "ebfbe499-7040-49b3-878b-298f7bac3c05",""
+add namegroup "ARP_WPN_RC_UNIQUE_ReaversAxe","",""
+
+new itemgroup "ARP_WPN_RC_UNIQUE_MhordkanHammer"
+
+add levelgroup 0,0,"All"
+add rootgroup "6c5f80a6-f3e4-42a1-a07e-ff713899a23d",""
+add namegroup "ARP_WPN_RC_UNIQUE_MhordkanHammer","","Item_WPN_Humans_Mace_2H_C_VAR"
+
+new itemgroup "ARP_WPN_RC_SaheilaRewardSpear"
+
+add levelgroup 0,0,"All"
+add rootgroup "bec707cd-8340-4d4d-8cdc-edfedf7f311d",""
+add namegroup "ARP_WPN_RC_SaheilaRewardSpear","","Item_WPN_Elves_Spear_2H_B_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_RC_GY_RykersSpider_Gloves"
+
+add levelgroup 0,0,"All"
+add rootgroup "5fa1ada8-e9fe-4b35-b3e2-e6770ed5e8ed",""
+add namegroup "ARP_ARM_UNIQUE_RC_GY_RykersSpider_Gloves","","Item_EQ_Armor_Mage_Robe_Arms_A_VAR"
+
+new itemgroup "ARP_WPN_RC_DW_UNIQUE_SmugglingSword"
+
+add levelgroup 0,0,"All"
+add rootgroup "94aaefe8-4843-4624-b1a0-92d63be2e5b8",""
+add namegroup "ARP_WPN_RC_DW_UNIQUE_SmugglingSword","",""
+
+new itemgroup "ARP_WPN_RC_DW_UNIQUE_SmugglingCrossbow"
+
+add levelgroup 0,0,"All"
+add rootgroup "5745501b-8be7-49c9-9d53-4fd18f0d335d",""
+add namegroup "ARP_WPN_RC_DW_UNIQUE_SmugglingCrossbow","",""
+
+new itemgroup "ARP_ARM_UNIQUE_RC_DW_Barracks_Evidence"
+
+add levelgroup 0,0,"All"
+add rootgroup "fa4c97b6-4543-4346-a132-ccb8d82f23cc",""
+add namegroup "ARP_ARM_UNIQUE_RC_DW_Barracks_Evidence","",""
+
+new itemgroup "ARP_ARM_UNIQUE_RC_PossessedDwarf_UpperBody"
+
+add levelgroup 0,0,"All"
+add rootgroup "75245765-2fcb-4ca5-b62b-65a47b900d7e",""
+add namegroup "ARP_ARM_UNIQUE_RC_PossessedDwarf_UpperBody","",""
+
+new itemgroup "ARP_WPN_RC_UNIQUE_SourceMace"
+
+add levelgroup 0,0,"All"
+add rootgroup "64c16ab4-5c4e-4615-9b51-7e5d409948da","LizardsUncommonGem"
+add namegroup "ARP_WPN_RC_UNIQUE_SourceMace","","Item_WPN_Lizards_Mace_1H_B_VAR"
+
+new itemgroup "ARP_WPN_RC_UNIQUE_DorotyaDagger_01"
+
+add levelgroup 0,0,"All"
+add rootgroup "2f7e5bf9-fd51-4747-8b20-9f1c9b5a2fd3","Cobalt"
+add namegroup "ARP_WPN_RC_UNIQUE_DorotyaDagger_01","","Item_WPN_Lizards_Dagger_1H_A_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_RC_BI_Destroyer_Gloves"
+
+add levelgroup 0,0,"All"
+add rootgroup "6100deb9-451b-4f7c-89ab-b1dd39a4ebec",""
+add namegroup "ARP_ARM_UNIQUE_RC_BI_Destroyer_Gloves","",""
+
+new itemgroup "The Pride of Pryce"
+
+add levelgroup 0,0,"All"
+add rootgroup "4831370f-6403-43d8-aa10-a6f6f0b593f8",""
+add namegroup "The Pride of Pryce","",""
+
+new itemgroup "ARP_ARM_UNIQUE_AlmiraRing"
+
+add levelgroup 0,0,"All"
+add rootgroup "4b9bb633-8762-43fd-89b2-ec6532e1339d",""
+add namegroup "ARP_ARM_UNIQUE_AlmiraRing","",""
+
+new itemgroup "ARP_WPN_UNIQUE_RC_DW_Bow"
+
+add levelgroup 0,0,"All"
+add rootgroup "2813c594-b5b4-43f5-8605-6e4d5d8fdda1",""
+add namegroup "ARP_WPN_UNIQUE_RC_DW_Bow","",""
+
+new itemgroup "ARP_WPN_RC_UNIQUE_DorotyaDagger_02"
+
+add levelgroup 0,0,"All"
+add rootgroup "2f7e5bf9-fd51-4747-8b20-9f1c9b5a2fd3","Venom Stone"
+add namegroup "ARP_WPN_RC_UNIQUE_DorotyaDagger_02","","Item_WPN_Lizards_Dagger_1H_A_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_WatcherUpperBody"
+
+add levelgroup 0,0,"All"
+add rootgroup "90197584-35a2-4a18-9e5c-3804da9d969f",""
+add namegroup "ARP_ARM_UNIQUE_WatcherUpperBody","",""
+
+new itemgroup "ARP_ARM_HeavyHelmet_UNIQUE_Memorial"
+
+add levelgroup 0,0,"All"
+add rootgroup "021e8706-a45f-4521-a7ff-100f53aabbe3",""
+add namegroup "ARP_ARM_HeavyHelmet_UNIQUE_Memorial","","Item_EQ_Armor_Platemail_Helmet_A_VAR"
+
+new itemgroup "ARP_WPN_RC_Unique_ElderOfPassing"
+
+add levelgroup 0,0,"All"
+add rootgroup "21699330-a7dd-44c0-8cb4-2808fe910abc",""
+add namegroup "ARP_WPN_RC_Unique_ElderOfPassing","",""
+
+new itemgroup "ARP_WPN_RC_UNIQUE_LichStaff_02"
+
+add levelgroup 0,0,"All"
+add rootgroup "bdfb42c8-ab2b-4526-b43f-0a1c0f537f64","Venom Stone"
+add namegroup "ARP_WPN_RC_UNIQUE_LichStaff_02","","Item_WPN_Humans_Staff_2H_B_VAR"
+
+new itemgroup "ARP_WPN_UNIQUE_ResurrectionPreventionStaff"
+
+add levelgroup 0,0,"All"
+add rootgroup "766827a7-c2ff-4205-a2b1-9b6803cd14ab",""
+add namegroup "ARP_WPN_UNIQUE_ResurrectionPreventionStaff","","Item_WPN_Lizards_Staff_2H_B_VAR"
+
+new itemgroup "ARP_WPN_UNIQUE_CoS_BlackRingDagger"
+
+add levelgroup 0,0,"All"
+add rootgroup "61347274-8404-4fc2-ad6c-6d213a2b1c75",""
+add namegroup "ARP_WPN_UNIQUE_CoS_BlackRingDagger","",""
+
+new itemgroup "ARP_ARM_UNIQUE_DispelCowl"
+
+add levelgroup 0,0,"All"
+add rootgroup "e72aa8b5-344b-419a-ae41-6f56d279dd4e","MagisterRobe"
+add namegroup "ARP_ARM_UNIQUE_DispelCowl","","Item_EQ_Armor_Mage_Robe_Helmet_A_VAR"
+
+new itemgroup "ARP_WPN_UNIQUE_DelorusBow"
+
+add levelgroup 0,0,"All"
+add rootgroup "73426f44-a268-4aaf-9c3c-cb71497d0490",""
+add namegroup "ARP_WPN_UNIQUE_DelorusBow","","Item_WPN_Lizards_Bow_2H_B_VAR"
+
+new itemgroup "ARP_WPN_Staff_Human_Alexandar"
+
+add levelgroup 0,0,"All"
+add rootgroup "5ebee772-0d3f-4d25-957f-1da001486ccb",""
+add namegroup "ARP_WPN_Staff_Human_Alexandar","",""
+
+new itemgroup "ARP_ARM_UNIQUE_BeastBicorne"
+
+add levelgroup 0,0,"All"
+add rootgroup "9495f55d-6495-4c96-a587-e7a66f9e4d4f",""
+add namegroup "ARP_ARM_UNIQUE_BeastBicorne","",""
+
+new itemgroup "ARP_ARM_UNIQUE_WizardTempleGloves"
+
+add levelgroup 0,0,"All"
+add rootgroup "38975d28-1198-4970-829f-b5c02b4f1f7d",""
+add namegroup "ARP_ARM_UNIQUE_WizardTempleGloves","","Item_EQ_Armor_Mage_Arms_B_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_DwarfTempleHelmet"
+
+add levelgroup 0,0,"All"
+add rootgroup "2a660a28-25c5-44bc-b31c-df9ab7de3e82",""
+add namegroup "ARP_ARM_UNIQUE_DwarfTempleHelmet","","Item_EQ_Armor_Platemail_Helmet_B_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_OrcTempleBoots"
+
+add levelgroup 0,0,"All"
+add rootgroup "f91a2518-7f51-4c92-96a9-17ef41c0928f",""
+add namegroup "ARP_ARM_UNIQUE_OrcTempleBoots","","Item_EQ_Armor_Platemail_Legs_A_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_SallowManUpperBody"
+
+add levelgroup 0,0,"All"
+add rootgroup "e43cdc17-ef9a-4b69-ba3b-02ca3ac4f7a0",""
+add namegroup "ARP_ARM_UNIQUE_SallowManUpperBody","","Item_EQ_Armor_Chainmail_Upperbody_A_VAR"
+
+new itemgroup "ARP_WPN_UNIQUE_CrabShield"
+
+add levelgroup 0,0,"All"
+add rootgroup "91010c87-420d-4842-86c3-a325058687c5",""
+add namegroup "ARP_WPN_UNIQUE_CrabShield","","Item_WPN_Lizards_Shield_B_VAR"
+
+new itemgroup "ARP_WPN_UNIQUE_CoS_EternalSword"
+
+add levelgroup 0,0,"All"
+add rootgroup "1661491d-bc49-4930-a871-f61826632a06",""
+add namegroup "ARP_WPN_UNIQUE_CoS_EternalSword","",""
+
+new itemgroup "ARP_ARM_UNIQUE_SpymasterSignet"
+
+add levelgroup 0,0,"All"
+add rootgroup "0aac893a-378d-4784-84cd-cc8c6ed3ff1c",""
+add namegroup "ARP_ARM_UNIQUE_SpymasterSignet","",""
+
+new itemgroup "ARP_ARM_UNIQUE_WatcherAmulet"
+
+add levelgroup 0,0,"All"
+add rootgroup "584d45a0-2914-462e-a912-79b821082cc6",""
+add namegroup "ARP_ARM_UNIQUE_WatcherAmulet","",""
+
+new itemgroup "ARP_WPN_UNIQUE_Godslayer"
+
+add levelgroup 0,0,"All"
+add rootgroup "ff3c1a1b-b96b-454f-85bb-06594f9fd8f9",""
+add namegroup "ARP_WPN_UNIQUE_Godslayer","",""
+
+new itemgroup "ARP_ARM_UNIQUE_AntiqueSpecialBelt"
+
+add levelgroup 0,0,"All"
+add rootgroup "cf496926-7213-47a7-86ae-9f376efbed2d",""
+add namegroup "ARP_ARM_UNIQUE_AntiqueSpecialBelt","",""
+
+new itemgroup "ARP_ARX_UNIQUE_Lizard_Spear"
+
+add levelgroup 0,0,"All"
+add rootgroup "201dd810-dd24-4c1d-9b77-34b7c6c4a9b1",""
+add namegroup "ARP_ARX_UNIQUE_Lizard_Spear","",""
+
+new itemgroup "ARP_WPN_UNIQUE_ARX_TheOneShield"
+
+add levelgroup 0,0,"All"
+add rootgroup "dd21719f-0070-48c2-84fb-c5fe4198d800",""
+add namegroup "ARP_WPN_UNIQUE_ARX_TheOneShield","",""
+
+new itemgroup "ARP_ARM_UNIQUE_AntiqueSpecialRing"
+
+add levelgroup 0,0,"All"
+add rootgroup "ac7ceb77-a316-46bd-b0b3-8583180bbf04",""
+add namegroup "ARP_ARM_UNIQUE_AntiqueSpecialRing","",""
+
+new itemgroup "ARP_ARM_UNIQUE_ArxGlovesOfSilencing"
+
+add levelgroup 0,0,"All"
+add rootgroup "384e3766-653d-4c4a-8ca5-0b9091a75fbc",""
+add namegroup "ARP_ARM_UNIQUE_ArxGlovesOfSilencing","",""
+
+new itemgroup "ARP_ARM_UNIQUE_Pilgrim_Band_A"
+
+add levelgroup 0,0,"All"
+add rootgroup "392e580b-690e-4f2a-b4a1-e17076ade407",""
+add namegroup "ARP_ARM_UNIQUE_Pilgrim_Band_A","",""
+
+new itemgroup "ARP_WPN_UNIQUE_ARX_BrahmosSword_2H"
+
+add levelgroup 0,0,"All"
+add rootgroup "d8a3135a-1691-4ba4-ab1f-73301e8db3f6",""
+add namegroup "ARP_WPN_UNIQUE_ARX_BrahmosSword_2H","",""
+
+new itemgroup "ARP_ARM_UNIQUE_Pilgrim_Pants_A"
+
+add levelgroup 0,0,"All"
+add rootgroup "ca26411a-c447-46c2-9adb-3a3dfa5b8074",""
+add namegroup "ARP_ARM_UNIQUE_Pilgrim_Pants_A","",""
+
+new itemgroup "ARP_ARM_UNIQUE_Pilgrim_Boots_A"
+
+add levelgroup 0,0,"All"
+add rootgroup "c38f9cbd-918b-437c-ab1b-97a394a1f00d",""
+add namegroup "ARP_ARM_UNIQUE_Pilgrim_Boots_A","",""
+
+new itemgroup "ARP_WPN_UNIQUE_MaladySpear"
+
+add levelgroup 0,0,"All"
+add rootgroup "bc751a7d-9898-4d1a-8c95-675924440d6f",""
+add namegroup "ARP_WPN_UNIQUE_MaladySpear","",""
+
+new itemgroup "ARP_ARM_UNIQUE_RedPrincessRing"
+
+add levelgroup 0,0,"All"
+add rootgroup "f6fd6b73-191d-4ba1-b844-cec875608fe3",""
+add namegroup "ARP_ARM_UNIQUE_RedPrincessRing","",""
+
+new itemgroup "ARP_ARX_UNIQUE_Staff_Tornado"
+
+add levelgroup 0,0,"All"
+add rootgroup "ebd3ea73-630b-4826-96d2-7ff6f54fe13e",""
+add namegroup "ARP_ARX_UNIQUE_Staff_Tornado","",""
+
+new itemgroup "ARP_ARM_UNIQUE_Pilgrim_Cowl_A"
+
+add levelgroup 0,0,"All"
+add rootgroup "103aed36-c53e-4fc4-a9f4-7c08b8655dcd",""
+add namegroup "ARP_ARM_UNIQUE_Pilgrim_Cowl_A","",""
+
+new itemgroup "ARP_ARX_UNIQUE_Bow_Mark"
+
+add levelgroup 0,0,"All"
+add rootgroup "73426f44-a268-4aaf-9c3c-cb71497d0490",""
+add namegroup "ARP_ARX_UNIQUE_Bow_Mark","",""
+
+new itemgroup "ARP_ARX_UNIQUE_Axe_2H_ElvenRelic"
+
+add levelgroup 0,0,"All"
+add rootgroup "3c3dd66a-a8e5-4acc-b746-9a151690ffa4","ElvesEpic"
+add namegroup "ARP_ARX_UNIQUE_Axe_2H_ElvenRelic","","Item_WPN_Elves_Axe_2H_D_VAR"
+
+new itemgroup "ARP_ARX_UNIQUE_DaggerOfCruelty"
+
+add levelgroup 0,0,"All"
+add rootgroup "70f43374-543f-4c08-bc73-f739e223c10d",""
+add namegroup "ARP_ARX_UNIQUE_DaggerOfCruelty","",""
+
+new itemgroup "ARP_ARM_UNIQUE_ArxHeavyArmour"
+
+add levelgroup 0,0,"All"
+add rootgroup "1bf5d328-f4e8-40d8-bf1b-0577adb7cdbb",""
+add namegroup "ARP_ARM_UNIQUE_ArxHeavyArmour","",""
+
+new itemgroup "ARP_ARM_UNIQUE_ArxRingOfHealing"
+
+add levelgroup 0,0,"All"
+add rootgroup "fa4c97b6-4543-4346-a132-ccb8d82f23cc",""
+add namegroup "ARP_ARM_UNIQUE_ArxRingOfHealing","",""
+
+new itemgroup "ARP_ARX_UNIQUE_Wand_SiphonPoison"
+
+add levelgroup 0,0,"All"
+add rootgroup "6b6b8887-c68f-4784-9e3f-5458f049f8f6",""
+add namegroup "ARP_ARX_UNIQUE_Wand_SiphonPoison","",""
+
+new itemgroup "ARP_ARX_UNIQUE_Spear_Sparks"
+
+add levelgroup 0,0,"All"
+add rootgroup "a1f308fd-9834-4f8f-88e5-cfc69af87bff",""
+add namegroup "ARP_ARX_UNIQUE_Spear_Sparks","",""
+
+new itemgroup "ARP_ARM_UNIQUE_ArxAmuletOfTheEarthMage"
+
+add levelgroup 0,0,"All"
+add rootgroup "16fd48bc-26e0-4884-bd59-680a48b625f1",""
+add namegroup "ARP_ARM_UNIQUE_ArxAmuletOfTheEarthMage","",""
+
+new itemgroup "ARP_ARX_UNIQUE_Axe_2H_DeathsDoorScythe"
+
+add levelgroup 0,0,"All"
+add rootgroup "44525b09-a2b1-4b45-8d52-e893d04390dd",""
+add namegroup "ARP_ARX_UNIQUE_Axe_2H_DeathsDoorScythe","",""
+
+new itemgroup "ARP_UNI_ARX_LizardRelic_Staff"
+
+add levelgroup 0,0,"All"
+add rootgroup "ebd3ea73-630b-4826-96d2-7ff6f54fe13e","MageMagic"
+add namegroup "ARP_UNI_ARX_LizardRelic_Staff","",""
+
+new itemgroup "ARP_WPN_UNIQUE_ARX_GhostMace"
+
+add levelgroup 0,0,"All"
+add rootgroup "76087c06-2e18-47ae-9c63-5838c0e04b9d",""
+add namegroup "ARP_WPN_UNIQUE_ARX_GhostMace","","Item_WPN_Dwarves_Mace_2H_A_VAR"
+
+new itemgroup "ARP_ARX_UNIQUE_Mace_1H_SurfaceSwapper"
+
+add levelgroup 0,0,"All"
+add rootgroup "dba8df57-6e95-4c05-ba36-859363478cfc",""
+add namegroup "ARP_ARX_UNIQUE_Mace_1H_SurfaceSwapper","",""
+
+new itemgroup "ARP_ARM_UNIQUE_Pilgrim_Gloves_A"
+
+add levelgroup 0,0,"All"
+add rootgroup "a45d41fb-0d15-4a47-a504-3e343faa815b",""
+add namegroup "ARP_ARM_UNIQUE_Pilgrim_Gloves_A","",""
+
+new itemgroup "ARP_ARX_UNIQUE_Bow_ElvenRelic"
+
+add levelgroup 0,0,"All"
+add rootgroup "dcf4d193-95d1-4e4d-9341-ad2332cd52b1","ElvesShieldRare"
+add namegroup "ARP_ARX_UNIQUE_Bow_ElvenRelic","","Item_WPN_Elves_Bow_2H_A_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_ArxBootsOfEscaping"
+
+add levelgroup 0,0,"All"
+add rootgroup "a9086733-5b30-4a4d-8354-92ddfd538de5",""
+add namegroup "ARP_ARM_UNIQUE_ArxBootsOfEscaping","",""
+
+new itemgroup "ARP_WPN_UNIQUE_ARX_KemmsShield"
+
+add levelgroup 0,0,"All"
+add rootgroup "0e42ad67-661f-4e3a-9ff2-f97a838a4b7b",""
+add namegroup "ARP_WPN_UNIQUE_ARX_KemmsShield","","Item_WPN_Humans_Paladin_Shield_A_VAR2"
+
+new itemgroup "ARP_ARM_UNIQUE_ARX_DoctorsVault_HeavyHelmet"
+
+add levelgroup 0,0,"All"
+add rootgroup "a59b7d58-ca5c-4afc-830c-65b4692bf2c7",""
+add namegroup "ARP_ARM_UNIQUE_ARX_DoctorsVault_HeavyHelmet","","Item_EQ_Armor_Platemail_Helmet_A_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_ARX_DoctorsVault_HeavyGloves"
+
+add levelgroup 0,0,"All"
+add rootgroup "c83c2a5a-69d0-4819-a837-990a41f0bfa0",""
+add namegroup "ARP_ARM_UNIQUE_ARX_DoctorsVault_HeavyGloves","","Item_EQ_Armor_Platemail_Arms_A_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_ARX_DoctorsVault_HeavyUpperbody"
+
+add levelgroup 0,0,"All"
+add rootgroup "a873d8c4-3437-4636-add9-aac6172ae751",""
+add namegroup "ARP_ARM_UNIQUE_ARX_DoctorsVault_HeavyUpperbody","","Item_EQ_Armor_Platemail_Upperbody_A_VAR"
+
+new itemgroup "ARP_UNI_ARX_LizardRelic_Belt"
+
+add levelgroup 0,0,"All"
+add rootgroup "092b9b0d-9b22-4176-a890-07c6f6b9e3f8",""
+add namegroup "ARP_UNI_ARX_LizardRelic_Belt","",""
+
+new itemgroup "ARP_UNI_WPN_ARX_Wand_Loic"
+
+add levelgroup 0,0,"All"
+add rootgroup "3c78b047-a5ff-450a-b0b2-70f2c12dc77b",""
+add namegroup "ARP_UNI_WPN_ARX_Wand_Loic","",""
+
+new itemgroup "ARP_ARM_UNIQUE_ARX_DoctorsVault_MediumBoots"
+
+add levelgroup 0,0,"All"
+add rootgroup "a58eacc5-29e8-456e-9661-cb78d00c5527",""
+add namegroup "ARP_ARM_UNIQUE_ARX_DoctorsVault_MediumBoots","","Item_EQ_Armor_Leather_Legs_A_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_ARX_DoctorsVault_MediumLowerbody"
+
+add levelgroup 0,0,"All"
+add rootgroup "825ad616-2135-4a2b-8d48-0ff81e608668",""
+add namegroup "ARP_ARM_UNIQUE_ARX_DoctorsVault_MediumLowerbody","","Item_EQ_Armor_Leather_LowerBody_A_VAR"
+
+new itemgroup "ARP_ARX_UNIQUE_Staff_Divine"
+
+add levelgroup 0,0,"All"
+add rootgroup "47131328-5335-4349-999b-c0fa4ad0a806",""
+add namegroup "ARP_ARX_UNIQUE_Staff_Divine","",""
+
+new itemgroup "ARP_WPN_UNIQUE_ARX_WarriorsShield"
+
+add levelgroup 0,0,"All"
+add rootgroup "4192940d-c4bb-4893-aaf3-15641b30d04e",""
+add namegroup "ARP_WPN_UNIQUE_ARX_WarriorsShield","",""
+
+new itemgroup "ARP_ARM_UNIQUE_ArxGloriousPantaloons"
+
+add levelgroup 0,0,"All"
+add rootgroup "11557f45-1e3d-42a7-9bce-5af921f05385",""
+add namegroup "ARP_ARM_UNIQUE_ArxGloriousPantaloons","",""
+
+new itemgroup "ARP_ARM_UNIQUE_Pilgrim_Mantle_A"
+
+add levelgroup 0,0,"All"
+add rootgroup "98cf1716-2914-4a9b-b88b-f33c3da3a13a",""
+add namegroup "ARP_ARM_UNIQUE_Pilgrim_Mantle_A","",""
+
+new itemgroup "ARP_ARM_UNIQUE_ArxLightArmour"
+
+add levelgroup 0,0,"All"
+add rootgroup "fb5dd286-ab9b-40d1-a9c7-2d40fcc20aa4",""
+add namegroup "ARP_ARM_UNIQUE_ArxLightArmour","",""
+
+new itemgroup "ARP_ARX_UNIQUE_Dagger_ElvenRelic"
+
+add levelgroup 0,0,"All"
+add rootgroup "4807aa0d-a696-42fa-9653-d203b66f2bab","ElvesRare"
+add namegroup "ARP_ARX_UNIQUE_Dagger_ElvenRelic","","Item_WPN_Elves_Dagger_1H_B_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_Pilgrim_Ring_A"
+
+add levelgroup 0,0,"All"
+add rootgroup "d406a818-5e2d-4bcf-83b8-e0c24786d6da",""
+add namegroup "ARP_ARM_UNIQUE_Pilgrim_Ring_A","",""
+
+new itemgroup "ARP_ARM_UNIQUE_ArxAmuletOfThePolyMage"
+
+add levelgroup 0,0,"All"
+add rootgroup "ab7d656c-f431-40a2-a5e6-75dbd8c31aec",""
+add namegroup "ARP_ARM_UNIQUE_ArxAmuletOfThePolyMage","",""
+
+new itemgroup "ARP_ARM_UNIQUE_ArxMageArmour"
+
+add levelgroup 0,0,"All"
+add rootgroup "8f702276-a27f-421e-8f84-ce927c89fea9",""
+add namegroup "ARP_ARM_UNIQUE_ArxMageArmour","",""
+
+new itemgroup "ARP_ARM_UNIQUE_Pilgrim_Belt_A"
+
+add levelgroup 0,0,"All"
+add rootgroup "7d8f0c71-c602-4144-894c-5f3673d909c4",""
+add namegroup "ARP_ARM_UNIQUE_Pilgrim_Belt_A","",""
+
+new itemgroup "ARP_ARX_UNIQUE_Wand_ElvenRelic"
+
+add levelgroup 0,0,"All"
+add rootgroup "5d128228-a710-4236-8a7e-83be127e3c1d","ElvesWizard"
+add namegroup "ARP_ARX_UNIQUE_Wand_ElvenRelic","","Item_WPN_Elves_Wand_1H_A_VAR"
+
+new itemgroup "ARP_ARX_UNIQUE_Gloves_ElvenRelic"
+
+add levelgroup 0,0,"All"
+add rootgroup "fe0754e3-5f0b-409e-a856-31e646201ee4","LeatherRareLate"
+add namegroup "ARP_ARX_UNIQUE_Gloves_ElvenRelic","","Item_EQ_Armor_Leather_Arms_A_VAR"
+
+new itemgroup "ARP_UNI_WPN_ARX_Spear_Horrorsleep"
+
+add levelgroup 0,0,"All"
+add rootgroup "916d6886-3172-434c-97f0-bbe716502c5b",""
+add namegroup "ARP_UNI_WPN_ARX_Spear_Horrorsleep","","Item_WPN_Lizards_Spear_2H_A_VAR"
+
+new itemgroup "ARP_WPN_UNIQUE_AtaraxianScythe"
+
+add levelgroup 0,0,"All"
+add rootgroup "3b45c978-5a42-40b5-a7aa-183852616910",""
+add namegroup "ARP_WPN_UNIQUE_AtaraxianScythe","",""
+
+new itemgroup "ARP_ARM_UNIQUE_Pilgrim_Talisman_A"
+
+add levelgroup 0,0,"All"
+add rootgroup "852def9d-3cb9-403c-ae6f-991f0dbdb583",""
+add namegroup "ARP_ARM_UNIQUE_Pilgrim_Talisman_A","",""
+
+new itemgroup "ARP_UNI_Dallis_Stage3_HammerB"
+
+add levelgroup 0,0,"All"
+add rootgroup "b1b01258-f0a1-45fd-b848-207a713f07d0","ElvesShieldFighter"
+add namegroup "ARP_UNI_Dallis_Stage3_HammerB","","Item_WPN_UNI_Dallis_Stage3_HammerB"
+
+new itemgroup "ARP_WPN_ARX_UNIQUE_GroomsWand"
+
+add levelgroup 0,0,"All"
+add rootgroup "dd91c10a-f6fb-4413-b309-e560b905bfa9",""
+add namegroup "ARP_WPN_ARX_UNIQUE_GroomsWand","","Item_WPN_Dwarves_Wand_1H_B_VAR"
+
+new itemgroup "ARP_UNI_Dallis_Stage3_HammerA"
+
+add levelgroup 0,0,"All"
+add rootgroup "b1b01258-f0a1-45fd-b848-207a713f07d0","HumansDaggerBEpic"
+add namegroup "ARP_UNI_Dallis_Stage3_HammerA","","Item_WPN_UNI_Dallis_Stage3_HammerA"
+
+new itemgroup "ARP_UNI_ARX_LizardRelic_Helmet"
+
+add levelgroup 0,0,"All"
+add rootgroup "fa3f2b84-46da-43b7-afb3-0a4481290dab","LizardsStaffBEpic"
+add namegroup "ARP_UNI_ARX_LizardRelic_Helmet","",""
+
+new itemgroup "ARP_ARX_UNIQUE_Staff_ElvenRelic"
+
+add levelgroup 0,0,"All"
+add rootgroup "1a1ce704-9398-4670-83d0-866a604b8401","ElvesStaffBRare"
+add namegroup "ARP_ARX_UNIQUE_Staff_ElvenRelic","","Item_WPN_Humans_Staff_2H_B_VAR"
+
+new itemgroup "ARP_ARX_UNIQUE_Sword_1H_ElvenRelic"
+
+add levelgroup 0,0,"All"
+add rootgroup "f1a18280-56f9-4e99-b9c4-867a7c5770a9","ElvesEpic"
+add namegroup "ARP_ARX_UNIQUE_Sword_1H_ElvenRelic","","Item_WPN_Elves_Sword_1H_B_VAR"
+
+new itemgroup "ARP_ARM_UNIQUE_ArxHelmetOfTheRanger"
+
+add levelgroup 0,0,"All"
+add rootgroup "b33cfc65-c121-4804-b60b-6aa82517a46e",""
+add namegroup "ARP_ARM_UNIQUE_ArxHelmetOfTheRanger","",""
+
+new itemgroup "ARP_ARX_UNIQUE_Sword_1H_Guardian"
+
+add levelgroup 0,0,"All"
+add rootgroup "61fb0d87-e057-47f1-ac36-05bec12c5a24",""
+add namegroup "ARP_ARX_UNIQUE_Sword_1H_Guardian","",""
+
+new itemgroup "ARP_ARX_UNIQUE_Mace_2H_Challenger"
+
+add levelgroup 0,0,"All"
+add rootgroup "744e15fd-aaef-48d1-949e-2bd0a6c65fb2",""
+add namegroup "ARP_ARX_UNIQUE_Mace_2H_Challenger","",""
+
+new itemgroup "ARP_ARX_UNIQUE_Crossbow_Cryotherapy"
+
+add levelgroup 0,0,"All"
+add rootgroup "4d624e7a-39e5-4111-907d-564f05ab2e3b",""
+add namegroup "ARP_ARX_UNIQUE_Crossbow_Cryotherapy","",""
+

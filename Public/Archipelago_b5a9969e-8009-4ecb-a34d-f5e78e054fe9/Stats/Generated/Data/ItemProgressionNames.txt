@@ -1,0 +1,570 @@
+new namegroup "ARP_WPN_UNIQUE_WinterDragonFang"
+add name "Fang of the Winter Dragon",""
+
+new namegroup "ARP_ARM_UNIQUE_TeleportationGloves"
+add name "Gloves of Teleportation","Curious! With these gloves on, it feels like you are pushing through reality. A little experimentation shows you that these gloves allow their wearer to teleport things... and people."
+
+new namegroup "ARP_WPN_RC_UNIQUE_Abstinence"
+add name "Abstinence","The encrusted blood still sticking to this dagger reminds you of something Mama always told you. Those who deny their appetites make up for them in other ways. One way or another, the blood will flow..."
+
+new namegroup "ARP_FTJ_Alexandar_Armour"
+add name "Alexandar's Cloak","This luxuriant robe smells faintly of expensive perfume and is enriched with careful red and white embroidery in the style of the Divine Order."
+
+new namegroup "ARP_FTJ_SW_VWBoss_VoidWoken_Amulet"
+add name "Amulet of the Deep","Torn from the body of a Voidwoken after a battle, this amulet promises an aura of protection for the next one."
+
+new namegroup "ARP_FTJ_SW_ShelterBackSalamander_Amulet"
+add name "Amulet of the Void","Torn from the body of a Void Salamander after a battle, this amulet promises an aura of protection for the next one."
+
+new namegroup "ARP_ARM_UNIQUE_Astartes_Tears_Ring"
+add name "Astarte's Tears","Gratiana likes making trinkets dedicated to the healing powers of Astarte."
+
+new namegroup "ARP_ARM_UNIQUE_BraccusCursedRing"
+add name "Band of Braccus","Cold to the touch, this ornate ring once belonged to Braccus Rex. Within the band is inscribed the name Cassandra: the soul-forged twin he turned into an Undead lich to prolong his power. Indistinct, malevolent whispers issue from the stone."
+
+new namegroup "ARP_UNI_Dallis_Stage2_Hammer"
+add name "Blazing Justice","The hammer feels heavy as gold, but tough as tenebrium. When it catches the light, you swear you can flames reflected in its sheen."
+
+new namegroup "ARP_FTJ_Brute_Burro_Club"
+add name "Burro's Club","A hefty club as dense as the head of its last owner was."
+
+new namegroup "ARP_WPN_RC_UNIQUE_Chastity"
+add name "Chastity","The encrusted blood still sticking to this dagger reminds you of something Mama always told you. Those who deny their appetites make up for them in other ways. One way or another, the blood will flow..."
+
+new namegroup "ARP_WPN_RC_UNIQUE_SourceStaff"
+add name "Commander of the Tides","Damp to the touch, this wand smells faintly of sea currents from far-off lands."
+
+new namegroup "ARP_FTJ_BuriedTreasure_Bow"
+add name "Darling Bow","This simple and down-to-earth bow looks like nothing special at first glance, but closer attention reveals the delicate hand-crafted grooves and charms etched into its surface. Whoever owned this bow surely loved it dearly."
+
+new namegroup "ARP_FTJ_SwampBuildup_A_Undead_Belt"
+add name "Decomposing Pyromancer's Belt","This weathered belt is rotting and smells like ... burnt feathers? Seems like it kept its last owner's pants up, at least."
+
+new namegroup "ARP_ARM_UNIQUE_AirRobe"
+add name "Gawin's Robe","Although this robe reeks of sea air that's none too fresh, just imagine how debonair you'll look striding against the wind."
+
+new namegroup "ARP_WPN_FTJ_UNIQUE_GriffsKitchenKnife"
+add name "Griff's Potato Peeler","This trusty kitchen knife still has bits of potato skin clinging to its blade, yet it seems sharp enough to be put to other - non-kitchen - purposes."
+
+new namegroup "ARP_WPN_FTJ_UNQIUE_HallornsBlade"
+add name "Hallorn's Blade","At first glance, this seems to be a functional weapon best used for back-stabbing. However, closer inspection reveals that this estoc has seen better days; its blade is chipped and nocked, its hilt twisted."
+
+new namegroup "ARP_ARM_UNIQUE_BraccusArmor_Arms"
+add name "The Hands of the Tyrant","Stitched with sinew and padded with human hair, on the hands of Braccus Rex himself these gloves throttled the necks of uncountable prisoners in the Fort Joy of old."
+
+new namegroup "ARP_ARM_UNIQUE_BraccusArmor_UpperBody"
+add name "Heart of the Tyrant","Marked by blows of Source Hunters millenia ago, Sourcerer King Braccus Rex was wearing this very armour when he was captured and sentenced to death."
+
+new namegroup "ARP_ARM_UNIQUE_Hildurs_Plate_UpperBody"
+add name "Hildur's Plate","Hilde doesn't think this breastplate comes in handy in a prison, so she's selling it."
+
+new namegroup "ARP_FTJ_Magister_Hollind_Bow"
+add name "Hollind's Bow","Lightweight and effective, this bow is so responsive it almost seems eager to please."
+
+new namegroup "ARP_WPN_RC_UNIQUE_HoundMasterCrossbow"
+add name "Houndmaster's Crossbow","The Houndmaster's crossbow, used by him to fire bloody chunks of meat for his curs to fetch. It reeks of wet dog and rotten flesh, but it's functional."
+
+new namegroup "ARP_FTJ_Kalias_Stunner_Sword"
+add name "Kalias' Stunner","Kalias' patented stunning sword. This is the last one made."
+
+new namegroup "ARP_FTJ_Knaap_Shield"
+add name "Knaap","Exter's shield is called Knaap."
+
+new namegroup "ARP_FTJ_MagisterCarin_Shield"
+add name "Magister Carin's Shield","This Magisters' protection is a hardy shield burnished to a high shine. It didn't work so well for its last owner."
+
+new namegroup "ARP_FTJ_Magister_Orivand_2HMace"
+add name "Magister Orivand's Mace","Robust enough to put a stop to any conversation, Magister Orivand's mace fairly glimmers menace."
+
+new namegroup "ARP_FTJ_OutsideMagister_Crossbow"
+add name "Magister's Crossbow","A regulation-issue crossbow, sturdy and effective."
+
+new namegroup "ARP_FTJ_HarbourMagister_MageArmour"
+add name "Magister's Mantle","Spun from the finest yarn, this mantle was designed to protect the wearer without impeding movement."
+
+new namegroup "ARP_FTJ_CorneringMagister_Sword"
+add name "Magister's Sword","Forged with passion and tempered with precision, the swords crafted for Magisters may not be anything special, but they are reliable."
+
+new namegroup "ARP_FTJ_Magister_Trippel_2HSword"
+add name "Magister Trippel's Twohander","Crafted in bulk for the troops, Magister Trippel's sword bears the insignia of the Divine Order stamped into the hilt."
+
+new namegroup "ARP_ARM_UNIQUE_SalamanderHelmet_Str"
+add name "Mask of Strength","Patchworked and overlapping chainmail scales give this masked helmet the unmistakeable provenance of the Ancient Empire."
+
+new namegroup "ARP_FTJ_Gheist_Migo_UpperBody"
+add name "Migo's Breastplate","This breastplate is made of finely-hammered metal. It would look imposting, except for the tiny dead yarrow flowers stuck to it."
+
+new namegroup "ARP_ARM_UNIQUE_MothersRing"
+add name "Migo's Ring","The heavy, gold-plated ring is stamped with the shape of a dragon. Its thinning band suggests it was worn frequently by its owner."
+
+new namegroup "ARP_FTJ_Brute_Needle_Wand"
+add name "Needle's Wand","Dry and withered, this wand seems to whisper with the winds of the Blood Forest."
+
+new namegroup "ARP_FTJ_Radeka_Wand"
+add name "Radeka's Thorn","Forged from an ancient metal-like material, this wand is heavier than it appears. Carved along the shaft are glowing runes extolling the triumph of the mad Sourcerer King, Braccus Rex."
+
+new namegroup "ARP_UNI_Dallis_Stage2_Shield"
+add name "Radiant Aegis","The shield has seen many battles, but each scratch has just revealed more of the brilliant gold hidden beneath its paint."
+
+new namegroup "ARP_ARM_UNIQUE_SalamanderRing_Int"
+add name "Ring of Intelligence","With this bright little bauble on your hand, you'll be sharper than usual and ready to battle with your wits."
+
+new namegroup "ARP_ARM_UNIQUE_SaheilaSignet"
+add name "Saheila's Crest","The eight-pointed star depicted on this finely-crafted amulet (considered heretical by the Church of the Seven) represents the Seven Gods and the one oversoul that unites them with humanity."
+
+new namegroup "ARP_ARM_UNIQUE_SalamanderGloves_Fin"
+add name "Second Skin","These shiny bracers are flexible but not flimsy, sturdy enough to withstand any storm or skirmish."
+
+new namegroup "ARP_WPN_RC_UNIQUE_IfansCrossbow"
+add name "Shadow's Eye","A crossbow that looks as though it were carved from solidified shadow. Cold to the touch, it envelops you in misty shade when used."
+
+new namegroup "ARP_ARM_UNIQUE_SimplePendant"
+add name "Simple Pendant","A simple pendant, unremarkable save for the cheery twinkle that glitters within the inlaid stone."
+
+new namegroup "ARP_FTJ_Brute_Slug_Axe"
+add name "Slug's Axe","This rustic axe will do the job, if the job is chopping down a tree. Or chopping off a head."
+
+new namegroup "ARP_WPN_RC_Weapon_WithermooreSpear"
+add name "Spear of Braccus Rex","A spear from a by-gone age, encrusted with the long-dried blood of Lord Withermoore."
+
+new namegroup "ARP_WPN_RC_UNIQUE_SourceAxe"
+add name "Sundering Cleaver","This dense axe can only be wielded by the strong of arm. The handle is inscribed Erlam though what that means can only be guessed."
+
+new namegroup "ARP_WPN_FTJ_UNIQUE_BraccusTorch"
+add name "The Illuminator","A twisted torch torn from the walls of Braccus Rex' dungeon of horrors. The terrors seen by its light have given it a malevolent aura."
+
+new namegroup "ARP_WPN_RC_UNIQUE_DallisHammer"
+add name "The Reckoning","This hammer is made of denser stuff than its human namesake: Dallis. Spider-leg cracks mar the surface, yet it seems hardy enough."
+
+new namegroup "ARP_WPN_FTJ_UNIQUE_AncientEmpireSword"
+add name "The Viper's Tongue","Scarred by battles of yesteryear and the rusts of this summer's rain, this curved blade bears the unmistakeable craftsmanship of the Ancient Empire's House of War."
+
+new namegroup "ARP_ARM_UNIQUE_BraccusArmor_Legs"
+add name "Tracks of the Tyrant","These boots are fortified with steel toes, somewhat rusted now from Braccus Rex' burial at sea under the hands of Source Hunters."
+
+new namegroup "ARP_FTJ_Trompdoy_Hatchet"
+add name "Trompdoy's Hatchet","A rudimentary hatchet. You know what to do? Hack, hack, hack."
+
+new namegroup "ARP_FTJ_SpikedTurtle_Wand"
+add name "Turtle's Claw","Twisted and twined, the claw of this ancient beast has a venomous tip."
+
+new namegroup "ARP_ARM_UNIQUE_BraccusHelmet_Cured"
+add name "Tyrant's Helm","The helm of the last Sourcerer King, fearsome and imposing. No longer tainted with ancient blight, it holds no innate threat to the wearer. Though what threat may come from those offended by your choice of costume only a seer could know..."
+
+new namegroup "ARP_ARM_UNIQUE_BraccusArmor_LowerBody"
+add name "Tyrant's Stride","These weathered leggings of Braccus Rex are encrusted with the spattered blood of those who died in an almost forgotten age."
+
+new namegroup "ARP_FTJ_Brute_Waltz_Staff"
+add name "Waltz's Staff","A standard staff uplifted by the delicate filigree engraving that dances around the tip."
+
+new namegroup "ARP_ARM_WithermooreGirdle"
+add name "Withermoore's Girdle","An ancient metal-plated belt with an ostentatious W etched deeply on the buckle. Not exactly the latest style, but it'll hold your pants up."
+
+new namegroup "ARP_WPN_RC_DW_LuthiersBow"
+add name "A Fingal Boyd's Limited Edition","A bow with a guitar snare for a string."
+
+new namegroup "ARP_RC_DW_Unique_Shield"
+add name "Amadio",""
+
+new namegroup "ARP_ARM_UNIQUE_RC_Belt"
+add name "An Mey Falin","A metal-plated belt promises to deflect any and all."
+
+new namegroup "ARP_UNI_RC_FL_Armor_Platemail_AncientTrophy"
+add name "Antique Armour","Old but well-tended armour. A rare and valuable family heirloom amongst folk usually known for agriculture over warfare."
+
+new namegroup "ARP_WPN_UNIQUE_DeerBow"
+add name "Antler Bow","Supple and strong, this well-cared-for bow was clearly the trusted friend of a professional hunter."
+
+new namegroup "ARP_WPN_UNIQUE_LizardAssassinBow"
+add name "Assassin's Bow","Nock. Focus. Aim. Repeat. And remember: repetition leads to mastery!"
+
+new namegroup "ARP_RC_DW_Tavern_Baran_Leveres_Ring"
+add name "Baran Levere's Ring of Bartering","This little signet ring is so hypnotising, you suddenly feel like you'd do almost anything for it..."
+
+new namegroup "ARP_WPN_RC_UNIQUE_RichMerchant_Dagger_02"
+add name "Baran's Burning Dagger","Spitting sparks with each strike, this dagger has the chance to set Burning on those stabbed with it."
+
+new namegroup "ARP_WPN_RC_UNIQUE_RichMerchant_Dagger_01"
+add name "Baran's Electrifying Dagger","Humming under your touch, this dagger has the chance to set Stunned on those stabbed with it."
+
+new namegroup "ARP_WPN_RC_GY_UNIQUE_BrittleSpear"
+add name "Brittle Spear","A rusty and brittle spear found in an ancient crypt."
+
+new namegroup "ARP_WPN_RC_UNIQUE_MalevolentSword"
+add name "Black Ring Blade","There's a malevolent aura to this well-honed blade, as if it has only ever tasted innocence, and only ever rewarded it with death."
+
+new namegroup "ARP_RC_DW_Tavern_Captain_Ablewethers_Hat"
+add name "Captain Ablewether's Hat","Judging by the smell, the captain must have worn this har every. Single. Day. Oh boy."
+
+new namegroup "ARP_ARM_UNIQUE_CaptainsCompass"
+add name "Captain's Compass","This well-kept compass shows not a lick of salt or spray damage from its time at sea."
+
+new namegroup "ARP_WPN_RC_UNIQUE_AirWand"
+add name "Chamore Doran","A Dwarven wand crafted from Driftwood timber and bound with thongs of Atxian leather."
+
+new namegroup "ARP_ARM_Ring_UNIQUE_RC_DW_FishermanRing"
+add name "Copper Ring","A shiny ring made of copper."
+
+new namegroup "ARP_ARM_UNIQUE_RC_MageUpperBody"
+add name "Danna Dumora",""
+
+new namegroup "ARP_WPN_RC_MIL_Deadeye_Crossbow"
+add name "Deadeye's Signature Crossbow","Commonly carried by Lone Wolves, crossbows are consistently the sniper's weapon of choice."
+
+new namegroup "ARP_WPN_RC_UNIQUE_DjinnsScimitar"
+add name "Djinn's Scimitar",""
+
+new namegroup "ARP_WPN_RC_MIL_UNIQUE_DwarfWolfAxe"
+add name "Elven Axe","An Elven axe taken from the Lone Wolf Mummie Dearest."
+
+new namegroup "ARP_ARM_UNIQUE_RC_HeavyUpperBody"
+add name "Emrach","If you polish it up a little, this platemail armour could double as a mirror."
+
+new namegroup "ARP_WPN_RC_UNIQUE_SourceCrossbow"
+add name "Excruciating Echo","This crossbow attacks over and over, like the frenetic claws and teeth of a wild animal."
+
+new namegroup "ARP_WPN_RC_UNIQUE_ExecutorsAxe"
+add name "Executor Ninyan's Axe","This immense axe appears to have been crafted solely from hardened spite and malice. It suits you perfectly!"
+
+new namegroup "ARP_WPN_RC_UNIQUE_LoharDagger"
+add name "Fancy Dagger","The Dagger that belonged to Lohar. Looks like he used it plenty, too."
+
+new namegroup "ARP_ARM_UNIQUE_ThiefGloves"
+add name "Gloves of Aquisition","Elegant and functional, these slippery gloves can glide against any material without making even the hint of a sound."
+
+new namegroup "ARP_WPN_UNIQUE_RC_MIL_Firewaters_Staff"
+add name "Firewater's Staff","This sturdy staff thrums with energy, waiting to serve your purpose."
+
+new namegroup "ARP_ARM_ClothBoots_UNIQUE_Memorial"
+add name "Flashing Footsteps","Sparks fly with each step taken in these soft-soled slippers, as if the wearer were tinder to the flint of the earth."
+
+new namegroup "ARP_ARM_Belt_UNIQUE_Memorial"
+add name "Halla's Shiny Ribbon","Passers-by can be distracted from the contents of their pockets by the delightful shine of this glorious ribbon."
+
+new namegroup "ARP_WPN_RC_UNIQUE_Axe"
+add name "Hanal Lechet","Spirits of stone and metal combined to create this formidable axe; in return it asks for the power of both your hands to wield it."
+
+new namegroup "ARP_ARX_RC_FL_UNIQUE_GarethParentsRewardRing"
+add name "Hannag's Ring","Gleaming with the lustre of far-off sunsets, this Ancient Empire ring is inscribed with an elaborately curlicued 'Hannag.'"
+
+new namegroup "ARP_ARM_RC_FL_UNIQUE_JonathanGloves"
+add name "Jonathan's Gloves","The stark white gloves of a stark White Magister."
+
+new namegroup "ARP_ARM_LightGloves_UNIQUE_Memorial"
+add name "Justinia's Favour","A delicate pair of gloves fit for a queen. Indeed, this very pair were sewn for the tender hands of Justinia herself."
+
+new namegroup "ARP_RC_MIL_UNIQUE_LogRewardShield"
+add name "Livewood Shield","This shield still thrums with the life of the wood of the Ancestor Tree from which it was carved."
+
+new namegroup "ARP_WPN_RC_UNIQUE_LoharsSourceHammer"
+add name "Lohar's Two Handed Source Hammer","You didn't expect anything less from a Source smuggler..."
+
+new namegroup "ARP_ARM_UNIQUE_LoneWolfMark"
+add name "Lone Wolf Mark",""
+
+new namegroup "ARP_S_RC_OIL_EQ_Armor_Mage_WallBoss"
+add name "Magister's Cloak",""
+
+new namegroup "ARP_RC_GY_Shield"
+add name "Misery's Mirror","This sturdy Dwarven shield bears the scratches and dents of many past battles."
+
+new namegroup "ARP_ARM_UNIQUE_MordusAmulet"
+add name "Mordus' Amulet","A simple, pretty pendant made of copper."
+
+new namegroup "ARP_UNI_RC_MIL_CorbinsBow"
+add name "Morning's Light","This bow's slender frame belies the craftsmanship in every curve and facet. Near the base, in an intricate pattern, the initials 'CD' are burned with needle-fine precision."
+
+new namegroup "ARP_WPN_RC_UNIQUE_LoversQuarrel"
+add name "Lover's Quarrel","Etched along the blade of this ornate dagger is a quote from the famous Ancient Empire love poet Farshid: 'Your eyes pierce me deeper than any blade ever could.'"
+
+new namegroup "ARP_ARM_UNIQUE_RC_LightUpperBody"
+add name "Racht Muvora","Pliant protection that bends and bolsters in equal measure."
+
+new namegroup "ARP_RC_FL_Lowlands_RainAmulet"
+add name "Rainwater Amulet","This amulet is cold and wet to the touch, and when pressed to the ear it sounds lke harvest rains."
+
+new namegroup "ARP_WPN_RC_UNIQUE_ReaversAxe"
+add name "Reaver's Axe","An immense axe that appears to have been crafted solely from hardened spite and malice. It suits you perfectly!"
+
+new namegroup "ARP_WPN_RC_UNIQUE_MhordkanHammer"
+add name "Sacore Evdek","Mhordkan's hammer."
+
+new namegroup "ARP_WPN_RC_SaheilaRewardSpear"
+add name "Spear of Foes","A barbed Elven spear, dried blood encrusted in every engraved rune."
+
+new namegroup "ARP_ARM_UNIQUE_RC_GY_RykersSpider_Gloves"
+add name "Spider-Silk Gloves","Spider-Woven Gloves"
+
+new namegroup "ARP_WPN_RC_DW_UNIQUE_SmugglingSword"
+add name "Soulforged Blade","The result of a spirit forged into a sword, this soul-forged blade fairly hums with Source."
+
+new namegroup "ARP_WPN_RC_DW_UNIQUE_SmugglingCrossbow"
+add name "Soulforged Crossbow","The result of a spirit forged to a crossbow, this soulforged weapon fair hums with Source."
+
+new namegroup "ARP_ARM_UNIQUE_RC_DW_Barracks_Evidence"
+add name "Sourcerer's Ring","From the tendrils of Source weaving around the metal band, you can tell this ring once belonged to a Sourcerer like yourself."
+
+new namegroup "ARP_ARM_UNIQUE_RC_PossessedDwarf_UpperBody"
+add name "Stonecrusher Armour","Robust in design, chainmail armour is a perennial favorite of fighters."
+
+new namegroup "ARP_WPN_RC_UNIQUE_SourceMace"
+add name "Stormforger","Forged by the Dwarf Queen's personal weaponmaster in the eye of the storm, this mace will shock all who are touched by it. And worse."
+
+new namegroup "ARP_WPN_RC_UNIQUE_DorotyaDagger_01"
+add name "Terrorbite","An enchanted dagger having belonged to Dorotya. Its blade distorts the reflection of your face, making you feel uneasy."
+
+new namegroup "ARP_ARM_UNIQUE_RC_BI_Destroyer_Gloves"
+add name "The Destroyer's Gloves","Heavy and clunky, these platemail gloves would deliver quite the painful uppercut."
+
+new namegroup "The Pride of Pryce"
+add name "The Pride of Pryce","This dagger has an inscription: "When the night shadows gather, the hunter howls.""
+
+new namegroup "ARP_ARM_UNIQUE_AlmiraRing"
+add name "The Ravisher","The magic this ring bestows upon its wearer allows them to charm friend or foe, then ravish them in any way they see fit."
+
+new namegroup "ARP_WPN_UNIQUE_RC_DW_Bow"
+add name "Vard d'Layal","A bow of Dwarven origin from which arrows fly true and hurt plenty."
+
+new namegroup "ARP_WPN_RC_UNIQUE_DorotyaDagger_02"
+add name "Venombite","An enchanted dagger having belonged to Dorotya. Its pommel is adorned with the shape of a spider."
+
+new namegroup "ARP_ARM_UNIQUE_WatcherUpperBody"
+add name "Very Silent Watcher's Leather Shirt","Phoenix Egg"
+
+new namegroup "ARP_ARM_HeavyHelmet_UNIQUE_Memorial"
+add name "Visha's Helm","Entwined with embossed serpents, this helm once adorned the famed lizard warrior Visha, who slew the seven-headed snake of Oram."
+
+new namegroup "ARP_WPN_RC_Unique_ElderOfPassing"
+add name "Wand of the Elder",""
+
+new namegroup "ARP_WPN_RC_UNIQUE_LichStaff_02"
+add name "Xhaxh's Staff of Parasitic Decay","As long as this necrotic weapon remains in your hands, you sense its rotten hunger. You might feed it, but it will never be satisfied."
+
+new namegroup "ARP_WPN_UNIQUE_ResurrectionPreventionStaff"
+add name "And Stay Down","This staff will keep the dead where they should"
+
+new namegroup "ARP_WPN_UNIQUE_CoS_BlackRingDagger"
+add name "Black Ring Sacrifcial Dagger","A blade stained with the blood of dozens of Black Ring victims"
+
+new namegroup "ARP_ARM_UNIQUE_DispelCowl"
+add name "Cowl of True Sight","Paradoxically, you can see better from the depths of this cowl."
+
+new namegroup "ARP_WPN_UNIQUE_DelorusBow"
+add name "Delorus' Bow","Notched with the kills he made with it, this bow once belonged to Delorus."
+
+new namegroup "ARP_WPN_Staff_Human_Alexandar"
+add name "Divine Reckoning","Sharp as the justice of the gods, Alexandar's staff must have crushed the skull of many an unrepentant sinner."
+
+new namegroup "ARP_ARM_UNIQUE_BeastBicorne"
+add name "Fran the Bicorne Hat","Beast's hat Fran, which has accompanied Beast on many nautical adventures."
+
+new namegroup "ARP_ARM_UNIQUE_WizardTempleGloves"
+add name "Knight of Amadia's Gloves","The hand-bindings of the Knight of Amadia are ancient and faded in colour yet they still flicker and twitch with innate Source."
+
+new namegroup "ARP_ARM_UNIQUE_DwarfTempleHelmet"
+add name "Knight of Duna's Helm","Plenty of space for a beard within this fine Dwarven helm."
+
+new namegroup "ARP_ARM_UNIQUE_OrcTempleBoots"
+add name "Knight of Vrogir Boots","Boots heavy enough to drag a knight to drowning. Oh."
+
+new namegroup "ARP_ARM_UNIQUE_SallowManUpperBody"
+add name "Sallow Chainmail","Each link whispers like a sovereign soul, and perhaps they are?"
+
+new namegroup "ARP_WPN_UNIQUE_CrabShield"
+add name "Septa's Shield","The hollowed out carapace of a giant crab. This stinky little number is good for fending off blows... and admirers."
+
+new namegroup "ARP_WPN_UNIQUE_CoS_EternalSword"
+add name "The Eternal Stormblade","Eternal Warrior Weapon"
+
+new namegroup "ARP_ARM_UNIQUE_SpymasterSignet"
+add name "The Shadow Prince's Signet","Cold to the touch, this is the precious ring of the Shadow Prince."
+
+new namegroup "ARP_ARM_UNIQUE_WatcherAmulet"
+add name "The Watcher's Amulet","Burnished metal glowing with a spectral light, this amulet once belonged to the last of the Watchers."
+
+new namegroup "ARP_WPN_UNIQUE_Godslayer"
+add name "Anathema","Legends say this ancient weapon could even defeat the mighty Braccus Rex."
+
+new namegroup "ARP_ARM_UNIQUE_AntiqueSpecialBelt"
+add name "Ancient Belt","An ancient and powerful belt."
+
+new namegroup "ARP_ARX_UNIQUE_Lizard_Spear"
+add name "Ancient Spear of Bloodletting","Soaked a deep crimson at the tip, this rough-hewn spear appears to have been well-used by a lizard Dreamer with a penchant for blood magic."
+
+new namegroup "ARP_WPN_UNIQUE_ARX_TheOneShield"
+add name "An Maflin","Etched with the esoteric symbolism of the Black Ring on the inside, and marked by Divine Order arrows on the outside, this is a shield from the Great War."
+
+new namegroup "ARP_ARM_UNIQUE_AntiqueSpecialRing"
+add name "Antique Ring","An ancient and powerful ring."
+
+new namegroup "ARP_ARM_UNIQUE_ArxGlovesOfSilencing"
+add name "Ave Layal",""
+
+new namegroup "ARP_ARM_UNIQUE_Pilgrim_Band_A"
+add name "Band of the Faithful","Worn only by the most devout zealots in Rivellon. Each piece brings one closer to the Divine."
+
+new namegroup "ARP_WPN_UNIQUE_ARX_BrahmosSword_2H"
+add name "Brahmos' Blade","A finely-wrought sword of the kind given by royalty of the Ancient Empire to those who have served them well."
+
+new namegroup "ARP_ARM_UNIQUE_Pilgrim_Pants_A"
+add name "Breeches of the Faithful","Worn only by the most devout zealots in Rivellon. Each piece brings one closer to the Divine."
+
+new namegroup "ARP_ARM_UNIQUE_Pilgrim_Boots_A"
+add name "Boots of the Faithful","Worn only by the most devout zealots in Rivellon. Each piece brings one closer to the Divine."
+
+new namegroup "ARP_WPN_UNIQUE_MaladySpear"
+add name "Calamity","Malady's twin-tipped spear brims with magical energy. Just like its owner, it is ever cool to the touch, and quite deadly."
+
+new namegroup "ARP_ARM_UNIQUE_RedPrincessRing"
+add name "Circle of Suns","This ring is a token of your bond with the Red Princess."
+
+new namegroup "ARP_ARX_UNIQUE_Staff_Tornado"
+add name "Confiscated Ancient Empire Water Staff","This staff is cool to the touch, and enveloped with the salty scent of the seas which border the Ancient Empire. It moulds itself to your grasp with a melancholy sigh."
+
+new namegroup "ARP_ARM_UNIQUE_Pilgrim_Cowl_A"
+add name "Cowl of the Faithful","Worn only by the most devout zealots in Rivellon. Each piece brings one closer to the Divine."
+
+new namegroup "ARP_ARX_UNIQUE_Bow_Mark"
+add name "Deiseis Riveil","A military-issue longbow emblazoned with the insignia of a long-extinct Ancient Empire regiment."
+
+new namegroup "ARP_ARX_UNIQUE_Axe_2H_ElvenRelic"
+add name "Divine Spark","Crafted in the forge of Tir-Cendelius himself, this axe strikes sparks from the very air."
+
+new namegroup "ARP_ARX_UNIQUE_DaggerOfCruelty"
+add name "Domoh Dumora","Perfect for backstabbing your foes in the kidneys. Or peeling an apple."
+
+new namegroup "ARP_ARM_UNIQUE_ArxHeavyArmour"
+add name "Dora Rav","If you polish it up a little, this platemail armour could double as a mirror."
+
+new namegroup "ARP_ARM_UNIQUE_ArxRingOfHealing"
+add name "Dritta Evyet","A beautifully-crafted, though rather ostentatious gold ring with a smooth rock set in its middle."
+
+new namegroup "ARP_ARX_UNIQUE_Wand_SiphonPoison"
+add name "Dumora Lam",""
+
+new namegroup "ARP_ARX_UNIQUE_Spear_Sparks"
+add name "Ednet Voor","Sparking and fizzing with barely-restrained energy, this spear sings its own name as it flies: Ednet Voor, the Bane-shooter."
+
+new namegroup "ARP_ARM_UNIQUE_ArxAmuletOfTheEarthMage"
+add name "Falone Girt",""
+
+new namegroup "ARP_ARX_UNIQUE_Axe_2H_DeathsDoorScythe"
+add name "Falone","This farmer's scythe has cut down more crops than men. Although, you probably aim to change that, right?"
+
+new namegroup "ARP_UNI_ARX_LizardRelic_Staff"
+add name "Fiery Inferno","Forged in a sea of lava, the air surrounding this ancient staff shimmers in heated waves. The power of a volcano is yours to command; careful, it’s hot!"
+
+new namegroup "ARP_WPN_UNIQUE_ARX_GhostMace"
+add name "Ghostly Morningstar","This ethereal morningstar glimmers with Source and shadow. It is capable of piercing the armour of an opponent and sucking their very lifeforce."
+
+new namegroup "ARP_ARX_UNIQUE_Mace_1H_SurfaceSwapper"
+add name "Glaoch Girt","When you really need to hammer a point home. Repeatedly."
+
+new namegroup "ARP_ARM_UNIQUE_Pilgrim_Gloves_A"
+add name "Gloves of the Faithful","Worn only by the most devout zealots in Rivellon. Each piece brings one closer to the Divine."
+
+new namegroup "ARP_ARX_UNIQUE_Bow_ElvenRelic"
+add name "Into Thin Air","This finely-wrought elven bow thrums with esoteric energy. Hit a target with one true shot and they will become flimsy as a paper puppet dancing on the wind."
+
+new namegroup "ARP_ARM_UNIQUE_ArxBootsOfEscaping"
+add name "Kallisteis",""
+
+new namegroup "ARP_WPN_UNIQUE_ARX_KemmsShield"
+add name "Kemm's Deflector","This heavy shield has seen a hundred battles, but so sturdily was it wrought that it still looks brand new."
+
+new namegroup "ARP_ARM_UNIQUE_ARX_DoctorsVault_HeavyHelmet"
+add name "Kvyn's Helm","The staring hollow eyeholes of this rusted helm seem to penetrate your very soul."
+
+new namegroup "ARP_ARM_UNIQUE_ARX_DoctorsVault_HeavyGloves"
+add name "Kvyn's Hands","These gloves bristle with barely-restrained violence, seeming difficult even to wrestle onto your own hands. Once you've struggled them on, best tell those you love to stand well back..."
+
+new namegroup "ARP_ARM_UNIQUE_ARX_DoctorsVault_HeavyUpperbody"
+add name "Kvyn's Heart","When you put on this armour, your heart beats like the wings of a thousand birds ready to take flight."
+
+new namegroup "ARP_UNI_ARX_LizardRelic_Belt"
+add name "Last One Standing","Stained with blood, this sturdy belt hums with power. Etched into the leather are the words 'Fire and steel make my blood sing, I'm coming for you, my darling.'"
+
+new namegroup "ARP_UNI_WPN_ARX_Wand_Loic"
+add name "Loic's Discipline","This blazing wand surges with macabre energy, creating necrofire wherever your willpower demands it manifest."
+
+new namegroup "ARP_ARM_UNIQUE_ARX_DoctorsVault_MediumBoots"
+add name "Lord Ruaney's Boots","Tailored for the discerning flaneur, these finely-crafted boots will make you feel like you're walking on air."
+
+new namegroup "ARP_ARM_UNIQUE_ARX_DoctorsVault_MediumLowerbody"
+add name "Lord Ruaney's Britches","Fashionable at some point several centuries ago, these burnished britches were clearly beloved of Lord Ruaney."
+
+new namegroup "ARP_ARX_UNIQUE_Staff_Divine"
+add name "Lucian's Divine Staff","Whittled from Lucullan timber and wound with bright silken ribbon, this versatile staff is as well-crafted as it is powerful."
+
+new namegroup "ARP_WPN_UNIQUE_ARX_WarriorsShield"
+add name "Lucio","A round, well-ornamented lizard shield that bears the distinctive markings of the House of War."
+
+new namegroup "ARP_ARM_UNIQUE_ArxGloriousPantaloons"
+add name "Luronta Temva","You'll always look ready for a battle in chainmail pants. Your actual readiness is, of course, up to you."
+
+new namegroup "ARP_ARM_UNIQUE_Pilgrim_Mantle_A"
+add name "Mantle of the Faithful","Worn only by the most devout zealots in Rivellon. Each piece brings one closer to the Divine."
+
+new namegroup "ARP_ARM_UNIQUE_ArxLightArmour"
+add name "Nazad Hunola","Pliant protection that bends and bolsters in equal measure."
+
+new namegroup "ARP_ARX_UNIQUE_Dagger_ElvenRelic"
+add name "Rancour","Etched with the graven image of a solemn crow, the poison on this claw could cut the truth from any tongue."
+
+new namegroup "ARP_ARM_UNIQUE_Pilgrim_Ring_A"
+add name "Ring of the Faithful","Worn only by the most devout zealots in Rivellon. Each piece brings one closer to the Divine."
+
+new namegroup "ARP_ARM_UNIQUE_ArxAmuletOfThePolyMage"
+add name "Rutoma Rivelleis",""
+
+new namegroup "ARP_ARM_UNIQUE_ArxMageArmour"
+add name "Ruvola",""
+
+new namegroup "ARP_ARM_UNIQUE_Pilgrim_Belt_A"
+add name "Sash of the Faithful","Worn only by the most devout zealots in Rivellon. Each piece brings one closer to the Divine."
+
+new namegroup "ARP_ARX_UNIQUE_Wand_ElvenRelic"
+add name "Shattergrasp","Freezing cold to the touch, this wand sucks warmth from the very earth itself."
+
+new namegroup "ARP_ARX_UNIQUE_Gloves_ElvenRelic"
+add name "Soft Touch","Violence isn't the only way to get what you want..."
+
+new namegroup "ARP_UNI_WPN_ARX_Spear_Horrorsleep"
+add name "Spear of Horrorsleep","Found within the nightmare realms, this unique spear has the ability to cloud the vision and the dreams of any it strikes."
+
+new namegroup "ARP_WPN_UNIQUE_AtaraxianScythe"
+add name "Swornbreaker",""
+
+new namegroup "ARP_ARM_UNIQUE_Pilgrim_Talisman_A"
+add name "Talisman of the Faithful","Worn only by the most devout zealots in Rivellon. Each piece brings one closer to the Divine."
+
+new namegroup "ARP_UNI_Dallis_Stage3_HammerB"
+add name "The Executioner","Within the obsidian-black hammer you see a faint green glow, as if the Hall of Echoes itself has been trapped within the weapon."
+
+new namegroup "ARP_WPN_ARX_UNIQUE_GroomsWand"
+add name "The Groom's Gift","Well how about that - the Groom managed to trap an elemental ooze within this wand!"
+
+new namegroup "ARP_UNI_Dallis_Stage3_HammerA"
+add name "The Judge","Red and white dance across the surface of the hammer, shifting and mixing, always in perfect balance. You could stare at it for hours."
+
+new namegroup "ARP_UNI_ARX_LizardRelic_Helmet"
+add name "The Silent Path","As you don this helm, the world is blanketed in silence. You feel your mind clear as your senses awaken, sharper than any blade."
+
+new namegroup "ARP_ARX_UNIQUE_Staff_ElvenRelic"
+add name "Three Sisters","Legend tells that this staff bears the souls of three great elven leaders, each one granting the lucky wielder a different skill."
+
+new namegroup "ARP_ARX_UNIQUE_Sword_1H_ElvenRelic"
+add name "Truthseeker","Do not trust your eyes alone, for only questions asked by the blade will reveal the truth."
+
+new namegroup "ARP_ARM_UNIQUE_ArxHelmetOfTheRanger"
+add name "Vo Charlen","Headwear moulded from dappled, bark-tanned hide. Three words are engraved inside: 'Unity is Strength.'"
+
+new namegroup "ARP_ARX_UNIQUE_Sword_1H_Guardian"
+add name "Voor d'Aravel","Angelic light reflects the etchings on the hilt of this hand-wrought sword. The Ancient Rivellonian letters glow whenever the blade strikes evil, for this is Voor d'Aravel: Bane of the Void."
+
+new namegroup "ARP_ARX_UNIQUE_Mace_2H_Challenger"
+add name "Voor d'Lamas","Just what you need for cracking skulls and taking names. In reverse order."
+
+new namegroup "ARP_ARX_UNIQUE_Crossbow_Cryotherapy"
+add name "Vord Emver","Commonly carried by Lone Wolves, crossbows are consistently the sniper's weapon of choice."
+
