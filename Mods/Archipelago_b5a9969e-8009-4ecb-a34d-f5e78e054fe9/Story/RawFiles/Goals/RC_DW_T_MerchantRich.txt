@@ -1,0 +1,233 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+//Guard DB, //Guard and Is Owner
+DB_RC_DW_RichMerchantGuards((CHARACTERGUID)S_RC_DW_Tavern_MerchantGuard_001_e66da9c3-201a-4bd6-8a4d-bd478cbedad1,0);
+DB_RC_DW_RichMerchantGuards((CHARACTERGUID)S_RC_DW_Tavern_MerchantGuard_002_7c681b24-6ba9-4bae-977c-4a3f28d0a0c4,0);
+
+ItemToInventory(ITEMGUID_S_RC_MIL_LoneWolfMark_5cbae844-93c7-40fe-bf58-547ac6610248, CHARACTERGUID_S_GLO_MerchantRich_1e1cec76-eab1-4af3-b5f3-b9b18002b8f5);
+
+DB_DeadEvent(CHARACTERGUID_S_GLO_MerchantGuard_002_7c681b24-6ba9-4bae-977c-4a3f28d0a0c4, "RC_DW_T_MerchantRichGuardDies");
+DB_DeadEvent(CHARACTERGUID_S_GLO_MerchantRich_1e1cec76-eab1-4af3-b5f3-b9b18002b8f5, "RC_DW_T_MerchantRichDies");
+
+DB_Ghosts(CHARACTERGUID_S_RC_DW_T_BardanGhost_0a95fdeb-110f-442d-a20d-514afd067b0c, "RC_DW_T_BardanGhost");
+
+//DB_HauntedNPC((CHARACTERGUID)CHARACTERGUID_S_GLO_MerchantRich_1e1cec76-eab1-4af3-b5f3-b9b18002b8f5, (CHARACTERGUID)CHARACTERGUID_S_RC_DW_BardanGhost_0a95fdeb-110f-442d-a20d-514afd067b0c);
+ItemToInventory(ITEMGUID_S_RC_DW_KeyMerchantRich2_c64399c8-efd7-422c-985b-765b7feb64f2, CHARACTERGUID_S_GLO_MerchantRich_1e1cec76-eab1-4af3-b5f3-b9b18002b8f5);
+ItemToInventory(ITEMGUID_S_RC_DW_RichMerchant_Orders_63caa9e2-e334-430f-ac0d-c73b657b16b6, CHARACTERGUID_S_GLO_MerchantRich_1e1cec76-eab1-4af3-b5f3-b9b18002b8f5);
+
+DB_QuestDef_State("RC_DW_RichMerchant", "Start", 1);
+DB_QuestDef_State("RC_DW_RichMerchant", "Start_Over", 1); //Special start flag for people who killed Baran without talking to Ghost Baran. Start that doesn't include an objective, because there is no more objective.
+DB_QuestDef_State("RC_DW_RichMerchant", "End", -1);
+DB_QuestDef_State("RC_DW_RichMerchant", "ConsumedGhost", -1);
+DB_QuestDef_State("RC_DW_RichMerchant", "End_RC", -1);
+DB_QuestDef_UpdateEvent("RC_DW_RichMerchant", "KilledBaran", "RC_DW_KilledMerchantRich");
+DB_QuestDef_CloseEvent("RC_DW_RichMerchant","QuestClose_RC_DW_RichMerchant");
+KBSECTION
+//REGION Pray and AD logics
+//Initiate guard walking to location
+IF
+GlobalFlagSet("RC_DW_T_MerchantRichStartsPraying")
+THEN
+ProcCharacterMoveTo(CHARACTERGUID_S_RC_DW_Tavern_MerchantGuard_002_7c681b24-6ba9-4bae-977c-4a3f28d0a0c4,S_RC_DW_T_MerchantRichGuard1Point2_9c5f324a-d6e4-4707-87e0-e19b08ffe467,0,"RC_DW_T_RichMerchant_GuardReachedADTrigger");
+GlobalClearFlag("RC_DW_T_MerchantRichStartsPraying");
+
+
+//Guard reached position
+IF
+StoryEvent(_guard,"RC_DW_T_RichMerchant_GuardReachedADTrigger")
+THEN
+GlobalSetFlag("RC_DW_T_MerchantRichGuardReachedPoint");
+
+IF
+GlobalFlagSet("RC_DW_T_MerchantRichStartAD")
+THEN
+CharacterLookAt(CHARACTERGUID_S_RC_DW_Tavern_MerchantGuard_002_7c681b24-6ba9-4bae-977c-4a3f28d0a0c4,CHARACTERGUID_S_GLO_MerchantRich_1e1cec76-eab1-4af3-b5f3-b9b18002b8f5);
+Proc_StartDialog(1,"RC_DW_AD_RishMerchantTalkToGuard",CHARACTERGUID_S_GLO_MerchantRich_1e1cec76-eab1-4af3-b5f3-b9b18002b8f5,CHARACTERGUID_S_RC_DW_Tavern_MerchantGuard_002_7c681b24-6ba9-4bae-977c-4a3f28d0a0c4);
+
+
+//Have characters look at each other
+IF
+ObjectFlagSet("RC_DW_T_MerchantRich_LookAt",_MerchantRich,_)
+THEN
+ProcFaceEachother(_MerchantRich,CHARACTERGUID_S_RC_DW_Tavern_MerchantGuard_002_7c681b24-6ba9-4bae-977c-4a3f28d0a0c4);
+ObjectClearFlag((CHARACTERGUID)_MerchantRich,"RC_DW_T_MerchantRich_LookAt",0);
+
+
+//Resume merchant and guard normal behaviourw
+IF
+AutomatedDialogEnded("RC_DW_AD_RishMerchantTalkToGuard",_)
+THEN
+ObjectClearFlag(CHARACTERGUID_S_GLO_MerchantRich_1e1cec76-eab1-4af3-b5f3-b9b18002b8f5,"RC_DW_AD_RishMerchantTalkToGuard",0);
+GlobalClearFlag("RC_DW_T_MerchantRichStartAD");
+//END_REGION
+
+
+//REGION Transfer Ownership trigger if Rich merchant dies
+IF
+DB_Dead(S_RC_DW_Tavern_MerchantRich_1e1cec76-eab1-4af3-b5f3-b9b18002b8f5)
+THEN
+Proc_RC_DW_SetNewOwnerShip();
+
+
+//Guard 1 dies and is owner
+IF
+DB_Dead(S_RC_DW_Tavern_MerchantGuard_001_e66da9c3-201a-4bd6-8a4d-bd478cbedad1)
+AND
+DB_RC_DW_RichMerchantGuards(S_RC_DW_Tavern_MerchantGuard_001_e66da9c3-201a-4bd6-8a4d-bd478cbedad1,1)
+THEN
+Proc_RC_DW_SetNewOwnerShip();
+
+
+//Guard 2 dies and is owner
+IF
+DB_Dead(S_RC_DW_Tavern_MerchantGuard_002_7c681b24-6ba9-4bae-977c-4a3f28d0a0c4)
+AND
+DB_RC_DW_RichMerchantGuards(S_RC_DW_Tavern_MerchantGuard_002_7c681b24-6ba9-4bae-977c-4a3f28d0a0c4,1)
+THEN
+Proc_RC_DW_SetNewOwnerShip();
+
+
+//Check if guard dead if not and not yet owner then set as owner
+PROC
+Proc_RC_DW_SetNewOwnerShip()
+AND
+DB_RC_DW_RichMerchantGuards((CHARACTERGUID)_guard,0)
+AND
+CharacterIsDead((CHARACTERGUID)_guard,0)
+AND
+NOT DB_RC_DW_RichMerchant_CheckIfAlreadyDone(1)
+THEN
+NOT DB_RC_DW_RichMerchantGuards(_guard,0);
+DB_RC_DW_RichMerchantGuards((CHARACTERGUID)_guard,1);
+DB_RC_DW_RichMerchant_CheckIfAlreadyDone(1);
+DB_ItemOwnerShipTriggers("RC_Main",S_RC_DW_OwnerTriggerRichTrader_9e3bef60-deaa-4c82-8a90-96f815e27b19,(CHARACTERGUID)_guard);
+//DB_TrespassTrigger(S_RC_DW_Tavern_RichMerchantTrespassing_29f3058b-7587-430e-ba3f-b13b0ed2f4bb,S_RC_DW_Tavern_RichMerchantTrespassingOutside_31db10df-af74-4177-9570-37a2d8cc5e13,(CHARACTERGUID)_guard);
+
+PROC
+Proc_RC_DW_SetNewOwnerShip()
+THEN
+NOT DB_RC_DW_RichMerchant_CheckIfAlreadyDone(1);
+
+//END_REGION
+
+//REGION Keeping track of who killed the Rich Merchant.
+IF
+CharacterKilledBy(CHARACTERGUID_S_GLO_MerchantRich_1e1cec76-eab1-4af3-b5f3-b9b18002b8f5,_AttackerOwner,_Attacker)
+AND
+DB_IsPlayer(_AttackerOwner)
+THEN
+UserSetFlag(_AttackerOwner, "RC_DW_KilledMerchantRich", 0);
+
+IF
+CharacterDying(CHARACTERGUID_S_GLO_MerchantRich_1e1cec76-eab1-4af3-b5f3-b9b18002b8f5)
+AND
+DB_CombatCharacters(CHARACTERGUID_S_GLO_MerchantRich_1e1cec76-eab1-4af3-b5f3-b9b18002b8f5, _ID)
+AND
+DB_CombatCharacters(_Player, _ID)
+AND
+DB_IsPlayer(_Player)
+AND
+CharacterIsEnemy(_Player, CHARACTERGUID_S_GLO_MerchantRich_1e1cec76-eab1-4af3-b5f3-b9b18002b8f5, 1)
+THEN
+UserSetFlag(_Player, "RC_DW_KilledMerchantRich", 0);
+//END_REGION
+
+
+IF
+ObjectFlagSet("RC_MIL_ShowSawmillMarker", _Player, _)
+THEN
+ProcShowMarker((CHARACTERGUID)_Player, "RC_MIL_Sawmill");
+
+IF
+ObjectFlagSet("RC_DW_BaranKneels", _Baran, _)
+THEN
+PlayAnimation(_Baran,"Kneel_01");
+
+//REGION Combat
+IF
+ObjectEnteredCombat(_Guard, _)
+AND
+DB_RC_DW_RichMerchantGuards((CHARACTERGUID)_Guard, _)
+THEN
+PROC_RC_DW_StopRichMerchandDialogs();
+
+IF
+ObjectEnteredCombat(CHARACTERGUID_S_GLO_MerchantRich_1e1cec76-eab1-4af3-b5f3-b9b18002b8f5, _)
+THEN
+PROC_RC_DW_StopRichMerchandDialogs();
+
+PROC
+PROC_RC_DW_StopRichMerchandDialogs()
+AND
+DB_RC_DW_RichMerchantGuards(_Guard, _)
+AND
+IsSpeakerReserved(_Guard, 1)
+THEN
+ProcForceStopDialog(_Guard);
+
+
+PROC
+PROC_RC_DW_StopRichMerchandDialogs()
+AND
+IsSpeakerReserved(CHARACTERGUID_S_GLO_MerchantRich_1e1cec76-eab1-4af3-b5f3-b9b18002b8f5, 1)
+THEN
+ProcForceStopDialog(CHARACTERGUID_S_GLO_MerchantRich_1e1cec76-eab1-4af3-b5f3-b9b18002b8f5);
+
+IF
+GlobalFlagSet("RC_DW_RichMerchantHostile")
+THEN
+CharacterSetRelationFactionToFaction("RC_DW_Tavern_RichTrader", "DW_Magister", 50);
+CharacterSetRelationFactionToFaction("DW_Magister", "RC_DW_Tavern_RichTrader", 50);
+CharacterSetRelationFactionToFaction("RC_DW_Tavern_RichTrader", "RC_DW_Civilian", 50);
+CharacterSetRelationFactionToFaction("RC_DW_Civilian", "RC_DW_Tavern_RichTrader", 50);
+//END_REGION
+
+//REGION Journal
+IF
+CharacterUsedSkillOnTarget(_Player, CHARACTERGUID_S_RC_DW_T_BardanGhost_0a95fdeb-110f-442d-a20d-514afd067b0c, _Skill, _, _)
+AND
+DB_SourceVampirism_Skills(_Skill)
+THEN
+PartySetFlag(_Player, "QuestUpdate_RC_DW_RichMerchant_ConsumedGhost", 0);
+
+IF
+CharacterGhostDestroyed(_, CHARACTERGUID_S_RC_DW_T_BardanGhost_0a95fdeb-110f-442d-a20d-514afd067b0c)
+AND
+DB_IsPlayer(_Player)
+THEN
+PartySetFlag(_Player, "QuestClose_RC_DW_RichMerchant", 0);
+
+//PROC
+//ProcRegionEnded("RC_Main")
+//AND
+//NOT DB_Dead(CHARACTERGUID_S_GLO_MerchantRich_1e1cec76-eab1-4af3-b5f3-b9b18002b8f5)
+//AND
+//DB_IsPlayer(_Player)
+//THEN
+//PartySetFlag(_Player, "QuestUpdate_RC_DW_RichMerchant_End_RC", 0);
+
+//PROC
+//ProcRegionEnded("RC_Main")
+//AND
+//DB_IsPlayer(_Player)
+//THEN
+//PartySetFlag(_Player, "QuestClose_RC_DW_RichMerchant", 0);
+
+IF
+ObjectFlagSet("QuestUpdate_RC_DW_RichMerchant_ImmediateEnd", (CHARACTERGUID)_Player, _ID)
+THEN
+PartySetFlag(_Player, "QuestUpdate_RC_DW_RichMerchant_Start_Over", _ID);
+PartySetFlag(_Player, "QuestUpdate_RC_DW_RichMerchant_End", _ID);
+
+IF
+CharacterWentOnStage(CHARACTERGUID_S_RC_DW_T_BardanGhost_0a95fdeb-110f-442d-a20d-514afd067b0c, 0)
+AND
+DB_IsPlayer(_Player)
+THEN
+PartySetFlag(_Player, "QuestClose_RC_DW_RichMerchant", 0);
+//END_REGION
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "ReapersCoast"

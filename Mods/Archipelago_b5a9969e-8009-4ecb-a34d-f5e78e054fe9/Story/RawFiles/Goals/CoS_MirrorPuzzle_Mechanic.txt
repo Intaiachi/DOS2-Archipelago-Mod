@@ -1,0 +1,340 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+DB_LV_HoE_PuzzleMirrors_Positions(1,45.0);
+DB_LV_HoE_PuzzleMirrors_Positions(2,135.0);
+DB_LV_HoE_PuzzleMirrors_Positions(3,225.0);
+DB_LV_HoE_PuzzleMirrors_Positions(4,315.0);
+
+
+
+
+KBSECTION
+//REGION
+PROC
+PROC_LV_HoE_MirrorPuzzle_Init()
+AND
+DB_LV_HoE_PuzzleMirrors(_Mirror,_Pos)
+AND
+DB_LV_HoE_PuzzleMirrors_Positions(_Pos,_Rot)
+THEN
+ItemRotateY(_Mirror,_Rot,360.0);
+
+PROC
+PROC_LV_HoE_MirrorPuzzle_Init()
+AND
+DB_LV_HoE_MirrorPuzzle_Target(_,_Wall)
+THEN
+SetOnStage(_Wall,0);
+
+PROC
+PROC_LV_HoE_MirrorPuzzle_Init()
+THEN
+PROC_LV_HoE_MirrorPuzzle_CheckActivation();
+
+
+IF
+DB_LV_HoE_PuzzleMirrors(_Mirror,_)
+THEN
+ItemSetForceSynch(_Mirror,1);
+
+IF
+DB_LV_HoE_MirrorPuzzle_Target(_Target,_)
+THEN
+ItemSetForceSynch(_Target,1);
+DB_LV_HoE_MirrorPuzzle_TargetIsForceSyncing(_Target);
+
+IF
+SavegameLoaded(_Major,_Minor,_Rev,_Build)
+AND
+QRY_VersionIsOlderThan(_Major,_Minor,_Rev,_Build,3, 6, 1, 0)
+AND
+DB_LV_HoE_MirrorPuzzle_Target(_Target,_)
+AND
+NOT DB_LV_HoE_MirrorPuzzle_TargetIsForceSyncing(_Target)
+THEN
+ItemSetForceSynch(_Target,1);
+
+
+PROC
+ProcRegionEnded("CoS_Main")
+AND
+DB_LV_HoE_MirrorPuzzle_Target(_Target,_)
+THEN
+NOT DB_LV_HoE_MirrorPuzzle_TargetIsForceSyncing(_Target);
+ItemSetForceSynch(_Target,0);
+
+
+//END_REGION
+
+//REGION Generators
+IF
+ItemStatusChange((ITEMGUID)_Generator,"SHOCKED",_)
+AND
+DB_LV_HoE_MirrorPuzzle_Generator(_Generator,_)
+THEN
+RemoveStatus(_Generator,"SHOCKED");
+ApplyStatus(_Generator,"STUNNED",12.0);
+
+
+IF
+ItemStatusChange((ITEMGUID)_Generator,"STUNNED",_)
+AND
+DB_LV_HoE_MirrorPuzzle_Generator(_Generator,(ITEMGUID)_Mirror)
+THEN
+DB_LV_HoE_MirrorPuzzle_IsActive(_Generator,_Mirror);
+
+IF
+ItemStatusRemoved((ITEMGUID)_Generator,"STUNNED",_)
+AND
+DB_LV_HoE_MirrorPuzzle_Generator(_Generator,(ITEMGUID)_Mirror)
+THEN
+NOT DB_LV_HoE_MirrorPuzzle_IsActive(_Generator,_Mirror);
+PROC_LV_HoE_MirrorPuzzle_DeactivateMirror(_Generator,_Mirror);
+PROC_LV_HoE_MirrorPuzzle_CheckActivation();
+
+//END_REGION
+
+
+//REGION Using the Mirrors
+IF
+CharacterUsedItem(_Char,(ITEMGUID)_Mirror)
+AND
+DB_LV_HoE_PuzzleMirrors((ITEMGUID)_Mirror,_)
+THEN
+PROC_LV_HoE_CheckMirrorRotate(_Mirror);
+CharacterLookAt(_Char,_Mirror);
+
+
+PROC
+PROC_LV_HoE_CheckMirrorRotate((ITEMGUID)_Mirror)
+AND
+DB_LV_HoE_PuzzleMirrors((ITEMGUID)_Mirror,_Int)
+AND
+IntegerSum(_Int,1,_NewInt)
+AND
+_NewInt > 4
+AND
+NOT DB_LV_HoE_PuzzleMirror_Rotating((ITEMGUID)_Mirror)
+THEN
+NOT DB_LV_HoE_PuzzleMirrors(_Mirror,_Int);
+DB_LV_HoE_PuzzleMirrors(_Mirror,1);
+PROC_LV_HoE_MirrorPuzzle_RotateMirror((ITEMGUID)_Mirror);
+
+PROC
+PROC_LV_HoE_CheckMirrorRotate((ITEMGUID)_Mirror)
+AND
+DB_LV_HoE_PuzzleMirrors((ITEMGUID)_Mirror,_Int)
+AND
+IntegerSum(_Int,1,_NewInt)
+AND
+_NewInt < 5
+AND
+NOT DB_LV_HoE_PuzzleMirror_Rotating((ITEMGUID)_Mirror)
+THEN
+NOT DB_LV_HoE_PuzzleMirrors(_Mirror,_Int);
+DB_LV_HoE_PuzzleMirrors(_Mirror,_NewInt);
+PROC_LV_HoE_MirrorPuzzle_RotateMirror((ITEMGUID)_Mirror);
+
+PROC
+PROC_LV_HoE_CheckMirrorRotate((ITEMGUID)_Mirror)
+AND
+DB_LV_HoE_PuzzleMirrors((ITEMGUID)_Mirror,_)
+THEN
+PROC_StopLoopBeamEffect(_Mirror,"LV_HoE_MirrorPuzzle");
+//END_REGION
+
+PROC
+PROC_LV_HoE_MirrorPuzzle_RotateMirror((ITEMGUID)_Mirror)
+THEN
+DB_LV_HoE_PuzzleMirror_Rotating(_Mirror);
+ItemRotateY(_Mirror,90.0,286.0);
+ItemSetCanInteract(_Mirror,0);
+ProcObjectTimer(_Mirror,"LV_HoE_MirrorRotating",450);
+
+PROC
+ProcObjectTimerFinished((ITEMGUID)_Mirror,"LV_HoE_MirrorRotating")
+AND
+DB_LV_HoE_PuzzleMirrors(_Mirror,_Pos)
+AND
+DB_LV_HoE_PuzzleMirror_Rotating(_Mirror)
+THEN
+NOT DB_LV_HoE_PuzzleMirror_Rotating(_Mirror);
+ItemSetCanInteract(_Mirror,1);
+PROC_LV_HoE_MirrorPuzzle_CheckActivation();
+
+IF
+ItemDestroyed(_TargetActivator)
+AND
+DB_LV_HoE_MirrorPuzzle_IsActive(_TargetActivator,_Mirror)
+THEN
+PROC_LV_HoE_MirrorPuzzle_DeactivateMirror(_TargetActivator,_Mirror);
+PROC_LV_HoE_MirrorPuzzle_CheckActivation();
+PROC_StopLoopBeamEffect(_TargetActivator,"LV_HoE_MirrorPuzzle");
+
+//Activate
+PROC
+PROC_LV_HoE_MirrorPuzzle_CheckActivation()
+AND
+DB_LV_HoE_PuzzleMirrors(_TargetActivator,_Pos)
+AND
+DB_LV_HoE_MirrorPuzzle_Activators(_Mirror,_TargetActivator,_Pos)
+AND
+DB_LV_HoE_MirrorPuzzle_IsActive(_,_TargetActivator)
+AND
+NOT DB_LV_HoE_MirrorPuzzle_IsActive(_TargetActivator,_Mirror)
+THEN
+DB_LV_HoE_MirrorPuzzle_IsActive(_TargetActivator,_Mirror);
+
+
+IF
+DB_LV_HoE_MirrorPuzzle_IsActive(_Source,_Mirror) 
+THEN
+PROC_LoopBeamEffect("RS3_FX_GP_Beams_Ataraxian_Blue_01",_Source,_Mirror,"Dummy_fx","Dummy_fx","LV_HoE_MirrorPuzzle","CoS_Main");
+PROC_LV_HoE_MirrorPuzzle_CheckActivation();
+
+//REGION De-Activate Conditions
+PROC
+PROC_LV_HoE_MirrorPuzzle_CheckActivation()
+AND
+DB_LV_HoE_MirrorPuzzle_IsActive((ITEMGUID)_TargetActivator,(ITEMGUID)_Mirror)
+AND
+DB_LV_HoE_PuzzleMirrors(_TargetActivator,_Pos)
+AND
+DB_LV_HoE_MirrorPuzzle_Activators(_Mirror,_TargetActivator,_NewPos)
+AND
+_Pos != _NewPos
+AND
+DB_LV_HoE_PuzzleMirrors((ITEMGUID)_OtherTargetActivator,_)
+AND
+_TargetActivator != _OtherTargetActivator
+AND
+NOT DB_LV_HoE_MirrorPuzzle_IsActive(_OtherTargetActivator,_Mirror)
+THEN
+PROC_LV_HoE_MirrorPuzzle_DeactivateMirror(_TargetActivator,_Mirror);
+//DebugText(_Mirror,"Deactivate - Block 1");
+
+//Remove from IsActive
+PROC
+PROC_LV_HoE_MirrorPuzzle_DeactivateMirror((ITEMGUID)_TargetActivator,(ITEMGUID)_Mirror)
+AND
+DB_LV_HoE_MirrorPuzzle_IsActive(_TargetActivator,_Mirror)
+THEN
+NOT DB_LV_HoE_MirrorPuzzle_IsActive(_TargetActivator,_Mirror);
+
+
+PROC
+PROC_LV_HoE_MirrorPuzzle_CheckActivation()
+AND
+DB_LV_HoE_MirrorPuzzle_IsActive(_TargetActivator,_Mirror)
+AND
+DB_LV_HoE_PuzzleMirrors((ITEMGUID)_TargetActivator,_)
+AND
+DB_LV_HoE_MirrorPuzzle_Activators(_Mirror,_TargetActivator,_)
+AND
+NOT DB_LV_HoE_MirrorPuzzle_IsActive(_,_TargetActivator)
+AND
+DB_LV_HoE_PuzzleMirrors((ITEMGUID)_OtherTargetActivator,_)
+AND
+_TargetActivator != _OtherTargetActivator
+AND
+NOT DB_LV_HoE_MirrorPuzzle_IsActive(_OtherTargetActivator,_Mirror)
+THEN
+PROC_LV_HoE_MirrorPuzzle_DeactivateMirror(_TargetActivator,_Mirror);
+
+
+PROC
+PROC_LV_HoE_MirrorPuzzle_DeactivateMirror((ITEMGUID)_,(ITEMGUID)_Mirror)
+THEN
+PROC_StopLoopBeamEffect(_Mirror,"LV_HoE_MirrorPuzzle");
+
+PROC
+PROC_LV_HoE_MirrorPuzzle_DeactivateMirror((ITEMGUID)_,(ITEMGUID)_)
+AND
+DB_LV_HoE_PuzzleMirrors((ITEMGUID)_Mirror,_)
+AND
+NOT DB_LV_HoE_MirrorPuzzle_IsActive(_,_Mirror)
+THEN
+PROC_StopLoopBeamEffect(_Mirror,"LV_HoE_MirrorPuzzle");
+
+
+
+PROC
+PROC_LV_HoE_MirrorPuzzle_DeactivateMirror((ITEMGUID)_Generator,(ITEMGUID)_Mirror)
+AND
+DB_LV_HoE_MirrorPuzzle_Generator(_Generator,_Mirror)
+AND
+NOT DB_LV_HoE_MirrorPuzzle_IsActive(_Generator,_Mirror)
+THEN
+PROC_StopLoopBeamEffect(_Generator,"LV_HoE_MirrorPuzzle");
+
+PROC
+PROC_LV_HoE_MirrorPuzzle_DeactivateMirror((ITEMGUID)_Generator,(ITEMGUID)_Mirror)
+AND
+DB_LV_HoE_MirrorPuzzle_Generator(_Generator,_Mirror)
+AND
+NOT DB_LV_HoE_MirrorPuzzle_IsActive(_Generator,_Mirror)
+AND
+DB_LV_HoE_MirrorPuzzle_Activators(_Mirror,_TargetActivator,_)
+AND
+DB_LV_HoE_MirrorPuzzle_IsActive(_Mirror,_TargetActivator)
+THEN
+PROC_LV_HoE_MirrorPuzzle_DeactivateMirror(_Mirror,_TargetActivator);
+
+//END_REGION
+
+
+//REGION Targets
+
+IF
+DB_LV_HoE_MirrorPuzzle_IsActive(_,(ITEMGUID)_Target)
+AND
+DB_LV_HoE_MirrorPuzzle_Target(_Target,_)
+THEN
+ApplyStatus(_Target,"STUNNED",-1.0,1);
+
+IF
+ItemStatusChange(_Target,"STUNNED",_)
+AND
+DB_LV_HoE_MirrorPuzzle_Target(_Target,(ITEMGUID)_Wall)
+THEN
+PlayEffect(_Target,"RS3_FX_Char_Creatures_Shriker_LightningBolt_Impact_01");
+SetOnStage(_Wall,1);
+CreateSurface(_Wall,"SurfaceNone",4.0,1.0);
+CreateSurface(_Target,"SurfaceNone",2.5,1.0);
+
+//Door goes down
+PROC
+PROC_LV_HoE_MirrorPuzzle_DeactivateMirror((ITEMGUID)_,(ITEMGUID)_Target)
+AND
+DB_LV_HoE_MirrorPuzzle_Target((ITEMGUID)_Target,_)
+THEN
+RemoveStatus(_Target,"STUNNED");
+
+IF
+ItemStatusRemoved(_Target,"STUNNED",_)
+AND
+DB_LV_HoE_MirrorPuzzle_Target(_Target,(ITEMGUID)_Wall)
+AND
+DB_LV_HoE_MirrorPuzzle_Activators(_Target,(ITEMGUID)_TargetActivator,_)
+AND
+DB_LV_HoE_MirrorPuzzle_Target((ITEMGUID)_AnyTarget,_Wall)
+AND
+NOT DB_LV_HoE_MirrorPuzzle_IsActive(_,_AnyTarget)
+THEN
+SetOnStage(_Wall,0);
+RemoveStatus(_Target,"STUNNED");
+
+
+//END_REGION
+
+PROC
+ProcRegionEnded("CoS_Main")
+THEN
+//GoalCompleted;
+DB_NOOP(1);
+
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "CouncilOfSeven"

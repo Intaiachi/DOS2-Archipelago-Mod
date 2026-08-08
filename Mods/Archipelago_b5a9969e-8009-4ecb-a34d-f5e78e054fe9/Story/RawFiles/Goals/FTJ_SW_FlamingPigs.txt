@@ -576,7 +576,8 @@ PartySetFlag(_Player,"QuestUpdate_FTJ_SW_CursedPig_KilledAllPigs");
 PROC
 ProcRegionEnded("FJ_FortJoy_Main")
 THEN
-GoalCompleted;
+//GoalCompleted;
+DB_NOOP(1);
 EXITSECTION
 
 ENDEXITSECTION

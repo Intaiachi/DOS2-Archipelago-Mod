@@ -1,5 +1,10 @@
 ItemNames = Ext.Require("Server/itemNames.lua")
+Skills = Ext.Require("Server/skills.lua")
 PersistentVars = {}
+PersistentVars["FTJWAYP"] = {}
+PersistentVars["RCWAYP"] = {}
+PersistentVars["COSWAYP"] = {}
+PersistentVars["ARXWAYP"] = {}
 Deathlink = true
 DeathlinkStyleIn = ""
 DeathlinkStyleOut = ""
@@ -8,7 +13,9 @@ ApOutFile = "apOut.json"
 ApInFile = "apIn.json"
 SyncStyle = ""
 TrapStyle = ""
+RandomClassExt = ""
 ContainerSanity = ""
+EnableLevelTeleport = ""
 PlayableChars = {"S_Player_Ifan_ad9a3327-4456-42a7-9bf4-7ad60cc9e54f",
                 "S_Player_Beast_f25ca124-a4d2-427b-af62-df66df41a978",
                 "S_Player_Lohse_bb932b13-8ebf-4ab4-aac0-83e6924e4295",
@@ -67,10 +74,10 @@ DeathlinkNames = {["ad9a3327-4456-42a7-9bf4-7ad60cc9e54f"] = "Ifan",
                      ["a26a1efb-cdc8-4cf3-a7b2-b2f9544add6f"] = "Red Prince",
                      ["c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c"] = "Sebille",
                      ["02a77f1f-872b-49ca-91ab-32098c443beb"] = "Fane",
-                     ["7b6c1f26-fe4e-40bd-a5d0-e6ff58cef4fe"] = "Hero",
-                     ["c451954c-73bf-46ce-a1d1-caa9bbdc3cfd"] = "Player 2 Hero",
-                     ["41a06985-7851-4c29-8a78-398ccb313f39"] = "Player 3 Hero",
-                     ["41a594ed-b768-4289-9f17-59f701cc6910"] = "Player 4 Hero",
+                     ["7b6c1f26-fe4e-40bd-a5d0-e6ff58cef4fe"] = "Godwoken",
+                     ["c451954c-73bf-46ce-a1d1-caa9bbdc3cfd"] = "Player 2 Godwoken",
+                     ["41a06985-7851-4c29-8a78-398ccb313f39"] = "Player 3 Godwoken",
+                     ["41a594ed-b768-4289-9f17-59f701cc6910"] = "Player 4 Godwoken",
                      ["3f44ca37-37db-4415-9c07-8a6a5043f4d9"] = "Nestor",
                      ["771422fe-7f0a-4997-a600-66de69c75d80"] = "Ravella",
                      ["3b4ec079-75be-4f79-8f4b-449c650d438d"] = "Yastara",
@@ -109,6 +116,16 @@ DeathlinkNames = {["ad9a3327-4456-42a7-9bf4-7ad60cc9e54f"] = "Ifan",
 
 -- CharacterTeleportPartiesToTrigger("TRIGGERGUID_StartPoint_000__000_fe2995bf-aa16-8ce7-33a2-8cb8cf228152", "")
 
+-- StartPoint_000__000_fe2995bf-aa16-8ce7-33a2-8cb8cf228152 merryweather
+-- StartPoint_001_34d67d87-441c-427d-97bb-4cc506b42fe0 fort joy
+-- StartPoint_000_e30fe0c4-9b40-4040-9670-e8edd53a34ce reapers coast
+-- S_CoS_LV_RegionStart_8c00afb8-43af-4de7-953a-a7456f996a4c nameless isle
+-- StartPoint_000__001_ARX_Harbour_Dev_000_ARX_Main_Rework_000_fb573f96-d837-0033-4143-3bf31d88ae49 arx
+
+-- ARP_LevelTP_c1147016-9e07-4980-b32b-556cb1141d8c tele item
+
+-- Osi.proc_UnlockWaypoint("WAYP_FTJ_ShrineToTheSeven", CharacterGetHostCharacter())
+
 DeathType = {"None",
              "Physical",
              "Piercing",
@@ -136,7 +153,6 @@ TrapEffect = {"POISONED",
               "SMELLY",
               "INFECTIOUS_DISEASED",
               "DECAYING_TOUCH",
-              "LINGERING_WOUNDS",
               "DAMAGE_ON_MOVE",
               "DISARMED",
               "NECROFIRE",
@@ -144,7 +160,7 @@ TrapEffect = {"POISONED",
               "FROZEN",
               "CHICKEN",
               "COW",
-              "CURSE",
+              "CURSED",
               "CRIPPLED",
               "DISEASED",
               "DRUNK",
@@ -169,28 +185,25 @@ local function ClearState()
     PersistentVars["ApSent"] = {}
 end
 
-local function read_option(data, key)
-    if(data == nil) then
-        return false
+local function loadParse(file)
+    local unparsed = Ext.IO.LoadFile(file)
+    if(unparsed) then
+        local data = Ext.Json.Parse(unparsed)
+        if(data == nil) then
+            print("Failed to parse JSON")
+            return false
+        end
+        return data
     end
-    local v = data[key]
-    if(v == nil) then
-        return false
-    end
-    return v
+    return false
 end
 
 function ContainerCheck(container)
     print("Checking container: " .. container)
     container = Ext.Entity.GetItem(container).MyGuid
-    local unparsed = Ext.IO.LoadFile(ApOutFile)
-    local data = {}
-    if(unparsed) then
-        data = Ext.Json.Parse(unparsed)
-        if(data == nil) then
-            print("Failed to parse JSON")
-            return
-        end
+    local data = loadParse(ApOutFile)
+    if(not data) then
+        return
     end
     local needsToAdd = true
     for k, v in ipairs(data) do
@@ -205,251 +218,219 @@ function ContainerCheck(container)
     end
 end
 
-function SyncArchipelago()
-    local unparsed_in = Ext.IO.LoadFile(ApInFile)
-    if(unparsed_in) then
-        local APSent = PersistentVars['APSent']
-        if(not APSent) then
-            APSent = {}
-        end
-        local data_in = Ext.Json.Parse(unparsed_in)
-        if(data_in == nil) then
-            print("Failed to parse json")
-            return
-        end
-        for k, v in ipairs(data_in) do
-            local isAlreadySent = false
-            if (APSent[v] == true) then
-                isAlreadySent = true
-            end
-            if(not isAlreadySent) then
-                if(string.sub(v, 11, 17) == "levelUp") then
-                    for _, character in ipairs(PlayableChars) do
-                        CharacterLevelUp(character)
-                        APSent[v] = true
-                    end
-                    ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#af99ef'>Level Up</font>")
-                elseif(string.sub(v, 11, 46) == "1c3c9c74-34a1-4685-989e-410dc080be6f") then
-                    ItemTemplateAddTo(v, CharacterGetHostCharacter(), 200, 0)
-                    APSent[v] = true
-                    ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received some <font color='#00e1e1'>Gold</font>")
-                elseif(string.sub(v, 11, 24) == "attributePoint") then
-                    for _, character in ipairs(PlayableChars) do
-                        CharacterAddAttributePoint(character, 1)
-                        APSent[v] = true
-                    end
-                    ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received an <font color='#af99ef'>Attribute Point</font>")
-                elseif(string.sub(v, 11, 28) == "combatAbilityPoint") then
-                    for _, character in ipairs(PlayableChars) do
-                        CharacterAddAbilityPoint(character, 1)
-                        APSent[v] = true
-                    end
-                    ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#af99ef'>Combat Ability Point</font>")
-                elseif(string.sub(v, 11, 27) == "civilAbilityPoint") then
-                    for _, character in ipairs(PlayableChars) do
-                        CharacterAddCivilAbilityPoint(character, 1)
-                        APSent[v] = true
-                    end
-                    ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#af99ef'>Civil Ability Point</font>")
-                elseif(string.sub(v, 11, 21) == "talentPoint") then
-                    for _, character in ipairs(PlayableChars) do
-                        CharacterAddTalentPoint(character, 1)
-                        APSent[v] = true
-                    end
-                    ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#af99ef'>Talent Point</font>")
-                elseif(string.sub(v, 11, 24) == "maxSourcePoint") then
-                    for _, character in ipairs(PlayableChars) do
-                        local currentSource = CharacterGetMaxSourcePoints(character)
-                        if(currentSource ~= nil) then
-                            CharacterOverrideMaxSourcePoints(character, currentSource + 1)
-                            APSent[v] = true
-                            if(currentSource == 1) then
-                                ObjectSetFlag(character, "GLO_Has2MaxMP")
-                            elseif(currentSource == 2) then
-                                ObjectSetFlag(character, "GLO_Has3MaxMP")
-                            end
-                        end
-                    end
-                    ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#af99ef'>Max Source Point</font>")
-                elseif(string.sub(v, 11, 12) == "ST") then
-                    if(string.sub(v, 11, 24) == "ST_ArmorNormal") then
-                        ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a piece of <font color='#6d8be8'>Random Weak Gear</font>")
-                        if(math.random(10) == 1) then --ST_Armor contain rings amulets and belts, execpt for ST_ArmorNormal for whatever reason, this is to artifically mimic the other armor tables
-                            CharacterGiveReward(CharacterGetHostCharacter(), "ST_RingAmuletBelt", 1)
-                            APSent[v] = true
-                        else
-                            CharacterGiveReward(CharacterGetHostCharacter(), "ST_ArmorNormal", 1)
-                            APSent[v] = true
-                        end
-                    else
-                        if(string.sub(v, 14) == "WeaponNormal") then
-                            ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#6d8be8'>Random Weak Weapon</font>")
-                        elseif(string.sub(v, 14) == "WeaponMagic") then
-                            ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#6d8be8'>Random Mediocre Weapon</font>")
-                        elseif(string.sub(v, 14) == "WeaponRare") then
-                            ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#6d8be8'>Random Good Weapon</font>")
-                        elseif(string.sub(v, 14) == "WeaponLegendary") then
-                            ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#6d8be8'>Random Powerful Weapon</font>")
-                        elseif(string.sub(v, 14) == "ArmorMagic") then
-                            ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a piece of <font color='#6d8be8'>Random Mediocre Gear</font>")
-                        elseif(string.sub(v, 14) == "ArmorRare") then
-                            ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a piece of <font color='#6d8be8'>Random Good Gear</font>")
-                        elseif(string.sub(v, 14) == "ArmorLegendary") then
-                            ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a piece of <font color='#6d8be8'>Random Powerful Gear</font>")
-                        end
-                        CharacterGiveReward(CharacterGetHostCharacter(), string.sub(v, 11), 1)
-                        APSent[v] = true
-                    end
-                elseif(string.sub(v, 11, 14) == "Trap") then
-                    local party = {}
-                    for _, character in ipairs(PlayableChars) do
-                        if(CharacterIsInPartyWith(character, CharacterGetHostCharacter()) == 1) then
-                            table.insert(party, character)
-                        end
-                    end
-                    if(string.sub(v, 15) == "Minor") then
-                        ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#fa8072'>Minor Status Trap</font>")
-                        if(TrapStyle == 0) then
-                            for _, character in ipairs(party) do
-                                ApplyStatus(character, TrapEffect[Random(34) + 1], 6.0, 1)
-                                APSent[v] = true
-                            end
-                        elseif(TrapStyle == 1) then
-                            ApplyStatus(party[Random(#party) + 1], TrapEffect[Random(34) + 1], 6.0, 1)
-                            APSent[v] = true
-                        end
-                    elseif(string.sub(v, 15) == "Moderate") then
-                        ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#fa8072'>Moderate Status Trap</font>")
-                        if(TrapStyle == 0) then
-                            for _, character in ipairs(party) do
-                                ApplyStatus(character, TrapEffect[Random(34) + 1], 12.0, 1)
-                                APSent[v] = true
-                            end
-                        elseif(TrapStyle == 1) then
-                            ApplyStatus(party[Random(#party) + 1], TrapEffect[Random(34) + 1], 12.0, 1)
-                            APSent[v] = true
-                        end
-                    elseif(string.sub(v, 15) == "Severe") then
-                        ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#fa8072'>Severe Status Trap</font>")
-                        if(TrapStyle == 0) then
-                            for _, character in ipairs(party) do
-                                ApplyStatus(character, TrapEffect[Random(34) + 1], 18.0, 1)
-                                APSent[v] = true
-                            end
-                        elseif(TrapStyle == 1) then
-                            ApplyStatus(party[Random(#party) + 1], TrapEffect[Random(34) + 1], 18.0, 1)
-                            APSent[v] = true
-                        end
-                    end
-                elseif(string.sub(v, 1, 4) == "ARP_") then
-                    local item = ItemNames[v]
-                    local firstLetter = string.sub(item[1], 1, 1):lower()
-                    if(firstLetter == "a" or firstLetter == "e" or firstLetter == "i" or firstLetter == "o" or firstLetter == "u") then
-                        ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received an <font color='#6d8be8'>" .. item[1] .. "</font>")
-                    else
-                        ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='#6d8be8'>" .. item[1] .. "</font>")
-                    end
-                    CharacterGiveReward(CharacterGetHostCharacter(), v, 1)
-                    APSent[v] = true
-                else
-                    local item = ItemNames[string.sub(v, 11)]
-                    if(item[1] ~= nil) then
-                        local color = "FF3E6905"
-                        if(item[2] == "f") then
-                            color = "#00e1e1"
-                        elseif(item[2] == "u") then
-                            color = "#6d8be8"
-                        elseif(item[2] == "p") then
-                            color = "#af99ef"
-                        end
-                        local firstLetter = string.sub(item[1], 1, 1):lower()
-                        if(firstLetter == "a" or firstLetter == "e" or firstLetter == "i" or firstLetter == "o" or firstLetter == "u") then
-                            ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received an <font color='" .. color .. "'>" .. item[1] .. "</font>")
-                        else
-                            ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received a <font color='" .. color .. "'>" .. item[1] .. "</font>")
-                        end
-                    else
-                        ShowNotification(CharacterGetHostCharacter(), "<font color='#fcd203'>You</font> have received an <font color='#f0853e'>unknown item</font>")
-                    end
-                    if(string.sub(v, 11, 46) == "86c59384-3686-4594-b485-507caed669a5") then
-                        PartySetFlag(CharacterGetHostCharacter(),"ARX_CreepyCraftsman_Has_SourceAmulet")
-                    end
-                    if(string.sub(v, 11, 46) == "a266d681-bb84-4277-9889-9da15a4bf3b2") then
-                        PartySetFlag(CharacterGetHostCharacter(),"ARX_CreepyCraftsman_Has_Scroll")
-                    end
-                    ItemTemplateAddTo(v, CharacterGetHostCharacter(), 1, 0)
-                    APSent[v] = true
+local function Notifiy(itemName, isUnique)
+    local you = "<font color='#fcd203'>You</font>"
+    local color = "<font color='ff3e6905'>"
+    local meat = " have received an "
+    local firstLetter = string.sub(itemName[1], 1, 1):lower()
+    if(itemName == nil) then
+        ShowNotification(CharacterGetHostCharacter(), you .. meat .. color .. " unknown item</font>")
+        return
+    end
+    if(itemName[2] == "t") then
+        color = "<font color='#fa8072'>"
+    elseif(itemName[2] == "f") then
+        color = "<font color='#00e1e1'>"
+    elseif(itemName[2] == "u") then
+        color = "<font color='#6d8be8'>"
+    elseif(itemName[2] == "p") then
+        color = "<font color='#af99ef'>"
+    end
+    if(itemName[1] == "Gold") then
+        meat = " have received some "
+    elseif(string.sub(itemName[1], -4) == "Gear") then
+        meat = " have received a piece of "
+    elseif(isUnique) then
+        meat = " have received "
+    elseif(firstLetter ~= "a" and firstLetter ~= "e" and firstLetter ~= "i" and firstLetter ~= "o" and firstLetter ~= "u") then
+        meat = " have received a "
+    end
+    ShowNotification(CharacterGetHostCharacter(), you .. meat .. color .. itemName[1] .. "</font>")
+end
+
+local function giveItem(item)
+    if(item == "1c3c9c74-34a1-4685-989e-410dc080be6f") then
+        ItemTemplateAddTo(item, CharacterGetHostCharacter(), 500, 0)
+        return
+    elseif(item == "86c59384-3686-4594-b485-507caed669a5") then
+        PartySetFlag(CharacterGetHostCharacter(),"ARX_CreepyCraftsman_Has_SourceAmulet")
+    elseif(item == "a266d681-bb84-4277-9889-9da15a4bf3b2") then
+        PartySetFlag(CharacterGetHostCharacter(),"ARX_CreepyCraftsman_Has_Scroll")
+    end
+    ItemTemplateAddTo(item, CharacterGetHostCharacter(), 1, 0)
+end
+
+local function giveStats(stat)
+    for _, character in ipairs(PlayableChars) do
+        if(stat == "levelUp") then
+            CharacterLevelUp(character)
+        elseif(stat == "attributePoint") then
+            CharacterAddAttributePoint(character, 1)
+        elseif(stat == "combatAbilityPoint") then
+            CharacterAddAbilityPoint(character, 1)
+        elseif(stat == "civilAbilityPoint") then
+            CharacterAddCivilAbilityPoint(character, 1)
+        elseif(stat == "talentPoint") then
+            CharacterAddTalentPoint(character, 1)
+        elseif(stat == "maxSourcePoint") then
+            local currentSource = CharacterGetMaxSourcePoints(character)
+            if(currentSource ~= nil) then
+                CharacterOverrideMaxSourcePoints(character, currentSource + 1)
+                if(currentSource == 1) then
+                    ObjectSetFlag(character, "GLO_Has2MaxMP")
+                elseif(currentSource == 2) then
+                    ObjectSetFlag(character, "GLO_Has3MaxMP")
                 end
             end
         end
-        PersistentVars['APSent'] = APSent
     end
 end
 
-function ReceiveDeathlink()
-    local unparsed = Ext.IO.LoadFile("deathlinkIn.json")
-    if(unparsed and unparsed ~= "") then
-        local death = Ext.Json.Parse(unparsed)
-        if(death == nil) then
-            print("Failed to parse json")
-            return
+local function giveGear(gear)
+    if(gear == "ST_ArmorNormal") then
+        if(math.random(10) == 1) then
+            gear = "ST_RingAmuletBelt"
         end
-        for k, v in ipairs(death) do
-            if(v == "Deathlink") then
-                PendingReceiveDeathlink = true
-                if(DeathlinkStyleIn ~= 2) then
-                    local party = {}
-                    for _, character in ipairs(PlayableChars) do
-                        if(CharacterIsInPartyWith(character, CharacterGetHostCharacter()) == 1) then
-                            table.insert(party, character)
-                        end
-                    end
-                    if(DeathlinkStyleIn == 0) then
-                        for _, character in ipairs(party) do
-                            CharacterDie(character, 0, DeathType[Random(14) + 1], "NULL")
-                        end
-                    elseif(DeathlinkStyleIn == 1) then
-                        CharacterDie(party[Random(#party) + 1], 0, DeathType[Random(14) + 1], "NULL")
-                    end
-                elseif(DeathlinkStyleIn == 2) then
-                    CharacterDie(CharacterGetHostCharacter(), 0, DeathType[Random(14) + 1], "NULL")
-                end
-                Ext.IO.SaveFile("deathlinkIn.json", "[]")
+    end
+    CharacterGiveReward(CharacterGetHostCharacter(), gear, 1)
+end
+
+local function getParty()
+    local party = {}
+    for _, character in ipairs(PlayableChars) do
+        if(CharacterIsInPartyWith(character, CharacterGetHostCharacter()) == 1) then
+            table.insert(party, character)
+        end
+    end
+    return party
+end
+
+local function giveTrap(trap)
+    local severity = 0.0
+    local type = ""
+    local party = getParty()
+    if(string.sub(trap, 1, 9) == "TrapMinor") then
+        severity = 1.0
+        type = string.sub(trap, 10)
+    elseif(string.sub(trap, 1, 12) == "TrapModerate") then
+        severity = 2.0
+        type = string.sub(trap, 13)
+    elseif(string.sub(trap, 1, 10) == "TrapSevere") then
+        severity = 3.0
+        type = string.sub(trap, 11)
+    end
+    if(TrapStyle == 0) then
+        for _, character in ipairs(party) do
+            if(type ~= "") then
+                ApplyStatus(character, type, (6.0 * severity), 1)
+            else
+                ApplyStatus(character, TrapEffect[Random(34) + 1], (6.0 * severity), 1) --only kept around for backwards compatability
             end
+        end
+    elseif(TrapStyle == 1) then
+        if(type ~= "") then
+            ApplyStatus(party[Random(#party) + 1], type, (6.0 * severity), 1)
+        else
+            ApplyStatus(party[Random(#party) + 1], TrapEffect[Random(34) + 1], (6.0 * severity), 1) --only kept around for backwards compatability
+        end
+    end
+end
+
+function SyncArchipelago()
+    local data = loadParse(ApInFile)
+    if(not data) then
+        return
+    end
+    local isUnique = false
+    local APSent = PersistentVars['APSent']
+    if(not APSent) then
+        APSent = {}
+    end
+    for k, unparsedItem in ipairs(data) do
+        local isAlreadySent = false
+        if(APSent[unparsedItem] == true) then
+            isAlreadySent = true
+        end
+        if(not isAlreadySent) then
+            local parsedItem = ""
+            if(string.sub(unparsedItem, 1, 5) == "Dupe-") then
+                parsedItem = string.sub(unparsedItem, 11)
+            else
+                parsedItem = unparsedItem
+            end
+            if(parsedItem == "levelUp" or parsedItem == "attributePoint" or parsedItem == "combatAbilityPoint" or parsedItem == "civilAbilityPoint" or parsedItem == "talentPoint" or parsedItem == "maxSourcePoint") then
+                giveStats(parsedItem)
+            elseif(string.sub(parsedItem, 1, 3) == "ST_" or string.sub(parsedItem, 1, 4) == "ARP_") then
+                if(string.sub(parsedItem, 1, 4) == "ARP_") then
+                    isUnique = true
+                end
+                giveGear(parsedItem)
+            elseif(string.sub(parsedItem, 1, 4) == "Trap") then
+                giveTrap(parsedItem)
+            else
+                giveItem(parsedItem)
+            end
+            Notifiy(ItemNames[parsedItem], isUnique)
+            isUnique = false
+            APSent[unparsedItem] = true
+        end
+    end
+    PersistentVars['APSent'] = APSent
+end
+
+function ReceiveDeathlink()
+    local data = loadParse("deathlinkIn.json")
+    if(not data) then
+        return
+    end
+    for k, v in ipairs(data) do
+        if(v == "Deathlink") then
+            PendingReceiveDeathlink = true
+            if(DeathlinkStyleIn ~= 2) then
+                local party = getParty()
+                if(DeathlinkStyleIn == 0) then
+                    for _, character in ipairs(party) do
+                        CharacterDie(character, 0, DeathType[Random(14) + 1], "NULL")
+                    end
+                elseif(DeathlinkStyleIn == 1) then
+                    CharacterDie(party[Random(#party) + 1], 0, DeathType[Random(14) + 1], "NULL")
+                end
+            elseif(DeathlinkStyleIn == 2) then
+                CharacterDie(CharacterGetHostCharacter(), 0, DeathType[Random(14) + 1], "NULL")
+            end
+            Ext.IO.SaveFile("deathlinkIn.json", "[]")
         end
     end
 end
 
 function OnSessionLoaded()
-    local unparsed = Ext.IO.LoadFile("apOptions.json")
-    if(unparsed) then
-        Data = Ext.Json.Parse(unparsed)
-        if(Data == nil) then
-            return
-        end
-        Deathlink = read_option(Data, "death_link")
-        SyncStyle = read_option(Data, "syncOption")
-        DeathlinkStyleIn = read_option(Data, "deathlinkStyleIn")
-        DeathlinkStyleOut = read_option(Data, "deathlinkStyleOut")
-        TrapStyle = read_option(Data, "trapStyle")
-        ContainerSanity = read_option(Data, "containerSanity")
-        if(Deathlink == 1) then
-            Ext.Events.Tick:Subscribe(ReceiveDeathlink)
-        end
-        if(SyncStyle == 1) then --tick
-            print("subbed to tick")
-            Ext.Events.Tick:Subscribe(SyncArchipelago)
-        end
-        local new_seed = Data.seed_name
-        if(type(new_seed) == "string" and new_seed ~= "") then
-            local stored_seed = PersistentVars['SeedName']
-            ApOutFile = new_seed .. "apOut.json"
-            ApInFile = new_seed .. "apIn.json"
-            if(stored_seed ~= new_seed) then
-                PersistentVars['SeedName'] = new_seed
-                print("New game/new seed, resetting ap files")
-                ClearState()
-            end
+    local data = loadParse("apOptions.json")
+    if(not data) then
+        return
+    end
+    Deathlink = data["death_link"]
+    SyncStyle = data["syncOption"]
+    DeathlinkStyleIn = data["deathlinkStyleIn"]
+    DeathlinkStyleOut = data["deathlinkStyleOut"]
+    TrapStyle = data["trapStyle"]
+    ContainerSanity = data["containerSanity"]
+    RandomClassExt = data["randomClassPool"]
+    EnableLevelTeleport = data["enableLevelTeleport"]
+    if(Deathlink == 1) then
+        Ext.Events.Tick:Subscribe(ReceiveDeathlink)
+    end
+    if(SyncStyle == 1) then
+        Ext.Events.Tick:Subscribe(SyncArchipelago)
+    end
+    local new_seed = data["seed_name"]
+    if(type(new_seed) == "string" and new_seed ~= "") then
+        local stored_seed = PersistentVars['SeedName']
+        ApOutFile = new_seed .. "apOut.json"
+        ApInFile = new_seed .. "apIn.json"
+        if(stored_seed ~= new_seed) then
+            PersistentVars['SeedName'] = new_seed
+            print("New game/new seed, resetting ap files")
+            ClearState()
         end
     end
 end
@@ -460,16 +441,11 @@ Ext.Osiris.RegisterListener("ObjectFlagSet", 3, "after", function(flag, speaker,
         if(row) then
             if(row[1] ~= nil) then
                 local quest = row[1][1]
-                local unparsed = Ext.IO.LoadFile(ApOutFile)
-                local data = {}
-                print("Completed:" .. "Quest-" .. quest)
-                if(unparsed) then
-                    data = Ext.Json.Parse(unparsed)
-                    if(data == nil) then
-                        print("Failed to parse JSON")
-                        return
-                    end
+                local data = loadParse(ApOutFile)
+                if(not data) then
+                    return
                 end
+                print("Completed:" .. "Quest-" .. quest)
                 local needsToAdd = true
                 for k, v in ipairs(data) do
                     if (v == "Quest-" .. quest) then
@@ -486,9 +462,128 @@ Ext.Osiris.RegisterListener("ObjectFlagSet", 3, "after", function(flag, speaker,
     end
 end)
 
+local function giveRandomSkill(character)
+    local isAct2 = false
+    CharacterRemoveSkill(character, "Shout_ARP_RandomFiller1")
+    CharacterRemoveSkill(character, "Shout_ARP_RandomFiller2")
+    CharacterRemoveSkill(character, "Shout_ARP_RandomFiller3")
+    if(GetRegion(character) ~= "FJ_FortJoy_Main" and GetRegion(character) ~= "TUT_Tutorial_A") then
+        isAct2 = true
+        CharacterAddAttribute(character, "Memory", 2)
+    end
+    local index = {1, 2, 3, 4, 5}
+    for _, i in ipairs(index) do
+        if(CharacterHasSkill(character, Skills[i][1]) == 1) then
+            CharacterRemoveSkill(character, Skills[i][1])
+        end
+    end
+    index = {6, 7, 8, 9, 10, 11, 12}
+    for _, i in ipairs(index) do
+        if(CharacterHasSkill(character, Skills[i][1]) == 1) then
+            CharacterRemoveSkill(character, Skills[i][1])
+        end
+    end
+    local noOfSkills = 0
+    local weaponRestriction = "None"
+    local isDone = false
+    local isWeaponSet = false
+    local skillToAdd = ""
+    local hasIncarnate = false
+    while(not isDone) do
+        if(RandomClassExt == 0) then
+            skillToAdd = Skills[Random(40) + 13]
+        elseif(RandomClassExt == 1) then
+            skillToAdd = Skills[Random(144) + 13]
+        end
+        print("Attempting to add " .. skillToAdd[1] .. " with this weapon set " .. weaponRestriction)
+        if((not isWeaponSet and CharacterHasSkill(character, skillToAdd[1]) == 0 and skillToAdd[3] ~= "IncarnateBuff") or (skillToAdd[3] == "IncarnateBuff" and hasIncarnate == true and not isWeaponSet and CharacterHasSkill(character, skillToAdd[1]) == 0)) then
+            for _, ability in ipairs(skillToAdd[2]) do
+                CharacterAddAbility(character, ability, 1)
+            end
+            CharacterAddSkill(character, skillToAdd[1], 0)
+            print(skillToAdd[1] .. " has been added")
+            noOfSkills = noOfSkills + 1
+            if(skillToAdd[3] ~= "Incarnate" and skillToAdd[3] ~= "IncarnateBuff") then
+                weaponRestriction = skillToAdd[3]
+            elseif(skillToAdd[3] == "Incarnate") then
+                hasIncarnate = true
+            end
+            if(weaponRestriction ~= "None") then
+                isWeaponSet = true
+            end
+        elseif((skillToAdd[3] == "None" or skillToAdd[3] == weaponRestriction or (skillToAdd[3] == "IncarnateBuff" and hasIncarnate == true) or skillToAdd[3] == "Incarnate") and CharacterHasSkill(character, skillToAdd[1]) == 0) then
+            for _, ability in ipairs(skillToAdd[2]) do
+                CharacterAddAbility(character, ability, 1)
+            end
+            CharacterAddSkill(character, skillToAdd[1], 0)
+            print(skillToAdd[1] .. " has been added")
+            noOfSkills = noOfSkills + 1
+            if(skillToAdd[3] == "Incarnate") then
+                hasIncarnate = true
+            end
+        end
+        if((noOfSkills == 3 and isAct2 == false) or (noOfSkills == 5 and isAct2 == true)) then
+            isDone = true
+        end
+    end
+    CharacterAddSkill(character, Skills[Random(7) + 6][1], 0)
+    CharacterAddSkill(character, Skills[Random(5) + 1][1], 0)
+end
+
+Ext.Osiris.RegisterListener("CharacterJoinedParty", 1, "after", function(character)
+    if(CharacterHasSkill(character, "Shout_ARP_RandomFiller1") == 1) then
+        giveRandomSkill(character)
+    end
+end)
+
+local function restoreWaypoints(region)
+    local party = getParty()
+    if(PersistentVars[region] ~= nil) then
+        for key, value in pairs(PersistentVars[region]) do
+            if(value) then
+                print("Restoring waypoint: " .. key)
+                for _, character in ipairs(party) do
+                    Osi.proc_UnlockWaypoint(key, character)
+                end
+            end
+        end
+    end
+end
+
+Ext.Osiris.RegisterListener("RegionStarted", 1, "after", function(region)
+    if(region == "TUT_Tutorial_A") then
+        GlobalSetFlag("CanTPTUT")
+    elseif(region == "FJ_FortJoy_Main") then
+        GlobalSetFlag("CanTPFTJ")
+        restoreWaypoints("FTJWAYP")
+    elseif(region == "RC_Main") then
+        GlobalSetFlag("CanTPRC")
+        restoreWaypoints("RCWAYP")
+    elseif(region == "CoS_Main") then
+        GlobalSetFlag("CanTPCOS")
+        restoreWaypoints("COSWAYP")
+    elseif(region == "ARX_Main") then
+        GlobalSetFlag("CanTPARX")
+        restoreWaypoints("ARXWAYP")
+    elseif(region == "ARX_Endgame") then
+        GlobalSetFlag("CanTPTOL")
+    end
+end)
+
 Ext.Osiris.RegisterListener("GameStarted", 2, "after", function(level, isEditorMode)
-    if(level == "TUT_Tutorial_A" and SyncStyle == 0) then
+    if(level ~= "SYS_Character_Creation_A") then
+        local party = getParty()
+        for _, character in ipairs(party) do
+            if(CharacterHasSkill(character, "Shout_ARP_RandomFiller1") == 1) then
+                giveRandomSkill(character)
+            end
+        end
+    end
+    if(level == "TUT_Tutorial_A" and SyncStyle == 0 and CharacterHasSkill(CharacterGetHostCharacter(), "Target_Archipelago Sync") == 0) then
         CharacterAddSkill(CharacterGetHostCharacter(), "Target_Archipelago Sync", 0)
+    end
+    if(level == "TUT_Tutorial_A" and ItemTemplateIsInPartyInventory(CharacterGetHostCharacter(), "c1147016-9e07-4980-b32b-556cb1141d8c", 0) == 0 and EnableLevelTeleport == 1) then -- very temporary
+        ItemTemplateAddTo("c1147016-9e07-4980-b32b-556cb1141d8c", CharacterGetHostCharacter(), 1, 0)
     end
 end)
 
@@ -508,14 +603,9 @@ Ext.Osiris.RegisterListener("CharacterDied", 1, "after", function(defender)
     --print("defender: " .. tostring(defender) .. " attackerOwner: " .. tostring(attackerOwner))
     print("defender: " .. tostring(defender))
     defender = Ext.Entity.GetCharacter(defender).MyGuid
-    local unparsed = Ext.IO.LoadFile(ApOutFile)
-    local data = {}
-    if(unparsed) then
-        data = Ext.Json.Parse(unparsed)
-        if(data == nil) then
-            print("Failed to parse JSON")
-            return
-        end
+    local data = loadParse(ApOutFile)
+    if(not data) then
+        return
     end
     local needsToAdd = true
     for k, v in ipairs(data) do
@@ -529,13 +619,8 @@ Ext.Osiris.RegisterListener("CharacterDied", 1, "after", function(defender)
         Ext.IO.SaveFile(ApOutFile, Ext.Json.Stringify(data))
     end
     if(DeathlinkTriggers[defender] and CharacterIsPartyMember(defender) == 1) then
-        local party = {}
+        local party = getParty()
         if(DeathlinkStyleOut == 0) then
-            for _, character in ipairs(PlayableChars) do
-                if(CharacterIsInPartyWith(character, defender) == 1) then
-                    table.insert(party, character)
-                end
-            end
             local deadMembers = 0
             for _, character in ipairs(party) do
                 if(CharacterIsDead(character) == 1) then
@@ -570,5 +655,40 @@ Ext.Osiris.RegisterListener("ItemDestroyed", 1, "after", function(item)
         ContainerCheck(item)
     end
 end)
+
+local function manualSend(toSend)
+    print("Sending manual " .. toSend)
+    local data = loadParse(ApOutFile)
+    if(not data) then
+        return
+    end
+    local needsToAdd = true
+    for k, v in ipairs(data) do
+        if(v == toSend) then
+            needsToAdd = false
+            break
+        end
+    end
+    if(needsToAdd) then
+        table.insert(data, toSend)
+        Ext.IO.SaveFile(ApOutFile, Ext.Json.Stringify(data))
+    end
+end
+
+local function saveWaypoint(waypointID)
+    if(string.sub(waypointID, 1, 8) == "WAYP_FTJ") then
+        PersistentVars["FTJWAYP"][waypointID] = true
+    elseif(string.sub(waypointID, 1, 7) == "WAYP_RC" or waypointID == "RC_DW_Undertavern") then
+        PersistentVars["RCWAYP"][waypointID] = true
+    elseif(string.sub(waypointID, 1, 8) == "WAYP_CoS") then
+        PersistentVars["COSWAYP"][waypointID] = true
+    elseif(string.sub(waypointID, 1, 8) == "WAYP_ARX") then
+        PersistentVars["ARXWAYP"][waypointID] = true
+    end
+    print("Saving waypoint: " .. waypointID)
+end
+
+Ext.NewCall(saveWaypoint, "ARP_SaveWaypoint", "(STRING)_waypointID")
+Ext.NewCall(manualSend, "ARP_ManualSend", "(STRING)_toSend")
 
 Ext.Events.SessionLoaded:Subscribe(OnSessionLoaded)

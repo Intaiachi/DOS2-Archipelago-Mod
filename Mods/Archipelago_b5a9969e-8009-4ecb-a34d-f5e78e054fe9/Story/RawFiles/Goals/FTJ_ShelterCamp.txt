@@ -640,14 +640,14 @@ DB_NOOP();
 
 //END_REGION
 
-PROC
-ProcRegionEnded("FJ_FortJoy_Main")
-AND
-DB_FTJ_SW_InjuredSeeker(_Seeker)
-AND
-ObjectGetFlag(_Seeker,"FTJ_InjuredSeekerHealed",0)
-THEN
-CharacterDieImmediate(_Seeker,0,"DoT");
+//PROC
+//ProcRegionEnded("FJ_FortJoy_Main")
+//AND
+//DB_FTJ_SW_InjuredSeeker(_Seeker)
+//AND
+//ObjectGetFlag(_Seeker,"FTJ_InjuredSeekerHealed",0)
+//THEN
+//CharacterDieImmediate(_Seeker,0,"DoT");
 EXITSECTION
 
 ENDEXITSECTION

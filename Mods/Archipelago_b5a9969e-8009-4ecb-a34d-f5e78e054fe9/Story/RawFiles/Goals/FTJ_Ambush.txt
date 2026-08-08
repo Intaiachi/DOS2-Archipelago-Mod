@@ -336,7 +336,8 @@ NOT DB_VoidlingAmbushADInd(9);
 PROC
 ProcRegionEnded("FJ_FortJoy_Main")
 THEN
-GoalCompleted;
+//GoalCompleted;
+DB_NOOP(1);
 EXITSECTION
 
 ENDEXITSECTION

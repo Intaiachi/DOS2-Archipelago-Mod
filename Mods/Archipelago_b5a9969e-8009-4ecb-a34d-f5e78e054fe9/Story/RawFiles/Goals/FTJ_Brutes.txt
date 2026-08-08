@@ -566,7 +566,8 @@ DB_QuestDef_CloseEvent("RC_FTJ_OlgoSaheila","QuestUpdate_RC_FTJ_OlgoSaheila_Clos
 PROC
 ProcRegionEnded("FJ_FortJoy_Main")
 THEN
-GoalCompleted;
+//GoalCompleted;
+DB_NOOP(1);
 EXITSECTION
 
 ENDEXITSECTION

@@ -1,0 +1,488 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+// Origin, Preset object flag (see below)
+DB_OriginInitialPreset((CHARACTERGUID)CHARACTERGUID_S_Player_Lohse_bb932b13-8ebf-4ab4-aac0-83e6924e4295,"SetPreset_Enchanter");
+DB_OriginInitialPreset(CHARACTERGUID_S_Player_RedPrince_a26a1efb-cdc8-4cf3-a7b2-b2f9544add6f,"SetPreset_Fighter");
+DB_OriginInitialPreset(CHARACTERGUID_S_Player_Sebille_c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c,"SetPreset_Rogue");
+DB_OriginInitialPreset(CHARACTERGUID_S_Player_Ifan_ad9a3327-4456-42a7-9bf4-7ad60cc9e54f,"SetPreset_Wayfarer");
+DB_OriginInitialPreset(CHARACTERGUID_S_Player_Beast_f25ca124-a4d2-427b-af62-df66df41a978,"SetPreset_Battlemage");
+DB_OriginInitialPreset(CHARACTERGUID_S_Player_Fane_02a77f1f-872b-49ca-91ab-32098c443beb,"SetPreset_Wizard");
+KBSECTION
+IF
+TextEventSet("presettest")
+AND
+CharacterGetHostCharacter((CHARACTERGUID)_Player)
+THEN
+ObjectSetFlag(_Player,"SetPreset_Fighter");
+
+//GLO_HasSelectedPreset
+//GEN_CompanionPresetSelector
+
+//Workaround for the Preset call, first time recruited, set the Character's Preset again
+PROC
+Proc_CheckFirstTimeRecruited((CHARACTERGUID)_Origin)
+AND
+IsTagged(_Origin,"AVATAR",0)
+AND
+NOT DB_HasBeenRecruited(_Origin)
+THEN
+DB_HasBeenRecruited(_Origin);
+CharacterOverrideMaxSourcePoints(_Origin,1);
+
+PROC
+ProcRemoveOtherOrigins()
+AND
+DB_Origins_InitialRegion(_Region)
+AND
+DB_OriginRecruitmentLocation_Region(_Region,(CHARACTERGUID)_Origin,_,_)
+AND
+IsTagged(_Origin,"AVATAR",0)
+AND
+DB_OriginInitialPreset(_Origin,_Preset)
+THEN
+ObjectSetFlag(_Origin,_Preset);
+
+//Use the Proc to do other checks as well as apply the preset
+PROC
+Proc_ApplyPreset((CHARACTERGUID)_Origin,(STRING)_Preset)
+THEN
+CharacterApplyPreset(_Origin,_Preset);
+
+//Update unrecruited origins presets once LV starts
+IF
+CharacterEnteredRegion((CHARACTERGUID)_Origin,"LV_HoE_Main")
+AND
+DB_OriginInitialPreset((CHARACTERGUID)_Origin,_InitialPreset)
+AND
+IsTagged(_Origin,"AVATAR",0)
+AND
+NOT DB_HasBeenRecruited(_Origin)
+THEN
+ObjectSetFlag(_Origin,_InitialPreset);
+
+//REGION STR
+//Fighter
+IF
+ObjectFlagSet("SetPreset_Fighter",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region == "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Fighter");
+ObjectClearFlag(_Player,"SetPreset_Fighter",0);
+
+
+IF
+ObjectFlagSet("SetPreset_Fighter",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region != "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Fighter_Act2");
+ObjectClearFlag(_Player,"SetPreset_Fighter",0);
+
+
+//Battlemage
+IF
+ObjectFlagSet("SetPreset_Battlemage",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region == "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Battlemage");
+ObjectClearFlag(_Player,"SetPreset_Battlemage",0);
+
+
+IF
+ObjectFlagSet("SetPreset_Battlemage",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region != "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Battlemage_Act2");
+ObjectClearFlag(_Player,"SetPreset_Battlemage",0);
+
+
+//Knight
+IF
+ObjectFlagSet("SetPreset_Knight",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region == "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Knight");
+ObjectClearFlag(_Player,"SetPreset_Knight",0);
+
+IF
+ObjectFlagSet("SetPreset_Knight",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region != "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Knight_Act2");
+ObjectClearFlag(_Player,"SetPreset_Knight",0);
+
+//Inquisitor
+IF
+ObjectFlagSet("SetPreset_Inquisitor",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region == "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Inquisitor");
+ObjectClearFlag(_Player,"SetPreset_Inquisitor",0);
+
+IF
+ObjectFlagSet("SetPreset_Inquisitor",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region != "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Inquisitor_Act2");
+ObjectClearFlag(_Player,"SetPreset_Inquisitor",0);
+
+//END_REGION
+
+//REGION FIN
+ 
+//Ranger
+IF
+ObjectFlagSet("SetPreset_Ranger",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region == "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Ranger");
+ObjectClearFlag(_Player,"SetPreset_Ranger",0);
+
+IF
+ObjectFlagSet("SetPreset_Ranger",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region != "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Ranger_Act2");
+ObjectClearFlag(_Player,"SetPreset_Ranger",0);
+
+//Rogue
+IF
+ObjectFlagSet("SetPreset_Rogue",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region == "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Rogue");
+ObjectClearFlag(_Player,"SetPreset_Rogue",0);
+
+IF
+ObjectFlagSet("SetPreset_Rogue",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region != "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Rogue_Act2");
+ObjectClearFlag(_Player,"SetPreset_Rogue",0);
+
+//Shadowblade
+IF
+ObjectFlagSet("SetPreset_Shadowblade",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region == "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Shadowblade");
+ObjectClearFlag(_Player,"SetPreset_Shadowblade",0);
+
+IF
+ObjectFlagSet("SetPreset_Shadowblade",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region != "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Shadowblade_Act2");
+ObjectClearFlag(_Player,"SetPreset_Shadowblade",0);
+
+//Wayfarer
+IF
+ObjectFlagSet("SetPreset_Wayfarer",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region == "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Wayfarer");
+ObjectClearFlag(_Player,"SetPreset_Wayfarer",0);
+
+IF
+ObjectFlagSet("SetPreset_Wayfarer",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region != "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Wayfarer_Act2");
+ObjectClearFlag(_Player,"SetPreset_Wayfarer",0);
+
+//Polymorpher
+IF
+ObjectFlagSet("SetPreset_Polymorpher",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region == "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Metamorph");
+ObjectClearFlag(_Player,"SetPreset_Polymorpher",0);
+
+IF
+ObjectFlagSet("SetPreset_Polymorpher",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region != "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Metamorph_Act2");
+ObjectClearFlag(_Player,"SetPreset_Polymorpher",0);
+
+//END_REGION
+
+//REGION INT
+//Cleric
+IF
+ObjectFlagSet("SetPreset_Cleric",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region == "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Cleric");
+ObjectClearFlag(_Player,"SetPreset_Cleric",0);
+
+IF
+ObjectFlagSet("SetPreset_Cleric",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region != "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Cleric_Act2");
+ObjectClearFlag(_Player,"SetPreset_Cleric",0);
+
+//Enchanter
+IF
+ObjectFlagSet("SetPreset_Enchanter",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region == "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Enchanter");
+ObjectClearFlag(_Player,"SetPreset_Enchanter",0);
+
+IF
+ObjectFlagSet("SetPreset_Enchanter",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region != "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Enchanter_Act2");
+ObjectClearFlag(_Player,"SetPreset_Enchanter",0);
+
+//Witch
+IF
+ObjectFlagSet("SetPreset_Witch",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region == "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Witch");
+ObjectClearFlag(_Player,"SetPreset_Witch",0);
+
+IF
+ObjectFlagSet("SetPreset_Witch",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region != "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Witch_Act2");
+ObjectClearFlag(_Player,"SetPreset_Witch",0);
+
+//Wizard
+IF
+ObjectFlagSet("SetPreset_Wizard",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region == "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Wizard");
+ObjectClearFlag(_Player,"SetPreset_Wizard",0);
+
+IF
+ObjectFlagSet("SetPreset_Wizard",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region != "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Wizard_Act2");
+ObjectClearFlag(_Player,"SetPreset_Wizard",0);
+
+//Shaman
+IF
+ObjectFlagSet("SetPreset_Shaman",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region == "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Conjurer");
+ObjectClearFlag(_Player,"SetPreset_Shaman",0);
+
+IF
+ObjectFlagSet("SetPreset_Shaman",(CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region != "FJ_FortJoy_Main"
+THEN
+DB_ApplyPreset(_Player,"Conjurer_Act2");
+ObjectClearFlag(_Player,"SetPreset_Shaman",0);
+
+//ARP_Random
+IF
+ObjectFlagSet("SetPreset_ARP_Random",(CHARACTERGUID)_Player,_)
+THEN
+DB_ApplyPreset(_Player,"ARP_Random");
+ObjectClearFlag(_Player,"SetPreset_ARP_Random",0);
+
+//Default (needed to level up)
+IF
+ObjectFlagSet("SetPreset_Default",(CHARACTERGUID)_Player,_)
+AND
+DB_OriginInitialPreset(_Player,_DefaultPreset)
+THEN
+ObjectClearFlag(_Player,"SetPreset_Default",0);
+ObjectSetFlag(_Player,_DefaultPreset);
+
+//END_REGION
+
+//Apply the Preset after the Recruitment has gone through
+IF
+CharacterMadePlayer(_Player)
+AND
+DB_ApplyPreset((CHARACTERGUID)_Player,_Preset)
+THEN
+Proc_ApplyPreset(_Player,_Preset);
+NOT DB_ApplyPreset(_Player,_Preset);
+
+IF
+DialogEnded(_,_Inst)
+AND
+DB_DialogNPCs(_Inst,_NPC,_)
+AND
+DB_ApplyPreset((CHARACTERGUID)_NPC,_Preset)
+AND 
+NOT DB_GLO_PartyMembers_RecruitAfterDialog(_Inst,_NPC,_)
+AND
+IsSpeakerReserved(_NPC,0)
+THEN
+Proc_ApplyPreset(_NPC,_Preset);
+NOT DB_ApplyPreset(_NPC,_Preset);
+
+IF
+DialogEnded(_,_Inst)
+AND
+DB_DialogPlayers(_Inst,_NPC,_)
+AND
+DB_ApplyPreset((CHARACTERGUID)_NPC,_Preset)
+AND
+IsSpeakerReserved(_NPC,0)
+THEN
+Proc_ApplyPreset(_NPC,_Preset);
+NOT DB_ApplyPreset(_NPC,_Preset);
+
+//Preset fired outside of dialog
+IF
+DB_ApplyPreset((CHARACTERGUID)_Player,_Preset)
+AND
+IsSpeakerReserved(_Player,0)
+THEN
+Proc_ApplyPreset(_Player,_Preset);
+// Don't clear, needs to be redone after recruiting
+// so it gets applied at the correct level
+NOT DB_ApplyPreset(_Player,_Preset);
+
+//Prevent muliple DB_ApplyPreset()s
+IF
+DB_ApplyPreset(_Player,_NewPreset)
+AND
+DB_ApplyPreset(_Player,_OldPreset)
+AND
+_NewPreset != _OldPreset
+THEN
+NOT DB_ApplyPreset(_Player,_OldPreset);
+
+///Reset to original Preset
+IF
+ObjectFlagSet("SetPreset_Reset",(CHARACTERGUID)_Player,_Id)
+AND
+DB_OriginInitialPreset(_Player,(STRING)_PresetFlag)
+THEN
+ObjectClearFlag(_Player,"SetPreset_Reset",_Id);
+ObjectSetFlag(_Player,_PresetFlag);
+
+
+//REGION Petpal Check
+PROC
+Proc_ApplyPreset(_Player,_)
+AND
+CharacterHasTalent(_Player,"AnimalEmpathy",1)
+THEN
+SetTag(_Player,"PETPAL");
+
+PROC
+Proc_ApplyPreset(_Player,_)
+AND
+CharacterHasTalent(_Player,"AnimalEmpathy",0)
+THEN
+ClearTag(_Player,"PETPAL");
+//END_REGION
+
+
+//REGION Past Fort Joy, Make sure they have Bless
+
+PROC
+Proc_ApplyPreset((CHARACTERGUID)_Player,_)
+AND
+GetRegion(_Player,_Region)
+AND
+_Region != "FJ_FortJoy_Main"
+AND
+_Region != "SYS_Character_Creation_A"
+THEN
+CharacterAddSkill(_Player,"Target_Bless");
+
+//END_REGION
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "DOS2ModWrapper"

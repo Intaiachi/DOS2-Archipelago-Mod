@@ -96,7 +96,8 @@ ItemTemplateAddTo("Scroll_Skill_Water_LightningBolt_31798bd0-aff8-49b4-adec-dbe5
 PROC
 ProcRegionEnded("FJ_FortJoy_Main")
 THEN
-GoalCompleted;
+//GoalCompleted;
+DB_NOOP(1);
 EXITSECTION
 
 ENDEXITSECTION

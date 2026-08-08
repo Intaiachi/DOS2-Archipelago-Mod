@@ -192,7 +192,8 @@ PROC
 ProcRegionEnded("FJ_FortJoy_Main")
 THEN
 ItemSetForceSynch(ITEMGUID_S_FTJ_BridgeToDunes_A_e376b5a2-52ec-4935-b8fc-2b53fcee5fb7,0);
-GoalCompleted;
+//GoalCompleted;
+DB_NOOP(1);
 EXITSECTION
 
 ENDEXITSECTION

@@ -1,0 +1,4 @@
+new skillset "Class_ARP_Random"
+add skill "Shout_ARP_RandomFiller1"
+add skill "Shout_ARP_RandomFiller2"
+add skill "Shout_ARP_RandomFiller3"

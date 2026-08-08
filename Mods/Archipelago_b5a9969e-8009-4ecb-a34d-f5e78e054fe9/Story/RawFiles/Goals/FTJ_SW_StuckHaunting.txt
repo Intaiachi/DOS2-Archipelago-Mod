@@ -1,0 +1,1095 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+//Wiki: https://sites.google.com/a/larian.com/projecttest/home/wiki-articles/quest-design-documentation/fort-joy---swamps---stuck-haunting
+
+DB_FTJ_SW_UndeadGuards((CHARACTERGUID)S_FTJ_SW_GuardUndead1_416ab3e9-0547-4dd3-b3b8-8b36f75707c1,S_FTJ_SW_UndeadSpotTrigger_04682bbe-10be-4535-80f3-bdc0bbdcaae4, 1);
+DB_FTJ_SW_UndeadGuards((CHARACTERGUID)S_FTJ_SW_GuardUndead2_6fe11cab-3331-419b-8ce0-13672a97c915,TRIGGERGUID_S_FTJ_SW_UndeadSpotTrigger2_76cac179-e85b-495b-9b69-6bcf27db62ae, 2);
+DB_FTJ_SW_UndeadGuards((CHARACTERGUID)S_FTJ_SW_GuardUndead3_8dadcdd9-08dc-4228-a741-35310b42c16e,TRIGGERGUID_S_FTJ_SW_UndeadSpotTrigger3_8deeece9-75a3-496e-b6b8-6a4d6599e20a, 3);
+DB_FTJ_SW_DeadUndeadCounter(0);
+
+DB_FTJ_SW_UndeadTowerEnemy((CHARACTERGUID)S_FTJ_SW_GuardUndead1_416ab3e9-0547-4dd3-b3b8-8b36f75707c1);
+DB_FTJ_SW_UndeadTowerEnemy((CHARACTERGUID)S_FTJ_SW_GuardUndead2_6fe11cab-3331-419b-8ce0-13672a97c915);
+DB_FTJ_SW_UndeadTowerEnemy((CHARACTERGUID)S_FTJ_SW_GuardUndead3_8dadcdd9-08dc-4228-a741-35310b42c16e);
+
+
+DB_FTJ_SW_UndeadGuardsRessurectAD(S_FTJ_SW_GuardUndead1_416ab3e9-0547-4dd3-b3b8-8b36f75707c1,1,"FTJ_SW_AD_UndeadGuards1_Resurrected");
+DB_FTJ_SW_UndeadGuardsRessurectAD(S_FTJ_SW_GuardUndead2_6fe11cab-3331-419b-8ce0-13672a97c915,2,"FTJ_SW_AD_UndeadGuards2_Resurrected");
+DB_FTJ_SW_UndeadGuardsRessurectAD(S_FTJ_SW_GuardUndead3_8dadcdd9-08dc-4228-a741-35310b42c16e,3,"FTJ_SW_AD_UndeadGuards3_Resurrected");
+
+DB_HasStoryEvent(ITEMGUID_S_FTJ_SW_SoulJar_ShelterUndead_a11a3798-9382-433a-8a43-73d1d19df474,"QuestUpdate_FTJ_SW_StuckHaunting_FoundJar");
+
+DB_QuestNPC("FTJ_SW_StuckHaunting",(CHARACTERGUID)S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152);
+
+
+DB_FTJ_SW_RespawningUndead((CHARACTERGUID)CHARACTERGUID_S_FTJ_SW_GuardUndead1_416ab3e9-0547-4dd3-b3b8-8b36f75707c1, (ITEMGUID)ITEMGUID_S_FTJ_SW_SoulJar_GuardUndead1_46ccad9c-a2fe-4004-89ba-f422528b2860,ITEMGUID_S_FTJ_SW_SouljarHelper_UndeadGuard1_b1e9ebf7-beb3-4ed2-9d1f-ad7af8f3f902,"FTJ_SW_AD_UndeadGuard1Release");
+DB_FTJ_SW_RespawningUndead((CHARACTERGUID)CHARACTERGUID_S_FTJ_SW_GuardUndead2_6fe11cab-3331-419b-8ce0-13672a97c915, ITEMGUID_S_FTJ_SW_SoulJar_GuardUndead2_40aa483c-fa08-4a95-8d30-99539a0c7137,ITEMGUID_S_FTJ_SW_SouljarHelper_UndeadGuard2_b427ba00-d457-4fac-8a6e-cf0c95886a30,"FTJ_SW_AD_UndeadGuard2Release");
+DB_FTJ_SW_RespawningUndead((CHARACTERGUID)CHARACTERGUID_S_FTJ_SW_GuardUndead3_8dadcdd9-08dc-4228-a741-35310b42c16e, ITEMGUID_S_FTJ_SW_SoulJar_GuardUndead3_ce0f3ebb-c6bf-41b9-933e-fb021e13dfd8, ITEMGUID_S_FTJ_SW_SouljarHelper_UndeadGuard3_8ca6d44d-32e8-4af2-8156-0cae962dc4aa,"FTJ_SW_AD_UndeadGuard3Release");
+DB_FTJ_SW_RespawningUndead((CHARACTERGUID)CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152, ITEMGUID_S_FTJ_SW_SoulJar_ShelterUndead_a11a3798-9382-433a-8a43-73d1d19df474, ITEMGUID_S_FTJ_SW_SouljarHelper_ShelterUndead_96504c2c-e451-4e33-a02f-db8732e6e954,"FTJ_SW_AD_ShelterUndeadRelease");
+ItemToInventory(S_FTJ_SW_UndeadGateKey_5328780c-38f6-4857-87cb-280a200e03a5, CHARACTERGUID_S_FTJ_SW_GuardUndead1_416ab3e9-0547-4dd3-b3b8-8b36f75707c1);
+
+DB_Dialogs(CHARACTERGUID_S_FTJ_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152,"FTJ_SW_ShelterUndead");
+DB_KeepDialogsOnDeath(CHARACTERGUID_S_FTJ_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152);
+
+ProcTriggerRegisterForPlayers(S_FTJ_SW_MeetUndeadGuards_386a5dbc-46d0-4022-8ff3-55f02055aa23);
+ProcTriggerRegisterForPlayers(TRIGGERGUID_S_FTJ_SW_BraccusVaultProper_2d8c84d5-0f88-47e8-b6ca-f70f43b7d331);
+
+
+DB_DontCreateMurder(S_FTJ_SW_GuardUndead1_416ab3e9-0547-4dd3-b3b8-8b36f75707c1);
+DB_DontCreateMurder(S_FTJ_SW_GuardUndead2_6fe11cab-3331-419b-8ce0-13672a97c915);
+DB_DontCreateMurder(S_FTJ_SW_GuardUndead3_8dadcdd9-08dc-4228-a741-35310b42c16e);
+DB_SharedQuestlessFlag("FTJ_SW_FreedWithermoore");
+KBSECTION
+IF 
+ObjectEnteredCombat((CHARACTERGUID)_Enemy,_) 
+AND 
+DB_FTJ_SW_UndeadTowerEnemy(_Enemy) 
+AND 
+QueryOnlyOnce("FTJ_SW_CombatSave_UndeadTower") 
+THEN 
+AutoSave(); 
+ 
+
+IF // used for end game conclusions dialog
+DialogStarted("FTJ_SW_ShelterUndead",_Id)
+AND
+DB_IsPlayer(_Char)
+AND
+DB_DialogPlayers(_Id,_Char,_)
+THEN
+UserSetFlag(_Char,"FTJ_SW_ShelterUndead_HasMet");
+
+IF
+DB_FTJ_SW_UndeadGuards(_Undead, _Trigger, _Num)
+THEN
+DB_SneakTriggerSpotter((TRIGGERGUID)_Trigger, (CHARACTERGUID)_Undead);
+DB_FTJ_SW_SpeakerUndeadGuards(_Undead, _Num);
+SetHasDialog(_Undead, 1);
+
+//REGION Journal updates
+IF
+CharacterEnteredTrigger(_Player, TRIGGERGUID_S_FTJ_SW_BraccusVaultProper_2d8c84d5-0f88-47e8-b6ca-f70f43b7d331)
+AND
+CharacterCanSee(_Player,ITEMGUID_S_FTJ_SW_SoulJar_ShelterUndead_a11a3798-9382-433a-8a43-73d1d19df474,1)
+THEN
+UserSetFlag(_Player,"QuestUpdate_FTJ_SW_StuckHaunting_FoundJar");
+
+IF
+CharacterUsedItem(_Player,ITEMGUID_S_FTJ_SW_SoulJar_ShelterUndead_a11a3798-9382-433a-8a43-73d1d19df474)
+THEN
+UserSetFlag(_Player,"QuestUpdate_FTJ_SW_StuckHaunting_FoundJar");
+
+
+PROC
+Proc_AbsorbedSoulJar(_Player,ITEMGUID_S_FTJ_SW_SoulJar_ShelterUndead_a11a3798-9382-433a-8a43-73d1d19df474)
+THEN
+UserSetFlag(_Player,"QuestUpdate_FTJ_SW_StuckHaunting_AbsorbedGratianaJar");
+
+//END_REGION
+
+//REGION Undead Resurrection
+IF
+CharacterDying(CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152)
+AND
+DB_FTJ_SW_RespawningUndead((CHARACTERGUID)CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152, ITEMGUID_S_FTJ_SW_SoulJar_ShelterUndead_a11a3798-9382-433a-8a43-73d1d19df474, ITEMGUID_S_FTJ_SW_SouljarHelper_ShelterUndead_96504c2c-e451-4e33-a02f-db8732e6e954,"FTJ_SW_AD_ShelterUndeadRelease")
+AND
+DB_CombatCharacters(CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152, _ID)
+THEN
+DB_FTJ_SW_ShelterUndeadDiedInCombat(_ID);
+
+IF
+CombatEnded(_ID)
+AND
+DB_FTJ_SW_ShelterUndeadDiedInCombat(_ID)
+AND
+DB_FTJ_SW_RespawningUndead((CHARACTERGUID)CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152, ITEMGUID_S_FTJ_SW_SoulJar_ShelterUndead_a11a3798-9382-433a-8a43-73d1d19df474, ITEMGUID_S_FTJ_SW_SouljarHelper_ShelterUndead_96504c2c-e451-4e33-a02f-db8732e6e954,"FTJ_SW_AD_ShelterUndeadRelease")
+THEN
+NOT DB_FTJ_SW_ShelterUndeadDiedInCombat(_ID);
+TimerLaunch("FTJ_SW_RespawnGratiana", 3000);
+
+IF
+CharacterDying(CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152)
+AND
+DB_FTJ_SW_RespawningUndead((CHARACTERGUID)CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152, ITEMGUID_S_FTJ_SW_SoulJar_ShelterUndead_a11a3798-9382-433a-8a43-73d1d19df474, ITEMGUID_S_FTJ_SW_SouljarHelper_ShelterUndead_96504c2c-e451-4e33-a02f-db8732e6e954,"FTJ_SW_AD_ShelterUndeadRelease")
+AND
+NOT DB_CombatCharacters(CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152, _)
+THEN
+TimerLaunch("FTJ_SW_RespawnGratiana", 3000);
+
+IF
+TimerFinished("FTJ_SW_RespawnGratiana")
+AND
+NOT DB_DestroyedItems(ITEMGUID_S_FTJ_SW_SoulJar_ShelterUndead_a11a3798-9382-433a-8a43-73d1d19df474)
+AND
+ObjectGetFlag(ITEMGUID_S_FTJ_SW_SoulJar_ShelterUndead_a11a3798-9382-433a-8a43-73d1d19df474, "Absorb_SoulJar", 0)
+THEN
+CharacterResurrect(CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152);
+
+PROC
+Proc_ObjectLeftCombat(_Character, _ID)
+AND
+NOT DB_CombatObjects(_, _ID) //Nobody's in combat any more, therefore it is over
+AND
+DB_FTJ_SW_RespawningUndead((CHARACTERGUID)_Undead, _Jar, _, _)
+AND
+DB_WasInCombat(_Undead, _ID)
+THEN
+proc_FTJ_SW_ResurrectTimerStart_OnAllUndead();
+
+
+PROC
+proc_FTJ_SW_ResurrectTimerStart_OnAllUndead()
+AND
+DB_FTJ_SW_UndeadGuards(_Undeads,_,_)
+THEN
+SetStoryEvent(_Undeads, "ResurrectTimerStart");
+
+IF
+CharacterDying(_Undead)
+AND
+NOT DB_CombatCharacters(_Undead, _)
+AND
+DB_FTJ_SW_RespawningUndead(_Undead, _Jar, _, _)
+AND
+_Undead != CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152
+THEN
+proc_FTJ_SW_ResurrectTimerStart_OnAllUndead();
+
+IF
+StoryEvent(_Undead, "ResurrectTimerStart")
+THEN
+ProcObjectTimer(_Undead,"FTJ_SW_ResurrectTimer",30000);
+
+IF
+StoryEvent((CHARACTERGUID)_Undead, "ResurrectTimerStart")
+AND
+DB_FTJ_SW_UndeadGuards(_Undead,_,_Int)
+THEN
+NOT DB_FTJ_SW_ResurectedGaruds(_Undead,_Int);
+
+PROC
+ProcObjectTimerFinished((CHARACTERGUID)_Undead,"FTJ_SW_ResurrectTimer")
+AND
+DB_FTJ_SW_RespawningUndead(_Undead, _Jar, _, _)
+AND
+DB_FTJ_SW_UndeadGuards(_Undead,_,1)
+THEN
+proc_Resurrect_Undead(_Undead,1);
+
+PROC
+proc_Resurrect_Undead((CHARACTERGUID)_Undead,(INTEGER)_INT)
+AND
+ObjectGetFlag(_Undead,"FTJ_SW_NecromancerToewr_UndeadDead",0)
+AND
+DB_FTJ_SW_UndeadGuards(_Undead,_,_INT)
+AND
+NOT DB_FTJ_SW_ResurectedGaruds(_Undead,_INT)
+AND
+_INT != 3
+THEN
+CharacterResurrect(_Undead);
+DB_FTJ_SW_ResurectedGaruds(_Undead,_INT);
+TimerLaunch("DB_FTJ_SW_Ressurect_Delay",4000);
+
+PROC
+proc_Resurrect_Undead((CHARACTERGUID)_Undead,(INTEGER)_INT)
+AND
+ObjectGetFlag(_Undead,"FTJ_SW_NecromancerToewr_UndeadDead",1)
+AND
+DB_FTJ_SW_UndeadGuards(_Undead,_,_INT)
+AND
+NOT DB_FTJ_SW_ResurectedGaruds(_Undead,_INT)
+AND
+_INT != 3
+THEN
+DB_FTJ_SW_ResurectedGaruds(_Undead,_INT);
+TimerLaunch("DB_FTJ_SW_Ressurect_Delay",4000);
+
+PROC
+proc_Resurrect_Undead((CHARACTERGUID)_Undead,(INTEGER)_INT)
+AND
+ObjectGetFlag(_Undead,"FTJ_SW_NecromancerToewr_UndeadDead",0)
+AND
+DB_FTJ_SW_UndeadGuards(_Undead,_,_INT)
+AND
+NOT DB_FTJ_SW_ResurectedGaruds(_Undead,_INT)
+AND
+_INT == 3
+THEN
+ObjectSetFlag(_Undead,"FTJ_SW_GuardUndead_Phasing");
+CharacterResurrect(_Undead);
+DB_FTJ_SW_ResurectedGaruds(_Undead,_INT);
+TimerCancel("DB_FTJ_SW_Ressurect_Delay");
+
+PROC
+proc_Resurrect_Undead((CHARACTERGUID)_Undead,(INTEGER)_INT)
+AND
+ObjectGetFlag(_Undead,"FTJ_SW_NecromancerToewr_UndeadDead",1)
+AND
+DB_FTJ_SW_UndeadGuards(_Undead,_,_INT)
+AND
+NOT DB_FTJ_SW_ResurectedGaruds(_Undead,_INT)
+AND
+_INT == 3
+THEN
+DB_FTJ_SW_ResurectedGaruds(_Undead,_INT);
+TimerCancel("DB_FTJ_SW_Ressurect_Delay");
+
+IF
+TimerFinished("DB_FTJ_SW_Ressurect_Delay")
+AND
+DB_FTJ_SW_UndeadGuards(_LiveUndead,_,2)
+AND
+DB_FTJ_SW_ResurectedGaruds((CHARACTERGUID)_LiveUndead,2)
+AND
+DB_FTJ_SW_UndeadGuards(_Undead,_,3)
+THEN
+proc_Resurrect_Undead(_Undead,3);
+
+IF
+TimerFinished("DB_FTJ_SW_Ressurect_Delay")
+AND
+DB_FTJ_SW_UndeadGuards(_Undead,_,2)
+AND
+NOT DB_FTJ_SW_ResurectedGaruds((CHARACTERGUID)_Undead,2)
+THEN
+proc_Resurrect_Undead((CHARACTERGUID)_Undead,2);
+
+IF
+CharacterResurrected((CHARACTERGUID)_Undead)
+AND
+DB_FTJ_SW_UndeadGuards(_Undead,_,_INT)
+AND
+DB_FTJ_SW_UndeadGuardsRessurectAD(_Undead,_INT,_Dialog)
+AND
+_INT != 3
+THEN
+Proc_StartDialog(1,_Dialog, _Undead);
+
+IF
+CharacterResurrected((CHARACTERGUID)_Undead)
+AND
+DB_FTJ_SW_UndeadGuards(_Undead,_,_INT)
+AND
+DB_FTJ_SW_UndeadGuardsRessurectAD(_Undead,_INT,_Dialog)
+AND
+_INT == 3
+THEN
+Proc_StartDialog(1,_Dialog, _Undead, S_FTJ_SW_GuardUndead2_6fe11cab-3331-419b-8ce0-13672a97c915);
+
+IF
+ObjectFlagSet("Absorb_SoulJar",(ITEMGUID)_SoulJar,_)
+AND
+DB_FTJ_SW_RespawningUndead(_Undead, _SoulJar, _, _)
+THEN
+PlayEffect(_Undead, "RS3_FX_GP_ScriptedEvent_SourceJar_Death_Impact_01");
+CharacterDie((CHARACTERGUID)_Undead, 1, "DoT");
+ObjectSetFlag(_Undead,"FTJ_SW_NecromancerToewr_UndeadDead");
+
+IF
+DialogEnded(_,_ID)
+AND
+DialogGetInvolvedNPC(_ID,1,(ITEMGUID)_SoulJar)
+AND
+DB_FTJ_SW_RespawningUndead(_Undead,_SoulJar,_Helper,_Dialog)
+AND
+DialogGetInvolvedPlayer(_ID,1,(CHARACTERGUID)_Player)
+AND
+GetInventoryOwner(_SoulJar,_PlayerHasJar)
+AND
+_PlayerHasJar != NULL_00000000-0000-0000-0000-000000000000
+AND
+ObjectGetFlag(_SoulJar,"Destroy_SoulJar",1)
+THEN
+TeleportTo(_Helper,_Player);
+Proc_StartDialog(1,_Dialog, _Helper);
+PlayEffect(_Undead, "RS3_FX_GP_ScriptedEvent_SourceJar_Death_Impact_01");
+CharacterDie((CHARACTERGUID)_Undead, 1,"DoT");
+ObjectSetFlag(_Undead,"FTJ_SW_NecromancerToewr_UndeadDead");
+Proc_FTJ_SW_GuardJarDestroyed(_Player,_SoulJar);
+
+IF
+ItemDestroying(_Jar)
+AND
+DB_FTJ_SW_RespawningUndead(_Undead,_Jar,_Helper,_Dialog)
+AND
+ObjectGetFlag(_Jar, "Absorb_SoulJar", 0)
+THEN
+TeleportTo(_Helper, _Jar);
+Proc_StartDialog(1,_Dialog, _Helper);
+PlayEffect(_Undead, "RS3_FX_GP_ScriptedEvent_SourceJar_Death_Impact_01");
+CharacterDie((CHARACTERGUID)_Undead, 1, "DoT");
+ObjectSetFlag(_Undead,"FTJ_SW_NecromancerToewr_UndeadDead");
+
+//END_REGION
+
+//REGION NPC-Initiated Greetings
+PROC
+ProcCharInTriggerSpotted(_Player, _Trigger)
+AND
+DB_FTJ_SW_UndeadGuards(_, _Trigger, _)
+AND
+PartyGetFlag(_Player, "FTJ_SW_MetGuardUndead", 0)
+THEN
+Proc_FTJ_SW_UndeadGreeting(_Player);
+
+IF
+CharacterEnteredTrigger(_Player, _Trigger)
+AND
+DB_FTJ_SW_UndeadGuards(_Undead, _Trigger, _)
+AND
+PartyGetFlag(_Player, "FTJ_SW_MetGuardUndead", 0)
+THEN
+SetStoryEvent(_Undead, "RestartSpotting");
+
+IF
+ItemDestroyed(_Jar)
+AND
+DB_FTJ_SW_RespawningUndead(_Undead, _Jar, _, _)
+AND
+DB_FTJ_SW_UndeadGuards(_Undead, _Trigger, _)
+THEN
+ProcTriggerUnregisterForPlayers((TRIGGERGUID)_Trigger);
+
+//END_REGION
+
+//REGION Flag setting for how the Withermoore quest was handled
+IF
+ItemDestroying(ITEMGUID_S_FTJ_SoulJar_bac29376-28ae-42e0-b4d2-e02c408f4eda)
+AND
+DB_IsPlayer(_Player)
+AND
+ObjectGetFlag(ITEMGUID_S_FTJ_SoulJar_bac29376-28ae-42e0-b4d2-e02c408f4eda,"Absorb_SoulJar",0)
+AND
+CharacterCanSee(_Player, ITEMGUID_S_FTJ_SoulJar_bac29376-28ae-42e0-b4d2-e02c408f4eda, 1)
+THEN
+UserSetFlag(_Player, "FTJ_SW_SawWithermooreFreed", 0);
+
+IF
+DialogEnded("FTJ_WithermooreSoulJar", _ID)
+AND
+DB_DialogPlayers(_ID, _User, 1)
+AND
+ObjectGetFlag(ITEMGUID_S_FTJ_SoulJar_bac29376-28ae-42e0-b4d2-e02c408f4eda,"Absorb_SoulJar",1)
+AND
+DB_IsPlayer(_Player)
+AND
+CharacterCanSee(_Player, _User, 1)
+THEN
+UserSetFlag(_Player, "FTJ_SW_SawWithermooreEaten", 0);
+
+IF
+DialogEnded("FTJ_WithermooreSoulJar", _ID)
+AND
+DB_DialogPlayers(_ID, _User, 1)
+AND
+ObjectGetFlag(ITEMGUID_S_FTJ_SoulJar_bac29376-28ae-42e0-b4d2-e02c408f4eda,"Destroy_SoulJar",1)
+THEN
+PartySetFlag((CHARACTERGUID)_User, "FTJ_SW_FreedWithermoore", 0);
+
+IF
+CharacterDestroyedItem(_Player, ITEMGUID_S_FTJ_SoulJar_bac29376-28ae-42e0-b4d2-e02c408f4eda)
+THEN
+PartySetFlag(_Player, "FTJ_SW_FreedWithermoore", 0);
+//END_REGION
+
+//REGION Interaction with the Source Barrier
+
+//REGION Start quest
+IF
+CharacterUsedItem(_Player, ITEMGUID_FTJ_SW_SourceFieldGenerator_38e5a343-7b8d-46ae-823b-60ee039f71e5)
+THEN
+PartySetFlag(_Player, "QuestUpdate_FTJ_SW_SourceField_FoundBarrier");
+//END_REGION
+
+//REGION Directly disabling the Source Barrier
+IF
+CharacterUsedItem(_Player, ITEMGUID_FTJ_SW_SourceFieldGenerator_38e5a343-7b8d-46ae-823b-60ee039f71e5)
+AND
+CharacterGetSourcePoints(_Player, _Amount)
+AND
+_Amount > 0
+THEN
+ObjectSetFlag(_Player, "FTJ_SW_HasSourcePoints", 0);
+Proc_StartDialog(0,"FTJ_SW_SourceFieldGenerator", ITEMGUID_FTJ_SW_SourceFieldGenerator_38e5a343-7b8d-46ae-823b-60ee039f71e5,_Player);
+
+IF
+ObjectFlagSet("FTJ_SW_Disable", ITEMGUID_FTJ_SW_SourceFieldGenerator_38e5a343-7b8d-46ae-823b-60ee039f71e5, _ID)
+AND
+DialogGetInvolvedPlayer(_ID, 1, _Player)
+THEN
+CharacterAddSourcePoints((CHARACTERGUID)_Player, -1);
+
+IF
+GlobalFlagSet("FTJ_SW_SourceFieldGeneratorGlow")
+THEN
+PROC_LoopEffect("RS3_FX_GP_ScriptedEvent_ChanelledSource_01",ITEMGUID_FTJ_SW_SourceFieldGenerator_38e5a343-7b8d-46ae-823b-60ee039f71e5,"FTJ_SW_SourceFieldGeneratorGlow","FJ_FortJoy_Main","");
+
+IF
+DialogEnded("FTJ_SW_SourceFieldGenerator", _ID)
+AND
+DialogGetInvolvedPlayer(_ID, 1, (CHARACTERGUID)_Player)
+AND
+ObjectGetFlag(ITEMGUID_FTJ_SW_SourceFieldGenerator_38e5a343-7b8d-46ae-823b-60ee039f71e5, "FTJ_SW_Disable", 1)
+AND
+GetPosition(ITEMGUID_S_FTJ_SW_SourceFieldGenerator_38e5a343-7b8d-46ae-823b-60ee039f71e5, _X, _Y, _Z)
+THEN
+PROC_StopLoopEffect(ITEMGUID_S_FTJ_SW_SourceFieldGenerator_38e5a343-7b8d-46ae-823b-60ee039f71e5,"FTJ_SW_SourceFieldGeneratorGlow");
+ItemDestroy(ITEMGUID_S_FTJ_SW_SourceBarrierUndead_5a26e237-3d0d-46cb-bcbe-f418da306612);
+PlayEffectAtPosition("RS3_FX_GP_ScriptedEvent_SourceJar_Break_01", _X, _Y, _Z);
+ItemDestroy(ITEMGUID_FTJ_SW_SourceFieldGenerator_38e5a343-7b8d-46ae-823b-60ee039f71e5);
+Proc_FTJ_SoulJar_CloseQuestAtBarrier(_Player);
+
+PROC
+Proc_FTJ_SoulJar_CloseQuestAtBarrier((CHARACTERGUID)_Player)
+AND
+ObjectGetFlag(_Player,"QuestUpdate_RC_FTJ_SoulJar_DestroyedSJ",1)
+THEN
+QuestClose(_Player,"RC_FTJ_SoulJar");
+
+//END_REGION
+
+//REGION Getting help from Withermoore
+IF
+CharacterUsedItem(_Player, ITEMGUID_FTJ_SW_SourceFieldGenerator_38e5a343-7b8d-46ae-823b-60ee039f71e5)
+AND
+CharacterGetSourcePoints(_Player, _Amount)
+AND
+_Amount <= 0
+AND
+QRY_FTJ_SW_SourceBarrier_WitherMooreHelp((CHARACTERGUID)_Player)
+AND
+CharacterIsDead(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38, 0)
+THEN
+PROC_FTJ_SW_FluffyToSoulBarrier((CHARACTERGUID)_Player);
+CharacterAppearCustom(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38, "Ghost_Spawn_01", "FTJ_SW_WithermooreAtUndeadSoulJar");
+
+QRY
+QRY_FTJ_SW_SourceBarrier_WitherMooreHelp((CHARACTERGUID)_Player)
+AND
+PartyGetFlag(_Player, "FTJ_SW_FreedWithermoore", 1)
+AND
+UserGetFlag(_Player, "FTJ_SW_Withermoore_RefusedHelpSourceBarrier", 0)
+AND
+NOT ObjectGetFlag(ITEMGUID_S_FTJ_SoulJar_bac29376-28ae-42e0-b4d2-e02c408f4eda,"Absorb_SoulJar",1)
+AND
+GlobalGetFlag("FTJ_WitherMoore_GotKilled", 0)
+THEN
+DB_NOOP(0);
+
+IF
+CharacterUsedItem(_Player, ITEMGUID_FTJ_SW_SourceFieldGenerator_38e5a343-7b8d-46ae-823b-60ee039f71e5)
+AND
+CharacterGetSourcePoints(_Player, _Amount)
+AND
+_Amount <= 0
+AND
+QRY_FTJ_SW_SourceBarrier_WitherMooreHelp(_Player)
+AND
+CharacterIsDead(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38, 1)
+THEN
+CharacterResurrect(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38);
+PROC_FTJ_SW_FluffyToSoulBarrier((CHARACTERGUID)_Player);
+
+PROC
+PROC_FTJ_SW_FluffyToSoulBarrier((CHARACTERGUID)_Player)
+THEN
+Poof(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38);
+TeleportTo(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38, ITEMGUID_FTJ_SW_SourceFieldGenerator_38e5a343-7b8d-46ae-823b-60ee039f71e5);
+//Foop(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38);
+ItemSetCanInteract(ITEMGUID_FTJ_SW_SourceFieldGenerator_38e5a343-7b8d-46ae-823b-60ee039f71e5, 0);
+SetVarObject(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38, "SoulJarHelp", _Player);
+SetVarInteger(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38, "DidGreeting", 1);
+GlobalSetFlag("FTJ_SW_FluffyAtUndeadSoulJar");
+ProcRemoveAllDialogEntriesForSpeaker(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38);
+DB_Dialogs(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38, "FTJ_SW_WithermooreHelpSoulJar");
+
+PROC
+PROC_FTJ_SW_FluffyToSoulBarrier((CHARACTERGUID)_Player)
+AND
+QuestAccepted(_Player, "RC_FTJ_SoulJar", 0)
+THEN
+UserSetFlag(_Player, "FTJ_SW_SourceField_MysteryHelper", 0);
+
+PROC
+PROC_FTJ_SW_FluffyToSoulBarrier((CHARACTERGUID)_Player)
+AND
+QuestAccepted(_Player, "RC_FTJ_SoulJar", 1)
+AND
+QuestIsClosed(_Player, "RC_FTJ_SoulJar", 0)
+THEN
+// Player saw Withermoore walk up and open the gate -> close without update
+// (relevant update is the one for the source field "quest" above)
+QuestClose(_Player, "RC_FTJ_SoulJar");
+
+IF
+CharacterResurrected(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38)
+AND
+GetVarObject(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38, "SoulJarHelp", _Player)
+AND
+_Player != NULL_00000000-0000-0000-0000-000000000000
+AND
+GlobalGetFlag("FTJ_SW_SoulJarDestroyed", 0)
+THEN
+CharacterAppearCustom(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38, "Ghost_Spawn_01", "FTJ_SW_WithermooreAtUndeadSoulJar");
+
+IF
+StoryEvent(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38, "FTJ_SW_WithermooreAtUndeadSoulJar")
+THEN
+SetVarFixedString(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38, "currentState", "State_HelpJar");
+
+IF
+StoryEvent(_Player, "FTJ_SW_FluffyHelpSoulBarrier")
+THEN
+Proc_StartDialog(0,"FTJ_SW_WithermooreHelpSoulJar",RC_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38,(CHARACTERGUID)_Player);
+
+IF
+CharacterDied(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38)
+AND
+GlobalGetFlag("FTJ_SW_FluffyAtUndeadSoulJar", 1)
+THEN
+GlobalClearFlag("FTJ_SW_FluffyAtUndeadSoulJar");
+
+IF
+GlobalFlagCleared("FTJ_SW_FluffyAtUndeadSoulJar")
+THEN
+ItemSetCanInteract(ITEMGUID_S_FTJ_SW_SourceFieldGenerator_38e5a343-7b8d-46ae-823b-60ee039f71e5, 1);
+
+IF
+DialogEnded("FTJ_SW_WithermooreHelpSoulJar", _ID)
+AND
+DialogGetInvolvedPlayer(_ID, 1, _Player)
+AND
+ObjectGetFlag(_Player, "FTJ_SW_WithermooreOpenSoulJar", 0)
+THEN
+ClearVarObject(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38, "SoulJarHelp");
+Poof(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38);
+ItemSetCanInteract(ITEMGUID_FTJ_SW_SourceFieldGenerator_38e5a343-7b8d-46ae-823b-60ee039f71e5, 1);
+GlobalClearFlag("FTJ_SW_FluffyAtUndeadSoulJar");
+
+IF
+DialogEnded("FTJ_SW_WithermooreHelpSoulJar", _ID)
+AND
+DialogGetInvolvedPlayer(_ID, 1, _Player)
+AND
+ObjectGetFlag(_Player, "FTJ_SW_WithermooreOpenSoulJar", 1)
+THEN
+SetScriptFrame(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38, "Destroy_UndeadSoulJar");
+
+IF
+TextEventSet("flbreak")
+THEN
+ProcSetInvulnerable(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38,1);
+SetVarInteger(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38, "DidGreeting", 1);
+GlobalSetFlag("FTJ_SW_FluffyAtUndeadSoulJar");
+SetVarFixedString(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38,"currentState","State_Default");
+TeleportTo(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38,ITEMGUID_S_FTJ_SW_SourceFieldGenerator_38e5a343-7b8d-46ae-823b-60ee039f71e5);
+RemoveHarmfulStatuses(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38);
+SetScriptFrame(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38, "Destroy_UndeadSoulJar");
+
+IF
+ItemWentOnStage(ITEMGUID_S_FTJ_SW_SourceBarrierUndead_5a26e237-3d0d-46cb-bcbe-f418da306612,0)
+AND
+GlobalGetFlag("FTJ_SW_FluffyAtUndeadSoulJar", 1)
+THEN
+DialogRequestStop(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38);
+Poof(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38);
+ClearVarObject(CHARACTERGUID_S_FTJ_Fluffy_cbc0f26c-b9b4-428e-851e-e1921c1dda38, "SoulJarHelp");
+
+//END_REGION
+
+//REGION Getting no help.
+IF
+CharacterUsedItem(_Player, ITEMGUID_S_FTJ_SW_SourceFieldGenerator_38e5a343-7b8d-46ae-823b-60ee039f71e5)
+AND
+CharacterGetSourcePoints(_Player, _Amount)
+AND
+_Amount <= 0
+AND
+NOT QRY_FTJ_SW_SourceBarrier_WitherMooreHelp(_Player)
+THEN
+Proc_StartDialog(0,"FTJ_SW_SourceFieldGenerator",ITEMGUID_FTJ_SW_SourceFieldGenerator_38e5a343-7b8d-46ae-823b-60ee039f71e5,_Player);
+ObjectClearFlag(_Player, "FTJ_SW_HasSourcePoints", 0);
+
+//END_REGION
+
+//END_REGION
+
+IF
+CharacterEnteredTrigger(_Player, S_FTJ_SW_MeetUndeadGuards_386a5dbc-46d0-4022-8ff3-55f02055aa23)
+THEN
+ObjectSetFlag(_Player,"QuestUpdate_FTJ_SW_Necromancers_MeetNecromancers");
+
+IF
+CharacterResurrected(_Undead)
+AND
+DB_FTJ_SW_UndeadGuards(_Undead, _, _)
+AND
+GetClosestAlivePlayer(_Undead, _Player, _)
+AND
+CharacterCanSee(_Player, _Undead, 1)
+THEN
+StartVoiceBark("FTJ_SW_VB_UndeadResurrect", _Player);
+
+//REGION Dialogue Logic - three Necromancers
+IF
+CharacterDying(_Undead)
+AND
+DB_FTJ_SW_UndeadGuards(_Undead, _, _Num)
+THEN
+NOT DB_FTJ_SW_SpeakerUndeadGuards(_Undead, _Num);
+DB_FTJ_SW_SpeakerUndeadGuards((CHARACTERGUID)NULL_00000000-0000-0000-0000-000000000000, _Num);
+
+IF
+CharacterResurrected(_Undead)
+AND
+DB_FTJ_SW_UndeadGuards(_Undead, _, _Num)
+THEN
+DB_FTJ_SW_SpeakerUndeadGuards(_Undead, _Num);
+NOT DB_FTJ_SW_SpeakerUndeadGuards((CHARACTERGUID)NULL_00000000-0000-0000-0000-000000000000, _Num);
+
+PROC
+Proc_FTJ_SW_UndeadGreeting((CHARACTERGUID)_Player)
+THEN
+ObjectClearFlag(_Player, "FTJ_SW_Undead1Dead", 0);
+ObjectClearFlag(_Player, "FTJ_SW_Undead2Dead", 0);
+ObjectClearFlag(_Player, "FTJ_SW_Undead3Dead", 0);
+ProcCleanUpSneakTrigger(TRIGGERGUID_S_FTJ_SW_UndeadSpotTrigger_04682bbe-10be-4535-80f3-bdc0bbdcaae4);
+ProcCleanUpSneakTrigger(TRIGGERGUID_S_FTJ_SW_UndeadSpotTrigger2_76cac179-e85b-495b-9b69-6bcf27db62ae);
+ProcCleanUpSneakTrigger(TRIGGERGUID_S_FTJ_SW_UndeadSpotTrigger3_8deeece9-75a3-496e-b6b8-6a4d6599e20a);
+
+PROC
+Proc_FTJ_SW_UndeadGreeting((CHARACTERGUID)_Player)
+AND
+CharacterIsDead(CHARACTERGUID_S_FTJ_SW_GuardUndead1_416ab3e9-0547-4dd3-b3b8-8b36f75707c1, 1)
+THEN
+ObjectSetFlag(_Player, "FTJ_SW_Undead1Dead", 0);
+
+PROC
+Proc_FTJ_SW_UndeadGreeting((CHARACTERGUID)_Player)
+AND
+CharacterIsDead(CHARACTERGUID_S_FTJ_SW_GuardUndead2_6fe11cab-3331-419b-8ce0-13672a97c915, 1)
+THEN
+ObjectSetFlag(_Player, "FTJ_SW_Undead2Dead", 0);
+
+PROC
+Proc_FTJ_SW_UndeadGreeting((CHARACTERGUID)_Player)
+AND
+CharacterIsDead(CHARACTERGUID_S_FTJ_SW_GuardUndead3_8dadcdd9-08dc-4228-a741-35310b42c16e, 1)
+THEN
+ObjectSetFlag(_Player, "FTJ_SW_Undead3Dead", 0);
+
+PROC
+Proc_FTJ_SW_UndeadGreeting((CHARACTERGUID)_Player)
+AND
+DB_FTJ_SW_SpeakerUndeadGuards(_Speaker1, 1)
+AND
+DB_FTJ_SW_SpeakerUndeadGuards(_Speaker2, 2)
+AND
+DB_FTJ_SW_SpeakerUndeadGuards(_Speaker3, 3)
+THEN
+Proc_StartDialog(0,"FTJ_SW_UndeadGuards", (CHARACTERGUID)_Speaker1, (CHARACTERGUID)_Speaker2, (CHARACTERGUID)_Speaker3, _Player);
+
+PROC
+PROC_GLOBAL_DialogStartRequested(_Undead, _Player)
+AND
+DB_FTJ_SW_UndeadGuards((CHARACTERGUID)_Undead,_,_)
+THEN
+Proc_FTJ_SW_UndeadGreeting((CHARACTERGUID)_Player);
+//END_REGION
+
+IF
+CharacterDying(_Undead)
+AND
+DB_FTJ_SW_RespawningUndead(_Undead, _, _, _)
+AND
+GlobalGetFlag("FTJ_SW_SoulJarDestroyed", 1)
+THEN
+Proc_StartDialog(1,"FTJ_SW_AD_UndeadRelease", _Undead);
+
+IF
+DialogEnded("FTJ_SW_ShelterUndead", _ID)
+AND
+DialogGetInvolvedPlayer(_ID, 1, _Player)
+AND
+ObjectGetFlag(_Player, "FTJ_SW_MetAlix_Attacked", 1)
+THEN
+SetFaction(CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152, "FTJ_SW_AlixAttack");
+CharacterSetRelationFactionToIndivFaction("FTJ_SW_AlixAttack", (CHARACTERGUID)_Player, 0);
+CharacterSetRelationIndivFactionToFaction((CHARACTERGUID)_Player, "FTJ_SW_AlixAttack", 0);
+
+IF
+DB_CombatCharacters(_Player, _ID)
+AND
+DB_IsPlayer(_Player)
+AND
+DB_CombatCharacters(_Undead, _ID)
+AND
+DB_CombatCharacters(_Player2, _ID)
+AND
+DB_IsPlayer(_Player2)
+AND
+CharacterGetRelationToCharacter(_Undead, _Player2, 0)
+AND
+NOT CharacterGetRelationToCharacter(_Player, _Player2, 0)
+AND
+DB_FTJ_SW_UndeadGuards(_Undead, _, _)
+THEN
+CharacterSetRelationIndivFactionToIndivFaction(_Undead,_Player,0);	
+CharacterSetRelationIndivFactionToIndivFaction(_Player,_Undead,0);	
+
+IF
+ObjectFlagSet("FTJ_SW_SoulJar_Cursed", _Player, _)
+THEN
+ApplyStatus( _Player, "CURSED", 4.0, 1);
+ObjectClearFlag(_Player, "FTJ_SW_SoulJar_Cursed", 0);
+
+//REGION Delivering Soul Jars
+PROC
+PROC_GLOBAL_DialogStartRequested(CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152, _Player)
+AND
+QRY_FTJ_SW_HasSoulJars(_Player)
+THEN
+ObjectSetFlag(_Player, "FTJ_SW_HasNecromancerSoulJar", 0);
+
+PROC
+PROC_GLOBAL_DialogStartRequested(CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152, _Player)
+AND
+NOT QRY_FTJ_SW_HasSoulJars(_Player)
+THEN
+ObjectClearFlag(_Player, "FTJ_SW_HasNecromancerSoulJar", 0);
+
+QRY
+QRY_FTJ_SW_HasSoulJars((CHARACTERGUID)_Player)
+AND
+DB_FTJ_SW_RespawningUndead(_Undead, _SoulJar, _, _)
+AND
+_Undead != CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152
+AND
+ItemIsInPartyInventory(_SoulJar, _Player, 0, 1)
+THEN
+DB_NOOP(1);
+
+PROC
+PROC_GLOBAL_DialogStartRequested(CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152, _Player)
+AND
+ItemIsInPartyInventory(ITEMGUID_S_FTJ_SW_SoulJar_ShelterUndead_a11a3798-9382-433a-8a43-73d1d19df474, (CHARACTERGUID)_Player, 0, 1)
+THEN
+ObjectSetFlag(_Player, "FTJ_SW_HasGratianaSoulJar", 0);
+
+PROC
+PROC_GLOBAL_DialogStartRequested(CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152, _Player)
+AND
+ItemIsInPartyInventory(ITEMGUID_S_FTJ_SW_SoulJar_ShelterUndead_a11a3798-9382-433a-8a43-73d1d19df474, (CHARACTERGUID)_Player, 0, 0)
+THEN
+ObjectClearFlag(_Player, "FTJ_SW_HasGratianaSoulJar", 0);
+
+
+IF
+ObjectFlagSet("FTJ_SW_GiveNecromancerSoulJar", _NPC, _ID)
+THEN
+NOT DB_OnlyOnce("FTJ_SW_GiveNecromancerSoulJar");
+ObjectClearFlag(_NPC, "FTJ_SW_GiveNecromancerSoulJar", 0);
+
+IF
+ObjectFlagSet("FTJ_SW_GiveNecromancerSoulJar", _NPC, _ID)
+AND
+DialogGetInvolvedPlayer(_ID, 1, _Player)
+AND
+DB_FTJ_SW_RespawningUndead(_Undead, _SoulJar, _, _)
+AND
+_Undead != CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152
+AND
+ItemIsInPartyInventory(_SoulJar, (CHARACTERGUID)_Player, 1, 1)
+AND
+QueryOnlyOnce("FTJ_SW_GiveNecromancerSoulJar")
+THEN
+ItemToInventory(_SoulJar, _NPC);
+
+IF
+ObjectFlagSet("FTJ_SW_GiveNecromancerSoulJar", _NPC, _ID)
+AND
+DialogGetInvolvedPlayer(_ID, 1, _Player)
+AND
+QRY_FTJ_SW_HasSoulJars(_Player)
+THEN
+ObjectSetFlag(_Player, "FTJ_SW_HasNecromancerSoulJar", 0);
+
+IF
+ObjectFlagSet("FTJ_SW_GiveNecromancerSoulJar", _NPC, _ID)
+AND
+DialogGetInvolvedPlayer(_ID, 1, _Player)
+AND
+NOT QRY_FTJ_SW_HasSoulJars(_Player)
+THEN
+ObjectClearFlag(_Player, "FTJ_SW_HasNecromancerSoulJar", 0);
+
+IF
+ObjectFlagSet("FTJ_SW_GiveNecromancerSoulJar", _NPC, _ID)
+THEN
+NOT DB_OnlyOnce("FTJ_SW_GiveNecromancerSoulJar");
+
+IF
+ObjectFlagSet("FTJ_SW_GiveShelterUndeadJar", CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152, _)
+THEN
+NOT DB_FTJ_SW_RespawningUndead(CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152, ITEMGUID_S_FTJ_SW_SoulJar_ShelterUndead_a11a3798-9382-433a-8a43-73d1d19df474, ITEMGUID_S_FTJ_SW_SouljarHelper_ShelterUndead_96504c2c-e451-4e33-a02f-db8732e6e954,"FTJ_SW_AD_ShelterUndeadRelease");
+ItemRemove(ITEMGUID_S_FTJ_SW_SoulJar_ShelterUndead_a11a3798-9382-433a-8a43-73d1d19df474);
+
+IF
+ObjectFlagSet("FTJ_SW_HelpedGratiana", (CHARACTERGUID)_Player, _)
+THEN
+CharacterAddAttitudeTowardsPlayer(CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152, _Player, 30);
+
+IF
+DialogEnded("FTJ_SW_ShelterUndead",_ID)
+AND
+GlobalGetFlag("FTJ_SW_GratianaDead", 1)
+AND
+DialogGetInvolvedPlayer(_ID, 1, _Player)
+THEN
+ItemRemove(ITEMGUID_S_FTJ_SW_SoulJar_ShelterUndead_a11a3798-9382-433a-8a43-73d1d19df474);
+//DialogRequestStop(CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152);
+CharacterDie(CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152, 1, "DoT");
+PlayEffect(_Player, "RS3_FX_GP_ScriptedEvent_SourceJar_Death_Launch_01");
+PlayEffect(CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152, "RS3_FX_GP_ScriptedEvent_SourceJar_Death_Impact_01");
+ObjectSetFlag(_Player,"QuestUpdate_FTJ_SW_StuckHaunting_DestroyedGratianaJar");
+
+IF
+CharacterEnteredTrigger(_Player, TRIGGERGUID_S_FTJ_SW_BraccusVaultProper_2d8c84d5-0f88-47e8-b6ca-f70f43b7d331)
+THEN
+UserSetFlag(_Player, "FTJ_SW_EnteredBraccusVault", 0);
+
+IF
+ItemAddedToCharacter(_Jar, CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152)
+AND
+DB_FTJ_SW_RespawningUndead(_Undead, _SoulJar, _, _)
+AND
+_Undead != CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152
+THEN
+ItemSetStoryItem(_Souljar, 0);
+
+IF
+ItemRemovedFromCharacter(_Jar, CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152)
+AND
+DB_FTJ_SW_RespawningUndead(_Undead, _SoulJar, _, _)
+AND
+_Undead != CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152
+THEN
+ItemSetStoryItem(_Souljar, 1);
+
+//END_REGION
+
+//REGION Journal Logic
+IF
+ObjectFlagSet("Absorb_SoulJar", _SoulJar, _ID)
+AND
+DB_FTJ_SW_RespawningUndead(_Undead, (ITEMGUID)_SoulJar, _, _)
+AND
+_Undead != CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152
+AND
+DialogGetInvolvedPlayer(_ID, 1, _Player)
+THEN
+Proc_FTJ_SW_GuardJarDestroyed((CHARACTERGUID)_Player, _SoulJar);
+
+IF
+CharacterDestroyedItem( _Player, _SoulJar)
+AND
+DB_FTJ_SW_RespawningUndead(_Undead, _SoulJar, _, _)
+AND
+_Undead != CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152
+THEN
+Proc_FTJ_SW_GuardJarDestroyed(_Player, _SoulJar);
+
+IF
+DialogEnded(_,_ID)
+AND
+DialogGetInvolvedNPC(_ID,1,_SoulJar)
+AND
+DB_FTJ_SW_RespawningUndead(_Undead, (ITEMGUID)_SoulJar, _, _)
+AND
+DialogGetInvolvedPlayer(_ID,1,(CHARACTERGUID)_Player)
+AND
+ObjectGetFlag(_SoulJar,"Destroy_SoulJar",1)
+AND
+_Undead != CHARACTERGUID_S_FTJ_SW_ShelterUndead_f0602373-d2cb-4658-a91b-9d111c928152
+THEN
+Proc_FTJ_SW_GuardJarDestroyed(_Player, _SoulJar);
+
+PROC
+Proc_FTJ_SW_GuardJarDestroyed((CHARACTERGUID)_Player, ITEMGUID_S_FTJ_SW_SoulJar_GuardUndead1_46ccad9c-a2fe-4004-89ba-f422528b2860)
+AND
+QRY_FTJ_SW_SoulJarBroken(ITEMGUID_S_FTJ_SW_SoulJar_GuardUndead2_40aa483c-fa08-4a95-8d30-99539a0c7137)
+AND
+QRY_FTJ_SW_SoulJarBroken(ITEMGUID_S_FTJ_SW_SoulJar_GuardUndead3_ce0f3ebb-c6bf-41b9-933e-fb021e13dfd8)
+THEN
+UserSetFlag(_Player, "FTJ_SW_DestroyedSoulJars", 0);
+
+PROC
+Proc_FTJ_SW_GuardJarDestroyed((CHARACTERGUID)_Player, ITEMGUID_S_FTJ_SW_SoulJar_GuardUndead2_40aa483c-fa08-4a95-8d30-99539a0c7137)
+AND
+QRY_FTJ_SW_SoulJarBroken(ITEMGUID_S_FTJ_SW_SoulJar_GuardUndead1_46ccad9c-a2fe-4004-89ba-f422528b2860)
+AND
+QRY_FTJ_SW_SoulJarBroken(ITEMGUID_S_FTJ_SW_SoulJar_GuardUndead3_ce0f3ebb-c6bf-41b9-933e-fb021e13dfd8)
+THEN
+UserSetFlag(_Player, "FTJ_SW_DestroyedSoulJars", 0);
+
+PROC
+Proc_FTJ_SW_GuardJarDestroyed((CHARACTERGUID)_Player, ITEMGUID_S_FTJ_SW_SoulJar_GuardUndead3_ce0f3ebb-c6bf-41b9-933e-fb021e13dfd8)
+AND
+QRY_FTJ_SW_SoulJarBroken(ITEMGUID_S_FTJ_SW_SoulJar_GuardUndead1_46ccad9c-a2fe-4004-89ba-f422528b2860)
+AND
+QRY_FTJ_SW_SoulJarBroken(ITEMGUID_S_FTJ_SW_SoulJar_GuardUndead2_40aa483c-fa08-4a95-8d30-99539a0c7137)
+THEN
+UserSetFlag(_Player, "FTJ_SW_DestroyedSoulJars", 0);
+
+IF
+CharacterResurrected(_Undead)
+AND
+DB_FTJ_SW_UndeadGuards(_Undead, _, _)
+AND
+DB_IsPlayer(_Player)
+AND
+CharacterCanSee(_Player, _Undead, 1)
+THEN
+ObjectSetFlag(_Player,"QuestUpdate_FTJ_SW_Necromancers_NecromancersRespawn");
+
+QRY
+QRY_FTJ_SW_SoulJarBroken((ITEMGUID)_SoulJar)
+AND
+DB_DestroyedItems(_SoulJar)
+THEN
+DB_NOOP(1);
+
+QRY
+QRY_FTJ_SW_SoulJarBroken((ITEMGUID)_SoulJar)
+AND
+ObjectGetFlag(_SoulJar, "Absorb_SoulJar", 1)
+THEN
+DB_NOOP(1);
+
+IF
+CharacterDestroyedItem(_Player, ITEMGUID_S_FTJ_SW_SoulJar_ShelterUndead_a11a3798-9382-433a-8a43-73d1d19df474)
+THEN
+ObjectSetFlag(_Player,"QuestUpdate_FTJ_SW_StuckHaunting_DestroyedGratianaJar");
+//END_REGION
+
+IF
+ObjectFlagSet("FTJ_SW_Souljar_GuardUndead1_RD",_Player,_)
+THEN
+ProcDefineReflectionDialog("FTJ_SW_RD_SoulJar_GuardUndead1",(CHARACTERGUID)_Player);
+
+IF
+ObjectFlagSet("FTJ_SW_Souljar_GuardUndead2_RD",_Player,_)
+THEN
+ProcDefineReflectionDialog("FTJ_SW_RD_SoulJar_GuardUndead2",(CHARACTERGUID)_Player);
+
+IF
+ObjectFlagSet("FTJ_SW_Souljar_GuardUndead3_RD",_Player,_)
+THEN
+ProcDefineReflectionDialog("FTJ_SW_RD_SoulJar_GuardUndead3",(CHARACTERGUID)_Player);
+
+IF
+ObjectFlagSet("FTJ_SW_Souljar_ShelterUndead_RD",_Player,_)
+THEN
+ProcDefineReflectionDialog("FTJ_SW_RD_SoulJar_ShelterUndead",(CHARACTERGUID)_Player);
+
+IF
+ObjectFlagSet("FTJ_SW_Souljar_Illusionist_RD",_Player,_)
+THEN
+ProcDefineReflectionDialog("FTJ_SW_RD_SoulJar_Illusionist",(CHARACTERGUID)_Player);
+
+//REGION Debug
+IF
+TextEventSet("FTJ_SW_SoulJar_AddAllSoulJarsToPlayer")
+AND
+DB_IsPlayer(_Player)
+THEN
+ItemToInventory(S_FTJ_SW_SoulJar_GuardUndead1_46ccad9c-a2fe-4004-89ba-f422528b2860,_Player);
+ItemToInventory(S_FTJ_SW_SoulJar_GuardUndead2_40aa483c-fa08-4a95-8d30-99539a0c7137,_Player);
+ItemToInventory(S_FTJ_SW_SoulJar_GuardUndead3_ce0f3ebb-c6bf-41b9-933e-fb021e13dfd8,_Player);
+
+
+IF
+TextEventSet("FTJ_SW_SoulJar_StartNecromancherQuest")
+AND
+DB_IsPlayer(_Player)
+THEN
+ObjectSetFlag(_Player,"FTJ_SW_NecromancersDiscuss",0);
+//END_REGION 
+
+IF
+ObjectFlagSet("FTJ_Fluffy_HasMet", (CHARACTERGUID)_Character, _)
+THEN
+UserSetFlag(_Character, "FTJ_SW_Withermoore_HasMet", 0);
+
+//REGION Has the player found the Jars of the Necromancers?
+IF
+CharacterEnteredTrigger(_Player, TRIGGERGUID_S_FTJ_SW_BraccusVaultProper_2d8c84d5-0f88-47e8-b6ca-f70f43b7d331)
+AND
+DB_FTJ_SW_UndeadGuardsRessurectAD(_Guard,_,_)
+AND
+DB_FTJ_SW_RespawningUndead((CHARACTERGUID)_Guard, _Jar, _, _)
+AND
+ObjectIsInTrigger(_Jar, TRIGGERGUID_S_FTJ_SW_OneShot_IllusionistVault_4695112f-0f33-4da0-87c0-c4d399302d23, 1)
+THEN
+PartySetFlag(_Player, "FTJ_SW_FoundUndeadGuardsJar");
+
+IF
+CharacterMovedItem(_Player, _Jar)
+AND
+DB_FTJ_SW_UndeadGuardsRessurectAD(_Guard,_,_)
+AND
+DB_FTJ_SW_RespawningUndead((CHARACTERGUID)_Guard, _Jar, _, _)
+THEN
+PartySetFlag(_Player, "FTJ_SW_FoundUndeadGuardsJar");
+
+IF
+ItemAddedToCharacter(_Jar, _Player)
+AND
+DB_FTJ_SW_UndeadGuardsRessurectAD(_Guard,_,_)
+AND
+DB_FTJ_SW_RespawningUndead((CHARACTERGUID)_Guard, _Jar, _, _)
+THEN
+PartySetFlag(_Player, "FTJ_SW_FoundUndeadGuardsJar");
+
+IF
+CharacterUsedItem(_Player, _Jar)
+AND
+DB_FTJ_SW_UndeadGuardsRessurectAD(_Guard,_,_)
+AND
+DB_FTJ_SW_RespawningUndead((CHARACTERGUID)_Guard, _Jar, _, _)
+THEN
+PartySetFlag(_Player, "FTJ_SW_FoundUndeadGuardsJar");
+//END_REGION
+
+//REGION  Patch 0
+IF
+SavegameLoaded(_Major,_Minor,_Rev,_Build)
+AND
+QRY_VersionIsOlderThan(_Major,_Minor,_Rev,_Build, 3, 6, 0, 1)
+THEN
+DB_SharedQuestlessFlag("FTJ_SW_FreedWithermoore");
+
+IF
+SavegameLoaded(_Major,_Minor,_Rev,_Build)
+AND
+QRY_VersionIsOlderThan(_Major,_Minor,_Rev,_Build, 3, 6, 0, 1)
+AND
+DB_QuestDef_UpdateEvent("RC_FTJ_SoulJar", _, _Flag)
+AND
+DB_IsPlayer(_Player)
+AND
+PartyGetFlag(_Player, _Flag, 1)//If any
+THEN
+PartySetFlag(_Player, _Flag, 0);//then all.
+//END_REGION
+
+PROC //Closing goal at the end of the Level. Combat checks kept active through out the game
+ProcRegionEnded("FJ_FortJoy_Main")
+THEN
+//GoalCompleted;
+DB_NOOP(1);
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "FortJoy"

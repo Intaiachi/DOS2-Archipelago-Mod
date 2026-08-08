@@ -1,0 +1,57 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+
+KBSECTION
+//REGION
+IF
+CharacterUsedItemTemplate(_Player,"ARP_LevelTP_c1147016-9e07-4980-b32b-556cb1141d8c",_)
+THEN
+Proc_StartDialog(0,"ARP_Teleport",_Player);
+
+IF
+ObjectFlagSet("TUT",(CHARACTERGUID)_Player,_)
+THEN
+ProcForceStopDialog(_Player);
+ObjectClearFlag(_Player,"TUT",0);
+CharacterTeleportPartiesToTrigger(TRIGGERGUID_StartPoint_000__000_fe2995bf-aa16-8ce7-33a2-8cb8cf228152, "");
+
+IF
+ObjectFlagSet("FTJ",(CHARACTERGUID)_Player,_)
+THEN
+ProcForceStopDialog(_Player);
+ObjectClearFlag(_Player,"FTJ",0);
+CharacterTeleportPartiesToTrigger(TRIGGERGUID_StartPoint_001_34d67d87-441c-427d-97bb-4cc506b42fe0, "");
+
+IF
+ObjectFlagSet("RC",(CHARACTERGUID)_Player,_)
+THEN
+ProcForceStopDialog(_Player);
+ObjectClearFlag(_Player,"RC",0);
+CharacterTeleportPartiesToTrigger(TRIGGERGUID_StartPoint_000_e30fe0c4-9b40-4040-9670-e8edd53a34ce, "");
+
+IF
+ObjectFlagSet("COS",(CHARACTERGUID)_Player,_)
+THEN
+ProcForceStopDialog(_Player);
+ObjectClearFlag(_Player,"COS",0);
+CharacterTeleportPartiesToTrigger(TRIGGERGUID_S_CoS_LV_RegionStart_8c00afb8-43af-4de7-953a-a7456f996a4c, "");
+
+IF
+ObjectFlagSet("ARX",(CHARACTERGUID)_Player,_)
+THEN
+ProcForceStopDialog(_Player);
+ObjectClearFlag(_Player,"ARX",0);
+CharacterTeleportPartiesToTrigger(TRIGGERGUID_StartPoint_000__001_ARX_Harbour_Dev_000_ARX_Main_Rework_000_fb573f96-d837-0033-4143-3bf31d88ae49, "");
+
+IF
+ObjectFlagSet("TOL",(CHARACTERGUID)_Player,_)
+THEN
+ProcForceStopDialog(_Player);
+ObjectClearFlag(_Player,"TOL",0);
+CharacterTeleportPartiesToTrigger(TRIGGERGUID_S_ARX_EndGame_Enter_bd166e2a-7623-490e-94df-78079e7cbacc, "");
+//END_REGION
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "Start"

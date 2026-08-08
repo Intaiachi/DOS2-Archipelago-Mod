@@ -1,0 +1,493 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+// Waypoint registration:
+//   DB_WaypointInfo((ITEMGUID)_WaypointItem,(TRIGGERGUID)_TeleportTrigger,(STRING)_WaypointID)
+
+// Waypoint Lock/Unlock:
+//   PROC_UnlockWaypoint((STRING)_WaypointID,(CHARACTERGUID)_Player) : unlocks waypoint for party, shows notification, updates DB
+//   PROC_LockWaypoint  ((STRING)_WaypointID,(CHARACTERGUID)_Player) : locks waypoint for party, updates DB
+//   DB_WaypointUnlocked((STRING)_WaypointID,(CHARACTERGUID)_Player) : waypoint unlock status for party
+// To lock certain character from using any waypoints (including Flee From Combat):
+//   PROC_BlockWaypointUsage  ((CHARACTERGUID)_Player) : block waypoints for character including Flee (blocks Waypoints button)
+//   PROC_UnblockWaypointUsage((CHARACTERGUID)_Player) : unblock waypoints for character including Flee (returns Waypoints button to previous state)
+//   DB_BlockWaypointUsage    ((CHARACTERGUID)_Player) : check status on character
+// Note: blocking is achieved through homestead button disabling
+
+// Helper PROCs for homestead button state at the end, all accept (CHARACTERGUID)_Player
+//   PROC_SetHomesteadKey_Invisible : no button
+//   PROC_SetHomesteadKey_Enabled   : button can be pressed
+//   PROC_SetHomesteadKey_NewRooms  : button can be pressed, has "new waypoints" indication
+//   PROC_SetHomesteadKey_Disabled  : buttone cannot be pressed (e.g. combat)
+//   DB_HomesteadKeyState((CHARACTERGUID)_Player,(INTEGER)_State) : homestead key state from 0 to 3
+
+// For Waypoints without DB_Dialogs but that should not open UI right away they are added to this DB (for example, used in FTJ):
+//   DB_WaypointBlockUI((ITEMGUID)_Item)
+KBSECTION
+// Register for map/minimap
+IF
+DB_WaypointInfo((ITEMGUID)_WaypointItem,(TRIGGERGUID)_TeleportTrigger,(STRING)_WaypointID)
+THEN
+RegisterWaypoint(_WaypointID,_WaypointItem);
+
+
+//REGION Waypoint unlock/lock for showing in waypoints UI
+// Through WaypointShrine Behavior script event
+IF
+CharacterItemEvent(_Player,_Item,"WaypointDiscovered")
+AND
+DB_WaypointInfo(_Item,(TRIGGERGUID)_TeleportTrigger,(STRING)_WaypointID)
+THEN
+PROC_UnlockWaypoint(_WaypointID,_Player);
+
+// Through direct interaction
+IF
+CharacterUsedItem(_Player,_Item)
+AND
+DB_WaypointInfo(_Item,_,_WaypointID)
+THEN
+PROC_UnlockWaypoint(_WaypointID,_Player);
+
+PROC
+PROC_UnlockWaypoint((STRING)_WaypointID,(CHARACTERGUID)_Player)
+AND
+NOT DB_WaypointUnlocked(_WaypointID,_Player)
+AND
+DB_WaypointInfo(_,_Trigger,_WaypointID)
+THEN
+ARP_SaveWaypoint(_WaypointID);
+PROC_UnlockWaypoint_Notification(_WaypointID,_Player);
+UnlockWaypoint(_WaypointID,_Trigger,_Player);
+PROC_UnlockWaypoint_RecordDB(_WaypointID,_Player);
+
+PROC
+PROC_UnlockWaypoint_Notification((STRING)_WaypointID,(CHARACTERGUID)_Player)
+AND
+NOT QRY_UnlockWaypoint_AlreadyUnlockedForParty(_WaypointID,_Player)
+AND
+DB_WaypointInfo(_Item,_Trigger,_WaypointID)
+THEN
+ShowNotification(_Player,"GLO_WaypointDiscovered");
+SetStoryEvent(_Item, "WaypointDiscoveredEffect");
+
+PROC
+PROC_UnlockWaypoint_Notification((STRING)_WaypointID,(CHARACTERGUID)_Player)
+AND
+CharacterGetReservedUserID(_Player, _User)
+AND
+DB_AtLeastOneWayPointUnlockedFor(_Player)
+AND
+NOT DB_BlockWaypointUsage(_Player)
+THEN
+PROC_CheckPlayTut(_Player, "TUT_Homestead");
+
+PROC
+PROC_UnlockWaypoint_Notification((STRING)_WaypointID,(CHARACTERGUID)_Player)
+THEN
+DB_AtLeastOneWayPointUnlockedFor(_Player);
+
+QRY
+QRY_UnlockWaypoint_AlreadyUnlockedForParty((STRING)_WaypointID,(CHARACTERGUID)_Player)
+AND
+DB_WaypointUnlocked(_WaypointID,_OtherPlayer)
+AND
+_OtherPlayer != _Player
+AND
+CharacterIsInPartyWith(_OtherPlayer,_Player,1)
+THEN
+DB_NOOP(1);
+
+PROC
+PROC_UnlockWaypoint_RecordDB((STRING)_WaypointID,(CHARACTERGUID)_Player)
+AND
+DB_IsPlayer((CHARACTERGUID)_OtherPlayer)
+AND
+CharacterIsInPartyWith(_OtherPlayer,_Player,1)
+THEN
+DB_WaypointUnlocked(_WaypointID,_OtherPlayer);
+PROC_WaypointUnlocked_Event(_OtherPlayer); // notify to change homestead button state
+
+
+PROC
+PROC_UnlockWaypointForAll((STRING)_WaypointID)
+AND
+DB_WaypointInfo(_,_,_WaypointID)
+AND
+DB_IsPlayer(_Player)
+THEN
+PROC_UnlockWaypoint(_WaypointID,_Player);
+
+
+PROC
+PROC_LockWaypoint((STRING)_WaypointID,(CHARACTERGUID)_Player) // don't check DB so desync between Osiris<->code doesn't block us here
+THEN
+LockWaypoint(_WaypointID,_Player);
+
+PROC
+PROC_LockWaypoint((STRING)_WaypointID,(CHARACTERGUID)_Player)
+AND
+DB_WaypointUnlocked(_WaypointID,_Player)
+THEN
+PROC_LockWaypoint_DBRecord(_WaypointID,_Player);
+
+PROC
+PROC_LockWaypoint_DBRecord((STRING)_WaypointID,(CHARACTERGUID)_Player)
+AND
+DB_IsPlayer((CHARACTERGUID)_OtherPlayer)
+AND
+CharacterIsInPartyWith(_OtherPlayer,_Player,1)
+THEN
+NOT DB_WaypointUnlocked(_WaypointID,_OtherPlayer);
+PROC_WaypointLocked_Event(_OtherPlayer); // notify to change homestead button state
+
+
+PROC
+PROC_LockWaypointForAll((STRING)_WaypointID)
+AND
+DB_WaypointInfo(_,_,_WaypointID)
+AND
+DB_IsPlayer(_Player)
+THEN
+PROC_LockWaypoint(_WaypointID,_Player);
+
+IF
+RegionEnded(_Region)
+AND
+DB_WaypointInfo(_Shrine,_,_Waypoint)
+AND
+ObjectExists(_Shrine,1)
+AND
+GetRegion(_Shrine,_Region)
+THEN
+PROC_LockWaypointForAll(_Waypoint);
+
+
+// Homestead button state changes
+PROC
+PROC_WaypointUnlocked_Event((CHARACTERGUID)_Player)
+AND
+NOT DB_BlockWaypointUsage(_Player) // and not story-blocked
+THEN
+PROC_SetHomesteadKey_NewRooms(_Player);
+
+PROC
+PROC_WaypointLocked_Event((CHARACTERGUID)_Player)
+AND
+NOT DB_WaypointUnlocked(_,_Player) // and no other waypoints
+THEN
+PROC_SetHomesteadKey_Disabled(_Player);
+//END_REGION
+
+
+//REGION Blocking Waypoint usage for characters
+
+PROC
+PROC_BlockWaypointUsage((CHARACTERGUID)_Player)
+AND
+DB_IsPlayer(_Player)
+THEN
+DB_BlockWaypointUsage(_Player);
+SetHomesteadKeyState(3,_Player); // call this directly, so that DB_HomesteadKeyState isn't updated
+
+PROC
+PROC_UnblockWaypointUsage((CHARACTERGUID)_Player)
+THEN
+NOT DB_BlockWaypointUsage(_Player);
+
+PROC
+PROC_UnblockWaypointUsage((CHARACTERGUID)_Player)
+AND
+DB_HomesteadKeyState(_Player,_StateBeforeBlock) // restore previous state
+THEN
+PROC_UnblockWaypointUsage_Helper(_Player,_StateBeforeBlock);
+
+PROC
+PROC_UnblockWaypointUsage_Helper((CHARACTERGUID)_Player,0)
+THEN
+PROC_SetHomesteadKey_Invisible(_Player);
+
+PROC
+PROC_UnblockWaypointUsage_Helper((CHARACTERGUID)_Player,1)
+THEN
+PROC_SetHomesteadKey_Enabled(_Player);
+
+PROC
+PROC_UnblockWaypointUsage_Helper((CHARACTERGUID)_Player,2)
+THEN
+PROC_SetHomesteadKey_NewRooms(_Player);
+
+PROC
+PROC_UnblockWaypointUsage_Helper((CHARACTERGUID)_Player,3)
+THEN
+PROC_SetHomesteadKey_Disabled(_Player);
+//END_REGION
+
+
+//REGION Waypoint usage
+
+IF
+CharacterUsedItem(_Player,_Item)
+AND
+DB_WaypointInfo(_Item,_,_WaypointID)
+AND
+NOT DB_CombatCharacters(_Player,_)
+AND
+NOT DB_BlockWaypointUsage(_Player)
+AND
+NOT DB_WaypointBlockUI(_Item)
+AND
+NOT DB_Dialogs(_Item,_)
+AND
+NOT DB_IsSign(_Item,(STRING)_,(STRING)_) // can't tell why was it placed here
+THEN
+PROC_OpenWaypointUI(_Player,_WaypointID,_Item);
+PROC_CheckPlayTut(_Player,"TUT_Waypoint");
+
+IF
+CharacterUsedItem(_Player,_Item)
+AND
+DB_WaypointInfo(_Item,_,_)
+AND
+DB_IsPlayer(_Player)
+AND
+DB_CombatCharacters(_Player,_)
+THEN
+Proc_StartDialog(1,"GLO_AD_CannotUseNow",_Player);
+
+IF
+ObjectFlagSet("OpenWaypointUI",_Player,_ID)
+AND
+NOT DB_BlockWaypointUsage((CHARACTERGUID)_Player)
+AND
+DB_DialogNPCs(_ID,_Item,1)
+AND
+DB_WaypointInfo((ITEMGUID)_Item,_Trigger,_CurrentWP)
+THEN
+PROC_OpenWaypointUI((CHARACTERGUID)_Player,_CurrentWP,_Item);
+PROC_CheckPlayTut(_Player,"TUT_Waypoint");
+
+IF
+ObjectFlagSet("OpenWaypointUI",_Player,_ID)
+THEN
+ObjectClearFlag(_Player,"OpenWaypointUI",_ID);
+
+IF
+CharacterRequestsHomestead(_Player)
+AND
+NOT DB_BlockWaypointUsage(_Player)
+AND
+QRY_HasWaypointsUnlocked(_Player)
+THEN
+PROC_OpenWaypointUI(_Player,"",NULL_00000000-0000-0000-0000-000000000000);
+
+QRY
+QRY_HasWaypointsUnlocked((CHARACTERGUID)_Player)
+AND
+DB_WaypointUnlocked(_,_Player)
+THEN
+DB_NOOP(1);
+//END_REGION
+
+
+//REGION Waypoint teleportation
+
+IF
+CharacterTeleportToWaypoint(_Char,_Trigger)
+THEN
+TeleportTo(_Char,_Trigger,"",1,1);
+
+IF
+CharacterTeleportToFleeWaypoint(_Char,_Trigger)
+THEN
+TeleportTo(_Char,_Trigger,"",0,1,1);
+//END_REGION
+
+
+//REGION Waypoint UI helpers
+
+PROC
+PROC_OpenWaypointUI((CHARACTERGUID)_Player,(STRING)_WaypointCurrent,(ITEMGUID)_Item)
+THEN
+OpenWaypointUI(_Player,_WaypointCurrent,_Item,0);
+
+PROC
+PROC_OpenWaypointUIForFlee((CHARACTERGUID)_Player,(STRING)_WaypointCurrent,(ITEMGUID)_Item)
+THEN
+OpenWaypointUI(_Player,_WaypointCurrent,_Item,1);
+//END_REGION
+
+
+//REGION Homestead button state helpers
+
+PROC
+PROC_SetHomesteadKey_Invisible((CHARACTERGUID)_Player)
+THEN
+SetHomesteadKeyState(0,_Player);
+PROC_HomesteadKey_ReplaceHelper(_Player,0);
+
+PROC
+PROC_SetHomesteadKey_Enabled((CHARACTERGUID)_Player)
+THEN
+SetHomesteadKeyState(1,_Player);
+PROC_HomesteadKey_ReplaceHelper(_Player,1);
+
+PROC
+PROC_SetHomesteadKey_NewRooms((CHARACTERGUID)_Player)
+THEN
+SetHomesteadKeyState(2,_Player);
+PROC_HomesteadKey_ReplaceHelper(_Player,2);
+
+PROC
+PROC_SetHomesteadKey_Disabled((CHARACTERGUID)_Player)
+THEN
+SetHomesteadKeyState(3,_Player);
+PROC_HomesteadKey_ReplaceHelper(_Player,3);
+
+
+PROC
+PROC_HomesteadKey_ReplaceHelper((CHARACTERGUID)_Player,(INTEGER)_NewValue)
+AND
+DB_HomesteadKeyState(_Player,_PreviousValue)
+THEN
+NOT DB_HomesteadKeyState(_Player,_PreviousValue);
+DB_HomesteadKeyState(_Player,_NewValue);
+
+PROC
+PROC_HomesteadKey_ReplaceHelper((CHARACTERGUID)_Player,(INTEGER)_NewValue)
+AND
+NOT DB_HomesteadKeyState(_Player,_)
+THEN
+DB_HomesteadKeyState(_Player,_NewValue);
+//END_REGION
+
+
+//REGION Character joins party -> unlocked waypoints get shared by code
+// So also share the databases
+IF
+CharacterJoinedParty(_Joiner)
+AND
+DB_IsPlayer(_Joiner)
+AND
+DB_IsPlayer(_PartyMember)
+AND
+_Joiner != _PartyMember
+AND
+CharacterIsInPartyWith(_PartyMember, _Joiner, 1)
+THEN
+PROC_WayPoints_ShareWayPointState(_Joiner, _PartyMember);
+
+PROC
+PROC_WayPoints_ShareWayPointState((CHARACTERGUID)_Joiner, (CHARACTERGUID)_PartyMember)
+AND
+DB_WaypointUnlocked(_WaypointID, _Joiner)
+THEN
+PROC_UnlockWaypoint(_WayPointID, _PartyMember);
+
+PROC
+PROC_WayPoints_ShareWayPointState((CHARACTERGUID)_Joiner, (CHARACTERGUID)_PartyMember)
+AND
+DB_WaypointUnlocked(_WaypointID, _PartyMember)
+THEN
+PROC_UnlockWaypoint(_WayPointID, _Joiner);
+
+// Savegame fix
+IF
+SavegameLoaded(_Major,_Minor,_Rev,_Build)
+AND
+QRY_VersionIsOlderThan(_Major,_Minor,_Rev,_Build, 3, 5, 1, 0)
+AND
+DB_IsPlayer(_Joiner)
+AND
+DB_IsPlayer(_PartyMember)
+AND
+_Joiner != _PartyMember
+AND
+CharacterIsInPartyWith(_PartyMember,_Joiner,1)
+THEN
+PROC_WayPoints_ShareWayPointState(_Joiner,_PartyMember);
+
+// Blocking only gets inherited when recruiting, because it is region-based
+// rather than user/party-based
+PROC
+PROC_GLO_PartyMembers_RecruiteeAvatarBond_IfDifferent(_Origin,_Recruiter)
+AND
+DB_BlockWaypointUsage(_Recruiter)
+THEN
+PROC_BlockWaypointUsage(_Origin);
+
+PROC
+PROC_GLO_PartyMembers_RecruiteeAvatarBond_IfDifferent(_Origin,_Recruiter)
+AND
+DB_BlockWaypointUsage(_Origin)
+THEN
+PROC_BlockWaypointUsage(_Recruiter);
+//END_REGION
+
+//REGION Reset databases when dismissing
+IF
+CharacterReservedUserIDChanged(_Player, _, -65536)
+AND
+DB_WaypointUnlocked(_WaypointID,_Player)
+THEN
+// The actual unlock state is kept per party, so we don't have to actually lock
+// the waypoint. Just make sure it doesn't get unlocked by story again on next
+// recruitment (to avoid issues in case that recruitment is in another level;
+// new/existing waypoints will be shared again by the recruiter via code)
+NOT DB_WaypointUnlocked(_WaypointID,_Player);
+
+// Don't touch DB_BlockWaypointUsage, that one is handled manually and
+// since they all check DB_IsPlayer() and change the waypoint button state,
+// it's dangerous to start changing it automatically.
+
+// A fix for CHARM status bug. It triggers the above logic and removes all waypoints from the character.
+IF
+CharacterReservedUserIDChanged(_Joiner, -65536, _NewUserID)
+AND
+_NewUserID != -65536
+AND
+DB_IsPlayer(_PartyMember)
+AND
+_Joiner != _PartyMember
+AND
+CharacterIsInPartyWith(_PartyMember, _Joiner, 1)
+THEN
+PROC_WayPoints_ShareWayPointState(_Joiner, _PartyMember);
+//END_REGION
+
+//REGION Debug
+
+IF
+TextEventSet("wp")
+THEN
+PROC_Debug_UnlockAllWP();
+PROC_Debug_OpenWaypointUI();
+
+IF
+TextEventSet("wpunlock")
+THEN
+PROC_Debug_UnlockAllWP();
+
+IF
+TextEventSet("wpmenu")
+THEN
+PROC_Debug_OpenWaypointUI();
+
+PROC
+PROC_Debug_UnlockAllWP()
+AND
+DB_WaypointInfo(_,_Trigger,_WaypointID)
+THEN
+PROC_UnlockWaypointForAll(_WaypointID);
+
+PROC
+PROC_Debug_OpenWaypointUI()
+AND
+CharacterGetHostCharacter(_Player)
+THEN
+PROC_OpenWaypointUI(_Player,"",NULL_00000000-0000-0000-0000-000000000000);
+//END_REGION
+
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "__Start"

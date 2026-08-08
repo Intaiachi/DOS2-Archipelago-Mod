@@ -538,6 +538,7 @@ CharacterGetHitpointsPercentage(CHARACTERGUID_S_ARX_Kraken_Head_890e91e3-668a-41
 AND
 _Hp <= 80.0
 THEN
+ARP_ManualSend("890e91e3-668a-416e-a37f-c4180f117080");
 Proc_ARX_OUT_HarbourFight_EndCombat();
 
 

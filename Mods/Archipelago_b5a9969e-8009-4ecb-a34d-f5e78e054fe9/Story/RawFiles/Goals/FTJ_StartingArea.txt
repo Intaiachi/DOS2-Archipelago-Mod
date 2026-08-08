@@ -302,7 +302,8 @@ Proc_StartDialog(0, "FTJ_BeachStatue", ITEMGUID_S_FTJ_BeachStatue_465c7929-cc0f-
 PROC
 ProcRegionEnded("FJ_FortJoy_Main")
 THEN
-GoalCompleted;
+//GoalCompleted;
+DB_NOOP(1);
 EXITSECTION
 
 ENDEXITSECTION

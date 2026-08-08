@@ -1,0 +1,1034 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+
+KBSECTION
+//REGION Init
+
+PROC
+ProcCheckDefaultQuestAdd((STRING)_QuestName)
+AND
+NOT DB_QuestDef_AddEvent(_QuestName,_)
+AND
+StringConcatenate("QuestAdd_",_QuestName,_AddEvent)
+THEN
+DB_QuestDef_AddEvent(_QuestName,_AddEvent);
+
+PROC
+ProcCheckDefaultQuestClose((STRING)_QuestName)
+AND
+NOT DB_QuestDef_CloseEvent(_QuestName,_)
+AND
+StringConcatenate("QuestClose_",_QuestName,_CloseEvent)
+THEN
+DB_QuestDef_CloseEvent(_QuestName,_CloseEvent);
+
+IF
+DB_QuestDef_State((STRING)_QuestName,(STRING)_QuestState, 1) //Indices allow you to define multiple start and end events for every quest.
+AND
+StringConcatenate("QuestUpdate_",_QuestName,_String1)
+AND
+StringConcatenate(_String1,"_",_String2)
+AND
+StringConcatenate(_String2,_QuestState,_AddEvent)
+THEN
+DB_QuestDef_AddEvent(_QuestName,_AddEvent);
+DB_QuestDef_State((STRING)_QuestName,(STRING)_QuestState);
+
+IF
+DB_QuestDef_State((STRING)_QuestName,(STRING)_QuestState, -1)
+AND
+StringConcatenate("QuestUpdate_",_QuestName,_String1)
+AND
+StringConcatenate(_String1,"_",_String2)
+AND
+StringConcatenate(_String2,_QuestState,_CloseEvent)
+THEN
+DB_QuestDef_CloseEvent(_QuestName,_CloseEvent);
+DB_QuestDef_State((STRING)_QuestName,(STRING)_QuestState);
+
+IF
+DB_QuestDef_State((STRING)_QuestName,(STRING)_QuestState)
+AND
+NOT DB_QuestDef_UpdateEvent(_QuestName,_QuestState, _)
+AND
+StringConcatenate("QuestUpdate_",_QuestName,_String1)
+AND
+StringConcatenate(_String1,"_",_String2)
+AND
+StringConcatenate(_String2,_QuestState,_UpdateEvent)
+THEN
+ProcCheckDefaultQuestAdd(_QuestName);
+ProcCheckDefaultQuestClose(_QuestName);
+DB_QuestDef_UpdateEvent(_QuestName,_QuestState,_UpdateEvent);
+//END_REGION
+
+//REGION Unlocking quests
+IF
+ObjectFlagSet(_QuestAddEvent,(CHARACTERGUID)_Player, _)
+AND
+DB_QuestDef_AddEvent(_QuestName,_QuestAddEvent)
+AND
+DB_IsPlayer(_Player)
+THEN
+QuestAdd(_Player,_QuestName);
+DB_ActivatedQuests(_QuestName);
+ProcSetQuestNPCFlag(_QuestName,_QuestAddEvent);
+ProcCheckMigrateQuestAddFlag(_Player,_QuestName,_QuestAddEvent);
+
+//don't migrate quest add flags that also trigger an update, since we'll be trying ot share the update already before the original player
+//had a chance to get the update
+PROC
+ProcCheckMigrateQuestAddFlag((CHARACTERGUID)_Player,(STRING)_QuestName,(STRING)_QuestAddEvent)
+AND
+NOT DB_QuestDef_UpdateEvent(_QuestName,_,_QuestAddEvent)
+THEN
+ProcMigrateQuestFlag(_Player,_QuestName,_QuestAddEvent);
+
+IF
+ObjectFlagSet(_QuestUpdateEvent,(CHARACTERGUID)_Player, _)
+AND
+DB_QuestDef_UpdateEvent(_QuestName,_QuestState,_QuestUpdateEvent)
+AND
+DB_IsPlayer(_Player)
+AND
+QuestIsClosed(_Player,_QuestName,0)
+THEN
+QuestUpdate(_Player,_QuestName,_QuestState);
+ProcActivateMystery(_QuestName,_QuestState);
+ProcMigrateQuestFlag(_Player,_QuestName,_QuestUpdateEvent);
+ProcSetQuestNPCFlag(_QuestName,_QuestUpdateEvent);
+
+PROC
+ProcActivateMystery((STRING)_QuestName,(STRING)_QuestState)
+AND
+DB_Mystery(_QuestName)
+THEN
+DB_ActivatedQuests(_QuestName);
+
+IF
+ObjectFlagSet(_QuestCloseEvent,(CHARACTERGUID)_Player, _)
+AND
+DB_QuestDef_CloseEvent(_QuestName,_QuestCloseEvent)
+AND
+DB_IsPlayer(_Player)
+THEN
+QuestClose(_Player,_QuestName);
+ProcMigrateQuestFlag(_Player,_QuestName,_QuestCloseEvent);
+ProcSetQuestNPCFlag(_QuestName,_QuestCloseEvent);
+
+PROC
+ProcSetQuestNPCFlag((STRING)_QuestName,(STRING)_QuestEvent)
+AND
+DB_QuestNPC(_QuestName,(CHARACTERGUID)_NPC)
+THEN
+ObjectSetFlag(_NPC,_QuestEvent,0);
+
+
+//END_REGION
+
+//REGION Merging quests
+
+IF
+CharacterMadePlayer(_Player)
+THEN
+DB_JournalIgnoreReservedChanged(_Player);
+
+IF
+CharacterReservedUserIDChanged(_Char,_,_NewUser)
+AND
+DB_IsPlayer(_Char)
+AND
+NOT DB_JournalIgnoreReservedChanged(_Char)
+THEN
+ProcMigrateQuestsForUser(_NewUser,_Char);
+
+IF
+CharacterReservedUserIDChanged(_Char,_,_)
+THEN
+NOT DB_JournalIgnoreReservedChanged(_Char);
+
+IF
+CharacterJoinedParty(_Joiner)
+AND
+DB_IsPlayer(_Joiner)
+AND
+DB_ActivatedQuests(_Quest)
+THEN
+ProcMigrateQuest(_Joiner,_Quest);
+
+IF
+CharacterJoinedParty(_Joiner)
+AND
+DB_IsPlayer(_Joiner)
+THEN
+ProcShareQuestsWithParty(_Joiner);
+
+PROC
+ProcShareQuestsWithParty((CHARACTERGUID)_Joiner)
+AND
+DB_IsPlayer(_Player)
+AND
+NOT DB_MigratedNewPartyFlags(1)
+AND
+_Player != _Joiner
+AND
+CharacterIsInPartyWith(_Player,_Joiner,1)
+AND
+DB_ActivatedQuests(_Quest)
+AND
+DB_SharedQuestFlag(_Player,_Quest,_QuestFlag)
+THEN
+DB_MigratedNewPartyFlags(1);
+ProcShareQuestflagWith(_Player,_Quest,_QuestFlag,_Joiner);
+
+PROC
+ProcShareQuestsWithParty(_Joiner)
+AND
+DB_SharedQuestlessFlag((STRING)_Flag)
+AND
+PartyGetFlag(_Joiner, _Flag, 1)
+THEN
+PartySetFlag(_Joiner, _Flag);
+
+PROC
+ProcShareQuestsWithParty(_Joiner)
+AND
+DB_SharedQuestlessUserFlag((STRING)_Flag)
+AND
+UserGetFlag(_Joiner, _Flag, 1)
+THEN
+UserSetFlag(_Joiner, _Flag);
+
+PROC
+ProcShareQuestsWithParty((CHARACTERGUID)_Joiner)
+THEN
+NOT DB_MigratedNewPartyFlags(1);
+
+//always share quests with the owning user
+IF
+CharacterJoinedParty(_Joiner)
+AND
+DB_IsPlayer(_Joiner)
+AND
+CharacterGetReservedUserID(_Joiner,_User)
+THEN
+ProcMigrateQuestsForUser(_User,_Joiner);
+
+//handle the case where an MP savegame is loaded in SP
+IF
+SavegameLoaded(_,_,_,_)
+AND
+DB_IsPlayer(_Joiner)
+AND
+CharacterGetReservedUserID(_Joiner,_User)
+THEN
+ProcMigrateQuestsForUser(_User,_Joiner);
+ProcShareQuestsWithParty(_Joiner);
+
+PROC
+ProcMigrateQuestsForUser((INTEGER)_User,(CHARACTERGUID)_Joiner)
+AND
+DB_IsPlayer(_Other)
+AND
+CharacterGetReservedUserID(_Other,_User)
+AND
+DB_ActivatedQuests(_Quest)
+AND
+QuestGetBroadcastLevel(_Quest,_Level)
+AND
+_Level != "Character"
+AND
+DB_PrivateQuestFlag(_Other,_Quest,_QuestFlag)
+THEN
+ProcShareQuestflagWith(_Other,_Quest,_QuestFlag,_Joiner);
+
+IF
+QuestShared(_SrcCharacter,"",1)
+AND
+DB_IsPlayer(_SrcCharacter)
+AND
+DB_ActivatedQuests(_Quest)
+THEN
+ProcMigrateQuest(_SrcCharacter,_Quest);
+
+IF
+QuestShared(_SrcCharacter,_Quest,1)
+AND
+_Quest != ""
+THEN
+ProcMigrateQuestFlagsFor(_SrcCharacter,_Quest);
+
+PROC
+ProcMigrateQuest((CHARACTERGUID)_SrcPlayer,(STRING)_Quest)
+AND
+QuestAccepted(_SrcPlayer,_Quest,1)
+AND
+QuestIsShared(_SrcPlayer,_Quest,1)
+THEN
+ProcMigrateQuestFlagsFor(_SrcPlayer,_Quest);
+
+PROC
+ProcMigrateQuestFlagsFor((CHARACTERGUID)_SrcPlayer,(STRING)_Quest)
+AND
+DB_PrivateQuestFlag(_SrcPlayer,_Quest,_QuestFlag)
+THEN
+DB_SharedQuestFlag(_SrcPlayer,_Quest,_QuestFlag);
+NOT DB_PrivateQuestFlag(_SrcPlayer,_Quest,_QuestFlag);
+
+PROC
+ProcMigrateQuestFlagsFor((CHARACTERGUID)_SrcChar,(STRING)_Quest)
+AND
+DB_SharedQuestFlag(_SrcChar,_Quest,_QuestFlag)
+THEN
+ProcShareQuestFlag(_SrcChar,_Quest,_QuestFlag);
+
+PROC
+ProcShareQuestFlag((CHARACTERGUID)_SrcPlayer,(STRING)_Quest,(STRING)_QuestFlag)
+AND
+DB_IsPlayer(_Player)
+AND
+_Player!=_SrcPlayer
+AND
+CharacterIsInPartyWith(_Player,_SrcPlayer,1)
+AND			
+ObjectGetFlag(_Player,_QuestFlag,0)	//checked for when story gives the flag to several players in a row. Otherwise you won't have a chance to give the update in case someone shares the quest
+THEN
+ProcShareQuestflagWith(_SrcPlayer,_Quest,_QuestFlag,_Player);
+
+PROC
+ProcShareQuestflagWith((CHARACTERGUID)_SrcPlayer,(STRING)_Quest,(STRING)_QuestFlag,(CHARACTERGUID)_Player)
+THEN
+ProcStoreFlagState(_Player,_QuestFlag);
+ProcShareQuestUpdate(_SrcPlayer,_Quest,_QuestFlag,_Player);
+ObjectShareFlag(_Player,_QuestFlag);
+ProcStoreSharedQuestFlag(_SrcPlayer,_Quest,_QuestFlag,_Player);
+ProcVerifyFlagState(_SrcPlayer,_Player,_QuestFlag);
+
+PROC
+ProcStoreSharedQuestFlag((CHARACTERGUID)_SrcPlayer,(STRING)_Quest,(STRING)_QuestFlag,(CHARACTERGUID)_Player)
+AND
+DB_SharedQuestFlag(_SrcPlayer,_Quest,_QuestFlag)
+THEN
+DB_SharedQuestFlag(_Player,_Quest,_QuestFlag);
+
+PROC
+ProcStoreSharedQuestFlag((CHARACTERGUID)_SrcPlayer,(STRING)_Quest,(STRING)_QuestFlag,(CHARACTERGUID)_Player)
+AND
+DB_PrivateQuestFlag(_SrcPlayer,_Quest,_QuestFlag)
+THEN
+DB_PrivateQuestFlag(_Player,_Quest,_QuestFlag);
+
+PROC
+ProcShareQuestUpdate((CHARACTERGUID)_SrcPlayer,(STRING)_Quest,(STRING)_QuestFlag,(CHARACTERGUID)_Player)
+AND
+QRY_ShouldShareQuest(_SrcPlayer,_Player,_Quest)
+THEN
+ProcActivateSharedQuest(_Player,_Quest);
+ProcMigrateQuestFlagsFor(_Player,_Quest);
+
+IF
+MysteryUnlocked(_SrcPlayer,_Mystery)
+AND
+DB_MysterPrefixed(_Entry,_Mystery)
+THEN
+DB_MyseryUnlocked(_SrcPlayer,_Entry);
+
+//thank you code for prefixing these
+IF
+DB_Mystery((STRING)_Entry)
+AND
+StringConcatenate("MST_",_Entry,_PrefixedMyst)
+THEN
+DB_MysterPrefixed(_Entry,_PrefixedMyst);
+
+//always share mystery related updates
+QRY
+QRY_ShouldShareQuest((CHARACTERGUID)_SrcPlayer,(CHARACTERGUID)_Player,(STRING)_Quest)
+AND
+DB_Mystery(_Quest)
+AND
+NOT DB_MyseryUnlocked(_Player,_Quest)
+THEN
+DB_MyseryUnlocked(_Player,_Quest);	//for existing saves
+DB_Noop(1);
+
+QRY
+QRY_ShouldShareQuest((CHARACTERGUID)_SrcPlayer,(CHARACTERGUID)_Player,(STRING)_Quest)
+AND
+NOT DB_Mystery(_Quest)
+AND
+QuestAccepted(_SrcPlayer,_Quest,1)
+AND
+QuestAccepted(_Player,_Quest,0)
+THEN
+DB_Noop(1);
+
+PROC
+ProcActivateSharedQuest((CHARACTERGUID)_Player,(STRING)_Quest)
+AND
+NOT DB_Mystery(_Quest)
+THEN
+QuestAdd(_Player,_Quest);
+
+PROC
+ProcShareQuestUpdate((CHARACTERGUID)_SrcPlayer,(STRING)_Quest,(STRING)_QuestFlag,(CHARACTERGUID)_Player)
+AND
+DB_QuestDef_UpdateEvent(_Quest,_QuestState,_QuestFlag)
+AND
+QRY_CanShareUpdate(_SrcPlayer,_Quest,_QuestState)
+THEN
+QuestReceiveSharedUpdate(_SrcPlayer,_Player,_Quest,_QuestState);
+
+QRY
+QRY_CanShareUpdate((CHARACTERGUID)_SrcPlayer,(STRING)_Quest,(STRING)_QuestState)
+AND
+DB_Mystery(_Quest)
+THEN
+DB_Noop(1);
+
+QRY
+QRY_CanShareUpdate((CHARACTERGUID)_SrcPlayer,(STRING)_Quest,(STRING)_QuestState)
+AND
+NOT DB_Mystery(_Quest)
+AND
+QuestHasUpdate(_SrcPlayer,_Quest,_QuestState,1)
+THEN
+DB_Noop(1);
+
+PROC
+ProcShareQuestUpdate((CHARACTERGUID)_SrcPlayer,(STRING)_Quest,(STRING)_QuestFlag,(CHARACTERGUID)_Player)
+AND
+DB_QuestDef_CloseEvent(_Quest,_QuestFlag)
+THEN
+QuestClose(_Player,_Quest);
+
+PROC
+ProcMigrateQuestFlag((CHARACTERGUID)_SrcPlayer,(STRING)_Quest,(STRING)_QuestFlag)
+AND
+QuestIsShared(_SrcPlayer,_Quest,0)
+THEN
+DB_PrivateQuestFlag(_SrcPlayer,_Quest,_QuestFlag);
+ProcSharePrivateFlags(_SrcPlayer,_Quest,_QuestFlag);
+
+PROC
+ProcMigrateQuestFlag((CHARACTERGUID)_SrcPlayer,(STRING)_Quest,(STRING)_QuestFlag)
+AND
+QuestIsShared(_SrcPlayer,_Quest,1)
+THEN
+DB_SharedQuestFlag(_SrcPlayer,_Quest,_QuestFlag);
+ProcShareQuestFlag(_SrcPlayer,_Quest,_QuestFlag);
+
+PROC
+ProcSharePrivateFlags((CHARACTERGUID)_SrcPlayer,(STRING)_Quest,(STRING)_QuestFlag)
+AND
+QuestGetBroadcastLevel(_Quest,"User")
+AND
+CharacterGetReservedUserID(_SrcPlayer,_User)
+AND
+DB_IsPlayer(_Char)
+AND
+_Char != _SrcPlayer
+AND
+CharacterGetReservedUserID(_Char,_User)
+THEN
+DB_PrivateQuestFlag(_Char,_Quest,_QuestFlag);
+ProcShareQuestFlagWith(_SrcPlayer,_Quest,_QuestFlag,_Char);
+
+PROC
+ProcStoreFlagState((CHARACTERGUID)_Player,(STRING)_QuestFlag)
+AND
+ObjectGetFlag(_Player,_Questflag,_State)
+THEN
+DB_TargetQuestFlagState(_Player,_QuestFlag,_State);
+
+//if a quest flag was cleared and we didn't have it set before sharing clear it as well
+//this will make flags couple to inventory events work correctly
+PROC
+ProcVerifyFlagState((CHARACTERGUID)_SrcPlayer,(CHARACTERGUID)_Player,(STRING)_QuestFlag)
+AND
+ObjectGetFlag(_SrcPlayer,_Questflag,0)
+AND
+DB_TargetQuestFlagState(_Player,_QuestFlag,0)
+THEN
+ObjectClearFlag(_Player,_QuestFlag,0);
+
+PROC
+ProcVerifyFlagState((CHARACTERGUID)_SrcPlayer,(CHARACTERGUID)_Player,(STRING)_QuestFlag)
+AND
+ObjectGetFlag(_SrcPlayer,_Questflag,1)
+AND
+DB_HasStoryEvent((ITEMGUID)_Item,_Questflag)
+AND
+NOT QryItemInMagicPockets(_Player,_Item)
+THEN
+ObjectClearFlag(_Player,_QuestFlag,0);
+
+PROC
+ProcVerifyFlagState((CHARACTERGUID)_SrcPlayer,(CHARACTERGUID)_Player,(STRING)_QuestFlag)
+AND
+ObjectGetFlag(_SrcPlayer,_Questflag,1)
+AND
+DB_HasTemplateItem(_Template,_Questflag)
+AND
+NOT QryItemTemplateInMagicPockets(_Player,_Template)
+THEN
+ObjectClearFlag(_Player,_QuestFlag,0);
+
+//TODO: this does not handle events outside of the DB_HasStoryEvent or the TaggedItemTracker
+
+PROC
+ProcVerifyFlagState(_,_Player,_QuestFlag)
+AND
+DB_TargetQuestFlagState(_Player,_QuestFlag,_State)
+THEN
+NOT DB_TargetQuestFlagState(_Player,_QuestFlag,_State);
+//END_REGION
+
+PROC
+ProcSetFlagOnAll((STRING)_Flag)
+AND
+DB_IsPlayer(_Player)
+THEN
+ObjectSetFlag(_Player,_Flag);
+
+//REGION end of region
+
+PROC
+ProcRegionEnded(_Region)
+AND
+DB_QuestDef_CloseAtRegionEnded((STRING)_Quest,(STRING)_Flag,(STRING)_Region)
+AND
+DB_IsPlayer(_Char)
+AND
+QuestAccepted(_Char,_Quest,1)
+THEN
+ObjectSetFlag(_Char,_Flag);
+QuestArchive(_Char,_Quest,1);
+
+PROC
+ProcRegionEnded(_Region)
+AND
+DB_QuestDef_CloseAtRegionEnded_Conditions_FalseGlobalFlag_TrueObjFlag((STRING)_Quest,(STRING)_SetFlag,_Region,(STRING)_GloFlag,(STRING)_ObjFlag)
+AND
+GlobalGetFlag(_GloFlag,0)
+AND
+DB_IsPlayer(_Char)
+AND
+QuestAccepted(_Char,_Quest,1)
+AND
+UserGetFlag(_Char,_ObjFlag,1)
+AND
+ObjectGetFlag(_Char,_SetFlag,0)
+THEN
+ObjectSetFlag(_Char,_SetFlag);
+QuestArchive(_Char,_Quest,1);
+
+PROC
+ProcRegionEnded(_Region)
+AND
+DB_QuestDef_CloseAtRegionEnded_Conditions_FalseGlobalFlag_FalseObjFlag((STRING)_Quest,(STRING)_SetFlag,_Region,(STRING)_GloFlag,(STRING)_ObjFlag)
+AND
+GlobalGetFlag(_GloFlag,0)
+AND
+DB_IsPlayer(_Char)
+AND
+QuestAccepted(_Char,_Quest,1)
+AND
+UserGetFlag(_Char,_ObjFlag,0)
+AND
+ObjectGetFlag(_Char,_SetFlag,0)
+THEN
+ObjectSetFlag(_Char,_SetFlag);
+QuestArchive(_Char,_Quest,1);
+
+
+PROC
+ProcRegionEnded(_Region)
+AND
+DB_QuestDef_CloseAtRegionEnded_Conditions_TrueGlobalFlag_FalseUserFlag((STRING)_Quest,(STRING)_SetFlag,_Region,(STRING)_GloFlag,(STRING)_ObjFlag)
+AND
+GlobalGetFlag(_GloFlag,1)
+AND
+DB_IsPlayer(_Char)
+AND
+QuestAccepted(_Char,_Quest,1)
+AND
+UserGetFlag(_Char,_ObjFlag,0)
+AND
+ObjectGetFlag(_Char,_SetFlag,0)
+THEN
+ObjectSetFlag(_Char,_SetFlag);
+QuestArchive(_Char,_Quest,1);
+
+
+PROC
+ProcRegionEnded(_Region)
+AND
+DB_QuestDef_CloseAtRegionEnded_Condition_FalseGlobalFlag_OrClose((STRING)_Quest,(STRING)_SetFlag,_Region,(STRING)_GlobalFlag)
+AND
+DB_IsPlayer(_Char)
+AND
+QuestAccepted(_Char,_Quest,1)
+AND
+GlobalGetFlag(_GlobalFlag,0)
+THEN
+ObjectSetFlag(_Char,_SetFlag);
+QuestArchive(_Char,_Quest,1);
+
+PROC
+ProcRegionEnded(_Region)
+AND
+DB_QuestDef_CloseAtRegionEnded_Condition_FalseGlobalFlag_OrClose((STRING)_Quest,(STRING)_SetFlag,_Region,(STRING)_GlobalFlag)
+AND
+DB_IsPlayer(_Char)
+AND
+QuestAccepted(_Char,_Quest,1)
+AND
+GlobalGetFlag(_GlobalFlag,1)
+THEN
+QuestClose(_Char,_Quest);
+QuestArchive(_Char,_Quest,1);
+
+PROC
+ProcRegionEnded(_Region)
+AND
+DB_QuestDef_CloseAtRegionEnded_Condition_FalseGlobalFlag((STRING)_Quest,(STRING)_SetFlag,_Region,(STRING)_GlobalFlag)
+AND
+DB_IsPlayer(_Char)
+AND
+QuestAccepted(_Char,_Quest,1)
+AND
+GlobalGetFlag(_GlobalFlag,0)
+THEN
+ObjectSetFlag(_Char,_SetFlag);
+QuestArchive(_Char,_Quest,1);
+
+PROC
+ProcRegionEnded(_Region)
+AND
+DB_QuestDef_CloseAtRegionEnded_Condition_TrueGlobalFlag((STRING)_Quest,(STRING)_SetFlag,_Region,(STRING)_GlobalFlag)
+AND
+DB_IsPlayer(_Char)
+AND
+QuestAccepted(_Char,_Quest,1)
+AND
+GlobalGetFlag(_GlobalFlag,1)
+THEN
+ObjectSetFlag(_Char,_SetFlag);
+QuestArchive(_Char,_Quest,1);
+
+
+PROC
+ProcRegionEnded(_Region)
+AND
+DB_QuestDef_CloseAtRegionEnded_Conditions_FalseObjFlag((STRING)_Quest,(STRING)_SetFlag,_Region,(STRING)_ObjFlag)
+AND
+DB_IsPlayer(_Char)
+AND
+QuestAccepted(_Char,_Quest,1)
+AND
+UserGetFlag(_Char,_ObjFlag,0)
+AND
+ObjectGetFlag(_Char,_SetFlag,0)
+THEN
+ObjectSetFlag(_Char,_SetFlag);
+QuestArchive(_Char,_Quest,1);
+
+PROC
+ProcRegionEnded(_Region)
+AND
+DB_QuestDef_CloseAtRegionEnded_Conditions_FalseObjFlag_OrClose((STRING)_Quest,(STRING)_SetFlag,_Region,(STRING)_ObjFlag)
+AND
+DB_IsPlayer(_Char)
+AND
+QuestAccepted(_Char,_Quest,1)
+AND
+UserGetFlag(_Char,_ObjFlag,0)
+AND
+ObjectGetFlag(_Char,_SetFlag,0)
+THEN
+ObjectSetFlag(_Char,_SetFlag);
+QuestArchive(_Char,_Quest,1);
+
+PROC
+ProcRegionEnded(_Region)
+AND
+DB_QuestDef_CloseAtRegionEnded_Conditions_FalseObjFlag_OrClose((STRING)_Quest,(STRING)_SetFlag,_Region,(STRING)_ObjFlag)
+AND
+DB_IsPlayer(_Char)
+AND
+QuestAccepted(_Char,_Quest,1)
+AND
+UserGetFlag(_Char,_ObjFlag,1)
+THEN
+QuestClose(_Char,_Quest);
+QuestArchive(_Char,_Quest,1);
+
+PROC
+ProcRegionEnded(_Region)
+AND
+DB_QuestDef_CloseAtRegionEnded_Conditions_TrueObjFlag((STRING)_Quest,(STRING)_SetFlag,_Region,(STRING)_ObjFlag)
+AND
+DB_IsPlayer(_Char)
+AND
+QuestAccepted(_Char,_Quest,1)
+AND
+UserGetFlag(_Char,_ObjFlag,1)
+AND
+ObjectGetFlag(_Char,_SetFlag,0)
+THEN
+ObjectSetFlag(_Char,_SetFlag);
+QuestArchive(_Char,_Quest,1);
+
+PROC
+ProcRegionEnded(_Region)
+AND
+DB_QuestDef_CloseAtRegionEnded_Conditions_FalseObjFlag_TrueObjFlag((STRING)_Quest,(STRING)_SetFlag,_Region,(STRING)_FalseObjFlag,(STRING)_TrueObjFlag)
+AND
+DB_IsPlayer(_Char)
+AND
+QuestAccepted(_Char,_Quest,1)
+AND
+UserGetFlag(_Char,_FalseObjFlag,0)
+AND
+UserGetFlag(_Char,_TrueObjFlag,1)
+AND
+ObjectGetFlag(_Char,_SetFlag,0)
+THEN
+ObjectSetFlag(_Char,_SetFlag);
+QuestArchive(_Char,_Quest,1);
+
+
+PROC
+ProcRegionEnded(_Region)
+AND
+DB_QuestDef_CloseAtRegionEnded_Conditions_FalseObjFlag_FalseObjFlag((STRING)_Quest,(STRING)_SetFlag,_Region,(STRING)_FalseObjFlag1,(STRING)_FalseObjFlag2)
+AND
+DB_IsPlayer(_Char)
+AND
+QuestAccepted(_Char,_Quest,1)
+AND
+UserGetFlag(_Char,_FalseObjFlag1,0)
+AND
+UserGetFlag(_Char,_FalseObjFlag2,0)
+AND
+ObjectGetFlag(_Char,_SetFlag,0)
+THEN
+ObjectSetFlag(_Char,_SetFlag);
+QuestArchive(_Char,_Quest,1);
+
+//END_REGION
+
+//REGION set category on region started
+
+PROC
+ProcRegionStarted((STRING)_Region)
+AND
+DB_RegionQuestCategory(_Region,(STRING)_Category)
+AND
+DB_RegionQuestCategory_Swapped((STRING)_Quest)
+THEN
+ProcQuestSetCategory(_Quest,_Category);
+
+
+PROC
+ProcQuestSetCategory((STRING)_Quest,(STRING)_Category)
+AND
+DB_IsPlayer(_Char)
+AND
+QuestIsClosed(_Char,_Quest,0)
+THEN
+QuestSetCategory(_Quest,_Category);
+ProcQuestCategorySet(_Quest,_Category,_Char);
+
+
+PROC
+ProcQuestCategorySet((STRING)_Quest,(STRING)_Category,(CHARACTERGUID)_Char)
+THEN
+DB_NOOP(1);
+
+//END_REGION
+
+//REGION QuestReward
+
+IF
+ObjectFlagSet(_Flag,(CHARACTERGUID)_Player,_Inst)
+AND
+DB_IsPlayer(_Player)
+AND
+DB_QuestDef_QuestReward((STRING)_Quest,(STRING)_RewardState,_Flag)
+AND
+QuestAccepted(_Player,_Quest,1)
+AND
+_Inst != 0
+THEN
+DB_GiveQuestRewardAfterDialog(_Player,_Quest,_RewardState,_Inst);
+
+IF
+DialogEnded(_,_Inst)
+AND
+DB_GiveQuestRewardAfterDialog(_Player,_Quest,_RewardState,_Inst)
+THEN
+ProcGiveQuestReward(_Player,_Quest,_RewardState);
+NOT DB_GiveQuestRewardAfterDialog(_Player,_Quest,_RewardState,_Inst);
+
+PROC
+ProcGiveQuestReward((CHARACTERGUID)_Player,(STRING)_Quest,(STRING)_RewardState)
+AND
+NOT DB_QuestRewardGiven(_Player,_Quest,_RewardState)
+THEN
+CharacterGiveQuestReward(_Player,_Quest,_RewardState);
+ProcMarkPartyAsGivenReward(_Player,_Quest,_RewardState);
+
+PROC
+ProcMarkPartyAsGivenReward((CHARACTERGUID)_Player,(STRING)_Quest,(STRING)_RewardState)
+AND
+DB_IsPlayer(_OtherPlayer)
+AND
+CharacterIsInPartyWith(_Player,_OtherPlayer,1)
+THEN
+DB_QuestRewardGiven(_OtherPlayer,_Quest,_RewardState);
+
+//END_REGION
+
+//REGION Journal Dependencies
+// DB_JDF_QuestLinkedFlag((STRING)_JDFLinkedFlag,(STRING)_QuestUpdateFlag);
+// DB_JDF_Dependencies((STRING)_LinkedFlagPremise,(STRING)_LinkFlagConclusion);
+// DB_JDF_CyclicCheck((STRING)_JDFFlag);
+
+//REGION This proc is everything you need to use
+
+// Requirements:
+//   _Quest: name of the quest (e.g. "TUT_ShipMurder")
+//   _QuestFlagCondition: name of a quest state of _Quest (e.g. "Weapons_Found"); never an update flag!
+//   _QuestFlagConclusion: name of a quest state of _Quest (e.g. "MiddleDeckCarnage"); never an update flag!
+// Usage:
+//   If you want to make sure that the "MiddleDeckCarnage" update can only be shown after
+//   the "Weapons_Found" update has been unlocked, then
+//  1) call
+//       Proc_JDF_CreateDependency("TUT_ShipMurder", "Weapons_Found", "MiddleDeckCarnage")
+//     This will define the following flags:
+//       JDF_TUT_ShipMurder_Weapons_Found
+//       JDF_TUT_ShipMurder_MiddleDeckCarnage
+//  3) When you want to unlock either the "Weapons_Found" or the "MiddleDeckCarnage" quest update,
+//     use the JDF_* flags above instead. The JDF logic will set the corresponding QuestUpdate_*
+//     flag when all dependencies are fulfilled 
+//  4) You can chain dependencies by calling Proc_JDF_CreateDependency with a quest 
+//
+// Example:
+//  1) If you only have the above Proc_JDF_CreateDependency call, then
+//    * set JDF_TUT_ShipMurder_Weapons_Found -> set QuestUpdate_TUT_ShipMurder_Weapons_Found
+//    * set JDF_TUT_ShipMurder_MiddleDeckCarnage and JDF_TUT_ShipMurder_Weapons_Found (in either order) ->
+//        set QuestUpdate_TUT_ShipMurder_MiddleDeckCarnage
+//  2) If, in addition to the Proc_JDF_CreateDependency call above, there's also a 
+//       Proc_JDF_CreateDependency("TUT_ShipMurder", "AfterWindego", "Weapons_Found"), then
+//    * set JDF_TUT_ShipMurder_AfterWindego -> Set QuestUpdate_TUT_ShipMurder_AfterWindego
+//    * set JDF_TUT_ShipMurder_Weapons_Found and JDF_TUT_ShipMurder_AfterWindego (in either order) ->
+//        set QuestUpdate_TUT_ShipMurder_Weapons_Found
+//    * set JDF_TUT_ShipMurder_MiddleDeckCarnage, JDF_TUT_ShipMurder_AfterWindego and JDF_TUT_ShipMurder_Weapons_Found
+//        (in any order) -> set QuestUpdate_TUT_ShipMurder_MiddleDeckCarnage
+PROC
+Proc_JDF_CreateDependency((STRING)_Quest,(STRING)_QuestFlagCondition,(STRING)_QuestFlagConclusion)
+AND
+StringConcatenate(_Quest,"_",_QuestUnderline)
+AND
+StringConcatenate("QuestUpdate_",_QuestUnderline,_QuestStr)
+AND
+StringConcatenate("JDF_",_QuestUnderline,_JDFStr)
+AND
+StringConcatenate(_JDFStr,_QuestFlagCondition,_PremiseJDFLink)
+AND
+StringConcatenate(_QuestStr,_QuestFlagCondition,_PremiseQuestLink)
+AND
+StringConcatenate(_JDFStr,_QuestFlagConclusion,_ConclusionJDFLink)
+AND
+StringConcatenate(_QuestStr,_QuestFlagConclusion,_ConclusionQuestLink)
+THEN
+DB_JDF_QuestLinkedFlag(_PremiseJDFLink,_PremiseQuestLink);
+DB_JDF_QuestLinkedFlag(_ConclusionJDFLink,_ConclusionQuestLink);
+DB_JDF_Dependencies(_PremiseJDFLink,_ConclusionJDFLink);
+
+// Proc to define dependencies for quest updates that are unlocked via custom flags.
+//   Proc_JDF_CreateDependency("TUT_ShipMurder","AfterWindego","Weapons_Found")
+// corresponds to
+//   Proc_JDF_CreateCustomFlagsDependency(
+//     "JDF_TUT_ShipMurder_AfterWindego", "QuestUpdate_TUT_ShipMurder_AfterWindego",
+//     "JDF_TUT_ShipMurder_Weapons_Found", "QuestUpdate_TUT_ShipMurder_Weapons_Found");
+// Hence, if a quest update gets unlocked by a custom flag that is not of the form
+// QuestUpdate_QuestName_QuestState, you can replace the second and/or fourth parameter
+// with this flag. You will still have to make sure that your JDF/Link flags get set
+// instead of the original quest update flag.
+PROC
+Proc_JDF_CreateCustomFlagsDependency((STRING)_RequiredLinkFlag,(STRING)_RequiredQuestFlag,(STRING)_UpdateLinkFlag,(STRING)_UpdateQuestFlag)
+THEN
+DB_JDF_QuestLinkedFlag(_RequiredLinkFlag,_RequiredQuestFlag);
+DB_JDF_QuestLinkedFlag(_UpdateLinkFlag,_UpdateQuestFlag);
+DB_JDF_Dependencies(_RequiredLinkFlag,_UpdateLinkFlag);
+
+
+// Proc/hack to define dependencies for quest updates that are unlocked via custom flags without using
+// intermediate JDF flags.
+// If the _UpdateAttemptFlag is set and the character has the _RequiredFlag (or vice versa), the _UpdateFlag is set.
+//
+//   Proc_JDF_CreateCustomFlagsDependency(_RequiredFlag,_UpdateAttemptFlag,_UpdateFlag)
+//  corresponds to
+//   Proc_JDF_CreateCustomFlagsDependency(_RequiredFlag, _RequiredFlag, _UpdateAttemptFlag, _UpdateFlag);
+// I.e., the quest update flag of the condition (_RequiredFlag) doubles as the dependency chain flag. This means
+// you don't have to define an additional flag.
+//
+// Warning: since this creates a dependency chain if RequiredFlag is used as UpdateAttemptFlag for another quest update,
+//   since RequiredFlag is now also dependency checking flag
+PROC
+Proc_JDF_CreateCustomFlagsDependency((STRING)_RequiredFlag,(STRING)_UpdateAttemptFlag,(STRING)_UpdateFlag)
+THEN
+Proc_JDF_CreateCustomFlagsDependency(_RequiredFlag, _RequiredFlag, _UpdateAttemptFlag, _UpdateFlag);
+
+//END_REGION
+
+//REGION Share all of the JDF flags
+IF
+DB_JDF_QuestLinkedFlag(_LinkFlag, _)
+AND
+NOT DB_QuestDef_UpdateEvent(_, _, _LinkFlag)
+THEN
+DB_SharedQuestLessFlag(_LinkFlag);
+//END_REGION
+
+//REGION Check if preconditions are met
+QRY
+QRY_JDF_PremiseMet((GUIDSTRING)_Target,(STRING)_LinkedFlag)
+AND
+DB_JDF_Dependencies((STRING)_LinkedFlagPremise,(STRING)_LinkedFlag)
+AND
+ObjectGetFlag(_Target,_LinkedFlagPremise,1)
+THEN
+DB_NOOP(1);
+
+QRY
+QRY_JDF_PremiseMet((GUIDSTRING)_Target,(STRING)_LinkedFlag)
+AND
+NOT DB_JDF_Dependencies(_,(STRING)_LinkedFlag)
+THEN
+DB_NOOP(1);
+
+
+// Check if this flag should cause a quest flag setting
+PROC
+Proc_JDF_CheckDependencies((GUIDSTRING)_Target,(STRING)_LinkedFlag)
+AND
+ObjectGetFlag(_Target,_LinkedFlag,1)
+AND
+QRY_JDF_PremiseMet(_Target,_LinkedFlag)
+THEN
+Proc_JDF_DependenciesMet(_Target,_LinkedFlag);
+
+// Dependencies met, set the quest  flag
+PROC
+Proc_JDF_DependenciesMet((GUIDSTRING)_Target,(STRING)_LinkedFlag)
+AND
+DB_JDF_QuestLinkedFlag(_LinkedFlag,(STRING)_QuestFlag)
+THEN
+ObjectSetFlag(_Target,_QuestFlag);
+
+// Run cascade reaction to check everything along the implication sequence
+PROC
+Proc_JDF_DependenciesMet((GUIDSTRING)_Target,(STRING)_LinkedFlag)
+AND
+DB_JDF_Dependencies(_LinkedFlag,(STRING)_LinkedFlagConclusion)
+THEN
+Proc_JDF_CheckDependencies(_Target,_LinkedFlagConclusion);
+
+IF
+ObjectFlagSet(_Flag,_Target,_)
+AND
+DB_JDF_QuestLinkedFlag(_Flag,_)
+THEN
+Proc_JDF_CheckDependencies(_Target,_Flag);
+
+IF
+ObjectFlagShared(_Flag, _Target, _)
+AND
+DB_JDF_QuestLinkedFlag(_Flag,_)
+THEN
+Proc_JDF_CheckDependencies(_Target,_Flag);
+//END_REGION
+
+//REGION Protection from cyclic dependencies
+IF
+DB_JDF_Dependencies(_FlagPremise,_FlagConclusion)
+THEN
+SysClear("DB_JDF_CyclicCheck",1);
+Proc_JDF_CycleProtection(_FlagPremise);
+
+PROC
+Proc_JDF_CycleProtection((STRING)_FlagPremise)
+AND
+DB_JDF_Dependencies(_FlagPremise,_FlagConclusion)
+AND
+DB_JDF_CyclicCheck(_FlagPremise)
+AND
+StringConcatenate("CRITICAL: Cyclic dependency in JDF found including flag: ",_FlagPremise,_Text)
+THEN
+DebugBreak(_Text);
+
+PROC
+Proc_JDF_CycleProtection((STRING)_FlagPremise)
+AND
+DB_JDF_Dependencies(_FlagPremise,_FlagConclusion)
+AND
+NOT DB_JDF_CyclicCheck(_FlagPremise)
+THEN
+DB_JDF_CyclicCheck(_FlagPremise);
+Proc_JDF_CycleProtection(_FlagConclusion);
+//END_REGION
+
+//END_REGION
+
+//REGION Helpers to clear existing journal entries
+PROC
+PROC_JournalEntries_ClearQuestState((STRING)_Quest, (STRING)_State)
+THEN
+PROC_JournalEntries_ClearQuestUpdateEvent(_Quest, _State, "");
+
+PROC
+PROC_JournalEntries_ClearQuestUpdateEvent((STRING)_Quest, (STRING)_State, (STRING)_UpdateEvent)
+AND
+DB_QuestDef_State(_Quest, _State, _Action)
+THEN
+NOT DB_QuestDef_State(_Quest, _State, _Action);
+
+PROC
+PROC_JournalEntries_ClearQuestUpdateEvent((STRING)_Quest, (STRING)_State, (STRING)_UpdateEvent)
+AND
+DB_QuestDef_State(_Quest, _State)
+THEN
+NOT DB_QuestDef_State(_Quest, _State);
+
+PROC
+PROC_JournalEntries_ClearQuestUpdateEvent((STRING)_Quest, (STRING)_State, (STRING)_UpdateEvent)
+AND
+_UpdateEvent != ""
+THEN
+NOT DB_QuestDef_CloseEvent(_Quest, _UpdateEvent);
+NOT DB_QuestDef_AddEvent(_Quest, _UpdateEvent);
+NOT DB_QuestDef_UpdateEvent(_Quest, _State, _UpdateEvent);
+
+// Even with a custom event, the standard event may have been defined
+// (e.g. if you first define an add event and then a custom update event with the same state)
+PROC
+PROC_JournalEntries_ClearQuestUpdateEvent((STRING)_Quest, (STRING)_State, (STRING)_UpdateEvent)
+AND
+StringConcatenate("QuestUpdate_", _Quest, _Intermediate1)
+AND
+StringConcatenate(_Intermediate1, "_", _Intermediate2)
+AND
+StringConcatenate(_Intermediate2, _State, _StandardUpdateEvent)
+THEN
+NOT DB_QuestDef_CloseEvent(_Quest, _StandardUpdateEvent);
+NOT DB_QuestDef_AddEvent(_Quest, _StandardUpdateEvent);
+NOT DB_QuestDef_UpdateEvent(_Quest, _State, _StandardUpdateEvent);
+//END_REGION
+EXITSECTION
+
+ENDEXITSECTION

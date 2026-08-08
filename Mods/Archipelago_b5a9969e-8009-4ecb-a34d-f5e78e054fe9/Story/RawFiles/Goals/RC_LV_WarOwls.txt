@@ -1,0 +1,94 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+// NPC - event to set to fetch her (empty -> handle internally) - event set on her when ready to teleport - state once on LV
+DB_RC_LV_WarOwlFetchInfo((CHARACTERGUID)CHARACTERGUID_S_GLO_River_f4931ebe-10b0-43c4-9182-640cf052717e,"RC_LV_FetchingByWarOwlToLadyVengeance","State_LV_OnLadyVengeance");
+KBSECTION
+// Stub, and currently used both for fetching by war owl and regular fetching. Needs to be
+// refactored in case we want to send actual war owls in some cases
+PROC
+PROC_RC_LV_FetchByWarOwl((CHARACTERGUID)_Char,(GUIDSTRING)_Target,(STRING)_Event)
+AND
+CharacterIsInCombat(_Char,1)
+THEN
+LeaveCombat(_Char);
+
+// Character is on stage and there's an event we can send to the character -> let the scripting
+// for the situation where this character is located, handle transfering them back here.
+PROC
+PROC_RC_LV_FetchByWarOwl((CHARACTERGUID)_Char,(GUIDSTRING)_Target,(STRING)_Event)
+AND
+DB_RC_LV_WarOwlFetchInfo(_Char,_FetchEvent,_)
+AND
+_FetchEvent != ""
+AND
+ObjectIsOnStage(_Char,1)
+THEN
+DB_RC_LV_FetchByWarOwlHandled(_Char);
+DB_RC_LV_FetchingByWarOwl(_Char,_Target,_Event);
+SetStoryEvent(_Char,_FetchEvent);
+
+// Character is off-stage -> we handle the teleporting
+PROC
+PROC_RC_LV_FetchByWarOwl((CHARACTERGUID)_Char,(GUIDSTRING)_Target,(STRING)_Event)
+AND
+NOT DB_RC_LV_FetchByWarOwlHandled(_Char)
+THEN
+PROC_RC_LV_FetchByWarOwl_Internal(_Char,_Target,_Event);
+
+PROC
+PROC_RC_LV_FetchByWarOwl((CHARACTERGUID)_Char,(GUIDSTRING)_Target,(STRING)_Event)
+THEN
+NOT DB_RC_LV_FetchByWarOwlHandled(_Char);
+
+// In case no event is defined to fetch the character, we have to handle the fetching
+// ourselves even if the character is on-stage
+PROC
+PROC_RC_LV_FetchByWarOwl_Internal((CHARACTERGUID)_Char,(GUIDSTRING)_Target,(STRING)_Event)
+AND
+ObjectIsOnStage(_Char,1)
+THEN
+ProcForceStopDialog(_Char);
+Poof(_Char);
+
+PROC
+PROC_RC_LV_FetchByWarOwl_Internal((CHARACTERGUID)_Char,(GUIDSTRING)_Target,(STRING)_Event)
+THEN
+DB_RC_LV_FetchingByWarOwl(_Char,_Target,_Event);
+SetStoryEvent(_Char,"RC_LV_FetchedByWarOwlToLadyVengeance");
+SetStoryEvent(_Char,"RC_LV_FetchedByWarOwlToLadyVengeance");
+
+IF
+StoryEvent((CHARACTERGUID)_Char,"RC_LV_FetchedByWarOwlToLadyVengeance")
+AND
+DB_RC_LV_FetchingByWarOwl(_Char,_Target,_Event)
+THEN
+// Don't set her on stage here, that is done by the code that called us
+TeleportTo(_Char,_Target,"RC_LV_FetchedByWarOwlToLadyVengeance",0);
+
+IF
+StoryEvent((CHARACTERGUID)_Char,"RC_LV_FetchedByWarOwlToLadyVengeance")
+AND
+DB_RC_LV_WarOwlFetchInfo(_Char,_,_State)
+AND
+_State != ""
+THEN
+SetVarFixedString(_Char,"currentState",_State);
+
+IF
+StoryEvent((CHARACTERGUID)_Char,"RC_LV_FetchedByWarOwlToLadyVengeance")
+AND
+DB_RC_LV_FetchingByWarOwl(_Char,_Target,_Event)
+THEN
+NOT DB_RC_LV_FetchingByWarOwl(_Char,_Target,_Event);
+SetStoryEvent(_Char,_Event);
+
+PROC
+ProcRegionEnded("RC_Main")
+THEN
+//GoalCompleted;
+DB_NOOP(1);
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "ReapersCoast"

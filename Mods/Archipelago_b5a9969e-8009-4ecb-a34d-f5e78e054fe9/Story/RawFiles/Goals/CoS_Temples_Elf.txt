@@ -275,7 +275,8 @@ ObjectSetFlag(_Player,"CoS_EnteredTheLizardTemple");
 PROC
 ProcRegionEnded("CoS_Main")
 THEN
-GoalCompleted;
+//GoalCompleted;
+DB_NOOP(1);
 
 
 EXITSECTION

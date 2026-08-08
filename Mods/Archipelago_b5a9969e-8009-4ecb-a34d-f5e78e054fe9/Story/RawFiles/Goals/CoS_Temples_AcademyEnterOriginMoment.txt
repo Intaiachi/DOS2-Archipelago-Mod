@@ -1,0 +1,672 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+DB_AcademyEnter_OriginMoment((CHARACTERGUID)CHARACTERGUID_S_Player_RedPrince_a26a1efb-cdc8-4cf3-a7b2-b2f9544add6f,"CoS_Origins_EnteringTheAcademy_RedPrince");
+DB_AcademyEnter_OriginMoment(CHARACTERGUID_S_Player_Sebille_c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c,"CoS_Origins_EnteringTheAcademy_Sebille");
+DB_AcademyEnter_OriginMoment(CHARACTERGUID_S_Player_Beast_f25ca124-a4d2-427b-af62-df66df41a978,"CoS_Origins_EnteringTheAcademy_Beast");
+DB_AcademyEnter_OriginMoment(CHARACTERGUID_S_Player_Ifan_ad9a3327-4456-42a7-9bf4-7ad60cc9e54f,"CoS_Origins_EnteringTheAcademy_Ifan");
+DB_AcademyEnter_OriginMoment(CHARACTERGUID_S_Player_Lohse_bb932b13-8ebf-4ab4-aac0-83e6924e4295,"CoS_Origins_EnteringTheAcademy_Lohse");
+DB_AcademyEnter_OriginMoment(CHARACTERGUID_S_Player_Fane_02a77f1f-872b-49ca-91ab-32098c443beb,"CoS_Origins_EnteringTheAcademy_Fane");
+//order matters here
+DB_AcademyEnter_OriginMoment(CHARACTERGUID_S_Player_Fane_02a77f1f-872b-49ca-91ab-32098c443beb,"CoS_Academy_SentientVoidwoken_COM_Fane");
+
+DB_CoS_EntrancesToAcademy(ITEMGUID_S_CoS_Temples_LunarPuzzle_StairsToAcademy_5de6dc48-1b07-4273-82f4-8eaed0bebf90);
+DB_CoS_EntrancesToAcademy(ITEMGUID_S_CoS_Temples_SecretEntranceToAcademy_06f8de74-ab24-4bf5-aba2-61d2c831302d);
+
+
+DB_CompanionRejoinUpdates(CHARACTERGUID_S_Player_Beast_f25ca124-a4d2-427b-af62-df66df41a978,"QuestUpdate_FTJ_COM_Beast_COS_Allowed");
+DB_CompanionRejoinUpdates(CHARACTERGUID_S_Player_Ifan_ad9a3327-4456-42a7-9bf4-7ad60cc9e54f,"QuestUpdate_FTJ_COM_Ifan_COS_Allowed");
+DB_CompanionRejoinUpdates(CHARACTERGUID_S_Player_Sebille_c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c,"QuestUpdate_FTJ_COM_Sebille_COS_Allowed");
+DB_CompanionRejoinUpdates(CHARACTERGUID_S_Player_RedPrince_a26a1efb-cdc8-4cf3-a7b2-b2f9544add6f,"QuestUpdate_FTJ_COM_RedPrince_COS_Allowed");
+DB_CompanionRejoinUpdates(CHARACTERGUID_S_Player_Lohse_bb932b13-8ebf-4ab4-aac0-83e6924e4295,"QuestUpdate_FTJ_COM_Lohse_COS_Allowed");
+DB_CompanionRejoinUpdates(CHARACTERGUID_S_Player_Fane_02a77f1f-872b-49ca-91ab-32098c443beb,"QuestUpdate_FTJ_COM_Fane_COS_Allowed");
+
+
+DB_CompanionSubmitUpdates(CHARACTERGUID_S_Player_Beast_f25ca124-a4d2-427b-af62-df66df41a978,"QuestUpdate_FTJ_COM_Beast_COS_Submitted");
+DB_CompanionSubmitUpdates(CHARACTERGUID_S_Player_Ifan_ad9a3327-4456-42a7-9bf4-7ad60cc9e54f,"QuestUpdate_FTJ_COM_Ifan_COS_Submitted");
+DB_CompanionSubmitUpdates(CHARACTERGUID_S_Player_Sebille_c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c,"QuestUpdate_FTJ_COM_Sebille_COS_Submitted");
+DB_CompanionSubmitUpdates(CHARACTERGUID_S_Player_RedPrince_a26a1efb-cdc8-4cf3-a7b2-b2f9544add6f,"FTJ_COM_RedPrince_COS_Submitted");
+DB_CompanionSubmitUpdates(CHARACTERGUID_S_Player_Lohse_bb932b13-8ebf-4ab4-aac0-83e6924e4295,"QuestUpdate_FTJ_COM_Lohse_COS_Submitted");
+DB_CompanionSubmitUpdates(CHARACTERGUID_S_Player_Fane_02a77f1f-872b-49ca-91ab-32098c443beb,"QuestUpdate_FTJ_COM_Fane_COS_Submitted");
+
+KBSECTION
+//REGION Start Event
+
+PROC
+ProcBlockUseOfItem(_Player,_EntranceToAcademy)
+AND
+DB_CoS_EntrancesToAcademy(_EntranceToAcademy)
+AND
+DB_CoS_EnterAcademy_HasDoneEvent(_Player)
+THEN
+ProcCoSUnlinkCompanions(_Player);
+
+PROC
+ProcBlockUseOfItem(_Player,_EntranceToAcademy)
+AND
+DB_CoS_EntrancesToAcademy(_EntranceToAcademy)
+AND
+NOT DB_CoS_EnterAcademy_HasDoneEvent(_Player)
+THEN
+DB_CustomUseItemResponse(_Player,_EntranceToAcademy,0);
+Proc_CoS_AcademyEnterMoment_Start_Check(_Player);
+
+
+PROC
+ProcCoSUnlinkCompanions((CHARACTERGUID)_Avatar)
+AND
+DB_GLO_PartyMembers_RecruiteeAvatarBond(_Companion,(CHARACTERGUID)_Avatar)
+AND
+DB_Dead(_Companion)
+THEN
+CharacterDetachFromGroup(_Companion);
+
+
+PROC
+ProcCoSUnlinkCompanions((CHARACTERGUID)_Avatar)
+AND
+DB_MovingTo(_Companion,_Avatar,_,_)
+THEN
+ProcClearStoryMove(_Companion);
+
+//Fallback for characters who entered the Academy somehow without doing the event
+IF
+CharacterEnteredTrigger((CHARACTERGUID)_Player,TRIGGERGUID_S_CoS_SUB_Academy_51ddb828-18a6-4b6e-9f5a-e2b2883862e1)
+AND
+NOT DB_CoS_EnterAcademy_HasDoneEvent(_Player)
+AND
+CharacterIsDead(_Player,0)
+THEN
+Proc_CoS_AcademyEnterMoment_Start_Check(_Player);
+
+//Avatars
+PROC
+Proc_CoS_AcademyEnterMoment_Start_Check((CHARACTERGUID)_Avatar)
+AND
+DB_Avatars(_Avatar)
+THEN
+Proc_CoS_AcademyEnterMoment_Start(_Avatar);
+
+PROC
+Proc_CoS_AcademyEnterMoment_Start_Check((CHARACTERGUID)_Companion)
+AND
+DB_GLO_PartyMembers_RecruiteeAvatarBond(_Companion,(CHARACTERGUID)_Avatar)
+AND
+CharacterIsDead(_Avatar,0)
+AND
+IsTagged(_Companion,"HENCHMAN",0)
+THEN
+Proc_CoS_AcademyEnterMoment_Start(_Companion);
+Proc_CoS_Origins_EnteringTheAcademy_AvatarDialog(_Avatar);
+
+PROC
+Proc_CoS_Origins_EnteringTheAcademy_AvatarDialog((CHARACTERGUID)_Avatar)
+AND
+NOT DB_CoS_Origins_EnteringTheAcademy_AvatarDialog_Completed(_Avatar)
+THEN
+Proc_StartDialog(0,"CoS_Origins_EnteringTheAcademy_Avatar",_Avatar);
+DB_CoS_Origins_EnteringTheAcademy_AvatarDialog_Completed(_Avatar);
+
+//Henchmen exclusion
+PROC
+Proc_CoS_AcademyEnterMoment_Start_Check((CHARACTERGUID)_Companion)
+AND
+DB_GLO_PartyMembers_RecruiteeAvatarBond(_Companion,(CHARACTERGUID)_Avatar)
+AND
+CharacterIsDead(_Avatar,0)
+AND
+IsTagged(_Companion,"HENCHMAN",1)
+AND
+NOT DB_CoS_EnterAcademy_HasDoneEvent(_Companion) 
+THEN
+DB_CoS_EnterAcademy_HasDoneEvent(_Companion);
+
+
+//If my Avatar is dead, Do AD, block start
+PROC
+Proc_CoS_AcademyEnterMoment_Start_Check((CHARACTERGUID)_Companion)
+AND
+DB_GLO_PartyMembers_RecruiteeAvatarBond(_Companion,(CHARACTERGUID)_Avatar)
+AND
+CharacterIsDead(_Avatar,1)
+THEN
+Proc_StartDialog(1,"CoS_Origins_AD_EnteringTheAcademy_AvatarIsDead",_Companion);
+
+
+//END_REGION
+
+
+//REGION Unrecruited companions on the LV show up DOSTWO-26071
+//if companion, find avatar
+PROC
+Proc_CoS_AcademyEnterMoment_Start((CHARACTERGUID)_Companion)
+AND
+IsTagged(_Companion,"COMPANION",1)
+AND
+IsTagged(_Companion,"AVATAR",0)
+AND
+DB_GLO_PartyMembers_RecruiteeAvatarBond(_Companion,(CHARACTERGUID)_Avatar)
+THEN
+Proc_CoS_AcademyEnterMoment_UnrecruitedCompanionMoveTo(_Avatar);
+
+//if avatar, pass through avatar
+PROC
+Proc_CoS_AcademyEnterMoment_Start((CHARACTERGUID)_Avatar)
+AND
+IsTagged(_Avatar,"AVATAR",1)
+THEN
+Proc_CoS_AcademyEnterMoment_UnrecruitedCompanionMoveTo(_Avatar);
+
+//Check all unrecruited companions then teleport + move
+PROC
+Proc_CoS_AcademyEnterMoment_UnrecruitedCompanionMoveTo((CHARACTERGUID)_Avatar)
+AND
+DB_OriginRecruitmentDialog(_Companion,_)
+AND
+IsTagged(_Companion,"COMPANION",1)
+AND
+IsTagged(_Companion,"HENCHMAN",0)
+AND
+IsTagged(_Companion,"AVATAR",0)
+AND
+NOT DB_GLO_PartyMembers_RecruiteeAvatarBond((CHARACTERGUID)_Companion,_)
+AND
+NOT DB_CoS_EnterAcademy_HasDoneEvent(_Companion)
+THEN
+Proc_CoS_AcademyEnterMoment_TeleportToPlayer(_Companion,_Avatar);
+
+
+
+//END_REGION
+
+
+//Any unrecruited Companions must be subject to this event as soon as the first one starts
+PROC
+Proc_CoS_AcademyEnterMoment_Start(_)
+AND
+DB_OriginRecruitmentDialog(_Origin,_)
+AND
+NOT DB_IsPlayer(_Origin)
+AND
+GetRegion(_Origin,_Region) //Note to self, isdead check may be required?
+AND
+_Region == "CoS_Main"
+AND
+NOT DB_CoS_EnterAcademy_HasDoneEvent(_Origin) 
+AND
+NOT DB_CoS_SwornExCompanion(_Origin)
+THEN
+Proc_CoS_AcademyEnterMoment_RemoveFromParty((CHARACTERGUID)_Origin);
+
+
+//If Companion uses the door, remove from party
+PROC
+Proc_CoS_AcademyEnterMoment_Start((CHARACTERGUID)_Companion)
+AND
+DB_GLO_PartyMembers_RecruiteeAvatarBond(_Companion,(CHARACTERGUID)_Avatar)
+AND
+NOT DB_CoS_EnterAcademy_HasDoneEvent(_Companion)
+THEN
+Proc_CoS_CheckCompanionTeleport(_Avatar,_Companion);
+
+PROC
+Proc_CoS_CheckCompanionTeleport((CHARACTERGUID)_Avatar, (CHARACTERGUID)_Companion)
+AND
+CharacterIsDead(_Companion,1)
+THEN
+CharacterDetachFromGroup(_Companion);
+
+PROC
+Proc_CoS_CheckCompanionTeleport((CHARACTERGUID)_Avatar, (CHARACTERGUID)_Companion)
+AND
+CharacterIsDead(_Companion,0)
+THEN
+TeleportTo(_Avatar,_Companion,"CoS_AcademyEnterMoment_Start",1);
+
+//Fallback, if Avatar did the event, but the Companion did not
+PROC
+Proc_CoS_AcademyEnterMoment_Start((CHARACTERGUID)_Companion)
+AND
+DB_GLO_PartyMembers_RecruiteeAvatarBond(_Companion,(CHARACTERGUID)_Avatar)
+AND
+NOT DB_CoS_EnterAcademy_HasDoneEvent(_Companion)
+AND
+DB_CoS_EnterAcademy_HasDoneEvent(_Avatar)
+AND
+CharacterIsDead(_Companion,0)
+THEN
+Proc_CoS_AcademyEnterMoment_UserKickFallback(_Companion,_Avatar);
+
+
+IF
+StoryEvent((CHARACTERGUID)_Avatar,"CoS_AcademyEnterMoment_Start")
+AND
+NOT DB_CoS_EnterAcademy_HasDoneEvent(_Avatar)
+THEN
+Proc_CoS_AcademyEnterMoment_Start(_Avatar);
+
+
+//If Avatar uses the door, remove his companions, teleport them to him
+PROC
+Proc_CoS_AcademyEnterMoment_Start((CHARACTERGUID)_Avatar)
+AND
+IsTagged(_Avatar,"AVATAR",1)
+THEN
+DB_CoS_EnterAcademy_HasDoneEvent(_Avatar);
+Proc_CoS_Origins_EnteringTheAcademy_AvatarDialog(_Avatar);
+
+PROC
+Proc_CoS_AcademyEnterMoment_Start((CHARACTERGUID)_Avatar)
+AND
+DB_GLO_PartyMembers_RecruiteeAvatarBond((CHARACTERGUID)_Companion,_Avatar)
+AND
+DB_OriginRecruitmentDialog(_Companion,_)
+AND
+_Companion != _Avatar
+AND
+QueryOnlyOnce("CoS_AcademyEnter_OriginMoment_LookatCompanion_Once")
+THEN
+ObjectSetFlag(_Avatar,"CoS_Origins_EnteringTheAcademy_AvatarHasOriginInParty");
+CharacterLookAt(_Avatar,_Companion);
+
+
+//Determine my companions
+PROC
+Proc_CoS_AcademyEnterMoment_Start((CHARACTERGUID)_Avatar)
+AND
+DB_GLO_PartyMembers_RecruiteeAvatarBond((CHARACTERGUID)_Companion,_Avatar)
+AND
+_Companion != _Avatar
+AND
+CharacterIsDead(_Companion,0)
+AND
+NOT DB_CoS_EnterAcademy_HasDoneEvent(_Companion)
+AND
+GetRegion(_Companion,_Region)
+AND
+_Region == "CoS_Main"
+THEN
+Proc_CoS_AcademyEnterMoment_UserKickFallback(_Companion,_Avatar);
+Proc_CoS_AcademyEnterMoment_TeleportToPlayer(_Companion,_Avatar);
+CharacterLookAt(_Companion,_Avatar);
+
+
+//REGION Make sure a user isnt kicked from the game
+//Remove unselected user char
+PROC
+Proc_CoS_AcademyEnterMoment_UserKickFallback((CHARACTERGUID)_Companion,(CHARACTERGUID)_Avatar)
+AND
+DB_IsPlayer(_Companion)
+AND
+DB_IsPlayer(_Avatar)
+AND
+CharacterGetReservedUserID(_Companion,_CompanionUser)
+AND
+CharacterGetReservedUserID(_Avatar,_AvatarUser)
+AND
+_CompanionUser != _AvatarUser
+AND
+CharacterIsControlled(_Companion,0)
+THEN
+Proc_CoS_AcademyEnterMoment_RemoveFromParty(_Companion);
+Proc_CoS_AcademyEnterMoment_Achievement_CountCompanions();
+
+
+//Last user Character gets autopass to prevent game kick
+PROC
+Proc_CoS_AcademyEnterMoment_UserKickFallback((CHARACTERGUID)_Companion,(CHARACTERGUID)_Avatar)
+AND
+DB_IsPlayer(_Companion)
+AND
+DB_IsPlayer(_Avatar)
+AND
+CharacterGetReservedUserID(_Companion,_CompanionUser)
+AND
+CharacterGetReservedUserID(_Avatar,_AvatarUser)
+AND
+_CompanionUser != _AvatarUser
+AND
+CharacterIsControlled(_Companion,1)
+THEN
+DB_CoS_EnterAcademy_HasDoneEvent(_Companion);
+ObjectSetFlag(_Companion,"CoS_CompanionReJoinAvatar");
+
+PROC
+Proc_CoS_AcademyEnterMoment_UserKickFallback((CHARACTERGUID)_Companion,(CHARACTERGUID)_Avatar)
+AND
+DB_IsPlayer(_Companion)
+AND
+DB_IsPlayer(_Avatar)
+AND
+CharacterGetReservedUserID(_Companion,_CompanionUser)
+AND
+CharacterGetReservedUserID(_Avatar,_AvatarUser)
+AND
+_CompanionUser == _AvatarUser
+THEN
+Proc_CoS_AcademyEnterMoment_RemoveFromParty(_Companion);
+Proc_CoS_AcademyEnterMoment_Achievement_CountCompanions();
+
+
+
+//END_REGION
+
+//REGION DOS2EE-8157
+
+IF
+SavegameLoaded(_Major,_Minor,_Rev,_Build)
+AND
+QRY_VersionIsOlderThan(_Major,_Minor,_Rev,_Build, 3, 6, 5, 0)
+AND
+DB_AcademyEnter_OriginMoment((CHARACTERGUID)_Companion,_)
+AND
+NOT DB_CoS_EnterAcademy_HasDoneEvent(_Companion)
+AND
+NOT DB_IsPlayer(_Companion)
+AND
+DB_DialogNPCs(_Id,_Companion,_)
+AND
+DB_DialogName(_Dialog,_Id)
+AND
+NOT DB_AcademyEnter_OriginMoment(_Companion,_Dialog)
+AND
+NOT DB_OriginRecruitmentDialog(_Companion,_Dialog)
+THEN
+ProcForceStopDialog(_Companion);
+
+
+PROC
+Proc_CoS_AcademyEnterMoment_TeleportToPlayer((CHARACTERGUID)_Companion,(CHARACTERGUID)_Avatar)
+THEN
+ProcForceStopDialog(_Companion);
+
+//END_REGION
+
+
+//Teleport to Player if too far
+PROC
+Proc_CoS_AcademyEnterMoment_TeleportToPlayer((CHARACTERGUID)_Companion,(CHARACTERGUID)_Avatar)
+AND
+_Companion != _Avatar
+AND
+GetDistanceTo(_Companion,_Avatar,_Dist)
+AND
+_Dist > 7.0
+THEN
+CharacterAppearOutOfSightTo(_Companion,_Avatar,180,0,"CoS_AcademyEnterMoment_MoveToPlayer");
+DB_CoS_AcademyEnterMoment_CompanionTargetAvatar(_Companion,_Avatar);
+
+IF
+StoryEvent((CHARACTERGUID)_Companion,"CoS_AcademyEnterMoment_MoveToPlayer")
+AND
+DB_CoS_AcademyEnterMoment_CompanionTargetAvatar(_Companion,_Avatar)
+THEN
+ProcCharacterMoveTo(_Companion,_Avatar,0,"");
+NOT DB_CoS_AcademyEnterMoment_CompanionTargetAvatar(_Companion,_Avatar);
+
+//Remove from party, give temp recruit dialog
+/*
+PROC
+Proc_CoS_AcademyEnterMoment_RemoveFromParty((CHARACTERGUID)_Companion)
+AND
+IsTagged(_Companion,"HENCHMAN",1)
+AND
+DB_GLO_PartyMembers_RecruiteeAvatarBond(_Companion,_KeepCharacter)
+THEN
+SetVarFixedString(_Companion,"currentState","");
+DB_GLO_PartyMembers_BlockReturnToRecruitmentPosition(_Companion);
+DB_GLO_PartyMembers_TempRemoved(_KeepCharacter,_Companion);
+DB_BlockStoryItemTransfer(_Companion);
+PROC_GLO_PartyMembers_Remove(_Companion,1);
+*/
+
+PROC
+Proc_CoS_AcademyEnterMoment_RemoveFromParty((CHARACTERGUID)_Companion)
+AND
+IsTagged(_Companion,"HENCHMAN",1)
+THEN
+DB_CoS_EnterAcademy_HasDoneEvent(_Companion);
+
+PROC
+Proc_CoS_AcademyEnterMoment_RemoveFromParty((CHARACTERGUID)_Companion)
+AND
+DB_AcademyEnter_OriginMoment(_Companion,_TempRecruitDialog)
+AND
+DB_OriginRecruitmentDialog(_Companion,_DefaultRecruitDialog)
+AND
+NOT DB_CoS_EnterAcademy_HasDoneEvent(_Companion)
+THEN
+PROC_LoopEffect("RS3_FX_UI_Exclamation_Mark_01",_Companion,"EnterAcademy_ExclamationMark","CoS_Main","Dummy_OverheadFX");
+SetVarFixedString(_Companion,"currentState","");
+DB_GLO_PartyMembers_BlockReturnToRecruitmentPosition(_Companion);
+DB_CoS_EnterAcademy_HasDoneEvent(_Companion);
+NOT DB_OriginRecruitmentDialog(_Companion,_DefaultRecruitDialog);
+DB_OriginRecruitmentDialog_Storage(_Companion,_DefaultRecruitDialog); //Store recruitment here until done
+DB_OriginRecruitmentDialog(_Companion,_TempRecruitDialog);
+DB_BlockStoryItemTransfer(_Companion);
+PROC_GLO_PartyMembers_Remove(_Companion,(CHARACTERGUID)NULL_00000000-0000-0000-0000-000000000000,1);
+SetHasDialog(_Companion,1);
+
+
+//Relationship dialog start
+IF
+DialogStarted(_Dialog,_)
+AND
+DB_AcademyEnter_OriginMoment((CHARACTERGUID)_Origin,_Dialog)
+THEN
+PROC_StopLoopEffect(_Origin,"EnterAcademy_ExclamationMark");
+
+//Relationship fail
+IF
+DialogEnded(_Dialog,_Id)
+AND
+DB_AcademyEnter_OriginMoment((CHARACTERGUID)_Companion,_Dialog)
+AND
+DialogGetInvolvedPlayer(_Id,1,(CHARACTERGUID)_Player)
+AND
+ObjectGetFlag(_Companion,"CoS_CompanionOpposeAvatar",1)
+AND
+NOT DB_CoS_Academy_TempleCompanionPoints(_Companion,_) /// Check CoS_Academy_Temple Script
+THEN
+SetHasDialog(_Companion,0);
+DB_CompanionLeaving(_Companion,_Player);
+DB_GLO_CompanionLeavingForTemple(_Companion);
+ProcCharacterDisappearOutOfSight(_Companion,0,1,"GLO_CompanionLeaves_LowRelation",1);
+Proc_OriginLeft(_Companion,"_OpposedInCOS");
+
+// We use this intermediate event instead of directly sending the CoS_CompanionAppearAtTemple event, so
+// that the generic GLO_CompanionLeaves_LowRelation handler can transfer the inventory to the avatar
+// before CoS_CompanionAppearAtTemple potentially starts doing all kinds of things to the companion
+IF
+StoryEvent((CHARACTERGUID)_Companion,"GLO_CompanionLeaves_LowRelation")
+AND
+DB_GLO_CompanionLeavingForTemple(_Companion)
+THEN
+NOT DB_GLO_CompanionLeavingForTemple(_Companion);
+SetStoryEvent(_Companion,"CoS_CompanionAppearAtTemple");
+
+
+//Relationship Pass
+IF
+DialogEnded(_Dialog,_ID)
+AND
+DB_AcademyEnter_OriginMoment((CHARACTERGUID)_Companion,_Dialog)
+AND
+ObjectGetFlag(_Companion,"CoS_CompanionReJoinAvatar",1)
+AND
+DialogGetInvolvedPlayer(_Id,1,(CHARACTERGUID)_Avatar)
+THEN
+Proc_CoS_AcademyEnterMoment_CompanionReturnToParty(_Companion,_Avatar);
+
+//Return to Party
+PROC
+Proc_CoS_AcademyEnterMoment_CompanionReturnToParty((CHARACTERGUID)_Companion,(CHARACTERGUID)_Avatar)
+AND
+DB_OriginRecruitmentDialog(_Companion,_TempDialog)
+AND
+DB_OriginRecruitmentDialog_Storage(_Companion,_DefaultRecruitDialog)
+THEN
+NOT DB_OriginRecruitmentDialog(_Companion,_TempDialog);
+NOT DB_OriginRecruitmentDialog_Storage(_Companion,_DefaultRecruitDialog);
+PROC_RemoveDialogFromCharacter(_Companion);
+DB_OriginRecruitmentDialog(_Companion,_DefaultRecruitDialog);
+DB_Dialogs(_Companion,_DefaultRecruitDialog);
+NOT DB_GLO_PartyMembers_BlockReturnToRecruitmentPosition(_Companion);
+NOT DB_BlockStoryItemTransfer(_Companion);
+
+PROC
+Proc_CoS_AcademyEnterMoment_CompanionReturnToParty((CHARACTERGUID)_Companion,(CHARACTERGUID)_Avatar)
+AND
+GlobalGetFlag("GEN_MaxPlayerCountReached",0)
+THEN
+PROC_GLO_PartyMembers_Add(_Companion,_Avatar);
+CharacterAttachToGroup(_Companion,_Avatar);
+
+//REGION Blocking the rejoin update if you submitted to the companion
+IF
+ObjectFlagSet("CoS_HasSubmittedToCompanionAsGod", _, _ID)
+AND
+DB_DialogNPCs(_ID, _Companion, _)
+THEN
+DB_CoS_CompanionRejoinedSubmit(_Companion);
+
+IF
+ObjectFlagSet("CoS_HasSubmittedToCompanionAsGod", _Player, _ID)
+AND
+DB_DialogNPCs(_ID, _Companion, _)
+AND
+DB_CompanionSubmitUpdates(_Companion, _Update)
+THEN
+UserSetFlag((CHARACTERGUID)_Player, _Update);
+
+//END_REGION
+
+PROC
+Proc_CoS_AcademyEnterMoment_CompanionReturnToParty(_Companion,(CHARACTERGUID)_Avatar)
+AND
+NOT DB_CoS_CompanionRejoinedSubmit(_Companion)
+AND
+DB_CompanionRejoinUpdates(_Companion,_Update)
+THEN
+UserSetFlag(_Avatar,_Update);
+
+//TO ADD TO SANCTUM ENCOUNTER
+//All companions who do not have CoS_CompanionReJoinAvatar=1 will be hostile to Hero
+
+//REGION Achievement - The Chosen One - DOS2_Quest50
+
+//--- How many to recruit back
+PROC
+Proc_CoS_AcademyEnterMoment_Achievement_CountCompanions()
+AND
+NOT DB_CoS_AcademyEnterMoment_Achievement_ToRecruit(_)
+THEN
+DB_CoS_AcademyEnterMoment_Achievement_ToRecruit(0);
+
+PROC
+Proc_CoS_AcademyEnterMoment_Achievement_CountCompanions()
+AND
+DB_CoS_AcademyEnterMoment_Achievement_ToRecruit(_Num)
+AND
+IntegerSum(_Num,1,_Sum)
+THEN
+NOT DB_CoS_AcademyEnterMoment_Achievement_ToRecruit(_Num);
+DB_CoS_AcademyEnterMoment_Achievement_ToRecruit(_Sum);
+
+
+//--- Recruiting them back
+PROC
+Proc_CoS_AcademyEnterMoment_CompanionReturnToParty((CHARACTERGUID)_Companion,(CHARACTERGUID)_Avatar)
+AND
+ObjectGetFlag(_Avatar,"CoS_HasSubmittedToCompanionAsGod",0)
+AND
+ObjectGetFlag(_Companion,"CoS_CompanionReJoinAvatar",1)
+AND
+DB_CoS_AcademyEnterMoment_Achievement_ToRecruit(_Num)
+AND
+IntegerSubtract(_Num,1,_Sub)
+THEN
+NOT DB_CoS_AcademyEnterMoment_Achievement_ToRecruit(_Num);
+DB_CoS_AcademyEnterMoment_Achievement_ToRecruit(_Sub);
+
+PROC
+Proc_CoS_AcademyEnterMoment_CompanionReturnToParty((CHARACTERGUID)_Companion,(CHARACTERGUID)_Avatar)
+AND
+ObjectGetFlag(_Avatar,"CoS_HasSubmittedToCompanionAsGod",0)
+AND
+ObjectGetFlag(_Companion,"CoS_CompanionReJoinAvatar",1)
+AND
+DB_CoS_AcademyEnterMoment_Achievement_ToRecruit(0)
+THEN
+NOT DB_CoS_AcademyEnterMoment_Achievement_ToRecruit(0);
+Proc_UnlockAchievement("DOS2_Quest50");
+
+//END_REGION
+
+//REGION Conditional Rejoins, remove from Academy area
+
+IF
+DialogEnded(_Dialog,_Id)
+AND
+DB_AcademyEnter_OriginMoment((CHARACTERGUID)_Companion,_Dialog)
+AND
+ObjectGetFlag(_Companion,"CoS_CompanionConditionalRejoin",1)
+AND
+DialogGetInvolvedPlayer(_Id,1,(CHARACTERGUID)_Avatar)
+THEN
+NOT DB_CompanionRejoinUpdates(CHARACTERGUID_S_Player_Sebille_c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c,"QuestUpdate_FTJ_COM_Sebille_COS_Allowed");
+ObjectClearFlag(_Companion,"CoS_CompanionConditionalRejoin");
+NOT DB_CoS_EnterAcademy_HasDoneEvent(_Companion);
+Proc_CoS_AcademyEnterMoment_CompanionRemoveFromAcademy(_Companion,_Avatar);
+Proc_CoS_AcademyEnterMoment_CompanionReturnToParty(_Companion,_Avatar);
+DB_CompanionRejoinUpdates(CHARACTERGUID_S_Player_Sebille_c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c,"QuestUpdate_FTJ_COM_Sebille_COS_Allowed");
+
+PROC
+Proc_CoS_AcademyEnterMoment_CompanionRemoveFromAcademy((CHARACTERGUID)_Companion,(CHARACTERGUID)_Avatar)
+AND
+DB_InRegion(_Avatar,TRIGGERGUID_S_CoS_SUB_Academy_51ddb828-18a6-4b6e-9f5a-e2b2883862e1)
+AND
+GlobalGetFlag("CoS_LunarPuzzle_GateOpened",1)
+THEN
+TeleportTo(_Avatar,TRIGGERGUID_S_CoS_Academy_MainEntranceReturn_Point_00dbf570-26e3-4d7d-a731-39c05e7f778e);
+TeleportTo(_Companion,TRIGGERGUID_S_CoS_Academy_MainEntranceReturn_Point_00dbf570-26e3-4d7d-a731-39c05e7f778e);
+
+PROC
+Proc_CoS_AcademyEnterMoment_CompanionRemoveFromAcademy((CHARACTERGUID)_Companion,(CHARACTERGUID)_Avatar)
+AND
+DB_InRegion(_Avatar,TRIGGERGUID_S_CoS_SUB_Academy_51ddb828-18a6-4b6e-9f5a-e2b2883862e1)
+AND
+GlobalGetFlag("CoS_LunarPuzzle_GateOpened",0)
+THEN
+TeleportTo(_Avatar,TRIGGERGUID_S_CoS_Temples_AcademyToSecretEntrance_Point_4bc22427-6d45-4789-9c6f-e65954eca5f6);
+TeleportTo(_Companion,TRIGGERGUID_S_CoS_Temples_AcademyToSecretEntrance_Point_4bc22427-6d45-4789-9c6f-e65954eca5f6);
+
+//END_REGION
+
+// If Sebille warned the Player once, try to start the dialog immediately one the Avatar exits the enter Dialog.
+PROC
+Proc_CoS_Origins_EnteringTheAcademy_AvatarDialog((CHARACTERGUID)_Avatar)
+AND
+ObjectGetFlag(_Avatar,"CoS_SebilleWarnedAvatarOnce_TargetAvatar",1)
+AND
+NOT DB_IsPlayer(CHARACTERGUID_S_Player_Sebille_c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c)
+AND
+ObjectGetFlag(CHARACTERGUID_S_Player_Sebille_c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c,"CoS_SebilleWarnedAvatarOnce",1)
+AND
+ObjectGetFlag(CHARACTERGUID_S_Player_Sebille_c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c,"CoS_CompanionOpposeAvatar",0)
+AND
+QRY_IsAvailableTo(CHARACTERGUID_S_Player_Sebille_c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c,_Avatar)
+THEN
+Proc_StartDialog(0,"CoS_Origins_EnteringTheAcademy_Sebille",CHARACTERGUID_S_Player_Sebille_c8d55eaf-e4eb-466a-8f0d-6a9447b5b24c,_Avatar);
+
+
+PROC
+ProcRegionEnded("CoS_Main")
+THEN
+//GoalCompleted;
+DB_NOOP(1);
+
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "CoS_Temples"

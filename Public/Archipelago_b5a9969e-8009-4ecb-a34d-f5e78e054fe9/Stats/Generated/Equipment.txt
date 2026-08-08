@@ -1,0 +1,110 @@
+new equipment "Class_ARP_Random_Dwarves"
+add equipmentgroup
+add equipment entry "ARM_Fighter_Helmet"
+add equipmentgroup
+add equipment entry "ARM_Ranger_UpperBody"
+add equipmentgroup
+add equipment entry "ARM_Rogue_LowerBody"
+add equipmentgroup
+add equipment entry "ARM_Wizard_Gloves"
+add equipmentgroup
+add equipment entry "ARM_Metamorph_Boots"
+add equipmentgroup
+add equipment entry "WPN_Fighter_Shield_Dwarves"
+add equipmentgroup
+add equipment entry "WPN_Wayfarer_Crossbow_Dwarves"
+add equipmentgroup
+add equipment entry "WPN_Rogue_Dagger_Dwarves"
+
+new equipment "Class_ARP_Random_Start"
+add equipmentgroup
+add equipment entry "ARM_Purge_UpperBody"
+add equipmentgroup
+add equipment entry "ARM_Purge_LowerBody"
+add equipmentgroup
+add equipment entry "WPN_CraftedCrossbow"
+add equipmentgroup
+add equipment entry "WPN_CraftedDagger"
+add equipmentgroup
+add equipment entry "WPN_CraftedShield"
+add equipmentgroup
+add equipment entry "SCROLL_Resurrect"
+add equipmentgroup
+add equipment entry "CONT_Backpack_A_SourceHunter"
+
+new equipment "Class_ARP_Random_Start_Undead"
+add equipmentgroup
+add equipment entry "ARM_Purge_UpperBody"
+add equipmentgroup
+add equipment entry "ARM_Purge_LowerBody"
+add equipmentgroup
+add equipment entry "ARM_Purge_Helmet"
+add equipmentgroup
+add equipment entry "ARM_Purge_Boots"
+add equipmentgroup
+add equipment entry "ARM_Purge_Gloves"
+add equipmentgroup
+add equipment entry "WPN_CraftedCrossbow"
+add equipmentgroup
+add equipment entry "WPN_CraftedDagger"
+add equipmentgroup
+add equipment entry "WPN_CraftedShield"
+add equipmentgroup
+add equipment entry "SCROLL_Resurrect"
+add equipmentgroup
+add equipment entry "CONT_Backpack_A_SourceHunter"
+
+new equipment "Class_ARP_Random_Elves"
+add equipmentgroup
+add equipment entry "ARM_Shadowblade_Helmet"
+add equipmentgroup
+add equipment entry "ARM_Enchanter_UpperBody"
+add equipmentgroup
+add equipment entry "ARM_Witch_LowerBody"
+add equipmentgroup
+add equipment entry "ARM_Wayfarer_Gloves"
+add equipmentgroup
+add equipment entry "ARM_Knight_Boots"
+add equipmentgroup
+add equipment entry "WPN_Cleric_Shield_Elves"
+add equipmentgroup
+add equipment entry "WPN_Ranger_Bow_Elves"
+add equipmentgroup
+add equipment entry "WPN_Witch_Dagger_Elves"
+
+new equipment "Class_ARP_Random_Humans"
+add equipmentgroup
+add equipment entry "ARM_Inquisitor_Helmet"
+add equipmentgroup
+add equipment entry "ARM_Battlemage_UpperBody"
+add equipmentgroup
+add equipment entry "ARM_Ranger_LowerBody"
+add equipmentgroup
+add equipment entry "ARM_Conjurer_Gloves"
+add equipmentgroup
+add equipment entry "ARM_Cleric_Boots"
+add equipmentgroup
+add equipment entry "WPN_Fighter_Shield_Humans"
+add equipmentgroup
+add equipment entry "WPN_Ranger_Bow_Humans"
+add equipmentgroup
+add equipment entry "WPN_Shadowblade_Dagger_Humans"
+
+new equipment "Class_ARP_Random_Lizards"
+add equipmentgroup
+add equipment entry "ARM_Metamorph_Helmet"
+add equipmentgroup
+add equipment entry "ARM_Fighter_UpperBody"
+add equipmentgroup
+add equipment entry "ARM_Cleric_LowerBody"
+add equipmentgroup
+add equipment entry "ARM_Battlemage_Gloves"
+add equipmentgroup
+add equipment entry "ARM_Wayfarer_Boots"
+add equipmentgroup
+add equipment entry "WPN_Cleric_Shield_Lizards"
+add equipmentgroup
+add equipment entry "WPN_Wayfarer_Crossbow_Lizards"
+add equipmentgroup
+add equipment entry "WPN_Shadowblade_Dagger_Lizards"
+

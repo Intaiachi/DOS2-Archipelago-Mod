@@ -380,7 +380,8 @@ ObjectSetFlag(CHARACTERGUID_S_FTJ_ShakedownElf_c854185f-ce11-416f-b327-d692a5e3a
 PROC
 ProcRegionEnded("FJ_FortJoy_Main")
 THEN
-GoalCompleted;
+//GoalCompleted;
+DB_NOOP(1);
 EXITSECTION
 
 ENDEXITSECTION
