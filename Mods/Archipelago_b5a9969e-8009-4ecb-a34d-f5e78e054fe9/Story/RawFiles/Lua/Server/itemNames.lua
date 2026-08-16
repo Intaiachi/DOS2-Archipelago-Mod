@@ -789,7 +789,25 @@ ItemNames = {
     ["ARP_VoCharlen"] = {"Vo Charlen", "u"},
     ["ARP_VoordAravel"] = {"Voor d'Aravel", "u"},
     ["ARP_VoordLamas"] = {"Voor d'Lamas", "u"},
-    ["ARP_VordEmver"] = {"Vord Emver", "u"}
+    ["ARP_VordEmver"] = {"Vord Emver", "u"},
+    ["24c696b8-5f2c-43da-9022-0d2979e289c2"] = {"Reaper's Eye Key", "p"},
+    ["d5993f7a-4bf9-4d99-a30c-cff8f230a975"] = {"Reaper's Coast Key", "p"},
+    ["b95bc01d-699d-4ef7-9ff5-90c3365aa848"] = {"The Nameless Isle Key", "p"},
+    ["8e781970-3612-441b-bc17-996e43e56943"] = {"Arx Key", "p"},
+    ["RegionFortJoy"] = {"Fort Joy Unlock", "p"},
+    ["RegionTheHollowMarshes"] = {"The Hollow Marshes Unlock", "p"},
+    ["RegionNorthEastReapersEye"] = {"North-east Reaper's Eye Unlock", "p"},
+    ["RegionDriftwood"] = {"Driftwood Unlock", "p"},
+    ["RegionStonegarden"] = {"Stonegarden Unlock", "p"},
+    ["RegionReapersBluffs"] = {"Reaper's Bluffs Unlock", "p"},
+    ["RegionCloisterwood"] = {"Cloisterwood Unlock", "p"},
+    ["RegionTheMeadows"] = {"The Meadows Unlock", "p"},
+    ["RegionTheCullwoods"] = {"The Cullwoods Unlock", "p"},
+    ["RegionParadiseDowns"] = {"Paradise Downs Unlock", "p"},
+    ["RegionTheBlackpits"] = {"The Blackpits Unlock", "p"},
+    ["RegionBloodmoonIsland"] = {"Bloodmoon Island Unlock", "p"},
+    ["RegionArx"] = {"Arx Unlock", "p"},
+    ["RegionTombOfLucian"] = {"Tomb of Lucian Unlock", "p"},
 }
 
 return ItemNames

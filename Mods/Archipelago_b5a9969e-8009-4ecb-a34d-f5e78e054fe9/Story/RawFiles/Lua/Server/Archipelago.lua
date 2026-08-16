@@ -5,6 +5,11 @@ PersistentVars["FTJWAYP"] = {}
 PersistentVars["RCWAYP"] = {}
 PersistentVars["COSWAYP"] = {}
 PersistentVars["ARXWAYP"] = {}
+PersistentVars["FTJKEY"] = 0
+PersistentVars["RCKEY"] = 0
+PersistentVars["COSKEY"] = 0
+PersistentVars["ARXKEY"] = 0
+PersistentVars["barriersToRemove"] = {}
 Deathlink = true
 DeathlinkStyleIn = ""
 DeathlinkStyleOut = ""
@@ -16,6 +21,11 @@ TrapStyle = ""
 RandomClassExt = ""
 ContainerSanity = ""
 EnableLevelTeleport = ""
+Act1Keys = ""
+Act2Keys = ""
+Act3Keys = ""
+Act4Keys = ""
+RegionBarrier = ""
 PlayableChars = {"S_Player_Ifan_ad9a3327-4456-42a7-9bf4-7ad60cc9e54f",
                 "S_Player_Beast_f25ca124-a4d2-427b-af62-df66df41a978",
                 "S_Player_Lohse_bb932b13-8ebf-4ab4-aac0-83e6924e4295",
@@ -92,6 +102,131 @@ DeathlinkNames = {["ad9a3327-4456-42a7-9bf4-7ad60cc9e54f"] = "Ifan",
                      ["4c565d89-c00b-47ab-8335-9edfa9757971"] = "Taylia",
                      ["0539b874-7adc-4dfc-8258-bdbae55309ad"] = "Forrex",
                      ["12837117-e53e-4997-9b02-a1d2aa89419a"] = "Francesca"
+}
+
+RegionNames = {
+    "FortJoy",
+    "TheHollowMarshes",
+    "NorthEastReapersEye",
+    "Driftwood",
+    "Stonegarden",
+    "ReapersBluffs",
+    "Cloisterwood",
+    "TheMeadows",
+    "TheCullwoods",
+    "ParadiseDowns",
+    "TheBlackpits",
+    "BloodmoonIsland",
+    "Arx",
+    "TombOfLucian"
+}
+
+FortJoyBarrier = {
+    "4636d0d7-3a41-468f-9cc5-ba106ff279df",
+    "a15cd716-e28e-4c3c-b645-0aeb26532708",
+    "b869cd30-a57b-499b-8909-971dafa5e7ca",
+    "7857979e-b7f7-4171-85a3-d48fd3939f7f",
+    "428de79d-f3e1-41d7-99ca-9dd741c6b0c4",
+    "47c981f3-df7f-468c-9a3f-15d0a5fdbbc1",
+    "a763a74f-b3b0-45ea-9425-c17646c4e28e",
+    "4f490f13-5301-4d53-9c4f-1ae9c05cab44",
+    "dc15c56f-687b-4f6a-b532-ef9efc8b1463",
+    "391f136e-0f40-42ff-8565-ec90e92c0526",
+    "84964705-f482-4718-9d9f-3b89109cd69f"
+}
+
+TheHollowMarshesBarrier = {
+    "96ecd1e4-c416-44c6-97d5-c1a2cbd25155",
+    "a374ccf7-14ac-4190-8753-2c967cb757ba",
+    "8badf350-d43a-4272-bda3-86e532e413e5",
+    "2c79f348-1907-43af-aabf-0e5541dff474",
+    "4b065b91-00d3-4da5-a734-6885dbdda692",
+    "6f3f36af-4826-4aa8-b2f0-d08ad634533d",
+    "1cc1c486-645b-4e7e-8cde-72fba7d47982"
+}
+
+NorthEastReapersEyeBarrier = {
+    "c7da1d0d-1911-4483-a9ea-34222ba1490e"
+}
+
+DriftwoodBarrier = {
+    "a13d06e1-b5ae-4550-90d2-ff3eb182409e",
+    "66070936-75e8-473f-af1f-b0f618fc6524",
+    "d16dfb02-b3ff-4940-89ee-8eaeb4eaf12b",
+    "1826f64f-ebd5-41c9-9f37-870303ba4eb9",
+    "1a5105ad-7356-48f0-93af-21dd8d52dd4b"
+}
+
+StonegardenBarrier = {
+    "97133d76-1328-49ad-bbb7-15681b6e2fb0",
+    "9384ba81-c981-4fcf-9732-237b1733182a",
+    "977d0acf-8040-46e2-a9ce-5f0bd1e5c505",
+    "45305f17-893c-4ba1-89a4-c00b2a75150b",
+    "c03653f9-f413-4a00-a575-a4743de850f8",
+    "b6a98543-1c60-420d-8ecf-ffa1f8a1d309"
+}
+
+ReapersBluffsBarrier = {
+    "693f05dc-fdfc-4ce8-88a5-9a063cee9215",
+    "0a4da09b-6616-4d9e-8dbc-059859323e4d",
+    "10864d68-bdb2-4075-8129-1b8c5e736b55",
+    "0ddbe1b8-30d4-4ff2-9802-15ec25eb51f1",
+    "7149423f-0b0c-43b7-a74c-0a0c803afd27"
+}
+
+CloisterwoodBarrier = {
+    "2175f817-2a08-4ddd-9d9d-f8ebe5dc5c63",
+    "c10837fb-8b5d-40e9-b083-cfcd3eb439a4",
+    "9b36d8d8-aeb2-4e2a-8199-7936f59fed10"
+}
+
+TheMeadowsBarrier = {
+    "19aae6ea-4d4c-4e9b-86a4-2709625b77c0",
+    "045bb7c2-4032-4233-b590-7301db9aa36c",
+    "32ee8d3c-3abb-4959-b59c-e21eb090496e",
+    "d4d17b92-6961-4357-9370-314fd4081efb",
+    "0ab4b212-8a0f-404e-8653-de875869298c",
+    "a0eb377b-53b3-47da-a9c2-cff075169b7c",
+    "12d201fb-4bef-464a-a171-9562432c2450",
+    "47db7523-f979-4bc4-9922-9ebaa18fc1cb",
+    "088ba017-4325-40f9-91ae-e54362ba30fd",
+    "2952f160-9559-4bfa-b877-48870d90a6ab"
+}
+
+TheCullwoodsBarrier = {
+    "72d2e880-8400-46f1-ac44-613f0f632bbb",
+    "7fdd86a4-ca78-4fc5-a46b-c212a616a456",
+    "5e687511-e1f1-4de6-a98a-89915626266b",
+    "51022b2a-3a90-4990-a68e-bf12f225c6da",
+    "8349cfed-644e-4999-bc36-dde75c3024d8",
+    "56c685ef-ce15-4a3e-ba88-c587af187d2b",
+    "6b8c141e-cb62-404d-ba08-f19bf675509c"
+}
+
+ParadiseDownsBarrier = {
+    "4552a2de-610f-48b9-994d-aca41b60c029",
+    "d023c74f-d68d-457c-bab9-c02c6e52b2a6",
+    "67057800-819b-4b6b-977b-39def25bd6a1",
+    "c21c859b-f9cf-4b78-b403-bb5df63c9bec"
+}
+
+TheBlackpitsBarrier = {
+    "2bb38ee0-e285-4d1b-adc5-c40c36acaaa3"
+}
+
+BloodmoonIslandBarrier = {
+    "4fda4b98-a37f-4bab-92d3-fd7fdfdd6fea",
+    "f6a9354c-16af-47a2-8105-1f0262d1683c"
+}
+
+ArxBarrier = {
+    "b797d428-91a3-4336-b084-6bfe5f2dbc1d"
+}
+
+TombOfLucianBarrier = {
+    "d8f88002-54dc-44fb-bb99-7f229816ee87",
+    "efd24dc0-494c-494f-893e-8f7d40f5849f",
+    "1756ba45-655c-4dfb-807a-fbbd9e59ce42"
 }
 
 --Animals_Chicken_A_ Animals_Cow_A_
@@ -248,6 +383,18 @@ local function Notifiy(itemName, isUnique)
     ShowNotification(CharacterGetHostCharacter(), you .. meat .. color .. itemName[1] .. "</font>")
 end
 
+local function handleKeyFlag(key, act)
+    if(PersistentVars[key] == nil) then
+        PersistentVars[key] = 0
+    end
+    PersistentVars[key] = PersistentVars[key] + 1
+    if(act ~= nil) then
+        if(PersistentVars[key] >= act) then
+            GlobalSetFlag(key)
+        end
+    end
+end
+
 local function giveItem(item)
     if(item == "1c3c9c74-34a1-4685-989e-410dc080be6f") then
         ItemTemplateAddTo(item, CharacterGetHostCharacter(), 500, 0)
@@ -256,6 +403,14 @@ local function giveItem(item)
         PartySetFlag(CharacterGetHostCharacter(),"ARX_CreepyCraftsman_Has_SourceAmulet")
     elseif(item == "a266d681-bb84-4277-9889-9da15a4bf3b2") then
         PartySetFlag(CharacterGetHostCharacter(),"ARX_CreepyCraftsman_Has_Scroll")
+    elseif(item == "24c696b8-5f2c-43da-9022-0d2979e289c2") then
+        handleKeyFlag("FTJKEY", Act1Keys)
+    elseif(item == "d5993f7a-4bf9-4d99-a30c-cff8f230a975") then
+        handleKeyFlag("RCKEY", Act2Keys)
+    elseif(item == "b95bc01d-699d-4ef7-9ff5-90c3365aa848") then
+        handleKeyFlag("COSKEY", Act3Keys)
+    elseif(item == "8e781970-3612-441b-bc17-996e43e56943") then
+        handleKeyFlag("ARXKEY", Act4Keys)
     end
     ItemTemplateAddTo(item, CharacterGetHostCharacter(), 1, 0)
 end
@@ -336,6 +491,46 @@ local function giveTrap(trap)
     end
 end
 
+local function unlockRegion(regionName)
+    local regionBarriers = {}
+    if(regionName == "FortJoy") then
+        regionBarriers = FortJoyBarrier
+    elseif(regionName == "TheHollowMarshes") then
+        regionBarriers = TheHollowMarshesBarrier
+    elseif(regionName == "NorthEastReapersEye") then
+        regionBarriers = NorthEastReapersEyeBarrier
+    elseif(regionName == "Driftwood") then
+        regionBarriers = DriftwoodBarrier
+    elseif(regionName == "Stonegarden") then
+        regionBarriers = StonegardenBarrier
+    elseif(regionName == "ReapersBluffs") then
+        regionBarriers = ReapersBluffsBarrier
+    elseif(regionName == "Cloisterwood") then
+        regionBarriers = CloisterwoodBarrier
+    elseif(regionName == "TheMeadows") then
+        regionBarriers = TheMeadowsBarrier
+    elseif(regionName == "TheCullwoods") then
+        regionBarriers = TheCullwoodsBarrier
+    elseif(regionName == "ParadiseDowns") then
+        regionBarriers = ParadiseDownsBarrier
+    elseif(regionName == "TheBlackpits") then
+        regionBarriers = TheBlackpitsBarrier
+    elseif(regionName == "BloodmoonIsland") then
+        regionBarriers = BloodmoonIslandBarrier
+    elseif(regionName == "Arx") then
+        regionBarriers = ArxBarrier
+    elseif(regionName == "TombOfLucian") then
+        regionBarriers = TombOfLucianBarrier
+    end
+    for _, barrier in ipairs(regionBarriers) do
+        ItemDestroy(barrier)
+    end
+    if(PersistentVars["barriersToRemove"] == nil) then
+        PersistentVars["barriersToRemove"] = {}
+    end
+    PersistentVars["barriersToRemove"][regionName] = regionBarriers
+end
+
 function SyncArchipelago()
     local data = loadParse(ApInFile)
     if(not data) then
@@ -367,6 +562,8 @@ function SyncArchipelago()
                 giveGear(parsedItem)
             elseif(string.sub(parsedItem, 1, 4) == "Trap") then
                 giveTrap(parsedItem)
+            elseif(string.sub(parsedItem, 1, 6) == "Region") then
+                unlockRegion(string.sub(parsedItem, 7))
             else
                 giveItem(parsedItem)
             end
@@ -416,6 +613,11 @@ function OnSessionLoaded()
     ContainerSanity = data["containerSanity"]
     RandomClassExt = data["randomClassPool"]
     EnableLevelTeleport = data["enableLevelTeleport"]
+    Act1Keys = data["act1Keys"]
+    Act2Keys = data["act2Keys"]
+    Act3Keys = data["act3Keys"]
+    Act4Keys = data["act4Keys"]
+    RegionBarrier = data["regionBarriers"]
     if(Deathlink == 1) then
         Ext.Events.Tick:Subscribe(ReceiveDeathlink)
     end
@@ -550,7 +752,40 @@ local function restoreWaypoints(region)
     end
 end
 
+local function syncBarriers()
+    if(PersistentVars["barriersToRemove"] ~= nil) then
+        for name, region in pairs(PersistentVars["barriersToRemove"]) do
+            for _, barrier in ipairs(region) do
+                ItemDestroy(barrier)
+            end
+        end
+    end
+end
+
+local function removeAllBarriers()
+    for _, region in ipairs(RegionNames) do
+        unlockRegion(region)
+    end
+end
+
 Ext.Osiris.RegisterListener("RegionStarted", 1, "after", function(region)
+    if(Act1Keys == 0 or Act1Keys == nil) then
+        GlobalSetFlag("FTJKEY")
+    end
+    if(Act2Keys == 0 or Act2Keys == nil) then
+        GlobalSetFlag("RCKEY")
+    end
+    if(Act3Keys == 0 or Act3Keys == nil) then
+        GlobalSetFlag("COSKEY")
+    end
+    if(Act4Keys == 0 or Act4Keys == nil) then
+        GlobalSetFlag("ARXKEY")
+    end
+    if(RegionBarrier ~= 1) then
+        removeAllBarriers()
+    else
+        syncBarriers()
+    end
     if(region == "TUT_Tutorial_A") then
         GlobalSetFlag("CanTPTUT")
     elseif(region == "FJ_FortJoy_Main") then
@@ -677,13 +912,21 @@ end
 
 local function saveWaypoint(waypointID)
     if(string.sub(waypointID, 1, 8) == "WAYP_FTJ") then
-        PersistentVars["FTJWAYP"][waypointID] = true
+        if(PersistentVars["FTJWAYP"] ~= nil) then
+            PersistentVars["FTJWAYP"][waypointID] = true
+        end
     elseif(string.sub(waypointID, 1, 7) == "WAYP_RC" or waypointID == "RC_DW_Undertavern") then
-        PersistentVars["RCWAYP"][waypointID] = true
+        if(PersistentVars["RCWAYP"] ~= nil) then
+            PersistentVars["RCWAYP"][waypointID] = true
+        end
     elseif(string.sub(waypointID, 1, 8) == "WAYP_CoS") then
-        PersistentVars["COSWAYP"][waypointID] = true
+        if(PersistentVars["COSWAYP"] ~= nil) then
+            PersistentVars["COSWAYP"][waypointID] = true
+        end
     elseif(string.sub(waypointID, 1, 8) == "WAYP_ARX") then
-        PersistentVars["ARXWAYP"][waypointID] = true
+        if(PersistentVars["ARXWAYP"] ~= nil) then
+            PersistentVars["ARXWAYP"][waypointID] = true
+        end
     end
     print("Saving waypoint: " .. waypointID)
 end
