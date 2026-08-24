@@ -1,5 +1,6 @@
 ItemNames = Ext.Require("Server/itemNames.lua")
 Skills = Ext.Require("Server/skills.lua")
+Ext.Require("Server/Quests.lua")
 PersistentVars = {}
 PersistentVars["FTJWAYP"] = {}
 PersistentVars["RCWAYP"] = {}
@@ -26,6 +27,9 @@ Act2Keys = ""
 Act3Keys = ""
 Act4Keys = ""
 RegionBarrier = ""
+Act = -1
+IncludedQuests = {}
+PersistentVars["gaveQuests"] = false
 PlayableChars = {"S_Player_Ifan_ad9a3327-4456-42a7-9bf4-7ad60cc9e54f",
                 "S_Player_Beast_f25ca124-a4d2-427b-af62-df66df41a978",
                 "S_Player_Lohse_bb932b13-8ebf-4ab4-aac0-83e6924e4295",
@@ -312,14 +316,6 @@ TrapEffect = {"POISONED",
               "WEB"
 }
 
-local function ClearState()
-    Ext.IO.SaveFile(ApOutFile, "[]")
-    Ext.IO.SaveFile(ApInFile, "[]")
-    Ext.IO.SaveFile("deathlinkOut.json", "[]")
-    Ext.IO.SaveFile("deathlinkIn.json", "[]")
-    PersistentVars["ApSent"] = {}
-end
-
 local function loadParse(file)
     local unparsed = Ext.IO.LoadFile(file)
     if(unparsed) then
@@ -532,70 +528,95 @@ local function unlockRegion(regionName)
 end
 
 function SyncArchipelago()
-    local data = loadParse(ApInFile)
-    if(not data) then
-        return
-    end
-    local isUnique = false
-    local APSent = PersistentVars['APSent']
-    if(not APSent) then
-        APSent = {}
-    end
-    for k, unparsedItem in ipairs(data) do
-        local isAlreadySent = false
-        if(APSent[unparsedItem] == true) then
-            isAlreadySent = true
+    if(IsGameLevel("") ~= 0) then
+        local data = loadParse(ApInFile)
+        if(not data) then
+            return
         end
-        if(not isAlreadySent) then
-            local parsedItem = ""
-            if(string.sub(unparsedItem, 1, 5) == "Dupe-") then
-                parsedItem = string.sub(unparsedItem, 11)
-            else
-                parsedItem = unparsedItem
+        local isUnique = false
+        local APSent = PersistentVars['APSent']
+        if(not APSent) then
+            APSent = {}
+        end
+        for k, unparsedItem in ipairs(data) do
+            local isAlreadySent = false
+            if(APSent[unparsedItem] == true) then
+                isAlreadySent = true
             end
-            if(parsedItem == "levelUp" or parsedItem == "attributePoint" or parsedItem == "combatAbilityPoint" or parsedItem == "civilAbilityPoint" or parsedItem == "talentPoint" or parsedItem == "maxSourcePoint") then
-                giveStats(parsedItem)
-            elseif(string.sub(parsedItem, 1, 3) == "ST_" or string.sub(parsedItem, 1, 4) == "ARP_") then
-                if(string.sub(parsedItem, 1, 4) == "ARP_") then
-                    isUnique = true
+            if(not isAlreadySent) then
+                local parsedItem = ""
+                if(string.sub(unparsedItem, 1, 5) == "Dupe-") then
+                    parsedItem = string.sub(unparsedItem, 11)
+                else
+                    parsedItem = unparsedItem
                 end
-                giveGear(parsedItem)
-            elseif(string.sub(parsedItem, 1, 4) == "Trap") then
-                giveTrap(parsedItem)
-            elseif(string.sub(parsedItem, 1, 6) == "Region") then
-                unlockRegion(string.sub(parsedItem, 7))
-            else
-                giveItem(parsedItem)
+                if(parsedItem == "levelUp" or parsedItem == "attributePoint" or parsedItem == "combatAbilityPoint" or parsedItem == "civilAbilityPoint" or parsedItem == "talentPoint" or parsedItem == "maxSourcePoint") then
+                    giveStats(parsedItem)
+                elseif(string.sub(parsedItem, 1, 3) == "ST_" or string.sub(parsedItem, 1, 4) == "ARP_") then
+                    if(string.sub(parsedItem, 1, 4) == "ARP_") then
+                        isUnique = true
+                    end
+                    giveGear(parsedItem)
+                elseif(string.sub(parsedItem, 1, 4) == "Trap") then
+                    giveTrap(parsedItem)
+                elseif(string.sub(parsedItem, 1, 6) == "Region") then
+                    unlockRegion(string.sub(parsedItem, 7))
+                else
+                    giveItem(parsedItem)
+                end
+                Notifiy(ItemNames[parsedItem], isUnique)
+                isUnique = false
+                APSent[unparsedItem] = true
             end
-            Notifiy(ItemNames[parsedItem], isUnique)
-            isUnique = false
-            APSent[unparsedItem] = true
         end
+        PersistentVars['APSent'] = APSent
     end
-    PersistentVars['APSent'] = APSent
 end
 
 function ReceiveDeathlink()
-    local data = loadParse("deathlinkIn.json")
-    if(not data) then
-        return
-    end
-    for k, v in ipairs(data) do
-        if(v == "Deathlink") then
-            PendingReceiveDeathlink = true
-            if(DeathlinkStyleIn ~= 2) then
-                local party = getParty()
-                if(DeathlinkStyleIn == 0) then
-                    for _, character in ipairs(party) do
-                        CharacterDie(character, 0, DeathType[Random(14) + 1], "NULL")
+    if(IsGameLevel("") ~= 0) then
+        local data = loadParse("deathlinkIn.json")
+        if(not data) then
+            return
+        end
+        for k, v in ipairs(data) do
+            if(v == "Deathlink") then
+                PendingReceiveDeathlink = true
+                if(DeathlinkStyleIn ~= 2) then
+                    local party = getParty()
+                    if(DeathlinkStyleIn == 0) then
+                        for _, character in ipairs(party) do
+                            CharacterDie(character, 0, DeathType[Random(14) + 1], "NULL")
+                        end
+                    elseif(DeathlinkStyleIn == 1) then
+                        CharacterDie(party[Random(#party) + 1], 0, DeathType[Random(14) + 1], "NULL")
                     end
-                elseif(DeathlinkStyleIn == 1) then
-                    CharacterDie(party[Random(#party) + 1], 0, DeathType[Random(14) + 1], "NULL")
+                elseif(DeathlinkStyleIn == 2) then
+                    CharacterDie(CharacterGetHostCharacter(), 0, DeathType[Random(14) + 1], "NULL")
                 end
-            elseif(DeathlinkStyleIn == 2) then
-                CharacterDie(CharacterGetHostCharacter(), 0, DeathType[Random(14) + 1], "NULL")
+                Ext.IO.SaveFile("deathlinkIn.json", "[]")
             end
-            Ext.IO.SaveFile("deathlinkIn.json", "[]")
+        end
+    end
+end
+
+local function rebuildIQ()
+    for quest, _ in pairs(ReaperEyeQuests) do
+        IncludedQuests[quest] = true
+    end
+    if(Act > 1) then
+        for quest, _ in pairs(ReaperCoastQuests) do
+            IncludedQuests[quest] = true
+        end
+        if(Act > 2) then
+            for quest, _ in pairs(NamelessIsleQuests) do
+                IncludedQuests[quest] = true
+            end
+            if(Act > 3) then
+                for quest, _ in pairs(ArxQuests) do
+                    IncludedQuests[quest] = true
+                end
+            end
         end
     end
 end
@@ -618,6 +639,12 @@ function OnSessionLoaded()
     Act3Keys = data["act3Keys"]
     Act4Keys = data["act4Keys"]
     RegionBarrier = data["regionBarriers"]
+    Act = data["goal"]
+    if(Act > 3) then
+        Act = Act - 4
+    end
+    Act = Act + 1
+    rebuildIQ()
     if(Deathlink == 1) then
         Ext.Events.Tick:Subscribe(ReceiveDeathlink)
     end
@@ -631,8 +658,9 @@ function OnSessionLoaded()
         ApInFile = new_seed .. "apIn.json"
         if(stored_seed ~= new_seed) then
             PersistentVars['SeedName'] = new_seed
-            print("New game/new seed, resetting ap files")
-            ClearState()
+            print("Overwriting outdated seed")
+            Ext.IO.SaveFile("deathlinkOut.json", "[]")
+            Ext.IO.SaveFile("deathlinkIn.json", "[]")
         end
     end
 end
@@ -642,22 +670,31 @@ Ext.Osiris.RegisterListener("ObjectFlagSet", 3, "after", function(flag, speaker,
         local row = Osi.DB_QuestDef_CloseEvent:Get(nil, flag)
         if(row) then
             if(row[1] ~= nil) then
-                local quest = row[1][1]
-                local data = loadParse(ApOutFile)
-                if(not data) then
-                    return
-                end
-                print("Completed:" .. "Quest-" .. quest)
-                local needsToAdd = true
-                for k, v in ipairs(data) do
-                    if (v == "Quest-" .. quest) then
-                        needsToAdd = false
-                        break
+                local quest = "Quest-" .. row[1][1]
+                print("Completed:" .. quest)
+                if(IncludedQuests[quest]) then
+                    if(quest == "Quest-RC_MIL_AvengingSaheila") then
+                        quest = "Quest-RC_MIL_RescuingSaheila"
+                    elseif(quest == "Quest-ARX_HuntingForDallis_SUBB") then
+                        quest = "Quest-ARX_HuntingForDallis_SUBA"
                     end
-                end
-                if(needsToAdd) then
-                    table.insert(data, "Quest-" .. quest)
-                    Ext.IO.SaveFile(ApOutFile, Ext.Json.Stringify(data))
+                    ObjectSetFlag(CharacterGetHostCharacter(), "QuestUpdate_" .. quest .. "_qCom")
+                    local data = loadParse(ApOutFile)
+                    if(not data) then
+                        return
+                    end
+                    print("Completed and added:" .. quest)
+                    local needsToAdd = true
+                    for k, v in ipairs(data) do
+                        if (v == quest) then
+                            needsToAdd = false
+                            break
+                        end
+                    end
+                    if(needsToAdd) then
+                        table.insert(data, quest)
+                        Ext.IO.SaveFile(ApOutFile, Ext.Json.Stringify(data))
+                    end
                 end
             end
         end
@@ -768,7 +805,54 @@ local function removeAllBarriers()
     end
 end
 
+local function syncQuests()
+    local data = loadParse(ApOutFile)
+    if(not data) then
+        return
+    end
+    for _, check in ipairs(data) do
+        ObjectSetFlag(CharacterGetHostCharacter(), "QuestUpdate_" .. check .. "_qCom")
+    end
+end
+
+local function initializeQuests()
+    for quest, _ in pairs(ReaperEyeQuests) do
+        Osi.DB_QuestDef_State(quest, "qDesc", 1)
+        Osi.DB_QuestDef_State(quest, "qCom", -1)
+        ObjectSetFlag(CharacterGetHostCharacter(), "QuestUpdate_" .. quest .. "_qDesc")
+    end
+    if(Act > 1) then
+        for quest, _ in pairs(ReaperCoastQuests) do
+            Osi.DB_QuestDef_State(quest, "qDesc", 1)
+            Osi.DB_QuestDef_State(quest, "qCom", -1)
+            ObjectSetFlag(CharacterGetHostCharacter(), "QuestUpdate_" .. quest .. "_qDesc")
+        end
+        if(Act > 2) then
+            for quest, _ in pairs(NamelessIsleQuests) do
+                Osi.DB_QuestDef_State(quest, "qDesc", 1)
+                Osi.DB_QuestDef_State(quest, "qCom", -1)
+                ObjectSetFlag(CharacterGetHostCharacter(), "QuestUpdate_" .. quest .. "_qDesc")
+            end
+            if(Act > 3) then
+                for quest, _ in pairs(ArxQuests) do
+                    Osi.DB_QuestDef_State(quest, "qDesc", 1)
+                    Osi.DB_QuestDef_State(quest, "qCom", -1)
+                    ObjectSetFlag(CharacterGetHostCharacter(), "QuestUpdate_" .. quest .. "_qDesc")
+                end
+            end
+        end
+    end
+    PersistentVars["gaveQuests"] = true
+end
+
 Ext.Osiris.RegisterListener("RegionStarted", 1, "after", function(region)
+    if(not PersistentVars["gaveQuests"] and PersistentVars["gaveQuests"] ~= nil and region ~= "SYS_Character_Creation_A") then
+        print("Initializing Quests")
+        initializeQuests()
+    end
+    if(region ~= "SYS_Character_Creation_A") then
+       syncQuests()
+    end
     if(Act1Keys == 0 or Act1Keys == nil) then
         GlobalSetFlag("FTJKEY")
     end
@@ -838,20 +922,47 @@ Ext.Osiris.RegisterListener("CharacterDied", 1, "after", function(defender)
     --print("defender: " .. tostring(defender) .. " attackerOwner: " .. tostring(attackerOwner))
     print("defender: " .. tostring(defender))
     defender = Ext.Entity.GetCharacter(defender).MyGuid
-    local data = loadParse(ApOutFile)
-    if(not data) then
-        return
-    end
-    local needsToAdd = true
-    for k, v in ipairs(data) do
-        if(v == defender) then
-            needsToAdd = false
-            break
+    if(IncludedQuests[defender]) then
+        print("Added defender: " .. tostring(defender))
+        if(defender == "b2a93804-f494-4d65-a342-ca4a6d2dc15f") then -- Rosa Crossley to Magister Executioner
+            defender = "5d2a2f6a-6cbf-45cc-8c74-3a1617778ba3"
+        elseif(defender == "65589fd4-cc15-42df-a4dd-b2e82eba2225") then -- Garfield Crossley to Magister Inquisitor
+            defender = "55a6a526-7d4b-4445-b96e-bfcd0ed71776"
+        elseif(defender == "0d876334-1776-4f06-aab1-6cfc56a1dbc4") then -- Idonia Crossley to Silent Watcher
+            defender = "1adcb57b-4eaa-415e-80cd-0750e1b00120"
+        elseif(defender == "d4300187-0d5a-4b17-854a-50f568d632e8") then -- Ellis Crossley to Silent Watcher
+            defender = "c2600226-7154-4033-889a-2d1509b2654a"
+        elseif(defender == "76aa6323-45e5-4c95-9408-a9abeace43ad") then -- Owen Anchoret to Magister Inquisitor
+            defender = "65038967-e128-477f-bcac-0e6748e3ae5a"
+        elseif(defender == "f05b403d-799b-45ad-8770-6900f0e85de8") then -- Rykers adds 3 to 1
+            defender = "f4fafa1b-d6c7-4483-894c-66caebe9e6b1"
+        elseif(defender == "0fdce096-7735-4410-9668-b7173db74f1d") then -- 4 to 2
+            defender = "a823bbff-668c-49a9-acd5-4094fe114c8d"
+        elseif(defender == "b10e3799-10a3-45a1-bb6d-0080cc960672") then -- 6 to 12
+            defender = "77dbf87b-5021-42ef-b6e8-90c00cef1f16"
+        elseif(defender == "25888479-67b5-4380-9cd4-163a004883db") then -- rahlic shrine black ring to magister
+            defender = "5b6cb39b-2e8a-4a8c-8447-8538f6b47313"
+        elseif(defender == "29c6711c-adce-4e8f-b402-8b6239a7c7e3") then -- rahlic shrine black ring to magister
+            defender = "3c5a4458-a17c-43c7-9827-4eb3fd028559"
+        elseif(defender == "93f7c630-eece-420c-b519-6caa057ecff6") then -- rahlic shrine black ring to magister
+            defender = "318befa0-49d4-4ada-9196-90d8bd4d89ca"
         end
-    end
-    if(needsToAdd) then
-        table.insert(data, defender)
-        Ext.IO.SaveFile(ApOutFile, Ext.Json.Stringify(data))
+        ObjectSetFlag(CharacterGetHostCharacter(), "QuestUpdate_" .. defender .. "_qCom")
+        local data = loadParse(ApOutFile)
+        if(not data) then
+            return
+        end
+        local needsToAdd = true
+        for k, v in ipairs(data) do
+            if(v == defender) then
+                needsToAdd = false
+                break
+            end
+        end
+        if(needsToAdd) then
+            table.insert(data, defender)
+            Ext.IO.SaveFile(ApOutFile, Ext.Json.Stringify(data))
+        end
     end
     if(DeathlinkTriggers[defender] and CharacterIsPartyMember(defender) == 1) then
         local party = getParty()
@@ -893,20 +1004,23 @@ end)
 
 local function manualSend(toSend)
     print("Sending manual " .. toSend)
-    local data = loadParse(ApOutFile)
-    if(not data) then
-        return
-    end
-    local needsToAdd = true
-    for k, v in ipairs(data) do
-        if(v == toSend) then
-            needsToAdd = false
-            break
+    if(IncludedQuests[toSend]) then
+        ObjectSetFlag(CharacterGetHostCharacter(), "QuestUpdate_" .. toSend .. "_qCom")
+        local data = loadParse(ApOutFile)
+        if(not data) then
+            return
         end
-    end
-    if(needsToAdd) then
-        table.insert(data, toSend)
-        Ext.IO.SaveFile(ApOutFile, Ext.Json.Stringify(data))
+        local needsToAdd = true
+        for k, v in ipairs(data) do
+            if(v == toSend) then
+                needsToAdd = false
+                break
+            end
+        end
+        if(needsToAdd) then
+            table.insert(data, toSend)
+            Ext.IO.SaveFile(ApOutFile, Ext.Json.Stringify(data))
+        end
     end
 end
 
