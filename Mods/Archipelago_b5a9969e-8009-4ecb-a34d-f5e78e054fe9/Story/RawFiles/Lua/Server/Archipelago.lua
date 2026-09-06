@@ -624,7 +624,11 @@ end
 function OnSessionLoaded()
     local data = loadParse("apOptions.json")
     if(not data) then
-        return
+        Ext.IO.SaveFile("dummy.json", "[]")
+        data = loadParse("dummy.json")
+        if(not data) then
+            return
+        end
     end
     Deathlink = data["death_link"]
     SyncStyle = data["syncOption"]
@@ -640,6 +644,9 @@ function OnSessionLoaded()
     Act4Keys = data["act4Keys"]
     RegionBarrier = data["regionBarriers"]
     Act = data["goal"]
+    if(Act == nil) then
+        Act = 0
+    end
     if(Act > 3) then
         Act = Act - 4
     end
