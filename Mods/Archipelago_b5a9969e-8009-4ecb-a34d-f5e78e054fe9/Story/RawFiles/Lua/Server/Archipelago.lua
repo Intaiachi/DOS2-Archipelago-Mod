@@ -146,7 +146,8 @@ TheHollowMarshesBarrier = {
     "2c79f348-1907-43af-aabf-0e5541dff474",
     "4b065b91-00d3-4da5-a734-6885dbdda692",
     "6f3f36af-4826-4aa8-b2f0-d08ad634533d",
-    "1cc1c486-645b-4e7e-8cde-72fba7d47982"
+    "1cc1c486-645b-4e7e-8cde-72fba7d47982",
+    "34237b13-960d-480e-83a6-f17ee36340ee"
 }
 
 NorthEastReapersEyeBarrier = {
