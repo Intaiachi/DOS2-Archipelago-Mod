@@ -304,13 +304,20 @@ THEN
 StartVoiceBark("FTJ_VB_StuckOnPlatform",_Player);
 
 //Fall into the Prison
-/*
 IF
 CharacterUsedItem(_Char,ITEMGUID_S_FTJ_CaveEntranceToPrison_e2cbcf37-16ed-420d-ab04-41c1723bd188)
+AND
+GlobalGetFlag("CanFTJImprison", 1)
 THEN
 CharacterDetachFromGroup(_Char);
 TeleportTo(_Char,S_FTJ_CaveEntranceToPrison_Point_48612598-a9f3-4893-ad93-1a9002c243f6,"FTJ_ShortKnockdown",1);
-*/
+
+IF
+CharacterUsedItem(_Char,ITEMGUID_S_FTJ_CaveEntranceToPrison_e2cbcf37-16ed-420d-ab04-41c1723bd188)
+AND
+GlobalGetFlag("CanFTJImprison", 0)
+THEN
+ShowNotification(_Char, "Nice try, but you don't have Fort Joy unlocked");
 
 IF
 StoryEvent(_Char,"FTJ_ShortKnockdown")

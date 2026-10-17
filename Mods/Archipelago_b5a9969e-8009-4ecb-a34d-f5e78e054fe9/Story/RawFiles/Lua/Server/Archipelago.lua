@@ -136,7 +136,11 @@ FortJoyBarrier = {
     "4f490f13-5301-4d53-9c4f-1ae9c05cab44",
     "dc15c56f-687b-4f6a-b532-ef9efc8b1463",
     "391f136e-0f40-42ff-8565-ec90e92c0526",
-    "84964705-f482-4718-9d9f-3b89109cd69f"
+    "84964705-f482-4718-9d9f-3b89109cd69f",
+    "b5e866ad-552a-437b-957e-5985bb4e5c02",
+    "6e6a6f7c-d1fb-4510-b7ba-1ef596e99de5",
+    "c38a8922-6523-417a-b7df-00bcc6f4caad",
+    "c6edbf26-54b8-407a-a438-75145b4d03e0"
 }
 
 TheHollowMarshesBarrier = {
@@ -147,7 +151,8 @@ TheHollowMarshesBarrier = {
     "4b065b91-00d3-4da5-a734-6885dbdda692",
     "6f3f36af-4826-4aa8-b2f0-d08ad634533d",
     "1cc1c486-645b-4e7e-8cde-72fba7d47982",
-    "34237b13-960d-480e-83a6-f17ee36340ee"
+    "34237b13-960d-480e-83a6-f17ee36340ee",
+    "950e5c65-25af-4daa-9dd7-a5eb96933b5f"
 }
 
 NorthEastReapersEyeBarrier = {
@@ -492,6 +497,7 @@ local function unlockRegion(regionName)
     local regionBarriers = {}
     if(regionName == "FortJoy") then
         regionBarriers = FortJoyBarrier
+        GlobalSetFlag("CanFTJImprison")
     elseif(regionName == "TheHollowMarshes") then
         regionBarriers = TheHollowMarshesBarrier
     elseif(regionName == "NorthEastReapersEye") then
@@ -808,6 +814,7 @@ local function syncBarriers()
 end
 
 local function removeAllBarriers()
+    GlobalSetFlag("CanFTJImprison")
     for _, region in ipairs(RegionNames) do
         unlockRegion(region)
     end
